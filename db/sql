@@ -1,0 +1,323 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+SHOW WARNINGS;
+DROP SCHEMA IF EXISTS `ceafie` ;
+CREATE SCHEMA IF NOT EXISTS `ceafie` DEFAULT CHARACTER SET utf8 ;
+SHOW WARNINGS;
+USE `ceafie` ;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`pessoa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`pessoa` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`pessoa` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `genero` SET('masculino','femenino') NOT NULL,
+  `nacionalidade` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(45) NOT NULL,
+  `imagem` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `bi` VARCHAR(45) NOT NULL,
+  `documento` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 35
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE UNIQUE INDEX `telefone_UNIQUE` ON `ceafie`.`pessoa` (`telefone` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`aluno`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`aluno` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`aluno` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `graduacao` VARCHAR(45) NULL DEFAULT NULL,
+  `universidade` VARCHAR(45) NULL DEFAULT NULL,
+  `unidade_organica` VARCHAR(45) NULL DEFAULT NULL,
+  `categoria_docente` VARCHAR(45) NULL DEFAULT NULL,
+  `funcao` VARCHAR(45) NULL DEFAULT NULL,
+  `categoria_cientifica` VARCHAR(45) NULL DEFAULT NULL,
+  `pessoa_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_aluno_pessoa`
+    FOREIGN KEY (`pessoa_id`)
+    REFERENCES `ceafie`.`pessoa` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_aluno_pessoa_idx` ON `ceafie`.`aluno` (`pessoa_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`curso`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`curso` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`curso` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`docente`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`docente` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`docente` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `grau` VARCHAR(45) NOT NULL,
+  `pessoa_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_docente_pessoa1`
+    FOREIGN KEY (`pessoa_id`)
+    REFERENCES `ceafie`.`pessoa` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_docente_pessoa1_idx` ON `ceafie`.`docente` (`pessoa_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`modulo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`modulo` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`modulo` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(30) NOT NULL,
+  `curso_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_modulo_curso1`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `ceafie`.`curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_modulo_curso1_idx` ON `ceafie`.`modulo` (`curso_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`materia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`materia` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`materia` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `data` VARCHAR(45) NOT NULL,
+  `curso_id` INT(11) NOT NULL,
+  `modulo_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_materia_curso1`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `ceafie`.`curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_materia_modulo1`
+    FOREIGN KEY (`modulo_id`)
+    REFERENCES `ceafie`.`modulo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_materia_curso1_idx` ON `ceafie`.`materia` (`curso_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_materia_modulo1_idx` ON `ceafie`.`materia` (`modulo_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`matricula`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`matricula` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`matricula` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `data` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `aluno_id` INT(11) NOT NULL,
+  `curso_id` INT(11) NOT NULL,
+  `modulo_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`, `modulo_id`),
+  CONSTRAINT `fk_matricula_aluno1`
+    FOREIGN KEY (`aluno_id`)
+    REFERENCES `ceafie`.`aluno` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_matricula_curso1`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `ceafie`.`curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_matricula_modulo1`
+    FOREIGN KEY (`modulo_id`)
+    REFERENCES `ceafie`.`modulo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_matricula_aluno1_idx` ON `ceafie`.`matricula` (`aluno_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_matricula_curso1_idx` ON `ceafie`.`matricula` (`curso_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_matricula_modulo1_idx` ON `ceafie`.`matricula` (`modulo_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`nota`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`nota` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`nota` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nota` VARCHAR(45) NOT NULL,
+  `data` VARCHAR(45) NOT NULL,
+  `aluno_id` INT(11) NOT NULL,
+  `curso_id` INT(11) NOT NULL,
+  `modulo_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_nota_aluno1`
+    FOREIGN KEY (`aluno_id`)
+    REFERENCES `ceafie`.`aluno` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_nota_curso1`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `ceafie`.`curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_nota_modulo1`
+    FOREIGN KEY (`modulo_id`)
+    REFERENCES `ceafie`.`modulo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_nota_aluno1_idx` ON `ceafie`.`nota` (`aluno_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_nota_curso1_idx` ON `ceafie`.`nota` (`curso_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_nota_modulo1_idx` ON `ceafie`.`nota` (`modulo_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`programa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`programa` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`programa` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `data` DATETIME NOT NULL,
+  `local` VARCHAR(45) NULL DEFAULT NULL,
+  `modulo_id` INT(11) NOT NULL,
+  `docente_id` INT(11) NOT NULL,
+  `curso_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_programa_curso1`
+    FOREIGN KEY (`curso_id`)
+    REFERENCES `ceafie`.`curso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_programa_docente1`
+    FOREIGN KEY (`docente_id`)
+    REFERENCES `ceafie`.`docente` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_programa_modulo1`
+    FOREIGN KEY (`modulo_id`)
+    REFERENCES `ceafie`.`modulo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_programa_modulo1_idx` ON `ceafie`.`programa` (`modulo_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_programa_docente1_idx` ON `ceafie`.`programa` (`docente_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_programa_curso1_idx` ON `ceafie`.`programa` (`curso_id` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `ceafie`.`usuario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ceafie`.`usuario` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `ceafie`.`usuario` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  `nivel` SET('administrador','aluno','docente','gestor') NOT NULL,
+  `pessoa_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_usuario_pessoa1`
+    FOREIGN KEY (`pessoa_id`)
+    REFERENCES `ceafie`.`pessoa` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_usuario_pessoa1_idx` ON `ceafie`.`usuario` (`pessoa_id` ASC);
+
+SHOW WARNINGS;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

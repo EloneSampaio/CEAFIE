@@ -1,0 +1,91 @@
+<?php
+
+use application\Session; ?>
+<section id="secondary_bar">
+
+</section><!-- end of secondary bar -->
+
+<aside id="sidebar" class="column">
+    <hr/>
+    <h3>Aluno</h3>
+    <ul class="toggle">
+        <li class="icn_categories"><a  href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a  href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a   href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "remover/" ?>">Apagar</a></li>
+    </ul>
+    <h3>Docente</h3>
+    <ul class="toggle">
+        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "remover/" ?>">Apagar</a></li>
+    </ul>
+    <h3>Curso</h3>
+    <ul class="toggle">
+        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "remover/" ?>">Apagar</a></li>
+    </ul>
+
+    <h3>Nota</h3>
+    <ul class="toggle">
+        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "nota" . DS1 . "index/" ?>">Lançar Nota</a></li>
+        <li class="icn_edit_article"><a href="#"  class="click"rel="<?php echo URL . "nota" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="#" class="click"rel="<?php echo URL . "nota" . DS1 . "remover/" ?>">Apagar</a></li>
+    </ul>
+
+    <h3>Programa</h3>
+    <ul class="toggle">
+        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "remover/" ?>">Apagar</a></li>
+    </ul>
+
+</ul>
+
+<h3>Relatorio</h3>
+<ul class="toggle">
+    <li class="icn_folder"><a href="#">Adicionar</a></li>
+    <li class="icn_photo"><a href="#">Editar</a></li>
+    <li class="icn_audio"><a href="#">Apgar</a></li>
+
+</ul>
+
+<h3>Diploma</h3>
+<ul class="toggle">
+    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "diploma" . DS1 . "index/" ?>">Ver</a></li>
+    
+</ul>
+
+<h3>Admin</h3>
+<ul class="toggle">
+    <li class="icn_settings"><a href="#" class="click" rel="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
+    <li class="icn_security"><a href="#">Definições</a></li>
+    <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
+</ul>
+
+<footer>
+    <hr />
+    <p><strong><?php echo SIGLA; ?></strong></p>
+    <p><strong><?php echo DESENVOLVEDOR; ?></strong></p>
+</footer>
+</aside><!-- end of sidebar -->
+
+<section id="main" class="column">
+    <div class="spacer"></div>
+
+    <div class="alert alert-success text-center">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Seja BemVindo <?php print Session::get('nome'); ?></h4>
+        O Seu Login foi feito com sucesso
+    </div>
+
+    <div id="pageContent">
+        <div><img src="<?php //print URL                  ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+
+    </div>
+</section>
+

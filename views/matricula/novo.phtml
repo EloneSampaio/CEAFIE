@@ -1,0 +1,186 @@
+
+<div class="span10 " id="content" style="margin-left: 220px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-right">Dados do Aluno</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <!-- BEGIN FORM-->
+                    <form action="<?php print URL; ?>matricula/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <fieldset>
+                            <legend>Dados Pessoas</legend>
+                            <div class="control-group">
+                                <label class="control-label">Nome<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Genero<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" name="genero">
+                                        <option value="000">-Seleciona um genero-</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                    </select>                                    
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Nª Bi<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="bi" type="text" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Nacionalidade<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Telefone<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="telefone" type="tel" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Email<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="email"  class="span6 m-wrap" type="email" />
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">BI<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="documento" id="documento" class="span6 m-wrap" type="text"></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <legend>Dados Académicos</legend>
+                            <div class="control-group">
+                                <label class="control-label">graduação<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="graduacao" data-required="1" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Universidade<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="universidade" type="text" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Dados Profissionais</legend>
+                            <div class="control-group">
+                                <label class="control-label">Unidade Organica<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Categoria Docente<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" name="categoria_docente">
+                                        <option value="000">-Seleciona uma categoria-</option>
+                                        <option value="Assistente">Assistente</option>
+                                        <option value="Associado">Associado</option>
+                                        <option value="Titular">Titular</option>
+                                        <option value="Nenhum">Nenhum</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="control-group">
+                                <label class="control-label">Função<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" name="funcao">
+                                        <option value="000">-Seleciona uma função-</option>
+                                        <option value="Chefe de departamento">Chefe de departamento</option>
+                                        <option value="Chefe de seccao">Chefe de seccao</option>
+                                        <option value="Tecnica">Tecnica</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Categoria Cientifica<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" name="categoria_centifica">
+                                        <option value="000">-Seleciona uma categoria-</option>
+                                        <option value="Investigador">Investigador</option>
+                                        <option value="Nenhuma">Nenhuma</option>
+                                    </select>                                    
+
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Curso a frequentar</legend>
+                            <div class="control-group">
+                                <label class="control-label">Curso<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" id="curso" name="curso">
+                                        <option value="000">-Seleciona um curso-</option>
+                                    </select>
+
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Modúlo<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" id="modulo" name="modulo">
+                                       
+                                    </select>
+
+
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <input name="enviar" type="hidden" value="1"/>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                            <button type="reset" class="btn">Cancelar</button>
+                        </div>
+                        </fieldset>
+                    </form>
+
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+    <!-- /validation -->
+
+</div>
+
+</form>
+<!-- END FORM-->
+</div>
+</div>
+</div>
+<!-- /block -->
+</div>
+<!-- /validation -->
+
+</div>
+</div>

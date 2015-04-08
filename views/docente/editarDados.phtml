@@ -1,0 +1,112 @@
+
+<?php
+
+function selected($value, $selected) {
+    return $value == $selected ? ' selected="selected"' : '';
+}
+?>
+
+<div class="span10 " id="content" style="margin-left: 220px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-right">Dados do Docente</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <!-- BEGIN FORM-->
+                    <form action="<?php print URL; ?>docente/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <fieldset>
+                            <legend>Dados Pessoas</legend>
+                            <div class="control-group">
+                                <label class="control-label">Nome<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getNome(); ?>"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Genero<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" name="genero">
+                                       
+                                        <option value="Masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Masculino")?> >Masculino</option>
+                                        <option value="Femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Femenino")?>>Femenino</option>
+                                    </select>                                    
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Nª Bi<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="bi" type="text" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getBi(); ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Nacionalidade<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getNacionalidade(); ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Telefone<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="telefone" type="tel" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getTelefone(); ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Email<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="email"  class="span6 m-wrap" type="email" value="<?php print $this->dados->getPessoa()->getEmail(); ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">BI<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input name="documento" id="documento" class="span6 m-wrap" type="text" />
+                                </div>
+                            </div>
+
+
+                            <div class="controls">
+                                <select class="span6 m-wrap" name="grau">
+                                    
+                                    <option value="Licenciado" <?php echo selected($this->dados->getPessoa()->getGenero(), "Licenciado")?>>Licenciado</option>
+                                    <option value="Mestre" <?php echo selected($this->dados->getPessoa()->getGenero(), "Mestre")?>>Mestre</option>
+                                    <option value="Doctor" <?php echo selected($this->dados->getPessoa()->getGenero(), "Doctor")?>>Doctor</option>
+                                </select>                                    
+                            </div>
+
+                        </fieldset>
+                        <input name="enviar" type="hidden" value="1"/>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                            <button type="reset" class="btn">Cancelar</button>
+                        </div>
+
+                        <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+    <!-- /validation -->
+
+</div>
+
+</form>
+<!-- END FORM-->
+</div>
+</div>
+</div>
+<!-- /block -->
+</div>
+<!-- /validation -->
+
+</div>
+</div>

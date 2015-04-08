@@ -1,0 +1,62 @@
+
+<div class="container alert_info">    
+    <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:40px;">
+        <h3 style="font-family:arial; font-weight:bold; font-size:30px;">
+            <a style="text-decoration:none; color:#666;" href="#">Pagina de Informação do Aluno</a>
+        </h3>
+
+    </div>
+
+    <?php if (isset($this->dados) && !empty($this->dados)): ?>
+
+        <ul class="row">
+            <?php if (!empty($this->dados->getAluno()->getPessoa()->getImagem())) : ?>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                    <img src="<?php print URL . DS1; ?><?php echo $this->dados->getAluno()->getPessoa()->getImagem(); ?>" class="img-responsive" alt="Imagem do Aluno">
+                </li>
+            <?php else: ?>
+                <li>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                    <img src="<?php print URL; ?>public/img/10.jpg" class="img-responsive" alt="Imagem do Aluno">
+                </li>
+                <form id="guarda" method="POST" action="<?php print URL . "matricula/editarImagem/" . $this->dados->getAluno()->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data">
+                    <input type="file" name="imagem" />
+                    <input type="hidden" name="id" value="<?php echo $this->dados->getAluno()->getId(); ?>" />
+                    <input type="submit" value="Guardar" id="guarda" class="btn btn-primary"/>
+                </form>
+                </li>
+            <?php endif; ?>
+        </ul>             
+    </div> 
+
+    <div style="margin-left: 340px; margin-top: -300px;">
+
+        <span class="text-center">
+
+            <h4>Nome: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNome()); ?></h4>
+            <h4>BI: <?php echo $this->dados->getAluno()->getPessoa()->getBi(); ?></h4>
+            <h4>Genero: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getGenero()); ?></h4>
+            <h4>Email: <?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?></h4>
+            <h4>Telefone: <?php echo $this->dados->getAluno()->getPessoa()->getTelefone(); ?></h4>
+            <h4>Nacionalidade: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNacionalidade()); ?></h4>
+            <hr>
+        </span> 
+
+
+    </div>
+    <div style="margin-left: 900px; margin-top: -210px;">
+
+        <span class="text-center">
+
+            <h4>Curso: <?php echo ucfirst($this->dados->getCurso()->getNome()); ?></h4>
+            <h4>Modulo: <?php echo ucfirst($this->dados->getModulo()->getNome()); ?></h4>
+            <h4 class="text-warning">Nota: <?php
+                if (isset($this->nota) && !empty($this->nota)): echo $this->nota->getNota();
+                endif;
+                ?></h4>
+            <h4>Matricula: <?php echo $this->dados->getData(); ?></h4>
+        </span>
+    </div>
+
+<?php endif; ?>
+
