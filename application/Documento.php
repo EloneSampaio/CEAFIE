@@ -28,7 +28,7 @@ interface Documento  {
      * Método para montar o Header do relatório em PDF 
      */
 
-    public function getHeader();
+    public function getHeader($header=FALSE);
 
 
     /*

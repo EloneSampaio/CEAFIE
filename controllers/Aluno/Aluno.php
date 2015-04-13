@@ -47,7 +47,7 @@ class Aluno extends Controller {
         $id = $this->usuario->pesquisar($id);
         $id1 = $this->pessoa->pesquisar($id->getPessoa()->getId());
         $id2 = $this->aluno->pesquisaPor($id1->getId());
-        $this->view->dados = $this->nota->pesquisaNota($id2->getId());
+        $this->view->dados = $this->nota->pesquisaNota1($id2->getId());
         $this->view->renderizar('nota');
     }
 

@@ -135,7 +135,6 @@ class Matricula extends Controller implements Dao {
             $this->pessoa->setImagem(NULL);
             $this->pessoa->setEmail($this->view->dados['email']);
             $this->pessoa->setBi($this->view->dados['bi']);
-            $this->pessoa->setDocumento($this->view->dados['documento']);
 
             //Aluno//
             $this->aluno->setGraduacao($this->view->dados['graduacao']);
@@ -246,8 +245,13 @@ class Matricula extends Controller implements Dao {
 
     public function informacao($id) {
         $this->view->dados = $this->matricula->pesquisar($id);
-        $this->view->nota = $this->nota->pesquisaNota($this->view->dados->getAluno()->getId());
-        $this->view->renderizar("informacao");
+        if ($this->view->dados) {
+            $this->view->nota = $this->nota->pesquisaNota($this->view->dados->getAluno()->getId());
+            //\Doctrine\Common\Util\Debug::dump($this->view->nota ); exit;
+            $this->view->renderizar("informacao");
+        } else {
+            $this->view->renderizar("informacao");
+        }
     }
 
 }

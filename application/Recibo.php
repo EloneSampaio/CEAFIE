@@ -116,10 +116,10 @@ border-radius: 14px 4px 4px 4px; border-width: medium;
 border-style: solid;
 border-color: #0000;\">
 <p class=\"text-center\">AUTORIZAÇÃO DA UNIDADE ORGANICA E DISPENSA PARA FREQUENTAR O CURSO</p><br />
-<div style=\"margin-left:250px;\">
-<p>NOME: ______________________________________________________________________________</p>
-<p>FUNÇÃO:____________________________________________________________________________</p>
-<p>ASSINATURA:________________________________________________________________________</p>
+<div style=\"margin-left:50px;\">
+<p>NOME: ________________________________________________________________________________________________________</p>
+<p>FUNÇÃO:______________________________________________________________________________________________________</p>
+<p>ASSINATURA:__________________________________________________________________________________________________</p>
 </div>
 <p class=\"text-center\">NOTA: APRESENTAR A COPIA DO BI E DO DIPLOMA DO ENSINO SUPERIOR. </p>
 
@@ -138,7 +138,7 @@ border-color: #0000;\">
         return $retorno;
     }
 
-    public function getHeader() {
+    public function getHeader($header=FALSE) {
         $retorno = "<img src='public/img/UAN2.png' class='img-responsive' style='margin-left:500px;' />";
 
         return $retorno;

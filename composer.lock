@@ -4,8 +4,43 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6fb73855d3038d2ca7d4d05ea13cb051",
+    "hash": "5c6fab010abbe6f246743bf537235e7f",
     "packages": [
+        {
+            "name": "davefx/phplot",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davefx/PHPlot.git",
+                "reference": "ca0186fbfef01c1b7aff47e148f1b193fa8575cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davefx/PHPlot/zipball/ca0186fbfef01c1b7aff47e148f1b193fa8575cd",
+                "reference": "ca0186fbfef01c1b7aff47e148f1b193fa8575cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "phplot/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "description": "PHPlot - Create charts in PHP",
+            "homepage": "http://phplot.sourceforge.net",
+            "keywords": [
+                "chart",
+                "phplot"
+            ],
+            "time": "2013-05-14 08:50:52"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.3",
@@ -749,7 +784,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "davefx/phplot": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

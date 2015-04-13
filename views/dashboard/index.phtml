@@ -48,22 +48,19 @@ use application\Session; ?>
 
 <h3>Relatorio</h3>
 <ul class="toggle">
-    <li class="icn_folder"><a href="#">Adicionar</a></li>
-    <li class="icn_photo"><a href="#">Editar</a></li>
-    <li class="icn_audio"><a href="#">Apgar</a></li>
-
+    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "relatorio" . DS1 . "index/" ?>">Por Matricula</a></li>
+    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "relatorio" . DS1 . "index1/" ?>">Por Aproveitamento</a></li>
 </ul>
 
 <h3>Diploma</h3>
 <ul class="toggle">
     <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "diploma" . DS1 . "index/" ?>">Ver</a></li>
-    
+
 </ul>
 
 <h3>Admin</h3>
 <ul class="toggle">
     <li class="icn_settings"><a href="#" class="click" rel="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
-    <li class="icn_security"><a href="#">Definições</a></li>
     <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
 </ul>
 
@@ -77,14 +74,17 @@ use application\Session; ?>
 <section id="main" class="column">
     <div class="spacer"></div>
 
-    <div class="alert alert-success text-center">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Seja BemVindo <?php print Session::get('nome'); ?></h4>
-        O Seu Login foi feito com sucesso
-    </div>
+    <!--    <div class="alert alert-info text-center">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4><?php
+    if (isset($this->mensage) && !empty($this->mensage)): echo $this->mensage;
+    endif;
+    ?></h4>
+    <?php if (isset($this->saudacao) && !empty($this->saudacao)): endif; ?>
+        </div>-->
 
     <div id="pageContent">
-        <div><img src="<?php //print URL                  ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+        <div><img src="<?php //print URL                        ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
 
     </div>
 </section>

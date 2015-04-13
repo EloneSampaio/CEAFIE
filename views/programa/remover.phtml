@@ -23,8 +23,8 @@
                     <td><?php print $dados->getModulo()->getNome(); ?></td>
                     <td><?php print $dados->getDocente()->getPessoa()->getNome(); ?></td>
                     <td><?php print $dados->getLocal(); ?></td>
-                    <td><?php print $dados->getData(); ?></td>
-                    <td><?php print $dados->getDatafinal(); ?></td>
+                    <td><?php print date("d/m/Y", strtotime($dados->getData())); ?></td>
+                    <td><?php print date("d/m/Y", strtotime($dados->getDatafinal())); ?></td>
                     <td><?php print $dados->getHoras(); ?></td>
                     <td><a href="#" id="editar1" rel="<?php echo $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
                 </tr>

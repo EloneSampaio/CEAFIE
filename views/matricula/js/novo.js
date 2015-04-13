@@ -1,27 +1,76 @@
 
 $(document).ready(function () {
-    adicionar();
+    cursos();
+    modulos();
+    alerta();
+
+
+
 
 });
 
 
-function adicionar() {
 
-    $(document).on('submit', '#guardar', function () {
+function cursos() {
 
+    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    }).done(function (data) {
+        $.each(data, function (id, valor) {
+
+            $("#curso").append('<option value="' + valor.id + '">' + valor.nome + '</option>');
+
+        });
+    });
+
+
+}
+
+function modulos() {
+
+    //evento change   
+    $('#curso').on('change', function () {
+
+        $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (data) {
+        }).done(function (data) {
+            $.each(data, function (id, valor) {
+                console.log(valor);
+                $("#modulo").append('<option value="' + valor.id + '">' + valor.nome + '</option>');
+
+
+            });
+        });
+    });
+}
+
+function pesquisar() {
+
+    $(document).on('submit', '#pesquisar', function () {
+        cursos();
         var url = $(this).attr('action');
         var data = $(this).serialize();
         console.log(data);
         $.post(url, data)
                 .done(function (data) {
-                    if (data.mensagem == "ok") {
-                        var url = "http://localhost/uan/matricula/editarImagem/";
-                        setTimeout(url, 1000);
-                    }
-
                 });
 
         return false;
     });
-
+    $('#pesquisar').each(function () {
+        this.reset();
+    });
 }
+
+
+function resetar() {
+    $("form").bind("reset", function () {
+        setTimeout(function () {
+            $('#curso').change()
+        }, 50)
+
+        setTimeout(function () {
+            $('#modulo').change()
+        }, 50)
+
+    });
+}
+

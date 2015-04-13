@@ -1,6 +1,7 @@
 
 <div class="container alert_info">    
     <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:40px;">
+        <br /><br /><br />
         <h3 style="font-family:arial; font-weight:bold; font-size:30px;">
             <a style="text-decoration:none; color:#666;" href="#">Pagina de Informação do Aluno</a>
         </h3>
@@ -52,11 +53,20 @@
             <h4>Modulo: <?php echo ucfirst($this->dados->getModulo()->getNome()); ?></h4>
             <h4 class="text-warning">Nota: <?php
                 if (isset($this->nota) && !empty($this->nota)): echo $this->nota->getNota();
+                else: echo "Não Lançada";
                 endif;
                 ?></h4>
-            <h4>Matricula: <?php echo $this->dados->getData(); ?></h4>
+            <h4>Matricula: <?php echo date('d/m/Y', strtotime($this->dados->getData())); ?></h4>
         </span>
     </div>
+
+<?php else: ?>
+    <span class="text-center">
+
+        <h2>SEM INFORMAÇÕES PARA MOSTRAR</h2>
+
+        <hr>
+    </span> 
 
 <?php endif; ?>
 

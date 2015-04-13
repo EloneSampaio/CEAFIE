@@ -21,11 +21,9 @@ class Dashboard extends Controller {
 
     public function index() {
         Session::nivelRestrito(array("administrador"));
-
         $this->view->titulo = "Pagina de Administracção";
-
-//        $paginador = new \vendor\paginador\Paginador();
-//        //$this->view->destino = $paginador->paginar($this->destino->listaAll(), $pagina, 50);
+        $this->view->mensage = "Seja BemVindo " . Session::get('nome');
+        $this->view->saudacao = " O Seu Login foi feito com sucesso";
         $this->view->renderizar('index');
     }
 
@@ -34,8 +32,8 @@ class Dashboard extends Controller {
         $this->view->titulo = "Pagina de Administracção";
         $this->view->renderizar('docente');
     }
-    
-       public function aluno() {
+
+    public function aluno() {
         Session::nivelRestrito(array("aluno"));
         $this->view->titulo = "Pagina de Administracção";
         $this->view->renderizar('aluno');

@@ -17,6 +17,8 @@ return array(
     'MYANMAR' => $vendorDir . '/mpdf/mpdf/classes/myanmar.php',
     'OTLdump' => $vendorDir . '/mpdf/mpdf/classes/otl_dump.php',
     'PDFBarcode' => $vendorDir . '/mpdf/mpdf/classes/barcode.php',
+    'PHPlot' => $vendorDir . '/davefx/phplot/phplot/phplot.php',
+    'PHPlot_truecolor' => $vendorDir . '/davefx/phplot/phplot/phplot.php',
     'SEA' => $vendorDir . '/mpdf/mpdf/classes/sea.php',
     'SVG' => $vendorDir . '/mpdf/mpdf/classes/svg.php',
     'TTFontFile' => $vendorDir . '/mpdf/mpdf/classes/ttfontsuni.php',

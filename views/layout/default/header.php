@@ -51,15 +51,15 @@ use application\Session; ?>
                         <span class="icon-bar"></span>
                     </a>
                     <?php if (Session::get('nivel') == "administrador"): ?>
-                        <a class="brand" href="<?php URL ?>dashboard">Painel de Administração</a>
+                        <a class="brand" href="#">Painel de Administração</a>
                     <?php endif; ?>
 
                     <?php if (Session::get('nivel') == "docente"): ?>
-                        <a class="brand" href="<?php print URL; ?>dashboard/docente">Painel de Administração</a>
+                        <a class="brand" href="#">Painel de Administração</a>
                     <?php endif; ?>
 
                     <?php if (Session::get('nivel') == "aluno"): ?>
-                        <a class="brand" href="<?php print URL; ?>dashboard/aluno">Painel de Administração</a>
+                        <a class="brand" href="#">Painel de Administração</a>
                     <?php endif; ?>
 
                     <div class="nav-collapse collapse">
@@ -70,7 +70,7 @@ use application\Session; ?>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a tabindex="-1" href="#">Perfil</a>
+                                        <a tabindex="-1" href="<?php echo URL . "matricula" . DS1 . "informacao/" . Session::get('id'); ?>">Perfil</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
@@ -125,7 +125,7 @@ use application\Session; ?>
             <?php endif; ?>
         </div>
         <div class=""><?php if (isset($this->mensagem)): ?>
-                <h3 class="text-center alert-success">  <?php print $this->mensagem; ?> </h3>
+                <h3 class="text-center alert-info">  <?php print $this->mensagem; ?> </h3>
             <?php endif; ?>
         </div>
 

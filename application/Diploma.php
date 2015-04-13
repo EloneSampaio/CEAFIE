@@ -72,7 +72,7 @@ class Diploma implements Documento {
 <table class=\"table table-striped table-bordered\">
 <caption class=\"text-center\"><h4> UNIVERSIDADE AGOSTINHO NETO REITORIA<br /> Curso de Agregação Pedagógica
 </h4><br />
-<h2 style=\"text-align:center;\">DIPLOMA</h2>
+<h2 style=\"text-align:center; color: #69D2E7;\">DIPLOMA</h2>
 </caption>
 
 <tbody>
@@ -81,32 +81,31 @@ class Diploma implements Documento {
 </tbody>
 </table>
 </div>
-<br /><br /><br /><br /><br />
-<div class=\"span15\">
-<div style=\"-webkit-border-radius: 14px 4px 4px 4px;
-border-radius: 14px 4px 4px 4px; border-width: medium;
-border-style: solid;
-border-color: #0000;\">
+<br /><br /><br />
+<div style=\"margin-left:160px;\">
+<div style=\"font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif; font-size: 16px;\">
 
 <tr>
-          <td colspan=\"2\"><p>Para os devidos efeitos certificamos que <strong>
+          <td colspan=\"2\"><p style=\"\">Para os devidos efeitos certificamos que <strong>$nome</strong> concluiu aos <strong>$data</strong> o curso de Agregação</p> <p>Pedagógica com um total de 320 horas, conforme consta do livro _______ folha ______ n.º ____.</p>
         <tr>
           <td colspan=\"2\" align=\"center\"><p>Feito  em Luanda, aos ______ de ________________________ de _____</p></td>
           </tr>
         <tr>
         <tr>
+        <br /><br />
           <td align=\"center\"><strong><em>O Director dos Servi&ccedil;os  Acad&eacute;micos</em></strong></td>
           <td align=\"center\">&nbsp;</td>
         </tr>
-        <tr>
-          <td align=\"center\">&nbsp;</td>
-          <td align=\"center\"><em><strong><em>O Reitor</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></td>
-        </tr>
-        <tr>
+        
           <td align=\"center\">______________________________</td>
           <td align=\"center\">&nbsp;</td>
         </tr>
-        <tr>
+<tr>
+          <td align=\"center\">&nbsp;</td>
+          <td align=\"center\"><em><strong><em>O Reitor</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></td>
+        </tr>
+        <tr>        
+<tr>
           <td>&nbsp;</td>
           <td align=\"center\">_______________________</td>
         </tr>
@@ -138,7 +137,7 @@ border-color: #0000;\">
         return $retorno;
     }
 
-    public function getHeader() {
+    public function getHeader($header=FALSE) {
         $retorno = "<img src='public/img/UAN2.png' class='img-responsive' style='margin-left:500px;' />";
 
         return $retorno;
@@ -158,7 +157,7 @@ border-color: #0000;\">
         //$this->pdf->SetHTMLHeader($this->getHeader());
         $this->pdf->WriteHTML($this->getHeader());
         $this->pdf->WriteHTML($this->getBody());
-        $this->pdf->SetHTMLFooter($this->getFooter());
+        //$this->pdf->SetHTMLFooter($this->getFooter());
     }
 
     public function Exibir($name = null) {

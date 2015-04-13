@@ -149,8 +149,81 @@ class Nota extends Doctrine implements Dao {
     }
 
     public function pesquisaNota($id) {
-        return $this->em->getRepository('models\Nota')->findBy(array('aluno' => $id), array('id' => "DESC"));
+        return $this->em->getRepository('models\Nota')->findOneBy(array('aluno' => $id));
         $this->em->flush();
+    }
+
+    public function pesquisaNota1($id) {
+        return $this->em->getRepository('models\Nota')->findBy(array('aluno' => $id));
+        $this->em->flush();
+    }
+
+    public function pesquisarNotas($dados = FALSE) {
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(n.id)');
+        $qb->from('models\Nota', 'n')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->where("n.nota=:nota")
+                ->andWhere("p.genero =:genero")
+                ->setParameter("nota", $dados['nota'])
+                ->setParameter('genero', $dados['genero']);
+
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
+
+    public function pesquisarNotasCurso($dados = FALSE) {
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(n.id)');
+        $qb->from('models\Nota', 'n')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
+                ->innerJoin('models\Matricula', 'm', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'c.id=m.curso')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->where("n.nota=:nota")
+                ->andWhere("p.genero =:genero")
+                ->andWhere("c.nome =:nome")
+                ->setParameter("nota", $dados['nota'])
+                ->setParameter("genero", $dados['genero'])
+                ->setParameter('nome', $dados['curso']);
+
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
+
+    public function pesquisaGenero($dados = FALSE) {
+
+        $qb = $this->em->createQueryBuilder()
+                ->select('count(m.id)')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'c.id=m.curso')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->where('p.genero =:genero')
+                ->andWhere("c.nome =:nome")
+                ->setParameter('nome', $dados['curso'])
+                ->setParameter('genero', $dados['genero']);
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
+
+    public function pesquisaCurso($dados = FALSE) {
+
+        $qb = $this->em->createQueryBuilder()
+                ->select('count(m.id)')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id')
+                ->where('c.nome =:curso')
+                ->setParameter('curso', $dados);
+
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
     }
 
 }
