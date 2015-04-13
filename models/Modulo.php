@@ -68,12 +68,20 @@ class Modulo extends Doctrine implements Dao {
         
     }
 
+    public function adiciona($dados = FALSE, $valor = False) {
+        $curso = $this->em->getRepository('models\Curso')->find(array('id' => $valor['curso']));
+        $dados->setCurso($curso);
+        $this->em->persist($dados);
+        $this->em->flush();
+        return TRUE;
+    }
+
     public function editar($id = FALSE) {
         
     }
 
     public function pesquisaPor($dados = FALSE) {
-         if ($dados) {
+        if ($dados) {
             return $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados));
             $this->em->flush();
         }
@@ -95,13 +103,27 @@ class Modulo extends Doctrine implements Dao {
     }
 
     public function remover($id = FALSE) {
-        
+        $id = $this->em->getPartialReference('models\Modulo', $id);
+        $this->em->remove($id);
+        $this->em->flush();
+        return TRUE;
     }
 
     function listagem() {
         $t = $this->em->getRepository('models\Modulo');
         $qb = $t->createQueryBuilder('e');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+    
+    
+       public function pesquisa($id = FALSE) {
+        if ($id) {
+            return $this->em->getRepository('models\Modulo')->findOneBy(array('aluno' => $id));
+            $this->em->flush();
+        } else {
+            return $this->em->getRepository('models\Modulo')->findby(array(), array('id' => "DESC"));
+            $this->em->flush();
+        }
     }
 
 }
