@@ -148,7 +148,7 @@ class Programa extends Doctrine implements Dao {
     public function adicionar($dados = FALSE) {
         
     }
-    
+
     function getHora() {
         return $this->hora;
     }
@@ -156,8 +156,6 @@ class Programa extends Doctrine implements Dao {
     function setHora($hora) {
         $this->hora = $hora;
     }
-
-        
 
     public function adiciona($dados = FALSE, $v) {
         $curso = $this->em->find('models\Curso', $v['curso']);
@@ -192,7 +190,10 @@ class Programa extends Doctrine implements Dao {
     }
 
     public function remover($id = FALSE) {
-        
+        $id = $this->em->getPartialReference('models\Programa', $id);
+        $this->em->remove($id);
+        $this->em->flush();
+        return TRUE;
     }
 
 }

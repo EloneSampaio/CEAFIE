@@ -28,7 +28,7 @@ use application\Session; ?>
         <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
     </div>
     <div class="breadcrumbs_container">
-        <article class="breadcrumbs"><a href="<?php print URL ?>dashboard">Menu Principal</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
+        <article class="breadcrumbs"><a href="<?php print URL ?>dashboard/docente">Menu Principal</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
     </div>
 </section><!-- end of secondary bar -->
 
@@ -37,14 +37,14 @@ use application\Session; ?>
 
     <h3>Nota</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "nota" . DS1 . "index/" ?>">Lançar Nota</a></li>
-        <li class="icn_edit_article"><a href="#"  class="click"rel="<?php echo URL . "nota" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_categories"><a   href="<?php echo URL . "nota" . DS1 . "index/" ?>" class="" rel="">Lançar Nota</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "nota" . DS1 . "editar/" ?>"  class=""rel="">Editar</a></li>
 
     </ul>
 
     <h3>Matéria</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "materia" . DS1 . "adicionar/" ?>">Lançar Matéria</a></li>
+        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "materia" . DS1 . "adicionar1/" ?>">Lançar Matéria</a></li>
         <li class="icn_edit_article"><a href="#"  class="click"rel="<?php echo URL . "materia" . DS1 . "index/" ?>">Ver</a></li>
     </ul>
 

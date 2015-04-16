@@ -77,7 +77,11 @@ class Modulo extends Doctrine implements Dao {
     }
 
     public function editar($id = FALSE) {
-        
+
+        $editar = $this->em->getRepository('models\Modulo')->find(array('id' => $id->getId()));
+        $editar->setNome($id->getNome());
+        $this->em->flush();
+        return TRUE;
     }
 
     public function pesquisaPor($dados = FALSE) {
@@ -114,13 +118,20 @@ class Modulo extends Doctrine implements Dao {
         $qb = $t->createQueryBuilder('e');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-    
-    
-    
-       public function pesquisa($id = FALSE) {
+
+    public function pesquisa($id = FALSE) {
         if ($id) {
             return $this->em->getRepository('models\Modulo')->findOneBy(array('aluno' => $id));
+            $this->em->flush();
+        } else {
+            return $this->em->getRepository('models\Modulo')->findby(array(), array('id' => "DESC"));
+            $this->em->flush();
+        }
+    }
+
+    public function pesquisa1($id = FALSE) {
+        if ($id) {
+            return $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $id));
             $this->em->flush();
         } else {
             return $this->em->getRepository('models\Modulo')->findby(array(), array('id' => "DESC"));

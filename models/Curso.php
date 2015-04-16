@@ -68,7 +68,11 @@ class Curso extends Doctrine implements Dao {
     }
 
     public function editar($id = FALSE) {
-        
+        $editar = $this->em->getRepository('models\Curso')->find(array('id' => $id->getId()));
+        $editar->setNome($id->getNome());
+        $editar->setDescricao($id->getDescricao());
+        $this->em->flush();
+        return TRUE;
     }
 
     public function pesquisaPor($dados = FALSE) {

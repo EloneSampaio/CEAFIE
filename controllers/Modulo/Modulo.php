@@ -26,10 +26,10 @@ class Modulo extends Controller implements Dao {
     private $curso;
 
     public function __construct() {
-       
+
         $this->curso = $this->LoadModelo('Curso');
         $this->modulo = $this->LoadModelo('Modulo');
-        
+
         parent::__construct();
         $this->view->setJs(array("novo"));
     }
@@ -42,7 +42,7 @@ class Modulo extends Controller implements Dao {
     public function adicionar($dados = FALSE) {
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
-           
+
             if (!$this->getSqlverifica('nome')) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
                 echo json_encode($ret);
@@ -56,7 +56,7 @@ class Modulo extends Controller implements Dao {
             }
 
             $this->modulo->setNome($this->view->dados['nome']);
-            $id = $this->modulo->adiciona($this->modulo,$this->view->dados);
+            $id = $this->modulo->adiciona($this->modulo, $this->view->dados);
             if ($id) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
                 echo json_encode($ret);
@@ -72,10 +72,20 @@ class Modulo extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-        if ($this->filtraInt($id)) {
+        if ($this->getInt('id')) {
             $this->modulo->setNome($this->getSqlverifica('nome'));
-            $this->modulo->setId($id);
-            $this->modulo->editar($this->modulo);
+            $this->modulo->setId($this->getInt('id'));
+            $id = $this->modulo->editar($this->modulo);
+            if (!$id) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
+                echo json_encode($ret);
+                exit;
+            } else {
+
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                echo json_encode($ret);
+                exit;
+            }
         }
         $this->view->dados = $this->modulo->pesquisar();
         $this->view->renderizar("editar");
@@ -101,7 +111,7 @@ class Modulo extends Controller implements Dao {
     }
 
     public function editarDados($id = FALSE) {
-        $this->view->dados = $this->modulo->pesquisar($id);
+        $this->view->dados = $this->modulo->pesquisa1($id);
         $this->view->renderizar('editarDados');
     }
 

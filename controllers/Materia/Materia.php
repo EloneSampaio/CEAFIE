@@ -26,7 +26,7 @@ class Materia extends Controller implements Dao {
     private $docente;
 
     public function __construct() {
-        Session::nivelRestrito(array("docente","aluno")); 
+        Session::nivelRestrito(array("docente", "aluno"));
         $this->materia = $this->LoadModelo('Materia');
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
@@ -75,8 +75,8 @@ class Materia extends Controller implements Dao {
 
             $diretorio = "upload/";
             move_uploaded_file($_FILES['arquivo']["tmp_name"], $diretorio . $_FILES['arquivo']["name"]);
-            
-            
+
+
             $this->materia->setNome($diretorio . $_FILES['arquivo']["name"]);
             $this->materia->setData($dados['data']);
 
@@ -108,6 +108,58 @@ class Materia extends Controller implements Dao {
 
     public function remover($id = FALSE) {
         
+    }
+
+    public function adicionar1($dados = FALSE) {
+        if ($this->getInt('enviar')) {
+            Session::get('pessoa');
+            $id = $this->docente->pesquisar(Session::get('pessoa'));
+            $_POST['docente'] = $id->getId();
+            $dados = $_POST;
+            if (!$this->getSqlverifica('curso')) {
+                $this->view->erro = "Porfavor Selecciona um curso";
+                $this->view->renderizar('novo1');
+                exit;
+            }
+
+            if (!$this->getSqlverifica('modulo')) {
+                $this->view->erro = "Porfavor Selecciona um modulo";
+                $this->view->renderizar('novo1');
+                exit;
+            }
+
+
+            if (!$this->getSqlverifica('data')) {
+                $this->view->erro = "Porfavor Selecciona uma data";
+                $this->view->renderizar('novo1');
+                exit;
+            }
+
+            if (!isset($_FILES['arquivo']["name"]) && empty($_FILES['arquivo']["name"])) {
+                $this->view->erro = "Porfavor Selecciona um arquivo";
+                $this->view->renderizar('novo1');
+                exit;
+            }
+
+            $diretorio = "upload/";
+            move_uploaded_file($_FILES['arquivo']["tmp_name"], $diretorio . $_FILES['arquivo']["name"]);
+
+
+            $this->materia->setNome($diretorio . $_FILES['arquivo']["name"]);
+            $this->materia->setData($dados['data']);
+
+            if ($this->materia->adiciona($this->materia, $dados)) {
+                $this->view->mensagem = "Dados guardado com sucesso";
+                $this->view->renderizar('novo1');
+                exit;
+            } else {
+                $this->view->erro = "Erro ao guardar dados";
+                $this->view->renderizar('novo1');
+                exit;
+            }
+        }
+
+        $this->view->renderizar("novo1");
     }
 
 }

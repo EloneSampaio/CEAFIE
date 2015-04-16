@@ -30,7 +30,7 @@
                                 <td><?php print date("d/m/Y", strtotime($dados->getData())); ?></td>
                                 <td><?php print date("d/m/Y", strtotime($dados->getDatafinal())); ?></td>
                                 <td><?php print $dados->getHoras(); ?></td>
-                                <td><a href="#" id="editar1" rel="<?php echo $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
+                                <td><a href="#" id="remover" rel="<?php echo URL . "programa" . DS1 . "remover/" . $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
                             </tr>
 
                             <?php

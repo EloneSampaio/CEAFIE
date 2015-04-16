@@ -1,11 +1,21 @@
 
 $(document).ready(function () {
     docente();
+   $('#inicio').datepicker({
+            format: "dd-mm-yyyy",
+            language: "pt-BR"
+        });
+   $('#termino').datepicker({
+            format: "dd-mm-yyyy",
+            language: "pt-BR"
+        });
+   
+    
     cursos();
     modulos();
     //alerta();
 
-    comparaData();
+    //comparaData();
 });
 
 

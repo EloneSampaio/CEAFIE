@@ -164,6 +164,18 @@ class Pessoa extends Doctrine implements Dao {
         return TRUE;
     }
 
+    public function editar1($id = FALSE) {
+        $editar = $this->em->getRepository('models\Pessoa')->find(array('id' => $id->getId()));
+        $editar->setNome($id->getNome());
+        $editar->setGenero($id->getGenero());
+        $editar->setNacionalidade($id->getNacionalidade());
+        $editar->setTelefone($id->getTelefone());
+        $editar->setEmail($id->getEmail());
+        $editar->setBi($id->getBi());
+        $this->em->flush();
+        return TRUE;
+    }
+
     public function pesquisaPor($dados = FALSE) {
         $t = $this->em->getRepository('models\Pessoa');
         $qb = $t->createQueryBuilder('e');

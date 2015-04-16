@@ -1,4 +1,9 @@
+<?php
 
+function selected($value, $selected) {
+    return $value == $selected ? ' selected="selected"' : '';
+}
+?>
 <div class="span10 " id="content" style="margin-left: 210px;">
     <!-- validation -->
     <div class="row-fluid">
@@ -10,7 +15,7 @@
                     <!-- BEGIN FORM-->
                     <form action="<?php print URL; ?>programa/adicionar" id="adicionar" class="form-horizontal" method="POST" >
                         <fieldset>
-                            <legend class="text-info" style="margin-left: 170px;">Adicionar Novo Programa de Formação</legend>
+                            <legend class="text-info" style="margin-left: 170px;">Editar Programa de Formação</legend>
 
                             <div class="control-group">
                                 <label class="control-label">Curso<span class="required">*</span></label>
@@ -49,21 +54,21 @@
                             <div class="control-group">
                                 <label class="control-label">Local<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="local" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" name="local" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getLocal(); ?>"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Inicio<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" id="inicio" data-provide="datepicker" name="inicio" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" id="inicio" data-provide="datepicker" name="inicio" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getInicio(); ?>"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Termino<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" id="termino" name="termino" data-required="1" class="span6 m-wrap" data-provide="datepicker"/>
+                                    <input type="text" id="termino" name="termino" data-required="1" class="span6 m-wrap" data-provide="datepicker" value="<?php print $this->dados->getTermino(); ?>"/>
                                 </div>
                             </div>
 
@@ -71,9 +76,8 @@
                                 <label class="control-label">Horas<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap"  name="hora">
-                                        <option value="000">-Seleciona-</option>
-                                        <option value="20h">-20h-</option>
-                                        <option value="40h">-40h-</option>
+                                        <option value="20H" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "20H") ?> >20H</option>
+                                        <option value="48H" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "48H") ?> >48H</option>
                                     </select>
 
 

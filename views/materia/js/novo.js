@@ -3,9 +3,11 @@ $(document).ready(function () {
     docente();
     cursos();
     modulos();
-    //alerta();
+    $('#data').datepicker({
+        format: "dd-mm-yyyy",
+        language: "pt-BR"
+    });
 
-    comparaData();
 });
 
 function cursos() {

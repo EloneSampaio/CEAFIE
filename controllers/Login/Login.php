@@ -60,6 +60,7 @@ class Login extends Controller {
                 Session::set("autenticado", true);
                 Session::set('nivel', $linha->getNivel());
                 Session::set('nome', $linha->getPessoa()->getNome());
+                 Session::set('pessoa', $linha->getPessoa()->getId());
                 Session::set('id', $linha->getId());
                 Session::set('time', time());
 
@@ -84,7 +85,7 @@ class Login extends Controller {
     }
 
     public function logof() {
-        Session::destruir(array('autenticado', 'nivel', 'nome', 'id', 'time'));
+        Session::destruir(array('autenticado', 'nivel', 'nome', 'id', 'time','pessoa'));
         $this->redirecionar("login");
     }
 

@@ -69,6 +69,7 @@ class Docente extends Doctrine implements Dao {
         $dados->setPessoa($pessoa);
         $this->em->persist($dados);
         $this->em->flush();
+        return $dados->getId();
     }
 
     public function adicionar($dados = FALSE) {
@@ -79,11 +80,21 @@ class Docente extends Doctrine implements Dao {
     }
 
     public function editar($id = FALSE) {
-        
+        $editar = $this->em->getRepository('models\Docente')->find(array('id' => $id->getId()));
+        $editar->setGrau($id->getGrau());
+        $this->em->flush();
+        return TRUE;
+    
     }
 
     public function pesquisaPor($dados = FALSE) {
-        
+         if ($dados) {
+            return $this->em->getRepository('models\Docente')->find(array('id' => $dados));
+            $this->em->flush();
+        } else {
+            return $this->em->getRepository('models\Docente')->findby(array(), array('id' => "DESC"));
+            $this->em->flush();
+        }
     }
 
     public function pesquisar($id = FALSE) {

@@ -17,7 +17,7 @@ function selected($value, $selected) {
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>docente/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form action="<?php print URL; ?>docente/editar1" id="editar" class="form-horizontal" method="POST">
                         <fieldset>
                             <legend>Dados Pessoas</legend>
                             <div class="control-group">
@@ -30,9 +30,9 @@ function selected($value, $selected) {
                                 <label class="control-label">Genero<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="genero">
-                                       
-                                        <option value="Masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Masculino")?> >Masculino</option>
-                                        <option value="Femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Femenino")?>>Femenino</option>
+
+                                        <option value="Masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Masculino") ?> >Masculino</option>
+                                        <option value="Femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Femenino") ?>>Femenino</option>
                                     </select>                                    
                                 </div>
                             </div>
@@ -65,27 +65,23 @@ function selected($value, $selected) {
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <label class="control-label">BI<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="documento" id="documento" class="span6 m-wrap" type="text" />
-                                </div>
-                            </div>
 
 
                             <div class="controls">
                                 <select class="span6 m-wrap" name="grau">
-                                    
-                                    <option value="Licenciado" <?php echo selected($this->dados->getPessoa()->getGenero(), "Licenciado")?>>Licenciado</option>
-                                    <option value="Mestre" <?php echo selected($this->dados->getPessoa()->getGenero(), "Mestre")?>>Mestre</option>
-                                    <option value="Doctor" <?php echo selected($this->dados->getPessoa()->getGenero(), "Doctor")?>>Doctor</option>
+
+                                    <option value="Licenciado" <?php echo selected($this->dados->getGrau(), "Licenciado") ?>>Licenciado</option>
+                                    <option value="Mestre" <?php echo selected($this->dados->getGrau(), "Mestre") ?>>Mestre</option>
+                                    <option value="Doctor" <?php echo selected($this->dados->getGrau(), "Doctor") ?>>Doctor</option>
                                 </select>                                    
                             </div>
 
                         </fieldset>
                         <input name="enviar" type="hidden" value="1"/>
+                        <input name="id" type="hidden" value="<?php print $this->dados->getId(); ?>"/>
+                        <input name="pessoa" type="hidden" value="<?php print $this->dados->getPessoa()->getId(); ?>"/>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                            <button type="submit" class="btn btn-primary" id="editar">Salvar Dados</button>
                             <button type="reset" class="btn">Cancelar</button>
                         </div>
 

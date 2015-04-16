@@ -6,7 +6,6 @@ use application\Controller;
 use application\Session;
 use application\Dao;
 
-
 /**
  * Description of categoriaController
  *
@@ -17,7 +16,7 @@ class Curso extends Controller implements Dao {
     private $curso;
 
     public function __construct() {
-      
+
         $this->curso = $this->LoadModelo('Curso');
         parent::__construct();
         $this->view->setJs(array("novo"));
@@ -63,11 +62,21 @@ class Curso extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-        if ($this->filtraInt($id)) {
+        if ($this->getInt('id')) {
             $this->curso->setNome($this->getSqlverifica('nome'));
             $this->curso->setDescricao($this->getSqlverifica('descricao'));
-            $this->curso->setId($id);
-            $this->curso->editar($this->curso);
+            $this->curso->setId($this->getInt('id'));
+            $id = $this->curso->editar($this->curso);
+            if (!$id) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
+                echo json_encode($ret);
+                exit;
+            } else {
+
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                echo json_encode($ret);
+                exit;
+            }
         }
         $this->view->dados = $this->curso->pesquisar();
         $this->view->renderizar("editar");
@@ -83,7 +92,7 @@ class Curso extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-        if($this->filtraInt($id)) {
+        if ($this->filtraInt($id)) {
             if ($this->curso->remover($id)) {
                 return TRUE;
             }

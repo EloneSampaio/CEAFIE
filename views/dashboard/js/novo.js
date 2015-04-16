@@ -9,10 +9,13 @@ $(document).ready(function () {
     grafico1();
     adicionar();
     remover();
+    editar();
     validar();
     editarMatricula1();
     editarDocente1();
     editarCurso1();
+    editarModulo1();
+    editarPrograma1();
 
 
 
@@ -82,6 +85,33 @@ function adicionar() {
     });
 
 }
+
+
+
+function editar() {
+
+    $(document).on('submit', '#editar', function () {
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
+        console.log(data);
+        $.post(url, data)
+                .done(function (data) {
+                    var json = $.parseJSON(data);
+
+                    alert(json.mensagem);
+
+                });
+
+        return false;
+    });
+
+}
+
+
+
+
+
+
 
 function alerta(mensagem) {
     $.amaran({
@@ -164,6 +194,28 @@ function editarCurso1() {
     $(document).on('click', '#curso1', function () {
         var id = $(this).attr('rel');
         var url = "http://localhost/uan/curso/editarDados/" + id;
+        console.log(url);
+        setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
+
+    });
+}
+
+function editarModulo1() {
+
+    $(document).on('click', '#modulo1', function () {
+        var id = $(this).attr('rel');
+        var url = "http://localhost/uan/modulo/editarDados/" + id;
+        console.log(url);
+        setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
+
+    });
+}
+
+function editarPrograma1() {
+
+    $(document).on('click', '#programa1', function () {
+        var id = $(this).attr('rel');
+        var url = "http://localhost/uan/programa/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 

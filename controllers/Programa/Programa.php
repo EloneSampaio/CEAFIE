@@ -86,7 +86,7 @@ class Programa extends Controller implements Dao {
                 echo json_encode($ret);
                 exit;
             }
-            $format = 'Y-m-d';
+            $format = 'd-m-Y';
             $inicio = DateTime::createFromFormat($format, $dados['inicio']);
             $fim = DateTime::createFromFormat($format, $dados['termino']);
 
@@ -138,5 +138,11 @@ class Programa extends Controller implements Dao {
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("remover");
     }
+    
+       public function editarDados($id = FALSE) {
+        $this->view->dados = $this->programa->pesquisar($id);
+        $this->view->renderizar('editarDados');
+    }
+
 
 }

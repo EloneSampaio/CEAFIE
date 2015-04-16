@@ -27,7 +27,7 @@ class Nota extends Controller implements Dao {
     private $matricula;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("administrador","docente"));
         $this->nota = $this->LoadModelo('Nota');
         $this->curso = $this->LoadModelo('Curso');
         $this->aluno = $this->LoadModelo('Aluno');

@@ -174,6 +174,7 @@ class Matricula extends Controller implements Dao {
                 echo json_encode($ret);
                 exit;
             }
+            
 
             $id2 = $this->matricula->adiciona($this->matricula, $id1, $this->view->dados['curso'], $this->view->dados['modulo']);
             if (!$id2) {
