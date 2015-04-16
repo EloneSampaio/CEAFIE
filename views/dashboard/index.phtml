@@ -129,32 +129,36 @@ use application\Session; ?>
                 <article class="stats_overview">
                     <div class="overview_today">
                         <p class="overview_day"></p>
-                        <p class="overview_count"><?php if (isset($this->cap) && !empty($this->cap)): printf("%.1f", $this->cap);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->cap) && !empty($this->cap)): printf("%.1f", $this->cap);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">CAP</p>
-                        <p class="overview_count"><?php if (isset($this->cepac) && !empty($this->cepac)): printf("%.1f", $this->cepac);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->cepac) && !empty($this->cepac)): printf("%.1f", $this->cepac);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">CEPAC</p>
                     </div>
                     <div class="overview_previous">
                         <p class="overview_day"></p>
-                        <p class="overview_count"><?php if (isset($this->cepid) && !empty($this->cepid)): printf("%.1f", $this->cepid);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->cepid) && !empty($this->cepid)): printf("%.1f", $this->cepid);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">CEPID</p>
-                        <p class="overview_count"><?php if (isset($this->total) && !empty($this->total)): printf("%.1f", $this->total);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->total) && !empty($this->total)): printf("%.1f", $this->total);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">Total</p>
                     </div>
                     <p class="text-info">Tabela de Aderencia</p>
@@ -166,7 +170,7 @@ use application\Session; ?>
         </article><!-- end of stats article -->
 
 
-<!--- Fim dos grafico 1!-->
+        <!--- Fim dos grafico 1!-->
 
         <article class="module width_full">
             <header><h3>Stats</h3></header>
@@ -179,32 +183,36 @@ use application\Session; ?>
                 <article class="stats_overview">
                     <div class="overview_today">
                         <p class="overview_day"></p>
-                        <p class="overview_count"><?php if (isset($this->excelente) && !empty($this->excelente)): printf("%.1f", $this->excelente);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->excelente) && !empty($this->excelente)): printf("%.1f", $this->excelente);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">Excelente</p>
-                        <p class="overview_count"><?php if (isset($this->bom) && !empty($this->bom)): printf("%.1f", $this->bom);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->bom) && !empty($this->bom)): printf("%.1f", $this->bom);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">Bom</p>
                     </div>
                     <div class="overview_previous">
                         <p class="overview_day"></p>
-                        <p class="overview_count"><?php if (isset($this->suficiente) && !empty($this->suficiente)): printf("%.1f", $this->suficiente);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->suficiente) && !empty($this->suficiente)): printf("%.1f", $this->suficiente);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">Suficiente</p>
-                        <p class="overview_count"><?php if (isset($this->total1) && !empty($this->total1)): printf("%.1f", $this->total1);
-                    echo "%";
-                else: echo "0.0%";
-                endif;
-                ?></p>
+                        <p class="overview_count"><?php
+                            if (isset($this->total1) && !empty($this->total1)): printf("%.1f", $this->total1);
+                                echo "%";
+                            else: echo "0.0%";
+                            endif;
+                            ?></p>
                         <p class="overview_type">Total</p>
                     </div>
                     <p class="text-info">Tabela de Aproveitamento</p>
@@ -215,17 +223,19 @@ use application\Session; ?>
             </div>
         </article><!-- end of stats article -->
 
-<!--- Fim dos grafico 2!-->
+        <!--- Fim dos grafico 2!-->
 
         <!--FIM DOS GRAFICOS-->
 
+    </section>
+</div>
 
 <?php if (isset($this->saudacao) && !empty($this->saudacao)): endif; ?>
 
 
-        <div id="pageContent">
-            <div><img src="<?php //print URL                                 ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
 
-        </div>
-    </section>
+<div id="pageContent">
+    <div><img src="<?php //print URL                                    ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+
+</div>
 
