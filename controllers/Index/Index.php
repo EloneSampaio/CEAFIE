@@ -1,7 +1,10 @@
 <?php
+
 namespace controllers;
+
 use application\Controller;
 use application\Session;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,13 +28,8 @@ class Index extends Controller {
             $this->redirecionar('login');
         }
         $this->view->titulo = "Pagina Incial";
-        if (!Session::get('autenticado')) {
-            $this->redirecionar('login');
-        }
-//        $this->view->setCss(array("css"));
-       $this->view->footer = $this->getFooter('footer', 'index');
+        $this->view->setCss(array("css"));
         $this->view->renderizar("index");
     }
-    
 
 }

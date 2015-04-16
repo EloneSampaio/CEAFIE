@@ -16,12 +16,14 @@ namespace controllers;
 
 use application\Controller;
 use PHPlot;
+use application\Session;
 
 class Relatorio extends Controller {
 
     private $nota;
 
     public function __construct() {
+        Session::nivelRestrito(array("administrador"));
         $this->nota = $this->LoadModelo('Nota');
         parent::__construct();
     }

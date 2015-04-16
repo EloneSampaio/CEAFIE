@@ -98,12 +98,20 @@ class Usuario extends Doctrine implements Dao {
         
     }
 
-    public function adiciona($dados,$pessoa) {
-        $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa));
-        $dados->setPessoa($pessoa);
-        $this->em->persist($dados);
-        $this->em->flush();
-        return TRUE;
+    public function adiciona($dados, $pessoa) {
+
+        $this->em->beginTransaction();
+        try {
+            $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa));
+            $dados->setPessoa($pessoa);
+            $this->em->persist($dados);
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            return $dados->getId();
+        } catch (Exception $ex) {
+            $this->em->getConnection()->rollBack();
+            throw $ex;
+        }
     }
 
     public function editar($id = FALSE) {

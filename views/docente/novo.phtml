@@ -10,7 +10,7 @@
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>docente/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form action="<?php print URL; ?>docente/adicionar" id="adicionar" class="form-horizontal" method="POST">
                         <fieldset>
                             <legend>Dados Pessoas</legend>
                             <div class="control-group">
@@ -33,7 +33,7 @@
                             <div class="control-group">
                                 <label class="control-label">Nª Bi<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="bi" type="text" class="span6 m-wrap"/>
+                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14"/>
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@
                             <div class="control-group">
                                 <label class="control-label">Telefone<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="telefone" type="tel" class="span6 m-wrap"/>
+                                    <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9"/>
                                 </div>
                             </div>
 
@@ -58,21 +58,17 @@
                                 </div>
                             </div>
 
+
                             <div class="control-group">
-                                <label class="control-label">BI<span class="required">*</span></label>
+                                <label class="control-label">Grau<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="documento" id="documento" class="span6 m-wrap" type="text"></textarea>
+                                    <select class="span6 m-wrap" name="grau">
+                                        <option value="000">-Seleciona um grau-</option>
+                                        <option value="Licenciado">Licenciado</option>
+                                        <option value="Mestre">Mestre</option>
+                                        <option value="Doctor">Doctor</option>
+                                    </select>                                    
                                 </div>
-                            </div>
-
-
-                            <div class="controls">
-                                <select class="span6 m-wrap" name="grau">
-                                    <option value="000">-Seleciona um grau-</option>
-                                    <option value="Licenciado">Licenciado</option>
-                                    <option value="Mestre">Mestre</option>
-                                    <option value="Doctor">Doctor</option>
-                                </select>                                    
                             </div>
 
                         </fieldset>

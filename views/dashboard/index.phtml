@@ -1,8 +1,35 @@
 <?php
 
 use application\Session; ?>
-<section id="secondary_bar">
+<header id="header">
+    <hgroup>
+        <h1 class="site_title"><a href="index.html">
+                <?php if (Session::get('nivel') == "administrador"): ?>
+                    <a class="brand" href="#">Painel de Administração</a>
+                <?php endif; ?>
 
+                <?php if (Session::get('nivel') == "docente"): ?>
+                    <a class="brand" href="#">Painel de Docente</a>
+                <?php endif; ?>
+
+                <?php if (Session::get('nivel') == "aluno"): ?>
+                    <a class="brand" href="#">Painel de Aluno</a>
+                <?php endif; ?>
+
+            </a>
+        </h1>
+        <h2 class="section_title">Dashboard</h2>
+    </hgroup>
+</header> <!-- end of header bar -->
+
+<section id="secondary_bar">
+    <div class="user">
+        <p><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
+        <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
+    </div>
+    <div class="breadcrumbs_container">
+        <article class="breadcrumbs"><a href="<?php print URL ?>dashboard">Menu Principal</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
+    </div>
 </section><!-- end of secondary bar -->
 
 <aside id="sidebar" class="column">
@@ -39,9 +66,9 @@ use application\Session; ?>
 
     <h3>Nota</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "nota" . DS1 . "index/" ?>">Lançar Nota</a></li>
-        <li class="icn_edit_article"><a href="#"  class="click"rel="<?php echo URL . "nota" . DS1 . "editar/" ?>">Editar</a></li>
-        <li class="icn_jump_back"><a href="#" class="click"rel="<?php echo URL . "nota" . DS1 . "remover/" ?>">Apagar</a></li>
+        <li class="icn_categories"><a   href="<?php echo URL . "nota" . DS1 . "index/" ?>" class="" rel="">Lançar Nota</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "nota" . DS1 . "editar/" ?>"  class=""rel="">Editar</a></li>
+        <li class="icn_jump_back"><a href="<?php echo URL . "nota" . DS1 . "remover/" ?>" class=""rel="">Apagar</a></li>
     </ul>
 
     <h3>Programa</h3>
@@ -66,11 +93,15 @@ use application\Session; ?>
 
 </ul>
 
+
 <h3>Admin</h3>
 <ul class="toggle">
     <li class="icn_settings"><a href="#" class="click" rel="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
     <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
 </ul>
+
+
+
 
 <footer>
     <hr />
@@ -79,21 +110,122 @@ use application\Session; ?>
 </footer>
 </aside><!-- end of sidebar -->
 
-<section id="main" class="column">
-    <div class="spacer"></div>
 
-    <!--    <div class="alert alert-info text-center">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4><?php
-    if (isset($this->mensage) && !empty($this->mensage)): echo $this->mensage;
-    endif;
-    ?></h4>
-    <?php if (isset($this->saudacao) && !empty($this->saudacao)): endif; ?>
-        </div>-->
 
-    <div id="pageContent">
-        <div><img src="<?php //print URL                         ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+<!----Graficos---->
+<div id="esconder">
+    <section id="main" class="column">
+        <div class="spacer"></div>
 
-    </div>
-</section>
+
+        <article class="module width_full">
+            <header><h3>Stats</h3></header>
+            <div class="module_content">
+                <article class="stats_graph">
+                    <canvas id="cvs" width="600" height="250">[No canvas support]</canvas>
+
+                </article>
+
+                <article class="stats_overview">
+                    <div class="overview_today">
+                        <p class="overview_day"></p>
+                        <p class="overview_count"><?php if (isset($this->cap) && !empty($this->cap)): printf("%.1f", $this->cap);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">CAP</p>
+                        <p class="overview_count"><?php if (isset($this->cepac) && !empty($this->cepac)): printf("%.1f", $this->cepac);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">CEPAC</p>
+                    </div>
+                    <div class="overview_previous">
+                        <p class="overview_day"></p>
+                        <p class="overview_count"><?php if (isset($this->cepid) && !empty($this->cepid)): printf("%.1f", $this->cepid);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">CEPID</p>
+                        <p class="overview_count"><?php if (isset($this->total) && !empty($this->total)): printf("%.1f", $this->total);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">Total</p>
+                    </div>
+                    <p class="text-info">Tabela de Aderencia</p>
+
+
+                </article>
+                <div class="clear"></div>
+            </div>
+        </article><!-- end of stats article -->
+
+
+<!--- Fim dos grafico 1!-->
+
+        <article class="module width_full">
+            <header><h3>Stats</h3></header>
+            <div class="module_content">
+                <article class="stats_graph">
+                    <canvas id="cvs1" width="600" height="250">[No canvas support]</canvas>
+
+                </article>
+
+                <article class="stats_overview">
+                    <div class="overview_today">
+                        <p class="overview_day"></p>
+                        <p class="overview_count"><?php if (isset($this->excelente) && !empty($this->excelente)): printf("%.1f", $this->excelente);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">Excelente</p>
+                        <p class="overview_count"><?php if (isset($this->bom) && !empty($this->bom)): printf("%.1f", $this->bom);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">Bom</p>
+                    </div>
+                    <div class="overview_previous">
+                        <p class="overview_day"></p>
+                        <p class="overview_count"><?php if (isset($this->suficiente) && !empty($this->suficiente)): printf("%.1f", $this->suficiente);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">Suficiente</p>
+                        <p class="overview_count"><?php if (isset($this->total1) && !empty($this->total1)): printf("%.1f", $this->total1);
+                    echo "%";
+                else: echo "0.0%";
+                endif;
+                ?></p>
+                        <p class="overview_type">Total</p>
+                    </div>
+                    <p class="text-info">Tabela de Aproveitamento</p>
+
+
+                </article>
+                <div class="clear"></div>
+            </div>
+        </article><!-- end of stats article -->
+
+<!--- Fim dos grafico 2!-->
+
+        <!--FIM DOS GRAFICOS-->
+
+
+<?php if (isset($this->saudacao) && !empty($this->saudacao)): endif; ?>
+
+
+        <div id="pageContent">
+            <div><img src="<?php //print URL                                 ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+
+        </div>
+    </section>
 

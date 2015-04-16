@@ -4,6 +4,7 @@ namespace controllers;
 
 use application\Controller;
 use application\Dao;
+use application\Session;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,7 +27,7 @@ class Nota extends Controller implements Dao {
     private $matricula;
 
     public function __construct() {
-
+        Session::nivelRestrito(array("administrador"));
         $this->nota = $this->LoadModelo('Nota');
         $this->curso = $this->LoadModelo('Curso');
         $this->aluno = $this->LoadModelo('Aluno');

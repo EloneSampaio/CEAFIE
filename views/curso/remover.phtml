@@ -1,31 +1,37 @@
-<br />
-<table  class="table table-striped table-bordered">   
-    <thead>
-        <tr>
-
-            <th>CURSO</th>
-            <th>Descrição</th>
-
-        </tr>
-    </thead>
-
-    <tbody>
-
-        <?php if (isset($this->dados) && !empty($this->dados)): ?>
-            <?php foreach ($this->dados as $dados): ?>
+<div class="span10 " id="content" style="margin-left: 220px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block"></div><table  class="table table-striped table-bordered">   
+            <thead>
                 <tr>
-                    <td><?php print $dados->getNome(); ?></td>
-                    <td><?php print $dados->getDescricao(); ?></td>
-                    <td><a href="#" id="remover" rel="<?php echo URL . "curso" . DS1 . "remover/" . $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
+
+                    <th>CURSO</th>
+                    <th>Descrição</th>
+
                 </tr>
+            </thead>
 
-                <?php
-            endforeach;
-        endif;
-        ?>
+            <tbody>
 
-    </tbody>
-</table>
+                <?php if (isset($this->dados) && !empty($this->dados)): ?>
+                    <?php foreach ($this->dados as $dados): ?>
+                        <tr>
+                            <td><?php print $dados->getNome(); ?></td>
+                            <td><?php print $dados->getDescricao(); ?></td>
+                            <td><a href="#" id="remover" rel="<?php echo URL . "curso" . DS1 . "remover/" . $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
+                        </tr>
+
+                        <?php
+                    endforeach;
+                endif;
+                ?>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 
 

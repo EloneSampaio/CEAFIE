@@ -25,6 +25,7 @@ class Matricula extends Controller implements Dao {
     private $matricula;
     private $curso;
     private $nota;
+    private $usuario;
 
     public function __construct() {
         parent::__construct();
@@ -34,6 +35,7 @@ class Matricula extends Controller implements Dao {
         $this->curso = $this->LoadModelo('Curso');
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
+        $this->usuario = $this->LoadModelo("Usuario");
         $this->view->setJs(array("novo"));
     }
 
@@ -55,6 +57,12 @@ class Matricula extends Controller implements Dao {
                 exit;
             }
 
+            if (!$this->getSqlverifica('nome1')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um apelido");
+                echo json_encode($ret);
+                exit;
+            }
+
             if (!$this->getSqlverifica('genero')) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
                 echo json_encode($ret);
@@ -66,6 +74,13 @@ class Matricula extends Controller implements Dao {
                 echo json_encode($ret);
                 exit;
             }
+
+            if (!$this->verificarBi($this->view->dados['bi'])) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira  numero de BI valido...");
+                echo json_encode($ret);
+                exit;
+            }
+
 
             if (!$this->getSqlverifica('nacionalidade')) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
@@ -128,7 +143,7 @@ class Matricula extends Controller implements Dao {
             }
 
 
-            $this->pessoa->setNome($this->view->dados['nome']);
+            $this->pessoa->setNome($this->view->dados['nome'] . " " . $this->view->dados['nome1']);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
             $this->pessoa->setTelefone($this->view->dados['telefone']);
@@ -163,6 +178,18 @@ class Matricula extends Controller implements Dao {
             $id2 = $this->matricula->adiciona($this->matricula, $id1, $this->view->dados['curso'], $this->view->dados['modulo']);
             if (!$id2) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
+                echo json_encode($ret);
+                exit;
+            }
+
+            $mt = $this->matricula->pesquisar($id2);
+            $login = $this->view->dados['nome1'] . rand(5, 10);
+            $this->usuario->setLogin($login);
+            $this->usuario->setSenha(\application\Hash::getHash("md5", $dados['nome1'] . $login, HASH_KEY));
+            $this->usuario->setNivel("aluno");
+            $id12 = $this->usuario->adiciona($this->usuario, $mt->getAluno()->getPessoa()->getId());
+            if (!is_int($id12)) {
+                $ret = Array("mensagem" => "Erro ao criar usuario");
                 echo json_encode($ret);
                 exit;
             } else {

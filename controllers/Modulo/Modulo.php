@@ -26,6 +26,7 @@ class Modulo extends Controller implements Dao {
     private $curso;
 
     public function __construct() {
+       
         $this->curso = $this->LoadModelo('Curso');
         $this->modulo = $this->LoadModelo('Modulo');
         
@@ -81,7 +82,7 @@ class Modulo extends Controller implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-        $t = $this->curso->listagem();
+        $t = $this->modulo->pesquisar($_GET['id']);
         echo json_encode($t);
     }
 

@@ -142,14 +142,21 @@ abstract class Controller {
 
     abstract public function index();
 
-    
-
     static function SaveViaTempFile($objecto) {
         $caminho = '/tmp/' . rand(0, getrandmax()) . rand(0, getrandmax()) . ".tmp";
-       // $t=$objecto->save(str_replace('.php', '.xlsx', $caminho));
-       return $objecto->save(str_replace('.php', '.xlsx', __FILE__));
+        // $t=$objecto->save(str_replace('.php', '.xlsx', $caminho));
+        return $objecto->save(str_replace('.php', '.xlsx', __FILE__));
         //var_dump($t);
-       // var_dump(unlink($caminho));
+        // var_dump(unlink($caminho));
+    }
+
+    public function verificarBi($bi) {
+        $expressao_regular = "^[0-9]{9}[A-Z]{2}[0-9]{3}$";
+        if (eregi($expressao_regular, $bi)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }

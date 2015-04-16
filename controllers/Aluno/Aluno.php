@@ -4,6 +4,7 @@ namespace controllers;
 
 use application\Controller;
 use application\Dao;
+use application\Session;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,6 +28,7 @@ class Aluno extends Controller {
     private $curso;
 
     public function __construct() {
+         Session::nivelRestrito(array("aluno"));
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->curso = $this->LoadModelo('Curso');

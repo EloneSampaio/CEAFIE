@@ -1,8 +1,35 @@
 <?php
 
 use application\Session; ?>
-<section id="secondary_bar">
+<header id="header">
+    <hgroup>
+        <h1 class="site_title"><a href="index.html">
+                <?php if (Session::get('nivel') == "administrador"): ?>
+                    <a class="brand" href="#">Painel de Administração</a>
+                <?php endif; ?>
 
+                <?php if (Session::get('nivel') == "docente"): ?>
+                    <a class="brand" href="#">Painel de Docente</a>
+                <?php endif; ?>
+
+                <?php if (Session::get('nivel') == "aluno"): ?>
+                    <a class="brand" href="#">Painel de Aluno</a>
+                <?php endif; ?>
+
+            </a>
+        </h1>
+        <h2 class="section_title">Dashboard</h2>
+    </hgroup>
+</header> <!-- end of header bar -->
+
+<section id="secondary_bar">
+    <div class="user">
+        <p><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
+        <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
+    </div>
+    <div class="breadcrumbs_container">
+        <article class="breadcrumbs"><a href="<?php print URL ?>dashboard">Menu Principal</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
+    </div>
 </section><!-- end of secondary bar -->
 
 <aside id="sidebar" class="column">
@@ -12,7 +39,7 @@ use application\Session; ?>
     <ul class="toggle">
         <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "nota" . DS1 . "index/" ?>">Lançar Nota</a></li>
         <li class="icn_edit_article"><a href="#"  class="click"rel="<?php echo URL . "nota" . DS1 . "editar/" ?>">Editar</a></li>
-       
+
     </ul>
 
     <h3>Matéria</h3>
@@ -23,7 +50,7 @@ use application\Session; ?>
 
     <h3>Difinições</h3>
     <ul class="toggle">
-        
+
         <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
     </ul>
 
@@ -37,11 +64,11 @@ use application\Session; ?>
 <section id="main" class="column">
     <div class="spacer"></div>
 
-<!--    <div class="alert alert-success text-center">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Seja BemVindo <?php  ?></h4>
-        O Seu Login foi feito com sucesso
-    </div>-->
+    <!--    <div class="alert alert-success text-center">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Seja BemVindo <?php ?></h4>
+            O Seu Login foi feito com sucesso
+        </div>-->
 
     <div id="pageContent">
         <div><img src="<?php print URL; ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>

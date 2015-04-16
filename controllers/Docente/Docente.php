@@ -18,6 +18,7 @@ class Docente extends Controller implements Dao {
     private $docente;
 
     public function __construct() {
+         Session::nivelRestrito(array("administrador"));
         parent::__construct();
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
@@ -53,6 +54,14 @@ class Docente extends Controller implements Dao {
                 exit;
             }
 
+            if (!$this->verificarBi($this->view->dados['bi'])) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero de BI valido");
+                echo json_encode($ret);
+                exit;
+            }
+
+
+
             if (!$this->getSqlverifica('nacionalidade')) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
                 echo json_encode($ret);
@@ -85,7 +94,6 @@ class Docente extends Controller implements Dao {
             $this->pessoa->setImagem(NULL);
             $this->pessoa->setEmail($this->view->dados['email']);
             $this->pessoa->setBi($this->view->dados['bi']);
-            $this->pessoa->setDocumento($this->view->dados['documento']);
 
             //Aluno//
             $this->docente->setGrau($this->view->dados['grau']);
@@ -131,7 +139,6 @@ class Docente extends Controller implements Dao {
     }
 
     public function pesquisar($id = FALSE) {
-        
         
     }
 

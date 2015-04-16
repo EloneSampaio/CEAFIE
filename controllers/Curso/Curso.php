@@ -6,6 +6,7 @@ use application\Controller;
 use application\Session;
 use application\Dao;
 
+
 /**
  * Description of categoriaController
  *
@@ -16,6 +17,7 @@ class Curso extends Controller implements Dao {
     private $curso;
 
     public function __construct() {
+      
         $this->curso = $this->LoadModelo('Curso');
         parent::__construct();
         $this->view->setJs(array("novo"));

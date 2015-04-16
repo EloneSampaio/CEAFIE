@@ -226,4 +226,23 @@ class Nota extends Doctrine implements Dao {
         return $count;
     }
 
+    public function buscarNota($dados = FALSE) {
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(n.id)');
+        $qb->from('models\Nota', 'n')
+                ->where("n.nota=:nota")
+                ->setParameter('nota', $dados['nota']);
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
+
+    public function totalAlunos() {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('count(m.id)');
+        $qb->from('models\Matricula', 'm');
+        $count = $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
+
 }

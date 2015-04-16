@@ -116,6 +116,8 @@ class Modulo extends Doctrine implements Dao {
     }
     
     
+    
+    
        public function pesquisa($id = FALSE) {
         if ($id) {
             return $this->em->getRepository('models\Modulo')->findOneBy(array('aluno' => $id));

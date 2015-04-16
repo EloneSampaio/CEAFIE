@@ -3,6 +3,7 @@
 namespace controllers;
 
 use application\Controller;
+use application\Session;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,6 +23,7 @@ class Diploma extends Controller {
     private $nota;
 
     public function __construct() {
+         Session::nivelRestrito(array("administrador"));
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         parent::__construct();

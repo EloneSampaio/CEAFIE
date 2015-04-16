@@ -1,33 +1,40 @@
+<div class="span10 " id="content" style="margin-left: 220px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <table  class="table table-striped table-bordered">   
+                <thead>
+                    <tr>
 
-<table  class="table table-striped table-bordered">   
-    <thead>
-        <tr>
+                        <th>Nª BI</th> 
+                        <th>Nome</th>
+                        <th>CURSO</th>
+                        <th>MODÚLO</th>
 
-            <th>Nª BI</th> 
-            <th>Nome</th>
-            <th>CURSO</th>
-            <th>MODÚLO</th>
+                    </tr>
+                </thead>
 
-        </tr>
-    </thead>
+                <tbody>
 
-    <tbody>
+                    <?php if (isset($this->dados) && !empty($this->dados)): ?>
+                        <?php foreach ($this->dados as $dados): ?>
+                            <tr>
+                                <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
+                                <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
+                                <td><?php print $dados->getCurso()->getNome(); ?></td>
+                                <td><?php print $dados->getModulo()->getNome(); ?></td>
+                                <td><a href="#" id="editar1" rel="<?php echo $dados->getAluno()->getId(); ?>"><i class="icon-edit"></i></a></td>
+                                        <?php
+                                    endforeach;
+                                endif;
+                                ?>
 
-        <?php if (isset($this->dados) && !empty($this->dados)): ?>
-            <?php foreach ($this->dados as $dados): ?>
-                <tr>
-                    <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
-                    <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
-                    <td><?php print $dados->getCurso()->getNome(); ?></td>
-                    <td><?php print $dados->getModulo()->getNome(); ?></td>
-                    <td><a href="#" id="editar1" rel="<?php echo $dados->getAluno()->getId(); ?>"><i class="icon-edit"></i></a></td>
-                    <?php
-                endforeach;
-            endif;
-            ?>
-
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 

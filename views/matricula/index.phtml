@@ -1,47 +1,53 @@
+<div class="span10 " id="content" style="margin-left: 220px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <table  class="table table-striped table-bordered">   
+                <thead>
+                    <tr>
 
-<br />
-<table  class="table table-striped table-bordered">   
-    <thead>
-        <tr>
+                        <th>Nª BI</th> 
+                        <th>Nome</th>
+                        <th>CURSO</th>
+                        <th>MODÚLO</th>
+                        <th>ESTADO</th>
 
-            <th>Nª BI</th> 
-            <th>Nome</th>
-            <th>CURSO</th>
-            <th>MODÚLO</th>
-            <th>ESTADO</th>
+                    </tr>
+                </thead>
 
-        </tr>
-    </thead>
+                <tbody>
 
-    <tbody>
+                    <?php if (isset($this->dados) && !empty($this->dados)): ?>
+                        <?php foreach ($this->dados as $dados): ?>
+                            <tr>
+                                <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
+                                <td><a href="<?php echo URL . "matricula" . DS1 . "informacao/" . $dados->getAluno()->getId(); ?>"><?php print $dados->getAluno()->getPessoa()->getNome(); ?></a></td>
+                                <td><?php print $dados->getCurso()->getNome(); ?></td>
+                                <td><?php print $dados->getModulo()->getNome(); ?></td>
+                                <?php if (strcmp($dados->getEstado(), "ABERTO") == 0): ?>
+                                    <td>
+                                        <!--------
+                                        <div><img src="<?php //print URL         ?>public/img/8.gif" class="img-responsive" id="p"/></div>
+                                    !---->
+                                        <a href="#" rel="<?php echo URL . "matricula" . DS1 . "editar/" . $dados->getAluno()->getId(); ?>" id="validar">CONFIRMAR</a>
+                                    </td>
 
-        <?php if (isset($this->dados) && !empty($this->dados)): ?>
-            <?php foreach ($this->dados as $dados): ?>
-                <tr>
-                    <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
-                    <td><a href="<?php echo URL . "matricula" . DS1 . "informacao/" . $dados->getAluno()->getId(); ?>"><?php print $dados->getAluno()->getPessoa()->getNome(); ?></a></td>
-                    <td><?php print $dados->getCurso()->getNome(); ?></td>
-                    <td><?php print $dados->getModulo()->getNome(); ?></td>
-                    <?php if (strcmp($dados->getEstado(), "ABERTO") == 0): ?>
-                        <td>
-                            <!--------
-                            <div><img src="<?php //print URL        ?>public/img/8.gif" class="img-responsive" id="p"/></div>
-                        !---->
-                            <a href="#" rel="<?php echo URL . "matricula" . DS1 . "editar/" . $dados->getAluno()->getId(); ?>" id="validar">CONFIRMAR</a>
-                        </td>
+                                <?php else: ?>
+                                    <td>CONFIRMADO<a target="__BLANK" href="<?php echo URL . "matricula" . DS1 . "imprimir/" . $dados->getAluno()->getId(); ?>">(Recibo)</a></td>
+                                <?php endif; ?>
+                            </tr>
 
-                    <?php else: ?>
-                        <td>CONFIRMADO<a target="__BLANK" href="<?php echo URL . "matricula" . DS1 . "imprimir/" . $dados->getAluno()->getId(); ?>">(Recibo)</a></td>
-                    <?php endif; ?>
-                </tr>
+                            <?php
+                        endforeach;
+                    endif;
+                    ?>
 
-                <?php
-            endforeach;
-        endif;
-        ?>
-
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
 

@@ -56,9 +56,9 @@ class Matricula extends Doctrine implements Dao {
      *   @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
      * })
      */
-     private $curso;
-    
-     /**
+    private $curso;
+
+    /**
      * @var \Modulo
      * @ORM\ManyToOne(targetEntity="Modulo")
      * @ORM\JoinColumns({
@@ -66,7 +66,6 @@ class Matricula extends Doctrine implements Dao {
      * })
      */
     private $modulo;
-   
 
     function getId() {
         return $this->id;
@@ -103,11 +102,11 @@ class Matricula extends Doctrine implements Dao {
     function setAluno(Aluno $aluno) {
         $this->aluno = $aluno;
     }
-    
-     function setCurso(Curso $curso) {
+
+    function setCurso(Curso $curso) {
         $this->curso = $curso;
     }
-    
+
     function getModulo() {
         return $this->modulo;
     }
@@ -116,25 +115,32 @@ class Matricula extends Doctrine implements Dao {
         $this->modulo = $modulo;
     }
 
-      
     public function adicionar($dados = FALSE) {
         
     }
 
-    public function adiciona($dados, $aluno, $curso,$modulo) {
-        $aluno = $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $aluno));
-        $dados->setAluno($aluno);
-        
-        $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $modulo));
-        $dados->setModulo($modulo);
-        
-        $curso = $this->em->getRepository('models\Curso')->findOneBy(array('id' => $curso));
-       
-        $dados->setCurso($curso);
-        
-        $this->em->persist($dados);
-        $this->em->flush();
-        return TRUE;
+    public function adiciona($dados, $aluno, $curso, $modulo) {
+
+        $this->em->getConnection()->beginTransaction();
+        try {
+            $aluno = $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $aluno));
+            $dados->setAluno($aluno);
+
+            $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $modulo));
+            $dados->setModulo($modulo);
+
+            $curso = $this->em->getRepository('models\Curso')->findOneBy(array('id' => $curso));
+
+            $dados->setCurso($curso);
+
+            $this->em->persist($dados);
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            return $dados->getId();
+        } catch (Exception $ex) {
+            $this->em->getConnection()->rollBack();
+            throw $ex;
+        }
     }
 
     public function editar($id = FALSE) {

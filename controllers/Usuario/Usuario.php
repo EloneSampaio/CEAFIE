@@ -20,6 +20,7 @@ class Usuario extends Controller implements Dao {
     private $pessoa;
 
     public function __construct() {
+         Session::nivelRestrito(array("administrador"));
         parent::__construct();
         $this->usuario = $this->LoadModelo("Usuario");
         $this->pessoa = $this->LoadModelo("Pessoa");
