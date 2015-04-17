@@ -90,7 +90,6 @@ class Materia extends Controller implements Dao {
                 exit;
             }
         }
-
         $this->view->renderizar("novo");
     }
 
@@ -117,26 +116,26 @@ class Materia extends Controller implements Dao {
             $_POST['docente'] = $id->getId();
             $dados = $_POST;
             if (!$this->getSqlverifica('curso')) {
-                $this->view->erro = "Porfavor Selecciona um curso";
+                $this->view->sms = "Porfavor Selecciona um curso";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
             if (!$this->getSqlverifica('modulo')) {
-                $this->view->erro = "Porfavor Selecciona um modulo";
+                $this->view->sms = "Porfavor Selecciona um modulo";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
 
             if (!$this->getSqlverifica('data')) {
-                $this->view->erro = "Porfavor Selecciona uma data";
+                $this->view->sms = "Porfavor Selecciona uma data";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
             if (!isset($_FILES['arquivo']["name"]) && empty($_FILES['arquivo']["name"])) {
-                $this->view->erro = "Porfavor Selecciona um arquivo";
+                $this->view->sms = "Porfavor Selecciona um arquivo";
                 $this->view->renderizar('novo1');
                 exit;
             }
@@ -149,15 +148,18 @@ class Materia extends Controller implements Dao {
             $this->materia->setData($dados['data']);
 
             if ($this->materia->adiciona($this->materia, $dados)) {
-                $this->view->mensagem = "Dados guardado com sucesso";
+                $this->view->mensagem = "";
+                $this->view->sms = "Dados guardado com sucesso";
+
                 $this->view->renderizar('novo1');
                 exit;
             } else {
-                $this->view->erro = "Erro ao guardar dados";
+                $this->view->sms = "Erro ao guardar dados";
                 $this->view->renderizar('novo1');
                 exit;
             }
         }
+        $this->view->sms = "Adicionar Nova Matéria de Formação";
 
         $this->view->renderizar("novo1");
     }

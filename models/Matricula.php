@@ -151,7 +151,20 @@ class Matricula extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-        
+
+        $qb = $this->em->createQueryBuilder()
+                ->select('n.nota', 'p.nome', 'a.id')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->leftJoin('models\Nota', 'n', 'WITH', 'n.aluno=a.id')
+                ->andWhere('m.modulo =:modulo')
+                ->andWhere('m.estado =:estado')
+                ->orderBy('a.id', 'DESC')
+                ->setParameter('modulo', $dados['modulo'])
+                ->setParameter('estado', $dados['estado']);
+
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     public function pesquisar($id = FALSE) {

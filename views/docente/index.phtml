@@ -10,6 +10,8 @@
                         <th>Nª BI</th> 
                         <th>Nome</th>
                         <th>Grau</th>
+                        <th>Curso</th>
+                        <th>Modulo</th>
                     </tr>
                 </thead>
 
@@ -21,6 +23,8 @@
                                 <td><?php print $dados->getPessoa()->getBi(); ?></td>
                                 <td><?php print $dados->getPessoa()->getNome(); ?></td>
                                 <td><?php print $dados->getGrau(); ?></td>
+                                <td><?php print $dados->getModulo()->getCurso()->getNome(); ?></td>
+                                <td><?php print $dados->getModulo()->getNome(); ?></td>
                             </tr>
 
                             <?php

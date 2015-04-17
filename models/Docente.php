@@ -40,6 +40,16 @@ class Docente extends Doctrine implements Dao {
      */
     private $pessoa;
 
+    /**
+     * @var \Modulo
+     *
+     * @ORM\ManyToOne(targetEntity="Modulo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="modulo_id", referencedColumnName="id")
+     * })
+     */
+    private $modulo;
+
     function getId() {
         return $this->id;
     }
@@ -50,6 +60,14 @@ class Docente extends Doctrine implements Dao {
 
     function getPessoa() {
         return $this->pessoa;
+    }
+
+    function getModulo() {
+        return $this->modulo;
+    }
+
+    function setModulo(Modulo $modulo) {
+        $this->modulo = $modulo;
     }
 
     function setId($id) {
@@ -65,8 +83,10 @@ class Docente extends Doctrine implements Dao {
     }
 
     public function adiciona($dados, $id) {
-        $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $id));
+        $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $id['pessoa']));
+        $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $id['modulo']));
         $dados->setPessoa($pessoa);
+        $dados->setModulo($modulo);
         $this->em->persist($dados);
         $this->em->flush();
         return $dados->getId();
@@ -84,11 +104,10 @@ class Docente extends Doctrine implements Dao {
         $editar->setGrau($id->getGrau());
         $this->em->flush();
         return TRUE;
-    
     }
 
     public function pesquisaPor($dados = FALSE) {
-         if ($dados) {
+        if ($dados) {
             return $this->em->getRepository('models\Docente')->find(array('id' => $dados));
             $this->em->flush();
         } else {
@@ -121,11 +140,8 @@ class Docente extends Doctrine implements Dao {
                 ->from('models\Docente', 'd')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'd.pessoa=p.id')
                 ->orderBy('d.id', 'DESC');
-               
+
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
- 
-
 
 }

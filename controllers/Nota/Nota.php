@@ -25,14 +25,16 @@ class Nota extends Controller implements Dao {
     private $aluno;
     private $modulo;
     private $matricula;
+    private $docente;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador","docente"));
+        Session::nivelRestrito(array("administrador", "docente"));
         $this->nota = $this->LoadModelo('Nota');
         $this->curso = $this->LoadModelo('Curso');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->modulo = $this->LoadModelo('Modulo');
         $this->matricula = $this->LoadModelo('Matricula');
+        $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJs(array("novo"));
     }
@@ -61,6 +63,7 @@ class Nota extends Controller implements Dao {
 
             $this->nota->adicionar($this->nota);
         }
+        
         $this->view->renderizar('index');
     }
 
@@ -137,6 +140,15 @@ class Nota extends Controller implements Dao {
         }
         $this->view->dados = $this->nota->pesquisar();
         $this->view->renderizar("remover");
+    }
+
+    public function docente() {
+
+        $id = $this->docente->pesquisar(Session::get('pessoa'));
+        $dados = array("modulo" => $id->getModulo()->getId(), "estado" => "FECHADO");
+        if ($this->view->dados=$this->matricula->pesquisaPor($dados)) {
+            $this->view->renderizar("index1");
+        }
     }
 
 }

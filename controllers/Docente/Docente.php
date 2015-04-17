@@ -20,10 +20,11 @@ class Docente extends Controller implements Dao {
 
     public function __construct() {
         Session::nivelRestrito(array("administrador"));
-        parent::__construct();
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
         $this->usuario = $this->LoadModelo('Usuario');
+         parent::__construct();
+         $this->view->setJs(array("novo"));
     }
 
     public function index() {
@@ -93,6 +94,12 @@ class Docente extends Controller implements Dao {
                 exit;
             }
 
+            if (!$this->getSqlverifica('modulo')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor escolha um modulo");
+                echo json_encode($ret);
+                exit;
+            }
+
 
             $this->pessoa->setNome($this->view->dados['nome'] . " " . $this->view->dados['nome1']);
             $this->pessoa->setGenero($this->view->dados['genero']);
@@ -106,12 +113,13 @@ class Docente extends Controller implements Dao {
             $this->docente->setGrau($this->view->dados['grau']);
 
             $id = $this->pessoa->adicionar($this->pessoa);
+            $dad = array("pessoa" => $id, "modulo" => $this->view->dados['modulo']);
             if (!is_int($id)) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
                 echo json_encode($ret);
                 exit;
             }
-            $id1 = $this->docente->adiciona($this->docente, $id);
+            $id1 = $this->docente->adiciona($this->docente, $dad);
             if (!$id) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
                 echo json_encode($ret);
@@ -153,92 +161,92 @@ class Docente extends Controller implements Dao {
         //if ($this->filtraInt($id)) {
 
 
-            if ($this->getInt('enviar') == 1) {
-                $this->view->dados = $_POST;
+        if ($this->getInt('enviar') == 1) {
+            $this->view->dados = $_POST;
 
 
-                if (!$this->getSqlverifica('nome')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
-                    echo json_encode($ret);
-                    exit;
-                }
+            if (!$this->getSqlverifica('nome')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
+                echo json_encode($ret);
+                exit;
+            }
 
 
-                if (!$this->getSqlverifica('genero')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
-                    echo json_encode($ret);
-                    exit;
-                }
+            if (!$this->getSqlverifica('genero')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
+                echo json_encode($ret);
+                exit;
+            }
 
-                if (!$this->getSqlverifica('bi')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero do BI");
-                    echo json_encode($ret);
-                    exit;
-                }
+            if (!$this->getSqlverifica('bi')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero do BI");
+                echo json_encode($ret);
+                exit;
+            }
 
-                if (!$this->verificarBi($this->view->dados['bi'])) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero de BI valido");
-                    echo json_encode($ret);
-                    exit;
-                }
-
-
-
-                if (!$this->getSqlverifica('nacionalidade')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
-                    echo json_encode($ret);
-                    exit;
-                }
-
-                if (!$this->getSqlverifica('telefone')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um numero de telefone");
-                    echo json_encode($ret);
-                    exit;
-                }
-
-                if (!$this->getSqlverifica('email')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um email");
-                    echo json_encode($ret);
-                    exit;
-                }
-
-                if (!$this->getSqlverifica('grau')) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma gra");
-                    echo json_encode($ret);
-                    exit;
-                }
+            if (!$this->verificarBi($this->view->dados['bi'])) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero de BI valido");
+                echo json_encode($ret);
+                exit;
+            }
 
 
-                $this->pessoa->setNome($this->view->dados['nome']);
-                $this->pessoa->setGenero($this->view->dados['genero']);
-                $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
-                $this->pessoa->setTelefone($this->view->dados['telefone']);
-                $this->pessoa->setEmail($this->view->dados['email']);
-                $this->pessoa->setBi($this->view->dados['bi']);
-                $this->pessoa->setId($this->view->dados['pessoa']);
+
+            if (!$this->getSqlverifica('nacionalidade')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
+                echo json_encode($ret);
+                exit;
+            }
+
+            if (!$this->getSqlverifica('telefone')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um numero de telefone");
+                echo json_encode($ret);
+                exit;
+            }
+
+            if (!$this->getSqlverifica('email')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um email");
+                echo json_encode($ret);
+                exit;
+            }
+
+            if (!$this->getSqlverifica('grau')) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma gra");
+                echo json_encode($ret);
+                exit;
+            }
+
+
+            $this->pessoa->setNome($this->view->dados['nome']);
+            $this->pessoa->setGenero($this->view->dados['genero']);
+            $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
+            $this->pessoa->setTelefone($this->view->dados['telefone']);
+            $this->pessoa->setEmail($this->view->dados['email']);
+            $this->pessoa->setBi($this->view->dados['bi']);
+            $this->pessoa->setId($this->view->dados['pessoa']);
 
 //Aluno//
-                $this->docente->setGrau($this->view->dados['grau']);
+            $this->docente->setGrau($this->view->dados['grau']);
 
-                $id = $this->pessoa->editar1($this->pessoa);
-                if (!$id) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
-                    echo json_encode($ret);
-                    exit;
-                }
-                $this->docente->setId($this->view->dados['id']);
-                $id1 = $this->docente->editar($this->docente);
-                if (!$id1) {
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
-                    echo json_encode($ret);
-                    exit;
-                } else {
-
-                    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
-                    echo json_encode($ret);
-                    exit;
-                }
+            $id = $this->pessoa->editar1($this->pessoa);
+            if (!$id) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
+                echo json_encode($ret);
+                exit;
             }
+            $this->docente->setId($this->view->dados['id']);
+            $id1 = $this->docente->editar($this->docente);
+            if (!$id1) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
+                echo json_encode($ret);
+                exit;
+            } else {
+
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                echo json_encode($ret);
+                exit;
+            }
+        }
         //}
     }
 
