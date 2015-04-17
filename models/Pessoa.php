@@ -193,7 +193,10 @@ class Pessoa extends Doctrine implements Dao {
     }
 
     public function remover($id = FALSE) {
-        
+        $id = $this->em->getPartialReference('models\Pessoa', $id);
+        $this->em->remove($id);
+        $this->em->flush();
+        return TRUE;
     }
 
 }

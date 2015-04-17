@@ -63,7 +63,7 @@ class Diploma implements Documento {
     public function getBody() {
 
         $nome = $this->getNome();
-        $data = $this->getData();
+        $data = date("d-m-Y",  strtotime($this->getData()));
         $modulo = $this->getModulo();
 
 

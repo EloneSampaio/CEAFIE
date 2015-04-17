@@ -174,21 +174,21 @@ class Matricula extends Controller implements Dao {
                 echo json_encode($ret);
                 exit;
             }
-            
+
 
             $id2 = $this->matricula->adiciona($this->matricula, $id1, $this->view->dados['curso'], $this->view->dados['modulo']);
-            if (!$id2) {
+            if (!is_int($id2)) {
                 $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
                 echo json_encode($ret);
                 exit;
             }
+            $mt = $this->aluno->pesquisar($id1);
 
-            $mt = $this->matricula->pesquisar($id2);
             $login = $this->view->dados['nome1'] . rand(5, 10);
             $this->usuario->setLogin($login);
             $this->usuario->setSenha(\application\Hash::getHash("md5", $dados['nome1'] . $login, HASH_KEY));
             $this->usuario->setNivel("aluno");
-            $id12 = $this->usuario->adiciona($this->usuario, $mt->getAluno()->getPessoa()->getId());
+            $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
             if (!is_int($id12)) {
                 $ret = Array("mensagem" => "Erro ao criar usuario");
                 echo json_encode($ret);

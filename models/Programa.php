@@ -174,6 +174,25 @@ class Programa extends Doctrine implements Dao {
         
     }
 
+    public function editar1($d = FALSE, $v = FALSE) {
+        //  var_dump($v);
+//        $curso = $this->em->find('models\Curso', $v['curso']);
+//        $modulo = $this->em->find('models\Modulo', $v['modulo']);
+//        $docente = $this->em->find('models\Docente', $v['docente']);
+        $editar = $this->em->getRepository('models\Programa')->find(array('id' => $v['id']));
+        //\Doctrine\Common\Util\Debug::dump($editar); exit;
+//        $editar->setCurso($curso);
+//        $editar->setModulo($modulo);
+//        $editar->setDocente($docente);
+        $editar->setData($d->getData());
+        $editar->setDatafinal($d->getDatafinal());
+        $editar->setLocal($d->getLocal());
+        $editar->setHoras($d->getHoras());
+        $this->em->merge($editar);
+        $this->em->flush();
+        return TRUE;
+    }
+
     public function pesquisaPor($dados = FALSE) {
         
     }
@@ -181,7 +200,7 @@ class Programa extends Doctrine implements Dao {
     public function pesquisar($id = FALSE) {
         if ($id) {
 
-            return $this->em->getRepository('models\Nota')->findBy(array('id' => $id));
+            return $this->em->getRepository('models\Programa')->findOneBy(array('id' => $id));
             $this->em->flush();
         } else {
             return $this->em->getRepository('models\Programa')->findby(array(), array('id' => "DESC"));

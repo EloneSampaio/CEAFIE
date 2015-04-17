@@ -122,9 +122,11 @@ class Nota extends Doctrine implements Dao {
                 ->leftJoin('models\Nota', 'n', 'WITH', 'n.aluno=a.id')
                 ->where('m.curso =:curso')
                 ->andWhere('m.modulo =:modulo')
+                ->andWhere('m.estado =:estado')
                 ->orderBy('a.id', 'DESC')
                 ->setParameter('curso', $dados['0'])
-                ->setParameter('modulo', $dados['1']);
+                ->setParameter('modulo', $dados['1'])
+                ->setParameter('estado', $dados['2']);
 
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }

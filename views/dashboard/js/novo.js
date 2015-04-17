@@ -16,6 +16,7 @@ $(document).ready(function () {
     editarCurso1();
     editarModulo1();
     editarPrograma1();
+    editarUsuario1();
 
 
 
@@ -136,12 +137,12 @@ function remover() {
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
-
+            console.log(id);
             $.post(id)
                     .done(function (data) {
                         alert("Dados apagado com sucesso");
 
-                        setTimeout("$('#pageContent').load('" + id + "', function(){ $('#imagem').hide(); });", 1000);
+                        //setTimeout("$('#pageContent').load('" + id + "', function(){ $('#imagem').hide(); });", 1000);
                     });
         }
         else {
@@ -218,6 +219,19 @@ function editarPrograma1() {
         var url = "http://localhost/uan/programa/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
+
+    });
+}
+
+
+
+function editarUsuario1() {
+
+    $(document).on('click', '#usuario1', function () {
+        var id = $(this).attr('rel');
+       // var url = "http://localhost/uan/usuario/editarDados/" + id;
+        console.log(id);
+        setTimeout("$('#pageContent').load('" + id + "', function(){ $('#imagem').hide(); });", 1000);
 
     });
 }

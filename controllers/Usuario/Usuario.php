@@ -20,7 +20,7 @@ class Usuario extends Controller implements Dao {
     private $pessoa;
 
     public function __construct() {
-         Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("administrador"));
         parent::__construct();
         $this->usuario = $this->LoadModelo("Usuario");
         $this->pessoa = $this->LoadModelo("Pessoa");
@@ -48,7 +48,7 @@ class Usuario extends Controller implements Dao {
         if ($this->getInt('enviar') == 1) {
             $dados = $_POST;
 
-            
+
             if (!$this->getInt('pessoa')) {
                 $this->view->erro = "Porfavor Introduza um nome valido ";
                 $this->view->renderizar("novo");
@@ -85,10 +85,10 @@ class Usuario extends Controller implements Dao {
             $this->usuario->setLogin($dados['login']);
             $this->usuario->setNivel($dados['nivel']);
             $this->usuario->setSenha(Hash::getHash('md5', $dados['senha'], HASH_KEY));
-            
 
 
-            if (!$this->usuario->adiciona($this->usuario,$dados['pessoa'])) {
+
+            if (!$this->usuario->adiciona($this->usuario, $dados['pessoa'])) {
                 $this->view->erro = "Não Foi Possivel  Concretizar a operção  tenta mais tarde!";
                 $this->view->renderizar("index");
                 exit;
@@ -106,7 +106,57 @@ class Usuario extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-        
+
+
+
+        if ($this->getInt('enviar') == 1) {
+            $dados = $_POST;
+
+
+
+            if (!$this->getSqlverifica('login')) {
+                $this->view->erro = "Porfavor Introduza um login valido ";
+                $this->view->renderizar("novo");
+                exit;
+            }
+//            $login = $this->getSqlverifica('login');
+//            $c = $this->usuario->listarLogin($login);
+//            if ($c) {
+//                $this->view->erro = "O usuario já esta registrado.";
+//                $this->view->renderizar("novo");
+//                exit;
+//            }
+
+            if (!$this->getSqlverifica('nivel')) {
+                $this->view->erro = "Porfavor Selecciona um nivel para o usuario ";
+                $this->view->renderizar("novo");
+                exit;
+            }
+
+            if (!$this->alphaNumeric('senha')) {
+                $this->view->erro = "Porfavor introduza uma senha valida para o  usuario ";
+                $this->view->renderizar("novo");
+                exit;
+            }
+
+
+
+            $this->usuario->setLogin($dados['login']);
+            $this->usuario->setNivel($dados['nivel']);
+            $this->usuario->setSenha(Hash::getHash('md5', $dados['senha'], HASH_KEY));
+            $this->usuario->setId($dados['id']);
+
+            if (!$this->usuario->editar($this->usuario)) {
+                $ret = Array("mensagem" => "Erro ao criar usuario");
+                echo json_encode($ret);
+                exit;
+            } else {
+
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                echo json_encode($ret);
+                exit;
+            }
+        }
     }
 
     public function pesquisaPor($dados = FALSE) {
@@ -119,7 +169,15 @@ class Usuario extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-        
+        if ($this->filtraInt($id)) {
+            $this->pessoa->remover($id);
+            return TRUE;
+        }
+    }
+
+    public function editarDados($id = FALSE) {
+        $this->view->dados = $this->usuario->pesquisar($id);
+        $this->view->renderizar('editarDados');
     }
 
 }

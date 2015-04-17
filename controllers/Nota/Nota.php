@@ -100,6 +100,7 @@ class Nota extends Controller implements Dao {
 
             $dados[] = $this->getInt('curso');
             $dados[] = $this->getInt('modulo');
+            $dados[] = "FECHADO";
             $this->view->dados = $this->nota->pesquisaPor($dados);
         }
         $this->view->renderizar('index');

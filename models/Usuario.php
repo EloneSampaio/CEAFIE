@@ -115,7 +115,13 @@ class Usuario extends Doctrine implements Dao {
     }
 
     public function editar($id = FALSE) {
-        
+        $editar = $this->em->getRepository('models\Usuario')->find(array('id' => $id->getId()));
+        $editar->setLogin($id->getLogin());
+        $editar->setSenha($id->getSenha());
+        $editar->setNivel($id->getNivel());
+        $this->em->merge($editar);
+        $this->em->flush();
+        return TRUE;
     }
 
     public function pesquisaPor($dados = FALSE) {

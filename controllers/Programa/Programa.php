@@ -25,7 +25,7 @@ class Programa extends Controller implements Dao {
     private $docente;
 
     public function __construct() {
-         Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("administrador"));
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
@@ -115,6 +115,84 @@ class Programa extends Controller implements Dao {
         $this->view->renderizar("novo");
     }
 
+    public function editar1($dados = FALSE) {
+
+        if ($this->getInt('enviar')) {
+
+            $dados = $_POST;
+//            if (!$this->getSqlverifica('curso')) {
+//                $ret = Array("mensagem" => "Porfavor Escolha um curso");
+//                echo json_encode($ret);
+//                exit;
+//            }
+//
+//            if (!$this->getSqlverifica('modulo')) {
+//                $ret = Array("Porfavor Escolha um modulo");
+//                echo json_encode($ret);
+//                exit;
+//            }
+//
+//            if (!$this->getSqlverifica('docente')) {
+//                $ret = Array("mensagem" => "Porfavor Escolha uma docente");
+//                echo json_encode($ret);
+//                exit;
+//            }
+
+
+            if (!$this->getSqlverifica('local')) {
+                $ret = Array("mensagem" => "Porfavor Escolha um local");
+                echo json_encode($ret);
+                exit;
+            }
+
+
+            if (!$this->getSqlverifica('termino')) {
+                $ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
+                echo json_encode($ret);
+                exit;
+            }
+
+            if (!$this->getSqlverifica('inicio')) {
+                $ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
+                echo json_encode($ret);
+                exit;
+            }
+
+
+            if (!$this->getSqlverifica('hora')) {
+                $ret = Array("mensagem" => "Porfavor Escolha uma hora");
+                echo json_encode($ret);
+                exit;
+            }
+            $format = 'd-m-Y';
+            $inicio = DateTime::createFromFormat($format, $dados['inicio']);
+            $fim = DateTime::createFromFormat($format, $dados['termino']);
+
+            if ($fim->format($format) < $inicio->format($format)) {
+                $ret = Array("mensagem" => "Verifica as Datas");
+                echo json_encode($ret);
+                exit;
+            }
+            $this->programa->setHoras($dados['hora']);
+            $this->programa->setData($dados['inicio']);
+            $this->programa->setLocal($dados['local']);
+            $this->programa->setDatafinal($dados['termino']);
+
+            if ($this->programa->editar1($this->programa, $dados)) {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
+                echo json_encode($ret);
+                exit;
+            } else {
+                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
+                echo json_encode($ret);
+                exit;
+            }
+        }
+
+
+        $this->view->renderizar("editar");
+    }
+
     public function editar($id = FALSE) {
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("editar");
@@ -138,11 +216,10 @@ class Programa extends Controller implements Dao {
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("remover");
     }
-    
-       public function editarDados($id = FALSE) {
+
+    public function editarDados($id = FALSE) {
         $this->view->dados = $this->programa->pesquisar($id);
         $this->view->renderizar('editarDados');
     }
-
 
 }

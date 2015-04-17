@@ -15,7 +15,7 @@ function selected($value, $selected) {
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>matricula/editar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form action="<?php print URL; ?>matricula/editar" id="adicionar" class="form-horizontal" method="POST" >
                         <fieldset>
                             <legend>Dados Pessoas</legend>
                             <?php if (isset($this->dados) && !empty($this->dados)): ?>
@@ -66,14 +66,7 @@ function selected($value, $selected) {
                                     </div>
                                 </div>
 
-                                <div class="control-group">
-                                    <label class="control-label">BI<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input name="documento" id="documento" class="span6 m-wrap" type="file" value="<?php print $this->dados->getAluno()->getPessoa()->getDocumento(); ?>" />
-                                    </div>
-                                </div>
-                            </fieldset>
-
+                            
 
                             <fieldset>
                                 <legend>Dados Académicos</legend>
@@ -140,7 +133,7 @@ function selected($value, $selected) {
                                 <div class="control-group">
                                     <label class="control-label">Curso<span class="required">*</span></label>
                                     <div class="controls">
-                                        <select class="span6 m-wrap" id="curso1" name="curso">
+                                        <select class="span6 m-wrap" id="curso12" name="curso12">
                                             <option value="CAP" <?php echo selected($this->dados->getCurso()->getNome(), "CAP") ?> >CAP</option>
                                             <option value="CEPAC" <?php echo selected($this->dados->getCurso()->getNome(), "CEPAC") ?>>CEPAC</option>
                                             <option value="CEPID" <?php echo selected($this->dados->getCurso()->getNome(), "CEPID") ?>>CEPID</option>
@@ -154,7 +147,7 @@ function selected($value, $selected) {
                                 <div class="control-group">
                                         <label class="control-label">Modulo<span class="required">*</span></label>
                                     <div class="controls">
-                                        <select class="span6 m-wrap" id="modulo1" name="modulo">
+                                        <select class="span6 m-wrap" id="modulo12" name="modulo12">
                                             <option value="<?php $this->dados->getModulo()->getNome() ?>"><?php echo $this->dados->getModulo()->getNome() ?></option>
                                         </select>
                                     </div>

@@ -30,12 +30,12 @@ class Dashboard extends Controller {
         $this->view->saudacao = " O Seu Login foi feito com sucesso";
 
         $total = $this->nota->totalAlunos();
-        $this->view->cap = $this->nota->pesquisaCurso("CAP")/$total;
-        $this->view->cepac = $this->nota->pesquisaCurso("CEPAC")/$total;
-        $this->view->cepid = $this->nota->pesquisaCurso("CEPID")/$total;
-        $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente"))/$total;
-        $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom"))/$total;
-        $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente"))/$total;
+        $this->view->cap = $this->nota->pesquisaCurso("CAP")/($total ==0 ? 1 : $total);
+        $this->view->cepac = $this->nota->pesquisaCurso("CEPAC")/($total ==0 ? 1 : $total);
+        $this->view->cepid = $this->nota->pesquisaCurso("CEPID")/($total ==0 ? 1 : $total);
+        $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente"))/($total ==0 ? 1 : $total);
+        $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom"))/($total ==0 ? 1 : $total);
+        $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente"))/($total ==0 ? 1 : $total);
         $this->view->total = $this->view->cap + $this->view->cepac + $this->view->cepid;
         $this->view->total1 = $this->view->excelente + $this->view->bom;
 
