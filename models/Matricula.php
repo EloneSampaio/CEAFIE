@@ -30,6 +30,15 @@ class Matricula extends Doctrine implements Dao {
      * @ORM\Column(name="data", type="string", length=45, nullable=false)
      */
     private $data;
+    
+    
+    
+      /**
+     * @var string
+     *
+     * @ORM\Column(name="ano", type="string", length=45, nullable=false)
+     */
+    private $ano;
 
     /**
      * @var string
@@ -66,7 +75,18 @@ class Matricula extends Doctrine implements Dao {
      * })
      */
     private $modulo;
+    
+    
+    
+    function getAno() {
+        return $this->ano;
+    }
 
+    function setAno($ano) {
+        $this->ano = $ano;
+    }
+
+    
     function getId() {
         return $this->id;
     }
@@ -166,6 +186,25 @@ class Matricula extends Doctrine implements Dao {
 
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+    
+   
+    public function pesquisaPorData($dados = FALSE) {
+       
+        $qb = $this->em->createQueryBuilder()
+                ->select('p.nome', 'p.bi', 'm.estado','c.nome','md.nome')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->leftJoin('models\Modulo', 'md', 'WITH', 'm.modulo=md.id')
+                ->leftJoin('models\Curso', 'c', 'WITH', 'md.curso=c.id')
+                ->andWhere('m.ano =:ano')
+                ->orderBy('m.id', 'DESC')
+                ->setParameter('ano', $dados);
+
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+   
+    
 
     public function pesquisar($id = FALSE) {
         if ($id) {

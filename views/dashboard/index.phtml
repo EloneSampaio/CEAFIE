@@ -1,73 +1,43 @@
-<?php
-
-use application\Session; ?>
-<header id="header">
-    <hgroup>
-        <h1 class="site_title"><a href="index.html">
-                <?php if (Session::get('nivel') == "administrador"): ?>
-                    <a class="brand" href="#">Painel de Administração</a>
-                <?php endif; ?>
-
-                <?php if (Session::get('nivel') == "docente"): ?>
-                    <a class="brand" href="#">Painel de Docente</a>
-                <?php endif; ?>
-
-                <?php if (Session::get('nivel') == "aluno"): ?>
-                    <a class="brand" href="#">Painel de Aluno</a>
-                <?php endif; ?>
-
-            </a>
-        </h1>
-        <h2 class="section_title">Dashboard</h2>
-    </hgroup>
-</header> <!-- end of header bar -->
-
-<section id="secondary_bar">
-    <div class="user">
-        <p><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
-        <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
-    </div>
-    <div class="breadcrumbs_container">
-        <article class="breadcrumbs"><a href="<?php print URL ?>dashboard">Menu Principal</a> <div class="breadcrumb_divider"></div> <a class="current">Dashboard</a></article>
-    </div>
-</section><!-- end of secondary bar -->
+<?php echo $this->menu;?>
 
 <aside id="sidebar" class="column">
     <hr/>
     <h3>Aluno</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a  href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "index/" ?>">Ver</a></li>
-        <li class="icn_new_article"><a  href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>">Novo</a></li>
-        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "editar/" ?>">Editar</a></li>
-        <li class="icn_jump_back"><a   href="#" class="click" rel="<?php echo URL . "matricula" . DS1 . "remover/" ?>">Apagar</a></li>
+        <li class="icn_categories"><a  href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="" rel="<?php echo URL . "matricula" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a  href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>" class="" rel="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="" rel="<?php echo URL . "matricula" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a   href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="" rel="<?php echo URL . "matricula" . DS1 . "remover/" ?>">Apagar</a></li>
     </ul>
     <h3>Docente</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "index/" ?>">Ver</a></li>
-        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "adicionar/" ?>">Novo</a></li>
-        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "editar/" ?>">Editar</a></li>
-        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "docente" . DS1 . "remover/" ?>">Apagar</a></li>
+        <li class="icn_categories"><a   href="<?php echo URL . "docente" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "docente" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="click" rel="<?php echo URL . "docente" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="click" rel="<?php echo URL . "docente" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="click" rel="<?php echo URL . "docente" . DS1 . "remover/" ?>">Apagar</a></li>
     </ul>
     <h3>Curso</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "index/" ?>">Ver</a></li>
-        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "adicionar/" ?>">Novo</a></li>
-        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "editar/" ?>">Editar</a></li>
-        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "curso" . DS1 . "remover/" ?>">Apagar</a></li>
+        <li class="icn_categories"><a   href="<?php echo URL . "curso" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "curso" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="<?php echo URL . "curso" . DS1 . "adicionar/" ?>" class="click" rel="<?php echo URL . "curso" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "curso" . DS1 . "editar/" ?>" class="click" rel="<?php echo URL . "curso" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="<?php echo URL . "curso" . DS1 . "remover/" ?>" class="click" rel="<?php echo URL . "curso" . DS1 . "remover/" ?>">Apagar</a></li>
     </ul>
 
     <h3>Modúlo</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "modulo" . DS1 . "index/" ?>">Ver</a></li>
-        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "modulo" . DS1 . "adicionar/" ?>">Novo</a></li>
-        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "modulo" . DS1 . "editar/" ?>">Editar</a></li>
-       <!---
-        <li class="icn_jump_back"><a href="#" class="click" rel="<?php //echo URL . "modulo" . DS1 . "remover/" ?>">Apagar</a></li>
-       ----->
+        <li class="icn_categories"><a   href="<?php echo URL . "modulo" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "modulo" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="<?php echo URL . "modulo" . DS1 . "adicionar/" ?>" class="click" rel="<?php echo URL . "modulo" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "modulo" . DS1 . "editar/" ?>" class="click" rel="<?php echo URL . "modulo" . DS1 . "editar/" ?>">Editar</a></li>
+        <!---
+         <li class="icn_jump_back"><a href="#" class="click" rel="<?php //echo URL . "modulo" . DS1 . "remover/"     ?>">Apagar</a></li>
+        ----->
     </ul>
 
     <h3>Nota</h3>
     <ul class="toggle">
+        <li class="icn_categories"><a   href="<?php echo URL . "nota" . DS1 . "listar/" ?>" class="" rel="">Ver Notas</a></li>
+
         <li class="icn_categories"><a   href="<?php echo URL . "nota" . DS1 . "index/" ?>" class="" rel="">Lançar Nota</a></li>
         <li class="icn_edit_article"><a href="<?php echo URL . "nota" . DS1 . "editar/" ?>"  class=""rel="">Editar</a></li>
         <li class="icn_jump_back"><a href="<?php echo URL . "nota" . DS1 . "remover/" ?>" class=""rel="">Apagar</a></li>
@@ -75,30 +45,31 @@ use application\Session; ?>
 
     <h3>Programa</h3>
     <ul class="toggle">
-        <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "index/" ?>">Ver</a></li>
-        <li class="icn_new_article"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "adicionar/" ?>">Novo</a></li>
-        <li class="icn_edit_article"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "editar/" ?>">Editar</a></li>
-        <li class="icn_jump_back"><a href="#" class="click" rel="<?php echo URL . "programa" . DS1 . "remover/" ?>">Apagar</a></li>
+        <li class="icn_categories"><a   href="<?php echo URL . "programa" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "programa" . DS1 . "index/" ?>">Ver</a></li>
+        <li class="icn_new_article"><a href="<?php echo URL . "programa" . DS1 . "adicionar/" ?>" class="click" rel="<?php echo URL . "programa" . DS1 . "adicionar/" ?>">Novo</a></li>
+        <li class="icn_edit_article"><a href="<?php echo URL . "programa" . DS1 . "editar/" ?>" class="click" rel="<?php echo URL . "programa" . DS1 . "editar/" ?>">Editar</a></li>
+        <li class="icn_jump_back"><a href="<?php echo URL . "programa" . DS1 . "remover/" ?>" class="click" rel="<?php echo URL . "programa" . DS1 . "remover/" ?>">Apagar</a></li>
     </ul>
 
 </ul>
 
 <h3>Relatorio</h3>
 <ul class="toggle">
-    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "relatorio" . DS1 . "index/" ?>">Por Matricula</a></li>
-    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "relatorio" . DS1 . "index1/" ?>">Por Aproveitamento</a></li>
+    <li class="icn_categories"><a   href="<?php echo URL . "relatorio" . DS1 . "graficoGeral/" ?>" class="click" rel="<?php echo URL . "relatorio" . DS1 . "graficoGeral/" ?>">Grafico</a></li>
+    <li class="icn_categories"><a   href="<?php echo URL . "relatorio" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "relatorio" . DS1 . "index/" ?>">Por Matricula</a></li>
+    <li class="icn_categories"><a   href="<?php echo URL . "relatorio" . DS1 . "aproveitamentoGrafico/" ?>" class="click" rel="<?php echo URL . "relatorio" . DS1 . "aproveitamentoGrafico/" ?>">Por Aproveitamento</a></li>
 </ul>
 
 <h3>Diploma</h3>
 <ul class="toggle">
-    <li class="icn_categories"><a   href="#" class="click" rel="<?php echo URL . "diploma" . DS1 . "index/" ?>">Ver</a></li>
+    <li class="icn_categories"><a   href="<?php echo URL . "diploma" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "diploma" . DS1 . "index/" ?>">Ver</a></li>
 
 </ul>
 
 
 <h3>Admin</h3>
 <ul class="toggle">
-    <li class="icn_settings"><a href="#" class="click" rel="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
+    <li class="icn_settings"><a href="<?php echo URL . "usuario" . DS1 . "index/" ?>" class="click" rel="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
     <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
 </ul>
 
@@ -237,7 +208,7 @@ use application\Session; ?>
 
 
 <div id="pageContent">
-    <div><img src="<?php //print URL                                    ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+    <div><img src="<?php //print URL   ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
 
 </div>
 

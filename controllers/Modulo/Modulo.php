@@ -32,6 +32,8 @@ class Modulo extends Controller implements Dao {
 
         parent::__construct();
         $this->view->setJs(array("novo"));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index() {
@@ -44,26 +46,34 @@ class Modulo extends Controller implements Dao {
             $this->view->dados = $_POST;
 
             if (!$this->getSqlverifica('nome')) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Insira um nome";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('curso')) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Selecciona um dos cursos");
-                echo json_encode($ret);
+                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Selecciona um dos cursos");
+                // echo json_encode($ret);
+                $this->view->erro = "Porfavor Selecciona um dos cursos";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             $this->modulo->setNome($this->view->dados['nome']);
             $id = $this->modulo->adiciona($this->modulo, $this->view->dados);
             if ($id) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
+                //echo json_encode($ret);
+                $this->view->mensagem = "Dados guardado com sucesso";
+                $this->view->renderizar("novo");
                 exit;
             } else {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
-                echo json_encode($ret);
+                $this->view->erro = "Erro ao guardar dados";
+                $this->view->renderizar("novo");
+//$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
+                //echo json_encode($ret);
                 exit;
             }
         }
@@ -73,17 +83,29 @@ class Modulo extends Controller implements Dao {
 
     public function editar($id = FALSE) {
         if ($this->getInt('id')) {
+            if (!$this->getSqlverifica('nome')) {
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Insira um nome";
+                $this->view->renderizar("novo");
+                exit;
+            }
+
             $this->modulo->setNome($this->getSqlverifica('nome'));
             $this->modulo->setId($this->getInt('id'));
             $id = $this->modulo->editar($this->modulo);
             if (!$id) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
-                echo json_encode($ret);
+                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
+                //echo json_encode($ret);
+                $this->view->erro = "Erro ao guardar dados";
+                $this->view->renderizar("novo");
                 exit;
             } else {
 
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
-                echo json_encode($ret);
+                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                // echo json_encode($ret);
+                $this->view->mensagem = "Dados alterados com sucesso";
+                $this->view->renderizar("novo");
                 exit;
             }
         }

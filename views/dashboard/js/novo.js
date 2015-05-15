@@ -5,8 +5,8 @@ $(document).ready(function () {
     $("#imagem").hide();
     open();
     saudacao();
-    grafico();
-    grafico1();
+//    grafico();
+//    grafico1();
     adicionar();
     remover();
     editar();
@@ -65,27 +65,6 @@ function open() {
 
 
 
-function adicionar() {
-
-    $(document).on('submit', '#adicionar', function () {
-        var url = $(this).attr('action');
-        var data = $(this).serialize();
-        console.log(data);
-        $.post(url, data)
-                .done(function (data) {
-                    var json = $.parseJSON(data);
-
-                    alert(json.mensagem);
-                    $('#adicionar').each(function () {
-                        this.reset();
-                    });
-
-                });
-
-        return false;
-    });
-
-}
 
 
 
@@ -331,6 +310,21 @@ function grafico1() {
             }
         }).draw()
 
+    });
+
+}
+
+
+function pesquisar(){
+    
+        $('#pesquisaEstado').change(function () {
+        if ($(this).val()) {
+            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+               console.log(j);
+            });
+        } else {
+           console.log("erro");
+        }
     });
 
 }

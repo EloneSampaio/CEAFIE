@@ -1,89 +1,9 @@
 <?php use application\Session;?>     
-<div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <?php if (Session::get('nivel') == "administrador"): ?>
-                        <a class="brand" href="#">Painel de Administração</a>
-                    <?php endif; ?>
-
-                    <?php if (Session::get('nivel') == "docente"): ?>
-                        <a class="brand" href="#">Painel de Docente</a>
-                    <?php endif; ?>
-
-                    <?php if (Session::get('nivel') == "aluno"): ?>
-                        <a class="brand" href="#">Painel de Aluno</a>
-                    <?php endif; ?>
-
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right">
-                            <li class="dropdown">
-                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> <?php print Session::get('nome'); ?> <i class="caret"></i>
-
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a tabindex="-1" href="<?php echo URL . "matricula" . DS1 . "informacao/" . Session::get('id'); ?>">Perfil</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a tabindex="-1" href="<?php print URL ?>login/logof">Sair</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <ul class="nav">
-                            <?php if (Session::get('nivel') == "administrador"): ?>
-                                <li class="active">
-                                    <a href="<?php print URL ?>dashboard">Dashboard</a>
-                                </li>
-                            <?php endif; ?>
-
-                            <?php if (Session::get('nivel') == "docente"): ?>
-                                <li class="active">
-                                    <a href="<?php print URL ?>dashboard/docente">Dashboard</a>
-                                </li>
-                            <?php endif; ?>
-
-                            <?php if (Session::get('nivel') == "aluno"): ?>
-                                <li class="active">
-                                    <a href="<?php print URL ?>dashboard/aluno">Dashboard</a>
-                                </li>
-                            <?php endif; ?>
-
-
-                            <?php if (isset($_layoutParam["menu"])): ?>
-                                <?php for ($i = 0; $i < count($_layoutParam["menu"]); $i++): ?>
-                                    <?php (($item && $_layoutParam["menu"][$i]["id"] == $item) ? $item_style = "corrent" : $item_style = ""); ?> 
-
-                                    <li class="active" id="<?php print $item_style; ?>"><a href="<?php echo $_layoutParam["menu"][$i]["link"]; ?>"><i class="icon-chevron-right"></i> <?php echo $_layoutParam["menu"][$i]["titulo"]; ?></a></li>
-                                    <?php
-                                endfor;
-                            endif;
-                            ?>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
+<?php echo $this->menu;?>
 
 
 <div class="container alert_info">    
-    <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:40px;">
+    <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:30px;">
         <br /><br /><br />
         <h3 style="font-family:arial; font-weight:bold; font-size:30px;">
             <a style="text-decoration:none; color:#666;" href="#">Pagina de Informação do Aluno</a>
@@ -114,7 +34,7 @@
         </ul>             
     </div> 
 
-    <div style="margin-left: 300px; margin-top: -200px;">
+    <div style="margin-left: 300px; margin-top: -300px;">
 
         <span class="text-center">
 

@@ -15,7 +15,13 @@ use application\Session; ?>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-responsive.min.css" media="screen"/>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap.min.css" media="screen"/> 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>jquery-1.9.1.min.js"></script>       
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>jquery-1.9.1.min.js"></script> 
+
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/media/ZeroClipboard/ZeroClipboard.js"></script>
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/media/js/TableTools.js"></script>
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/js/dataTables.bootstrap.js"></script>
+       
 
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>modernizr-2.6.2-respond-1.1.0.min.js"></script>
        

@@ -89,6 +89,14 @@ class Curso extends Doctrine implements Dao {
         }
     }
 
+    public function pesquisarCurso($id = FALSE) {
+        if ($id) {
+            return $this->em->getRepository('models\Curso')->findOneBy(array('nome' => $id));
+            $this->em->flush();
+            return true;
+        }
+    }
+
     public function remover($id = FALSE) {
         $id = $this->em->getPartialReference('models\Curso', $id);
         $this->em->remove($id);

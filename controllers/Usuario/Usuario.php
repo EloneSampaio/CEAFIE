@@ -25,7 +25,8 @@ class Usuario extends Controller implements Dao {
         $this->usuario = $this->LoadModelo("Usuario");
         $this->pessoa = $this->LoadModelo("Pessoa");
         $this->view->setJs(array("novo"));
-        // $this->view->setCss(array("style"));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     /*
@@ -147,13 +148,19 @@ class Usuario extends Controller implements Dao {
             $this->usuario->setId($dados['id']);
 
             if (!$this->usuario->editar($this->usuario)) {
-                $ret = Array("mensagem" => "Erro ao criar usuario");
-                echo json_encode($ret);
+                // $ret = Array("mensagem" => "Erro ao criar usuario");
+                //echo json_encode($ret);
+                $this->view->erro = "Erro ao criar usuario";
+                $this->view->renderizar("novo");
+
                 exit;
             } else {
 
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
+                //echo json_encode($ret);
+                $this->view->mensagem = "Dados alterados com sucesso";
+                $this->view->renderizar("novo");
+
                 exit;
             }
         }
@@ -173,6 +180,8 @@ class Usuario extends Controller implements Dao {
             $this->pessoa->remover($id);
             return TRUE;
         }
+        $this->view->dados = $this->usuario->pesquisar();
+        $this->view->renderizar("index");
     }
 
     public function editarDados($id = FALSE) {

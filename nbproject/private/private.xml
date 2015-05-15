@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/uan/views/dashboard/index.phtml</file>
-            <file>file:/var/www/html/uan/controllers/Dashboard/Dashboard.php</file>
-            <file>file:/var/www/html/uan/views/aluno/informacao.phtml</file>
-            <file>file:/var/www/html/uan/views/index/css/css.css</file>
-            <file>file:/var/www/html/uan/controllers/Index/Index.php</file>
-            <file>file:/var/www/html/uan/views/dashboard/css/layout.css</file>
-            <file>file:/var/www/html/uan/views/layout/default/header.php</file>
-            <file>file:/var/www/html/uan/views/aluno/materia.phtml</file>
+            <file>file:/var/www/html/uan/views/materia/index.phtml</file>
+            <file>file:/var/www/html/uan/views/layout/default/menu.php</file>
+            <file>file:/var/www/html/uan/views/materia/novo1.phtml</file>
+            <file>file:/var/www/html/uan/views/dashboard/docente.phtml</file>
         </group>
     </open-files>
 </project-private>

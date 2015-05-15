@@ -39,6 +39,8 @@ class Aluno extends Controller {
 
         parent::__construct();
         $this->view->setJs(array("novo"));
+         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+         $this->view->menu=  $this->getFooter('menu');
     }
 
     public function index() {

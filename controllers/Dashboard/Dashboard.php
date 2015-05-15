@@ -20,10 +20,12 @@ class Dashboard extends Controller {
         $this->matricula = $this->LoadModelo('Matricula');
         parent::__construct();
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-        $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight', 'RGraph.bar', 'RGraph.common.core'));
+        $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight'));
+        $this->view->menu=  $this->getFooter('menu');
     }
 
     public function index() {
+        $this->view->titulo="Dashboard";
         Session::nivelRestrito(array("administrador"));
         $this->view->titulo = "Pagina de Administracção";
         $this->view->mensage = "Seja BemVindo " . Session::get('nome');

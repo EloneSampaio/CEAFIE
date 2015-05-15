@@ -4,14 +4,18 @@ $(document).ready(function () {
         cursos();
     }, 50)
     modulos();
+    pesquisarEstado();
+    pesquisarData();
+    tabela();
+    validar();
+    remover();
+
 
 });
 
 
 
 function cursos() {
-
-
 
     $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
@@ -76,27 +80,6 @@ function resetar() {
 
 
 
-function adicionar() {
-
-    $(document).on('submit', '#adicionar', function () {
-        var url = $(this).attr('action');
-        var data = $(this).serialize();
-        console.log(data);
-        $.post(url, data)
-                .done(function (data) {
-                    var json = $.parseJSON(data);
-                    alert(json.mensagem);
-                    $('#adicionar').each(function () {
-                        this.reset();
-                    });
-                });
-        return false;
-    });
-}
-
-
-
-
 
 function resetar1() {
     $("form").bind("reset", function () {
@@ -130,7 +113,113 @@ function resetar() {
 
 
 
+function pesquisarEstado() {
 
+    $('#pesquisaEstado').change(function () {
+        if ($(this).val()) {
+            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+                console.log(j.id);
+            });
+        } else {
+            console.log("erro");
+        }
+    });
+
+}
+
+
+function pesquisarData() {
+
+    $('#pesquisaData').change(function () {
+        if ($(this).val()) {
+            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+                console.log(j.nome);
+            });
+        } else {
+            console.log("erro");
+        }
+    });
+
+}
+
+
+
+function tabela() {
+
+
+    $('#tabela').dataTable({
+        "pagingType": "full_numbers",
+        "sDom": '<"H"Tlfr>t<"F"ip>',
+        "oTableTools": {
+            "sRowSelect": "multi",
+            "aButtons": ["copy", "csv", "xls", "pdf", "print"]
+        },
+        "bDestroy": true,
+        "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [0, 1]
+            }],
+        "aLengthMenu": [[5, 10, 25, 50, 75, -1], [5, 10, 25, 50, 75, "All"]],
+        "iDisplayLength": 5,
+        "bJQueryUI": true,
+        "oLanguage": {"sLengthMenu":
+                    "Mostrar _MENU_ registros por página",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
+            "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
+            "sInfoFiltered": "(filtrado de _MAX_ registros)",
+            "sSearch": "Pesquisar: ",
+            "oPaginate": {"sFirst": "Início",
+                "sPrevious": "Anterior",
+                "sNext": "Próximo",
+                "sLast": "Último"},
+            "oFilterSelectedOptions": {
+                AllText: "All Widgets",
+                SelectedText: "Selected Widgets"
+            }
+
+        },
+        "aaSorting": [[0, 'desc']],
+        "aoColumnDefs": [{"sType": "num-html", "aTargets": [0]},
+        ]
+
+    });
+}
+
+
+function validar() {
+    var url = "http://localhost/uan/matricula/index";
+    $(document).on('click', '#validar', function () {
+
+        var id = $(this).attr('rel');
+        $.post(id)
+                .done(function (data) {
+                    $(location).attr('href', url);
+                });
+
+
+    });
+}
+
+
+function remover() {
+    var url = "http://localhost/uan/matricula/remover";
+    $(document).on('click', '#remover', function () {
+        if (confirm('Pretendes Apagar este Item?')) {
+            var id = $(this).attr('rel');
+            console.log(id);
+            $.post(id)
+                    .done(function (data) {
+                        alert("Dados apagado com sucesso");
+
+                        $(location).attr('href', url);
+                    });
+        }
+        else {
+            return false;
+        }
+    });
+}
 
 
 

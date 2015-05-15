@@ -31,6 +31,9 @@ class Materia extends Controller implements Dao {
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJS(array('novo'));
+         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+         $this->view->menu=  $this->getFooter('menu');
+         
     }
 
     public function index() {

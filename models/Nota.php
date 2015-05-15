@@ -247,4 +247,16 @@ class Nota extends Doctrine implements Dao {
         return $count;
     }
 
+    public function verNota() {
+        $qb = $this->em->createQueryBuilder()
+        ->select('n.nota', 'p.nome', 'p.bi','m.nome as n1','c.nome as n2')
+        ->from('models\Nota', 'n')
+        ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
+        ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+        ->innerJoin('models\Modulo', 'm', 'WITH', 'n.modulo=m.id')
+        ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id');
+
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
 }

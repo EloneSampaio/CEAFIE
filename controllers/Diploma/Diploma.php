@@ -27,6 +27,9 @@ class Diploma extends Controller {
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         parent::__construct();
+         $this->view->setJs(array("novo"));
+         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+         $this->view->menu=  $this->getFooter('menu');
     }
 
     public function index($id = FALSE) {

@@ -30,6 +30,8 @@ class Programa extends Controller implements Dao {
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJS(array('novo'));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index() {
@@ -43,56 +45,80 @@ class Programa extends Controller implements Dao {
 
             $dados = $_POST;
             if (!$this->getSqlverifica('curso')) {
-                $ret = Array("mensagem" => "Porfavor Escolha um curso");
-                echo json_encode($ret);
+                // $ret = Array("mensagem" => "Porfavor Escolha um curso");
+                // echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha um curso";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('modulo')) {
-                $ret = Array("Porfavor Escolha um modulo");
-                echo json_encode($ret);
+                //$ret = Array("Porfavor Escolha um modulo");
+                //echo json_encode($ret);
+
+                $this->view->erro = "Porfavor Escolha um modulo";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('docente')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma docente");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha um docente");
+                //echo json_encode($ret);
+
+                $this->view->erro = "Porfavor Escolha um docente";
+                $this->view->renderizar("novo");
                 exit;
             }
 
 
             if (!$this->getSqlverifica('local')) {
-                $ret = Array("mensagem" => "Porfavor Escolha um local");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha um local");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha um local";
+                $this->view->renderizar("novo");
+
                 exit;
             }
 
 
             if (!$this->getSqlverifica('termino')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
+                //echo json_encode($ret);
+
+                $this->view->erro = "Porfavor Escolha uma data de termino";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('inicio')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha uma data de inicio";
+                $this->view->renderizar("novo");
                 exit;
             }
 
 
             if (!$this->getSqlverifica('hora')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma hora");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma hora");
+                //echo json_encode($ret);
+
+                $this->view->erro = "Porfavor Escolha uma hora";
+                $this->view->renderizar("novo");
                 exit;
             }
+
+
             $format = 'd-m-Y';
             $inicio = DateTime::createFromFormat($format, $dados['inicio']);
             $fim = DateTime::createFromFormat($format, $dados['termino']);
 
             if ($fim->format($format) < $inicio->format($format)) {
-                $ret = Array("mensagem" => "Verifica as Datas");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Verifica as Datas");
+                //echo json_encode($ret);
+                $this->view->erro = "Verifica as Datas";
+                $this->view->renderizar("novo");
+
                 exit;
             }
             $this->programa->setHoras($dados['hora']);
@@ -101,12 +127,17 @@ class Programa extends Controller implements Dao {
             $this->programa->setDatafinal($dados['termino']);
 
             if ($this->programa->adiciona($this->programa, $dados)) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
+                //echo json_encode($ret);
+                $this->view->mensagem = "Dados guardados com sucesso";
+                $this->view->renderizar("novo");
                 exit;
             } else {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
+                //echo json_encode($ret);
+                $this->view->mensagem = "Erro ao guardar dados";
+                $this->view->renderizar("novo");
+
                 exit;
             }
         }
@@ -140,51 +171,60 @@ class Programa extends Controller implements Dao {
 
 
             if (!$this->getSqlverifica('local')) {
-                $ret = Array("mensagem" => "Porfavor Escolha um local");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha um local");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha um local";
+                $this->view->renderizar("novo");
+
                 exit;
             }
 
 
             if (!$this->getSqlverifica('termino')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
+                //echo json_encode($ret);
+
+                $this->view->erro = "Porfavor Escolha uma data de termino";
+                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('inicio')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
-                echo json_encode($ret);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha uma data de inicio";
+                $this->view->renderizar("novo");
                 exit;
             }
 
 
             if (!$this->getSqlverifica('hora')) {
-                $ret = Array("mensagem" => "Porfavor Escolha uma hora");
-                echo json_encode($ret);
-                exit;
-            }
-            $format = 'd-m-Y';
-            $inicio = DateTime::createFromFormat($format, $dados['inicio']);
-            $fim = DateTime::createFromFormat($format, $dados['termino']);
+                //$ret = Array("mensagem" => "Porfavor Escolha uma hora");
+                //echo json_encode($ret);
 
-            if ($fim->format($format) < $inicio->format($format)) {
-                $ret = Array("mensagem" => "Verifica as Datas");
-                echo json_encode($ret);
+                $this->view->erro = "Porfavor Escolha uma hora";
+                $this->view->renderizar("novo");
                 exit;
             }
+
             $this->programa->setHoras($dados['hora']);
             $this->programa->setData($dados['inicio']);
             $this->programa->setLocal($dados['local']);
             $this->programa->setDatafinal($dados['termino']);
 
             if ($this->programa->editar1($this->programa, $dados)) {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
-                echo json_encode($ret);
+                //    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
+                //   echo json_encode($ret);
+                $this->view->mensagem = "Dados guardados com sucesso";
+                $this->view->renderizar("novo");
+
                 exit;
             } else {
-                $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
-                echo json_encode($ret);
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
+                //echo json_encode($ret);
+                $this->view->erro = "Erro ao guardar dados";
+                $this->view->renderizar("novo");
+
                 exit;
             }
         }

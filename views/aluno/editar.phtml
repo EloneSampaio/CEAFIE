@@ -1,4 +1,5 @@
-<div class="span10 " id="content" style="margin-left: 220px;">
+<?php echo $this->menu;?>
+<div class="span10 " id="content" style="margin-left: 420px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
@@ -30,7 +31,7 @@
                                 <td><?php print $dados->getPessoa()->getNome(); ?></td>
                                 <td><?php print $dados->getLogin(); ?></td>
                                 <td>*********</td>
-                                <td><a href="#">Faça o seu pedido aqui</a></td>
+                                <td><a href="#">Alterar</a></td>
                             </tr>
 
                         </tbody>
@@ -38,7 +39,7 @@
                 <?php else: ?>
                     <h2 class="text-center text-error">Dados não encontrado</h2>
                 <?php endif; ?>
-                <?php if (isset($this->paginacao) && !empty($this->paginacao)) echo $this->paginacao; ?>
+               
             </div>
         </div>
     </div>

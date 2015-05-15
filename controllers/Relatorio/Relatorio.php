@@ -26,6 +26,9 @@ class Relatorio extends Controller {
         Session::nivelRestrito(array("administrador"));
         $this->nota = $this->LoadModelo('Nota');
         parent::__construct();
+         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->setJs(array('novo','RGraph.bar', 'RGraph.common.core'));
+         $this->view->menu=  $this->getFooter('menu');
     }
 
     public function index() {
@@ -51,7 +54,7 @@ class Relatorio extends Controller {
         }
     }
 
-    public function index1() {
+    public function aproveitamentoGrafico() {
 
         $dados = $_POST;
         if (!$this->getInt('enviar')) {
@@ -72,6 +75,20 @@ class Relatorio extends Controller {
                 $this->view->renderizar("index1");
                 break;
         }
+    }
+
+    public function graficoGeral() {
+        
+         $total = $this->nota->totalAlunos();
+        $this->view->cap = $this->nota->pesquisaCurso("CAP")/($total ==0 ? 1 : $total);
+        $this->view->cepac = $this->nota->pesquisaCurso("CEPAC")/($total ==0 ? 1 : $total);
+        $this->view->cepid = $this->nota->pesquisaCurso("CEPID")/($total ==0 ? 1 : $total);
+        $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente"))/($total ==0 ? 1 : $total);
+        $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom"))/($total ==0 ? 1 : $total);
+        $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente"))/($total ==0 ? 1 : $total);
+        $this->view->total = $this->view->cap + $this->view->cepac + $this->view->cepid;
+        $this->view->total1 = $this->view->excelente + $this->view->bom;
+        $this->view->renderizar("index2");
     }
 
     public function grafico($dados = FALSE) {

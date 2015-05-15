@@ -37,6 +37,8 @@ class Nota extends Controller implements Dao {
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJs(array("novo"));
+         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+         $this->view->menu=  $this->getFooter('menu');
     }
 
     public function index() {
@@ -63,7 +65,7 @@ class Nota extends Controller implements Dao {
 
             $this->nota->adicionar($this->nota);
         }
-        
+
         $this->view->renderizar('index');
     }
 
@@ -146,9 +148,14 @@ class Nota extends Controller implements Dao {
 
         $id = $this->docente->pesquisar(Session::get('pessoa'));
         $dados = array("modulo" => $id->getModulo()->getId(), "estado" => "FECHADO");
-        if ($this->view->dados=$this->matricula->pesquisaPor($dados)) {
+        if ($this->view->dados = $this->matricula->pesquisaPor($dados)) {
             $this->view->renderizar("index1");
         }
+    }
+
+    public function listar() {
+        $this->view->nota = $this->nota->verNota();
+        $this->view->renderizar("notas");
     }
 
 }
