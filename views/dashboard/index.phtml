@@ -1,4 +1,12 @@
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
+<?php
+
+use application\Session;
+
+function selected($value, $selected) {
+    return $value == $selected ? ' selected="selected"' : '';
+}
+?>
 
 <aside id="sidebar" class="column">
     <hr/>
@@ -30,7 +38,7 @@
         <li class="icn_new_article"><a href="<?php echo URL . "modulo" . DS1 . "adicionar/" ?>" class="click" rel="<?php echo URL . "modulo" . DS1 . "adicionar/" ?>">Novo</a></li>
         <li class="icn_edit_article"><a href="<?php echo URL . "modulo" . DS1 . "editar/" ?>" class="click" rel="<?php echo URL . "modulo" . DS1 . "editar/" ?>">Editar</a></li>
         <!---
-         <li class="icn_jump_back"><a href="#" class="click" rel="<?php //echo URL . "modulo" . DS1 . "remover/"     ?>">Apagar</a></li>
+         <li class="icn_jump_back"><a href="#" class="click" rel="<?php //echo URL . "modulo" . DS1 . "remover/"            ?>">Apagar</a></li>
         ----->
     </ul>
 
@@ -73,7 +81,16 @@
     <li class="icn_jump_back"><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
 </ul>
 
-
+<form action="dashboard/alteraTema" id="tema">
+    <label for="win-theme-select">
+        <h3>Alterar Tema</h3>
+    </label>
+    
+    <select id="win-theme-select" class="tema" name="tema">
+        <option value="default" <?php echo selected(Session::get('tema'), "default") ?> >Default</option>
+        <option value="metro" <?php echo selected(Session::get('tema'), "metro") ?> >Metro</option>
+    </select>
+</form>
 
 
 <footer>
@@ -87,7 +104,7 @@
 
 <!----Graficos---->
 <div id="esconder">
-    <section id="main" class="column">
+<!--    <section id="main" class="column">
         <div class="spacer"></div>
 
 
@@ -140,10 +157,10 @@
                 </article>
                 <div class="clear"></div>
             </div>
-        </article><!-- end of stats article -->
+        </article> end of stats article 
 
 
-        <!--- Fim dos grafico 1!-->
+        - Fim dos grafico 1!
 
         <article class="module width_full">
             <header><h3>Stats</h3></header>
@@ -194,13 +211,13 @@
                 </article>
                 <div class="clear"></div>
             </div>
-        </article><!-- end of stats article -->
+        </article> end of stats article 
 
-        <!--- Fim dos grafico 2!-->
+        - Fim dos grafico 2!
 
-        <!--FIM DOS GRAFICOS-->
+        FIM DOS GRAFICOS
 
-    </section>
+    </section>-->
 </div>
 
 <?php if (isset($this->saudacao) && !empty($this->saudacao)): endif; ?>
@@ -208,7 +225,7 @@
 
 
 <div id="pageContent">
-    <div><img src="<?php //print URL   ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
+    <div><img src="<?php //print URL          ?>public/img/6.gif" class="img-responsive" style="margin-left: 450px;" id="imagem"/></div>
 
 </div>
 

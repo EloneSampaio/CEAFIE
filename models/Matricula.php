@@ -30,10 +30,8 @@ class Matricula extends Doctrine implements Dao {
      * @ORM\Column(name="data", type="string", length=45, nullable=false)
      */
     private $data;
-    
-    
-    
-      /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="ano", type="string", length=45, nullable=false)
@@ -75,9 +73,7 @@ class Matricula extends Doctrine implements Dao {
      * })
      */
     private $modulo;
-    
-    
-    
+
     function getAno() {
         return $this->ano;
     }
@@ -86,7 +82,6 @@ class Matricula extends Doctrine implements Dao {
         $this->ano = $ano;
     }
 
-    
     function getId() {
         return $this->id;
     }
@@ -140,26 +135,21 @@ class Matricula extends Doctrine implements Dao {
     }
 
     public function adiciona($dados, $aluno, $curso, $modulo) {
-
         $this->em->getConnection()->beginTransaction();
         try {
             $aluno = $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $aluno));
             $dados->setAluno($aluno);
-
             $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $modulo));
             $dados->setModulo($modulo);
-
             $curso = $this->em->getRepository('models\Curso')->findOneBy(array('id' => $curso));
-
             $dados->setCurso($curso);
-
             $this->em->persist($dados);
             $this->em->flush();
             $this->em->getConnection()->commit();
             return $dados->getId();
-        } catch (Exception $ex) {
+        } catch (\Doctrine\ORM\UnexpectedResultException $ex) {
             $this->em->getConnection()->rollBack();
-            throw $ex;
+            echo 'erro' . $ex;
         }
     }
 
@@ -171,7 +161,6 @@ class Matricula extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder()
                 ->select('n.nota', 'p.nome', 'a.id')
                 ->from('models\Matricula', 'm')
@@ -183,15 +172,13 @@ class Matricula extends Doctrine implements Dao {
                 ->orderBy('a.id', 'DESC')
                 ->setParameter('modulo', $dados['modulo'])
                 ->setParameter('estado', $dados['estado']);
-
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-    
-   
+
     public function pesquisaPorData($dados = FALSE) {
-       
+
         $qb = $this->em->createQueryBuilder()
-                ->select('p.nome', 'p.bi', 'm.estado','c.nome','md.nome')
+                ->select('p.nome', 'p.bi', 'm.estado', 'c.nome', 'md.nome')
                 ->from('models\Matricula', 'm')
                 ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -200,11 +187,8 @@ class Matricula extends Doctrine implements Dao {
                 ->andWhere('m.ano =:ano')
                 ->orderBy('m.id', 'DESC')
                 ->setParameter('ano', $dados);
-
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-   
-    
 
     public function pesquisar($id = FALSE) {
         if ($id) {

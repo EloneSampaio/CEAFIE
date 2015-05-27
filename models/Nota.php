@@ -113,7 +113,6 @@ class Nota extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder()
                 ->select('n.nota', 'p.nome', 'a.id')
                 ->from('models\Matricula', 'm')
@@ -123,19 +122,18 @@ class Nota extends Doctrine implements Dao {
                 ->where('m.curso =:curso')
                 ->andWhere('m.modulo =:modulo')
                 ->andWhere('m.estado =:estado')
+                ->andWhere('m.ano =:ano')
                 ->orderBy('a.id', 'DESC')
                 ->setParameter('curso', $dados['0'])
                 ->setParameter('modulo', $dados['1'])
-                ->setParameter('estado', $dados['2']);
-
+                ->setParameter('estado', $dados['2'])
+                ->setParameter('ano', $dados['3']);
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     public function pesquisar($id = FALSE) {
-
         if ($id) {
-
-            return $this->em->getRepository('models\Nota')->findBy(array('modulo' => $id));
+            return $this->em->getRepository('models\Nota')->findBy(array('modulo' => $id),array('id' => "DESC"));
             $this->em->flush();
         } else {
             return $this->em->getRepository('models\Nota')->findby(array(), array('id' => "DESC"));
@@ -161,7 +159,6 @@ class Nota extends Doctrine implements Dao {
     }
 
     public function pesquisarNotas($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder();
         $qb->select('count(n.id)');
         $qb->from('models\Nota', 'n')
@@ -171,14 +168,11 @@ class Nota extends Doctrine implements Dao {
                 ->andWhere("p.genero =:genero")
                 ->setParameter("nota", $dados['nota'])
                 ->setParameter('genero', $dados['genero']);
-
-
         $count = $qb->getQuery()->getSingleScalarResult();
         return $count;
     }
 
     public function pesquisarNotasCurso($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder();
         $qb->select('count(n.id)');
         $qb->from('models\Nota', 'n')
@@ -192,14 +186,11 @@ class Nota extends Doctrine implements Dao {
                 ->setParameter("nota", $dados['nota'])
                 ->setParameter("genero", $dados['genero'])
                 ->setParameter('nome', $dados['curso']);
-
-
         $count = $qb->getQuery()->getSingleScalarResult();
         return $count;
     }
 
     public function pesquisaGenero($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder()
                 ->select('count(m.id)')
                 ->from('models\Matricula', 'm')
@@ -210,26 +201,22 @@ class Nota extends Doctrine implements Dao {
                 ->andWhere("c.nome =:nome")
                 ->setParameter('nome', $dados['curso'])
                 ->setParameter('genero', $dados['genero']);
-
         $count = $qb->getQuery()->getSingleScalarResult();
         return $count;
     }
 
     public function pesquisaCurso($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder()
                 ->select('count(m.id)')
                 ->from('models\Matricula', 'm')
                 ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id')
                 ->where('c.nome =:curso')
                 ->setParameter('curso', $dados);
-
         $count = $qb->getQuery()->getSingleScalarResult();
         return $count;
     }
 
     public function buscarNota($dados = FALSE) {
-
         $qb = $this->em->createQueryBuilder();
         $qb->select('count(n.id)');
         $qb->from('models\Nota', 'n')
@@ -249,13 +236,12 @@ class Nota extends Doctrine implements Dao {
 
     public function verNota() {
         $qb = $this->em->createQueryBuilder()
-        ->select('n.nota', 'p.nome', 'p.bi','m.nome as n1','c.nome as n2')
-        ->from('models\Nota', 'n')
-        ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
-        ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
-        ->innerJoin('models\Modulo', 'm', 'WITH', 'n.modulo=m.id')
-        ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id');
-
+                ->select('n.nota,n.data', 'p.nome', 'p.bi', 'm.nome as n1', 'c.nome as n2')
+                ->from('models\Nota', 'n')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->innerJoin('models\Modulo', 'm', 'WITH', 'n.modulo=m.id')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 

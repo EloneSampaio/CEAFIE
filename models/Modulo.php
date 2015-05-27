@@ -77,7 +77,6 @@ class Modulo extends Doctrine implements Dao {
     }
 
     public function editar($id = FALSE) {
-
         $editar = $this->em->getRepository('models\Modulo')->find(array('id' => $id->getId()));
         $editar->setNome($id->getNome());
         $this->em->flush();
@@ -94,11 +93,11 @@ class Modulo extends Doctrine implements Dao {
     public function pesquisar($id = FALSE) {
         if ($id) {
             $qb = $this->em->createQueryBuilder()
-                    ->select('e')
+                    ->select('e.id,e.nome,c.nome as nome1')
                     ->from('models\Modulo', 'e')
+                    ->innerJoin('models\Curso', 'c', 'WITH', 'e.curso=c.id')
                     ->where('e.curso = ?1')
                     ->setParameter(1, $id);
-
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         } else {
             return $this->em->getRepository('models\Modulo')->findby(array(), array('id' => "DESC"));

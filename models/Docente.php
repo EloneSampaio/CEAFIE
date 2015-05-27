@@ -5,6 +5,7 @@ namespace models;
 use Doctrine\ORM\Mapping as ORM;
 use application\Dao;
 use config\Doctrine;
+use \Doctrine\Common\Util\Debug;
 
 /**
  * Docente
@@ -40,16 +41,6 @@ class Docente extends Doctrine implements Dao {
      */
     private $pessoa;
 
-    /**
-     * @var \Modulo
-     *
-     * @ORM\ManyToOne(targetEntity="Modulo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="modulo_id", referencedColumnName="id")
-     * })
-     */
-    private $modulo;
-
     function getId() {
         return $this->id;
     }
@@ -62,12 +53,8 @@ class Docente extends Doctrine implements Dao {
         return $this->pessoa;
     }
 
-    function getModulo() {
-        return $this->modulo;
-    }
-
-    function setModulo(Modulo $modulo) {
-        $this->modulo = $modulo;
+    function setPessoa($pessoa) {
+        $this->pessoa = $pessoa;
     }
 
     function setId($id) {
@@ -78,15 +65,9 @@ class Docente extends Doctrine implements Dao {
         $this->grau = $grau;
     }
 
-    function setPessoa(Pessoa $pessoa) {
-        $this->pessoa = $pessoa;
-    }
-
     public function adiciona($dados, $id) {
         $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $id['pessoa']));
-        $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $id['modulo']));
         $dados->setPessoa($pessoa);
-        $dados->setModulo($modulo);
         $this->em->persist($dados);
         $this->em->flush();
         return $dados->getId();
@@ -117,7 +98,6 @@ class Docente extends Doctrine implements Dao {
     }
 
     public function pesquisar($id = FALSE) {
-
         if ($id) {
             return $this->em->getRepository('models\Docente')->findOneBy(array('pessoa' => $id));
             $this->em->flush();
@@ -140,7 +120,6 @@ class Docente extends Doctrine implements Dao {
                 ->from('models\Docente', 'd')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'd.pessoa=p.id')
                 ->orderBy('d.id', 'DESC');
-
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 

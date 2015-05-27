@@ -6,6 +6,7 @@ use application\Controller;
 use application\Dao;
 use application\Session;
 use \Eventviva\ImageResize;
+use application\Sms;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -185,8 +186,8 @@ class Matricula extends Controller implements Dao {
                 exit;
             }
 
-
-            $this->pessoa->setNome($this->view->dados['nome'] . " " . $this->view->dados['nome1']);
+            $nome = $this->view->dados['nome'] . " " . $this->view->dados['nome1'];
+            $this->pessoa->setNome($nome);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
             $this->pessoa->setTelefone($this->view->dados['telefone']);
@@ -205,6 +206,25 @@ class Matricula extends Controller implements Dao {
             $this->matricula->setEstado("ABERTO");
             $this->matricula->setData(date('Y-m-d'));
             $this->matricula->setAno(date("Y"));
+
+
+            //verificr dados//
+            var_dump($this->pessoa->pesquisarEmail($_POST['email']));
+            if ($this->pessoa->pesquisarEmail($_POST['email'])) {
+                $this->view->erro = "O email já esta sendo usado escolha um outro email";
+                $this->view->renderizar("novo");
+                exit;
+            }
+            if ($this->pessoa->pesquisarBi($_POST['bi'])) {
+                $this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
+                $this->view->renderizar("novo");
+                exit;
+            }
+            if ($this->pessoa->pesquisarTelefone($_POST['telefone'])) {
+                $this->view->erro = "O numero de telefone já esta sendo usado escolha um outro numero";
+                $this->view->renderizar("novo");
+                exit;
+            }
 
 
             $id = $this->pessoa->adicionar($this->pessoa);
@@ -267,6 +287,11 @@ class Matricula extends Controller implements Dao {
             $this->matricula->setId($id);
             $this->matricula->editar($this->matricula);
         }
+
+        //Enviar mensagem confirmando a matricula
+        $mensagem = "Matricula Confirmada. CEAFIE";
+        $telefone = 934895543;
+       // Sms::enviarSMS("127.0.0.1", 8800, "", "", $telefone, $mensagem);
         $this->view->dados = $this->matricula->pesquisar();
         $this->view->renderizar("editar");
     }

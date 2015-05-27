@@ -45,6 +45,13 @@ class Usuario extends Doctrine implements Dao {
     private $nivel;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tema", type="string", nullable=false)
+     */
+    private $tema;
+
+    /**
      * @var \Pessoa
      *
      * @ORM\ManyToOne(targetEntity="Pessoa")
@@ -86,6 +93,14 @@ class Usuario extends Doctrine implements Dao {
         $this->senha = $senha;
     }
 
+    function getTema() {
+        return $this->tema;
+    }
+
+    function setTema($tema) {
+        $this->tema = $tema;
+    }
+
     function setNivel($nivel) {
         $this->nivel = $nivel;
     }
@@ -99,7 +114,6 @@ class Usuario extends Doctrine implements Dao {
     }
 
     public function adiciona($dados, $pessoa) {
-
         $this->em->beginTransaction();
         try {
             $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa));
@@ -117,8 +131,26 @@ class Usuario extends Doctrine implements Dao {
     public function editar($id = FALSE) {
         $editar = $this->em->getRepository('models\Usuario')->find(array('id' => $id->getId()));
         $editar->setLogin($id->getLogin());
-        $editar->setSenha($id->getSenha());
+        if (!empty($id->getSenha())) {
+            $editar->setSenha($id->getSenha());
+        }
         $editar->setNivel($id->getNivel());
+        $this->em->merge($editar);
+        $this->em->flush();
+        return TRUE;
+    }
+
+    public function editarTema($id = FALSE) {
+        $editar = $this->em->getRepository('models\Usuario')->find(array('id' => $id->getId()));
+        $editar->setTema($id->getTema());
+        $this->em->merge($editar);
+        $this->em->flush();
+        return TRUE;
+    }
+
+    public function editarSenha($id = FALSE) {
+        $editar = $this->em->getRepository('models\Usuario')->find(array('id' => $id->getId()));
+        $editar->setSenha(\application\Hash::getHash("md5", $id->getSenha(), HASH_KEY));
         $this->em->merge($editar);
         $this->em->flush();
         return TRUE;
@@ -143,7 +175,6 @@ class Usuario extends Doctrine implements Dao {
     }
 
     function Autenticar($objecto) {
-
         return $this->em->getRepository('models\Usuario')->findOneBy(array('login' => $objecto->getLogin(), 'senha' => $objecto->getSenha()));
         $this->em->flush();
     }

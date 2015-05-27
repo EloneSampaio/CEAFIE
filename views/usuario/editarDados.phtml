@@ -31,9 +31,10 @@ function selected($value, $selected) {
 
 
                             <div class="control-group">
+                                <input type="checkbox" value="Activar" name="check" class="checkbox" id="checkbox" onclick="this.checked ? getElementById('senha').removeAttribute('readOnly') : getElementById('senha').setAttribute('readOnly', 'readOnly')"/>
                                 <label class="control-label">Senha<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="password" name="senha" data-required="1"  class="span6 m-wrap" value="<?php echo $this->dados->getSenha(); ?>"/>
+                                    <input type="password" name="senha" data-required="1"  class="span6 m-wrap" readonly="true" id="senha"/>
                                 </div>
                             </div>
 

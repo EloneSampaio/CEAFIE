@@ -1,18 +1,90 @@
 
-
+$(document).off('.data-api');
+$(document).off('.alert.data-api')
 $(document).ready(function () {
-    setTimeout(function () {
-        cursos();
-    }, 50)
+    teste();
+
+    cursos();
     modulos();
     tabela();
     remover();
+
+    extras();
+
 
 });
 
 
 
+function extras() {
 
+    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+    var oTable = $('#tabela').dataTable();
+    $('#curso').change(function () {
+        oTable.fnFilter($(this).val());
+    });
+    $(".modal1").click(function () {
+        var id = $(this).attr('rel');
+
+        $.getJSON('http://localhost/uan/docente/detalhes/', {id: id, ajax: 'true'}, function (data) {
+
+            $("#myModal").modal('show');
+            var html;
+            $.each(data, function (id, valor) {
+
+                $("#conteudo").append('<p>' + valor.nome + '</p>');
+            });
+
+            var url = 'localhost/uan/docente/index';
+            $("#fechar").click(function () {
+                $(location).attr('href', '');
+
+            });
+        });
+    });
+}
+
+
+
+function teste() {
+
+    $.getJSON('http://localhost/uan/docente/preencherSelect/', {
+    }).done(function (data) {
+
+
+        var json = JSON.parse(JSON.stringify(data));
+        console.log(json);
+        var grupos = {};
+        var select = document.getElementById("dados");
+        json.forEach(function (data) {
+
+            var grupo = data.nome1;
+            console.log(grupo);
+            if (!grupos[grupo]) {
+                var optG = document.createElement('optgroup');
+                optG.label = data.nome1;
+                select.appendChild(optG);
+                var g = {
+                    data: [],
+                    el: optG
+                }
+                grupos[grupo] = g;
+                g.data.push(data);
+            }
+            var option = document.createElement('option');
+            option.value = data.id;
+            option.innerHTML = data.nome;
+            grupos[grupo].el.appendChild(option);
+        });
+        $("#dados").multipleSelect({
+            multiple: true,
+            multipleWidth: 255,
+            width: '100%',
+            position: 'top'
+        });
+    });
+}
 
 
 
@@ -23,9 +95,10 @@ function cursos() {
 
     $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
+
         $.each(data, function (id, valor) {
 
-            $("#curso").append('<option value="' + valor.id + '">' + valor.nome + '</option>');
+            $("#curso").append('<option value="' + valor.nome + '">' + valor.nome + '</option>');
         });
     });
 }
@@ -44,6 +117,7 @@ function modulos() {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
                 }
                 $('#modulo').html(options).show();
+                teste1();
                 $('.carregando').hide();
             });
         } else {
@@ -110,7 +184,6 @@ function remover() {
             $.post(id)
                     .done(function (data) {
                         alert("Dados apagado com sucesso");
-
                         $(location).attr('href', url);
                     });
         }

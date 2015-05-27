@@ -4,9 +4,22 @@
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
+
+            <div class="col-12 pull-right">
+                <h3>Acesso Rapido</h3>
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="<?php echo URL . "programa" . DS1 . "adicionar/" ?>"><span style="font-size: 14px; color: black;">Novo</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "programa" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "programa" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
+                    </ul>
+                </div>
+
+
+            </div>
             <table  class="table table-striped table-bordered" id="tabela">   
                 <thead>
-                   <tr class="odd gradeA">
+                    <tr class="odd gradeA">
 
                         <th>CURSO</th> 
                         <th>MODÚLO</th>
@@ -31,7 +44,7 @@
                                 <td><?php print date("d/m/Y", strtotime($dados->getData())); ?></td>
                                 <td><?php print date("d/m/Y", strtotime($dados->getDatafinal())); ?></td>
                                 <td><?php print $dados->getHoras(); ?></td>
-                                <td><a href="<?php echo URL.'programa/editarDados/'.$dados->getId(); ?>"  rel="<?php echo $dados->getId(); ?>"><i class="icon-edit"></i></a></td>
+                                <td><a href="<?php echo URL . 'programa/editarDados/' . $dados->getId(); ?>"  rel="<?php echo $dados->getId(); ?>"><i class="icon-edit"></i></a></td>
                             </tr>
 
                             <?php

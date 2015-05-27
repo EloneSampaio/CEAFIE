@@ -17,28 +17,38 @@ class Docente extends Controller implements Dao {
     private $pessoa;
     private $docente;
     private $usuario;
+    private $modulo;
+    private $curso;
+    private $dm;
 
     public function __construct() {
         Session::nivelRestrito(array("administrador"));
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
+        $this->curso = $this->LoadModelo('Curso');
+        $this->modulo = $this->LoadModelo('Modulo');
         $this->usuario = $this->LoadModelo('Usuario');
+        $this->dm = $this->LoadModelo('DocentModulo');
         parent::__construct();
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-        $this->view->setJs(array("novo"));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select'));
+        $this->view->setJs(array("novo", "jquery.multiple.select"));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->titulo="Docente";
     }
 
     public function index() {
 
         $this->view->dados = $this->docente->pesquisar();
+        $this->view->detalhes = $this->dm->pesquisar();
         $this->view->renderizar("index");
     }
 
     public function adicionar($dados = FALSE) {
 
+
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
+
 
 
             if (!$this->getSqlverifica('nome')) {
@@ -120,16 +130,10 @@ class Docente extends Controller implements Dao {
                 exit;
             }
 
-            if (!$this->getSqlverifica('modulo')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor escolha um modulo");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor uma grau";
-                $this->view->renderizar("novo");
-                exit;
-            }
 
 
-            $this->pessoa->setNome($this->view->dados['nome'] . " " . $this->view->dados['nome1']);
+            $nome = $this->view->dados['nome'] . " " . $this->view->dados['nome1'];
+            $this->pessoa->setNome($nome);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
             $this->pessoa->setTelefone($this->view->dados['telefone']);
@@ -139,6 +143,32 @@ class Docente extends Controller implements Dao {
 
 //Aluno//
             $this->docente->setGrau($this->view->dados['grau']);
+
+            //verificr dados//
+            if ($this->pessoa->pesquisarNome($nome)) {
+                $this->view->erro = "O nome já esta sendo usado escolha um outro nome";
+                $this->view->renderizar("novo");
+                exit;
+            }
+            if ($this->pessoa->pesquisarEmail($_POST['email'])) {
+                $this->view->erro = "O email já esta sendo usado escolha um outro email";
+                $this->view->renderizar("novo");
+                exit;
+            }
+            if ($this->pessoa->pesquisarBi($_POST['bi'])) {
+                $this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
+                $this->view->renderizar("novo");
+                exit;
+            }
+            if ($this->pessoa->pesquisarTelefone($_POST['telefone'])) {
+                $this->view->erro = "O numero de telefone já esta sendo usado escolha um outro numero";
+                $this->view->renderizar("novo");
+                exit;
+            }
+
+
+
+
 
             $id = $this->pessoa->adicionar($this->pessoa);
             $dad = array("pessoa" => $id, "modulo" => $this->view->dados['modulo']);
@@ -150,8 +180,13 @@ class Docente extends Controller implements Dao {
 
                 exit;
             }
+
+
+
+
+
             $id1 = $this->docente->adiciona($this->docente, $dad);
-            if (!$id) {
+            if (!$id1) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
                 //echo json_encode($ret);
                 $this->view->erro = "Erro ao guardar dados";
@@ -160,7 +195,13 @@ class Docente extends Controller implements Dao {
             }
 
 
+
             $mt = $this->docente->pesquisaPor($id1);
+
+            //adicionar docente aos modulos
+            $this->dm->adiciona($id1, $_POST['modulo']);
+
+
             $login = $this->view->dados['nome1'] . rand(8, 12);
             $this->usuario->setLogin($login);
             $this->usuario->setSenha(\application\Hash::getHash("md5", $login, HASH_KEY));
@@ -347,6 +388,28 @@ class Docente extends Controller implements Dao {
         }
         $this->view->dados = $this->docente->pesquisar();
         $this->view->renderizar("remover");
+    }
+
+    public function preencherSelect() {
+
+        $var = array();
+        $t = array();
+        $c = $this->curso->listagem();
+        foreach ($c as $valor) {
+            foreach ($this->modulo->pesquisar($valor['id']) as $k => $v) {
+
+                $var[] = $v;
+            }
+        }
+
+
+        echo json_encode(array_filter($var));
+    }
+
+    public function detalhes() {
+        $de = $this->dm->pesquisar($this->filtraInt($_GET['id']));
+        echo json_encode($de);
+        exit;
     }
 
 }

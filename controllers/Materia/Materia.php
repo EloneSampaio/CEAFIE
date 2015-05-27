@@ -31,9 +31,8 @@ class Materia extends Controller implements Dao {
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJS(array('novo'));
-         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-         $this->view->menu=  $this->getFooter('menu');
-         
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index() {
@@ -102,6 +101,15 @@ class Materia extends Controller implements Dao {
 
     public function pesquisaPor($dados = FALSE) {
         
+    }
+
+//     Materia do curso aluno
+    public function aluno($dados = FALSE) {
+        $id = $this->materia->buscaAluno(Session::get('pessoa'));
+        \Doctrine\Common\Util\Debug::dump($id);
+        echo $id->getId(); exit;
+        $this->view->dados = $this->materia->pesquisar($id->getMatricula()->getModulo()->getId());
+        $this->view->renderizar("aluno");
     }
 
     public function pesquisar($id = FALSE) {

@@ -117,10 +117,10 @@ class View {
             require $header;
             //$this->assign("conteudo",$caminho);
             require $caminho;
-            //require $footer;
+           require $footer;
         } else {
 
-            throw new Exception("erro da view");
+            throw new Exception("Erro ao incluir a view, verifique o arquivo View");
         }
     }
 
@@ -128,6 +128,16 @@ class View {
         if (is_array($js) && count($js)) {
             for ($i = 0; $i < count($js); $i++) {
                 $this->_js[] = URL . "views/" . $this->_controller . "/js/" . $js[$i] . ".js";
+            }
+        } else {
+            throw new Exception("Erro ao insirir o arquivo  Javascript");
+        }
+    }
+    
+      public function setJs1(array $js) {
+        if (is_array($js) && count($js)) {
+            for ($i = 0; $i < count($js); $i++) {
+                $this->_js[] = URL . "views/" . $this->_controller . "/js/js/" . $js[$i] . ".js";
             }
         } else {
             throw new Exception("Erro de Javascript");
@@ -140,8 +150,19 @@ class View {
                 $this->_css[] = URL . "views/" . $this->_controller . "/css/" . $css[$i] . ".css";
             }
         } else {
+            throw new Exception("Erro ao insirir o arquivo Css");
+        }
+    }
+    
+    public function setCss1(array $css) {
+        if (is_array($css) && count($css)) {
+            for ($i = 0; $i < count($css); $i++) {
+                $this->_css[] = URL . "views/" . $this->_controller . "/css/css/" . $css[$i] . ".css";
+            }
+        } else {
             throw new Exception("Erro de Css");
         }
     }
+    
 
 }

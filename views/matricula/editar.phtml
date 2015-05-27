@@ -1,17 +1,50 @@
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
 <div class="" id="content" style="margin-left: 220px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
+
+            <div class="col-12 pull-right">
+
+                <h3>Acesso Rapido</h3>
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>"><span style="font-size: 14px; color: black;">Cadastrar</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div style="position:absolute;
+                 top: 250px;
+                 left: 550px;">
+                <input type="number" name="ano" id="ano" data-required="1"  placeholder="Ano" maxlength="4"class="span2 m-wrap" />
+
+
+                <select id="curso" >
+                    <option value="">- Curso -</option>
+
+                </select>
+
+                <select id="modulo1">
+                    <option value="">- Modulo -</option>
+
+                </select>
+            </div>
+
+
             <table  class="table table-striped table-bordered" id="tabela">   
                 <thead>
-                     <tr class="odd gradeA">
+                    <tr class="odd gradeA">
 
                         <th>Nª BI</th> 
                         <th>Nome</th>
                         <th>CURSO</th>
                         <th>MODÚLO</th>
+                        <th>Ano de Matricula</th>
                         <th>Editar</th>
 
                     </tr>
@@ -26,12 +59,13 @@
                                 <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
                                 <td><?php print $dados->getCurso()->getNome(); ?></td>
                                 <td><?php print $dados->getModulo()->getNome(); ?></td>
-                                <td><a href="<?php echo URL."matricula/editarDados/". $dados->getAluno()->getId(); ?>" id="editar1" rel="<?php echo $dados->getAluno()->getId(); ?>"><i class="icon-edit"></i></a></td>
+                                 <td><?php print $dados->getAno(); ?></td>
+                                <td><a href="<?php echo URL . "matricula/editarDados/" . $dados->getAluno()->getId(); ?>" id="editar1" rel="<?php echo $dados->getAluno()->getId(); ?>"><i class="icon-edit"></i></a></td>
                             </tr>
-                                        <?php
-                                    endforeach;
-                                endif;
-                                ?>
+                            <?php
+                        endforeach;
+                    endif;
+                    ?>
 
                 </tbody>
             </table>

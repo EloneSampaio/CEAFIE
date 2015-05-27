@@ -11,11 +11,11 @@ namespace config;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Configuration;
+use Doctrine\Common\ClassLoader;
 
 class Doctrine {
-    
-    /** * @property \Doctrine\ORM\EntityManager $em Gerenciador de Entidade */
 
+    /**     * @property \Doctrine\ORM\EntityManager $em Gerenciador de Entidade */
     private $entidade;
     private $isDevMode;
     private $root;
@@ -45,8 +45,6 @@ class Doctrine {
         $this->root = $root;
     }
 
-  
-
 //
 ////onde irão ficar as entidades do projeto? Defina o caminho aqui
 //$entidades = array($root . "models/");
@@ -60,6 +58,7 @@ class Doctrine {
         $this->setIsDevMode(true);
         $mode = "DESENVOLVIMENTO";
         $config = Setup::createAnnotationMetadataConfiguration($this->getEntidade(), $this->getIsDevMode(), NULL, NULL, FALSE);
+       
 
         if ($mode == "DESENVOLVIMENTO") {
             $cache = new \Doctrine\Common\Cache\ArrayCache;
@@ -94,12 +93,11 @@ class Doctrine {
             'driverOptions' => array(1002 => 'SET NAMES utf8')
         );
 
-        $this->em=EntityManager::create($dbParams, $config);
-       
-       
+        $this->em = EntityManager::create($dbParams, $config);
+         $loader = new ClassLoader('Entity', __DIR__ . '/models');
+        $loader->register();
     }
 
 }
-
 
 ?>

@@ -156,11 +156,11 @@ class Aluno extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($id = FALSE) {
-        
+
         if ($id) {
             return $this->em->getRepository('models\Aluno')->findOneBy(array('pessoa' => $id));
             $this->em->flush();
-        } 
+        }
     }
 
     public function pesquisar($id = FALSE) {

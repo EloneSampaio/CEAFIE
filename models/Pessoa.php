@@ -192,6 +192,42 @@ class Pessoa extends Doctrine implements Dao {
         }
     }
 
+    public function pesquisarTelefone($id = FALSE) {
+        if ($this->em->getRepository('models\Pessoa')->findOneBy(array('telefone' => $id))) {
+            $this->em->flush();
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function pesquisarNome($id = FALSE) {
+        if ($this->em->getRepository('models\Pessoa')->findOneBy(array('nome' => $id))) {
+            $this->em->flush();
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function pesquisarEmail($id = FALSE) {
+        if ($this->em->getRepository('models\Pessoa')->findOneBy(array('email' => $id))) {
+            $this->em->flush();
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function pesquisarBi($id = FALSE) {
+        if ($this->em->getRepository('models\Pessoa')->findOneBy(array('bi' => $id))) {
+            $this->em->flush();
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function remover($id = FALSE) {
         $id = $this->em->getPartialReference('models\Pessoa', $id);
         $this->em->remove($id);

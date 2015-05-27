@@ -59,6 +59,7 @@ class Login extends Controller {
 
                 Session::set("autenticado", true);
                 Session::set('nivel', $linha->getNivel());
+                 Session::set('tema', $linha->getTema());
                 Session::set('nome', $linha->getPessoa()->getNome());
                  Session::set('pessoa', $linha->getPessoa()->getId());
                 Session::set('id', $linha->getId());

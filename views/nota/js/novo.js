@@ -2,8 +2,21 @@
 $(document).ready(function () {
     cursos();
     modulos();
+     modulos1();
     tabela();
+    var oTable = $('#tabela').dataTable();
 
+    /* Add event listener to the dropdown input */
+    $('#ano').blur(function () {
+
+        oTable.fnFilter($(this).val());
+    });
+    $('#curso').change(function () {
+        oTable.fnFilter($(this).val());
+    });
+    $('#modulo1').change(function () {
+        oTable.fnFilter($(this).val());
+    });
 });
 
 
@@ -46,6 +59,29 @@ function modulos() {
 }
 
 
+function modulos1() {
+
+
+    $('#curso').change(function () {
+        if ($(this).val()) {
+            $('#modulo1').hide();
+            $('.carregando').hide();
+            $('.carregando').html("carregando...").show();
+            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+                var options = '<option value=""></option>';
+                for (var i = 0; i < j.length; i++) {
+                    options += '<option value="' + j[i].nome + '">' + j[i].nome + '</option>';
+                }
+                $('#modulo1').html(options).show();
+                $('.carregando').hide();
+            });
+        } else {
+            $('#modulo1').html('<option value="">-- Escolha um curso --</option>');
+        }
+    });
+}
+
+
 function tabela() {
 
 
@@ -57,7 +93,6 @@ function tabela() {
             "aButtons": ["copy", "csv", "xls", "pdf", "print"]
         },
         "bDestroy": true,
-       
         "aoColumnDefs": [{
                 'bSortable': false,
                 'aTargets': [0, 1]

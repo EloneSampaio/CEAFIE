@@ -7,9 +7,6 @@ $(document).ready(function () {
     saudacao();
 //    grafico();
 //    grafico1();
-    adicionar();
-    remover();
-    editar();
     validar();
     editarMatricula1();
     editarDocente1();
@@ -17,6 +14,7 @@ $(document).ready(function () {
     editarModulo1();
     editarPrograma1();
     editarUsuario1();
+    editarTema();
 
 
 
@@ -62,6 +60,25 @@ function open() {
 
 
 
+function editarTema() {
+
+    $('#tema').change(function () {
+
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
+        console.log(data);
+        $.post(url, data)
+                .done(function (data) {
+                    var json = $.parseJSON(data);
+
+                    alert(json.mensagem);
+                    $(location).attr('href', "http://localhost/uan/login");
+                });
+
+        return false;
+    });
+
+}
 
 
 
@@ -208,7 +225,7 @@ function editarUsuario1() {
 
     $(document).on('click', '#usuario1', function () {
         var id = $(this).attr('rel');
-       // var url = "http://localhost/uan/usuario/editarDados/" + id;
+        // var url = "http://localhost/uan/usuario/editarDados/" + id;
         console.log(id);
         setTimeout("$('#pageContent').load('" + id + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -315,15 +332,15 @@ function grafico1() {
 }
 
 
-function pesquisar(){
-    
-        $('#pesquisaEstado').change(function () {
+function pesquisar() {
+
+    $('#pesquisaEstado').change(function () {
         if ($(this).val()) {
             $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
-               console.log(j);
+                console.log(j);
             });
         } else {
-           console.log("erro");
+            console.log("erro");
         }
     });
 

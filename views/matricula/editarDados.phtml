@@ -1,4 +1,4 @@
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
 <?php
 
 function selected($value, $selected) {
@@ -67,101 +67,101 @@ function selected($value, $selected) {
                                     </div>
                                 </div>
 
-                            
 
-                            <fieldset>
-                                <legend>Dados Académicos</legend>
-                                <div class="control-group">
-                                    <label class="control-label">graduação<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input type="text" name="graduacao" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getGraduacao(); ?>"/>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">Universidade<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input name="universidade" type="text" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUniversidade(); ?>"/>
-                                    </div>
-                                </div>
-                            </fieldset>
 
-                            <fieldset>
-                                <legend>Dados Profissionais</legend>
-                                <div class="control-group">
-                                    <label class="control-label">Unidade Organica<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUnidadeOrganica(); ?>"/>
+                                <fieldset>
+                                    <legend>Dados Académicos</legend>
+                                    <div class="control-group">
+                                        <label class="control-label">graduação<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <input type="text" name="graduacao" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getGraduacao(); ?>"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">Categoria Docente<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" name="categoria_docente">
-                                            <option value="Assistente" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Assistente") ?>>Assistente</option>
-                                            <option value="Associado" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Associado") ?> >Associado</option>
-                                            <option value="Titular" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Titular") ?>>Titular</option>
-                                            <option value="Nenhum" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Nenhum") ?>>Nenhum</option>
-                                        </select>
+                                    <div class="control-group">
+                                        <label class="control-label">Universidade<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <input name="universidade" type="text" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUniversidade(); ?>"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
+                                </fieldset>
 
-                                <div class="control-group">
-                                    <label class="control-label">Função<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" name="funcao">
-                                            <option value="Chefe de departamento" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de departamento") ?>>Chefe de departamento</option>
-                                            <option value="Chefe de seccao" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de seccao") ?>>Chefe de seccao</option>
-                                            <option value="Tecnica" <?php echo selected($this->dados->getAluno()->getFuncao(), "Tecnica") ?>>Tecnica</option>
-                                        </select>
+                                <fieldset>
+                                    <legend>Dados Profissionais</legend>
+                                    <div class="control-group">
+                                        <label class="control-label">Unidade Organica<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUnidadeOrganica(); ?>"/>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="control-group">
-                                    <label class="control-label">Categoria Cientifica<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" name="categoria_centifica">
-                                            <option value="Investigador" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Investigador") ?>>Investigador</option>
-                                            <option value="Nenhuma" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Nenhuma") ?>>Nenhuma</option>
-                                        </select>  
+                                    <div class="control-group">
+                                        <label class="control-label">Categoria Docente<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <select class="span6 m-wrap" name="categoria_docente">
+                                                <option value="Assistente" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Assistente") ?>>Assistente</option>
+                                                <option value="Associado" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Associado") ?> >Associado</option>
+                                                <option value="Titular" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Titular") ?>>Titular</option>
+                                                <option value="Nenhum" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Nenhum") ?>>Nenhum</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                    <br />
 
-                            </fieldset>
-
-                            <fieldset>
-                                <legend>Curso a frequentar</legend>
-                                <div class="control-group">
-                                    <label class="control-label">Curso<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" id="curso12" name="curso12">
-                                            <option value="CAP" <?php echo selected($this->dados->getCurso()->getNome(), "CAP") ?> >CAP</option>
-                                            <option value="CEPAC" <?php echo selected($this->dados->getCurso()->getNome(), "CEPAC") ?>>CEPAC</option>
-                                            <option value="CEPID" <?php echo selected($this->dados->getCurso()->getNome(), "CEPID") ?>>CEPID</option>
-                                        </select>
+                                    <div class="control-group">
+                                        <label class="control-label">Função<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <select class="span6 m-wrap" name="funcao">
+                                                <option value="Chefe de departamento" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de departamento") ?>>Chefe de departamento</option>
+                                                <option value="Chefe de seccao" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de seccao") ?>>Chefe de seccao</option>
+                                                <option value="Tecnica" <?php echo selected($this->dados->getAluno()->getFuncao(), "Tecnica") ?>>Tecnica</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </fieldset>
 
-                            <fieldset>
-                                <legend>Modulo a frequentar</legend>
-                                <div class="control-group">
+                                    <div class="control-group">
+                                        <label class="control-label">Categoria Cientifica<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <select class="span6 m-wrap" name="categoria_centifica">
+                                                <option value="Investigador" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Investigador") ?>>Investigador</option>
+                                                <option value="Nenhuma" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Nenhuma") ?>>Nenhuma</option>
+                                            </select>  
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Curso a frequentar</legend>
+                                    <div class="control-group">
+                                        <label class="control-label">Curso<span class="required">*</span></label>
+                                        <div class="controls">
+                                            <select class="span6 m-wrap" id="curso12" name="curso12">
+                                                <option value="CAP" <?php echo selected($this->dados->getCurso()->getNome(), "CAP") ?> >CAP</option>
+                                                <option value="CEPAC" <?php echo selected($this->dados->getCurso()->getNome(), "CEPAC") ?>>CEPAC</option>
+                                                <option value="CEPID" <?php echo selected($this->dados->getCurso()->getNome(), "CEPID") ?>>CEPID</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Modulo a frequentar</legend>
+                                    <div class="control-group">
                                         <label class="control-label">Modulo<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" id="modulo12" name="modulo12">
-                                            <option value="<?php $this->dados->getModulo()->getNome() ?>"><?php echo $this->dados->getModulo()->getNome() ?></option>
-                                        </select>
+                                        <div class="controls">
+                                            <select class="span6 m-wrap" id="modulo12" name="modulo12">
+                                                <option value="<?php $this->dados->getModulo()->getNome() ?>"><?php echo $this->dados->getModulo()->getNome() ?></option>
+                                            </select>
+                                        </div>
                                     </div>
+                                </fieldset>
+
+
+
+                                <input name="enviar" type="hidden" value="1"/>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                                    <button type="reset" class="btn">Cancelar</button>
                                 </div>
-                            </fieldset>
-
-
-
-                            <input name="enviar" type="hidden" value="1"/>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                                <button type="reset" class="btn">Cancelar</button>
-                            </div>
                             </fieldset>
                             <?php
                         endif;

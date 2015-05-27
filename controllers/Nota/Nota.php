@@ -37,8 +37,8 @@ class Nota extends Controller implements Dao {
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();
         $this->view->setJs(array("novo"));
-         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-         $this->view->menu=  $this->getFooter('menu');
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index() {
@@ -106,6 +106,7 @@ class Nota extends Controller implements Dao {
             $dados[] = $this->getInt('curso');
             $dados[] = $this->getInt('modulo');
             $dados[] = "FECHADO";
+            $dados[] = $this->getSqlverifica('ano');
             $this->view->dados = $this->nota->pesquisaPor($dados);
         }
         $this->view->renderizar('index');
@@ -114,6 +115,7 @@ class Nota extends Controller implements Dao {
     public function pesquisar($id = FALSE) {
 
         if ($this->getInt('enviar') == 1) {
+            
 
             if (!$this->getSqlverifica('curso')) {
                 $this->view->erro = "Porfavor Selecciona um dos cursos";

@@ -28,7 +28,7 @@ class Aluno extends Controller {
     private $curso;
 
     public function __construct() {
-         Session::nivelRestrito(array("aluno"));
+        Session::nivelRestrito(array("aluno"));
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->curso = $this->LoadModelo('Curso');
@@ -39,8 +39,8 @@ class Aluno extends Controller {
 
         parent::__construct();
         $this->view->setJs(array("novo"));
-         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-         $this->view->menu=  $this->getFooter('menu');
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index() {
@@ -101,6 +101,26 @@ class Aluno extends Controller {
     public function editar($id) {
         $this->view->dados = $this->usuario->pesquisar($id);
         $this->view->renderizar("editar");
+    }
+
+    public function alteraSenha() {
+
+        if ($this->getInt('enviar') == 1) {
+           
+            $this->usuario->setSenha($_POST['senha']);
+            $this->usuario->setId(Session::get('id'));
+            if ($this->usuario->editarSenha($this->usuario)) {
+                $this->view->mensagem = "Senha alterada com sucesso";
+                $this->redirecionar("aluno/editar/" . Session::get('id'));
+                exit;
+            } else {
+                $this->view->erro = "Erro ao alterar senha";
+                $this->view->renderizar('senha');
+                exit;
+            }
+        } else {
+            $this->view->renderizar('senha');
+        }
     }
 
 }

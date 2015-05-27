@@ -1,4 +1,18 @@
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
+
+
+<div class="col-12 pull-right">
+    <h3>Acesso Rapido</h3>
+    <div class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Ver Docentes</span></a></li>
+            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
+            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
+        </ul>
+    </div>
+
+
+</div>
 <div class="span10 " id="content" style="margin-left: 420px;">
     <!-- validation -->
     <div class="row-fluid">
@@ -16,14 +30,20 @@
                             <div class="control-group">
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Apelido<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="nome1" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" name="nome1" data-required="1" class="span6 m-wrap" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome1'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -40,28 +60,40 @@
                             <div class="control-group">
                                 <label class="control-label">Nª Bi<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14"/>
+                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Nacionalidade<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap"/>
+                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nacionalidade'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Telefone<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9"/>
+                                    <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Email<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="email"  class="span6 m-wrap" type="email" />
+                                    <input name="email"  class="span6 m-wrap" type="email" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
+                                    endif;
+                                    ?>/>
                                 </div>
                             </div>
 
@@ -80,27 +112,40 @@
 
                             <fieldset>
                                 <legend>Curso a Lecionar</legend>
-                                <div class="control-group">
-                                    <label class="control-label">Curso<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" id="curso" name="curso">
-                                            <option value=""></option>
-                                        </select>
+
+                                <select  id="dados" name="modulo[]" multiple="multiple">
+                                    <!--                                    <optgroup label="Group 1">
+                                                                            <option value="1">1</option>
+                                                                            ...
+                                                                        </optgroup>
+                                                                        ...
+                                                                        <optgroup label="Group 3">
+                                                                            <option value="15">15</option>
+                                                                        </optgroup>-->
+                                </select>
 
 
-                                    </div>
-                                </div>
-                                <div class="carregando"></div>
-                                <div class="control-group">
-                                    <label class="control-label">Modúlo<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <select class="span6 m-wrap" id="modulo" name="modulo">
-
-                                        </select>
-
-
-                                    </div>
-                                </div>
+                                <!--                                <div class="control-group">
+                                                                    <label class="control-label">Curso<span class="required">*</span></label>
+                                                                    <div class="controls">
+                                                                        <select class="span6 m-wrap" id="curso" name="curso">
+                                                                            <option value=""></option>
+                                                                        </select>
+                                
+                                
+                                                                    </div>
+                                                                </div>
+                                                                <div class="carregando"></div>
+                                                                <div class="control-group">
+                                                                    <label class="control-label">Modúlo<span class="required">*</span></label>
+                                                                    <div class="controls">
+                                                                        <select class="span6 m-wrap" id="modulo" name="modulo[]" multiple="multiple">
+                                                                            
+                                                                        </select>
+                                                                        <button id="example21-toggle" class="btn btn-primary">Seleccioanar Todos</button>
+                                
+                                                                    </div>
+                                                                </div>-->
                             </fieldset>
 
 
