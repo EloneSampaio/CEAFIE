@@ -5,6 +5,7 @@ namespace controllers;
 use application\Controller;
 use application\Dao;
 use application\Session;
+use application\LogUso;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +34,7 @@ class Docente extends Controller implements Dao {
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select'));
         $this->view->setJs(array("novo", "jquery.multiple.select"));
         $this->view->menu = $this->getFooter('menu');
-        $this->view->titulo="Docente";
+        $this->view->titulo = "Docente";
     }
 
     public function index() {
@@ -217,8 +218,10 @@ class Docente extends Controller implements Dao {
                 exit;
             } else {
 
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso", "status" => "ok");
-                //echo json_encode($ret);
+                $lo = new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi criado um novo aluno" . 'Com o nome de : ' . $nome);
+
                 $this->view->mensagem = "Dados guardados com sucesso";
                 $this->view->renderizar("novo");
 
@@ -355,9 +358,9 @@ class Docente extends Controller implements Dao {
 
                 exit;
             } else {
-
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
-                //echo json_encode($ret);
+                $lo = new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi Editado  informações do aluno" . ' Com o nome de : ' . $_POST['nome']);
 
                 $this->view->mensagem = "Dados alterados com sucesso";
                 $this->view->renderizar("novo");
@@ -383,6 +386,9 @@ class Docente extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->docente->remover($id)) {
+                 $lo=new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi removido um  aluno do sistema");
                 return TRUE;
             }
         }

@@ -209,7 +209,6 @@ class Matricula extends Controller implements Dao {
 
 
             //verificr dados//
-            var_dump($this->pessoa->pesquisarEmail($_POST['email']));
             if ($this->pessoa->pesquisarEmail($_POST['email'])) {
                 $this->view->erro = "O email já esta sendo usado escolha um outro email";
                 $this->view->renderizar("novo");
@@ -261,19 +260,13 @@ class Matricula extends Controller implements Dao {
             $this->usuario->setNivel("aluno");
             $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
             if (!is_int($id12)) {
-                //$ret = Array("mensagem" => "Erro ao criar usuario");
-                // echo json_encode($ret);
                 $this->view->erro = "Erro ao criar usuario";
                 $this->view->renderizar("novo");
                 exit;
             } else {
 
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso", "status" => "ok");
-                //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardados com sucesso";
-                $this->view->renderizar("novo");
-                exit;
-            }
+                }
         }
 
 

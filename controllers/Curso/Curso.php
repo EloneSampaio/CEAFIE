@@ -5,6 +5,7 @@ namespace controllers;
 use application\Controller;
 use application\Session;
 use application\Dao;
+use application\LogUso;
 
 /**
  * Description of categoriaController
@@ -60,8 +61,10 @@ class Curso extends Controller implements Dao {
             }
             $id = $this->curso->adicionar($this->curso);
             if ($id) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
-                //echo json_encode($ret);
+                
+                $lo=new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi criado um novo curso".'Com o nome de : '.$_POST['nome']);
                 $this->view->mensagem = "Dados guardado com sucesso";
                 $this->view->renderizar("novo");
 
@@ -110,8 +113,9 @@ class Curso extends Controller implements Dao {
                 exit;
             } else {
 
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
-                //echo json_encode($ret);
+                $lo=new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi Editado um curso".' Com o nome de : '.$_POST['nome']);
                 $this->view->mensagem = "Dados alterados com sucesso";
                 $this->view->renderizar("novo");
 
@@ -134,6 +138,9 @@ class Curso extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->curso->remover($id)) {
+                $lo=new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi apagado um  curso");
                 return TRUE;
             }
         }

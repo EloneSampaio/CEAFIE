@@ -151,8 +151,8 @@ abstract class Controller {
     }
 
     public function verificarBi($bi) {
-        $expressao_regular = "^[0-9]{9}[A-Z]{2}[0-9]{3}$";
-        if (eregi($expressao_regular, $bi)) {
+        $expressao_regular = "/^[0-9]{9}[A-Z]{2}[0-9]{3}$/";
+        if (preg_match($expressao_regular, $bi)) {
             return TRUE;
         } else {
             return FALSE;

@@ -4,6 +4,7 @@ namespace controllers;
 
 use application\Controller;
 use application\Session;
+use application\LogUso;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -46,6 +47,9 @@ class Diploma extends Controller {
         $report->setNome($d->getAluno()->getPessoa()->getNome());
         $report->setModulo($d->getModulo()->getNome());
         $report->BuildPDF();
+         $lo=new LogUso('log');
+                $lo->verificarArquivo();
+                $lo->gravar("Foi gerado um diploma".'  nome de aluno : '.$d->getAluno()->getPessoa()->getNome());
         $report->Exibir();
     }
 
