@@ -194,7 +194,7 @@ article.breadcrumbs {
 /* Sidebar */
 
 aside#sidebar {
-    width: 23%;
+    width: 13%;
     background: #E0E0E3 url(../images/sidebar.png) repeat;
     float: left;
     min-height: 500px;
