@@ -12,6 +12,7 @@ use application\Session; ?>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Ver aAlunos</span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
+             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "pdf/" ?>"><span style="font-size: 14px; color: black;">Gerar PDF</span></a></li>
         </ul>
     </div>
 
@@ -22,14 +23,14 @@ use application\Session; ?>
     <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:30px;">
         <br /><br /><br />
         <h3 style="font-family:arial; font-weight:bold; font-size:30px;">
-            <a style="text-decoration:none; color:#666;" href="#">Pagina de Informação do Aluno</a>
+            <a style="text-decoration:none; color:#666;" href="#">Ficha de cadastro de Aluno</a>
         </h3>
 
     </div>
 
         <?php if (isset($this->dados) && !empty($this->dados)): ?>
 
-        <ul class="row">
+        <ul class="nav navbar-nav">
     <?php if (!empty($this->dados->getAluno()->getPessoa()->getImagem())) : ?>
                 <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
                     <img src="<?php print URL . DS1; ?><?php echo $this->dados->getAluno()->getPessoa()->getImagem(); ?>" class="img-responsive" alt="Imagem do Aluno">
@@ -45,7 +46,7 @@ use application\Session; ?>
                     <input type="hidden" name="id" value="<?php echo $this->dados->getAluno()->getId(); ?>" />
                     <input type="submit" value="Guardar" id="guarda" class="btn btn-primary"/>
                 </form>
-                </li>
+            
     <?php endif; ?>
         </ul>             
     </div> 
@@ -60,25 +61,13 @@ use application\Session; ?>
             <h4>Email: <?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?></h4>
             <h4>Telefone: <?php echo $this->dados->getAluno()->getPessoa()->getTelefone(); ?></h4>
             <h4>Nacionalidade: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNacionalidade()); ?></h4>
+             <h4>Matricula: <?php echo date('d/m/Y', strtotime($this->dados->getData())); ?></h4>
             <hr>
         </span> 
 
 
     </div>
-    <div style="margin-left: 900px; margin-top: -210px;">
-
-        <span class="text-center">
-
-            <h4>Curso: <?php echo ucfirst($this->dados->getCurso()->getNome()); ?></h4>
-            <h4>Modulo: <?php echo ucfirst($this->dados->getModulo()->getNome()); ?></h4>
-            <h4 class="text-warning">Nota: <?php
-                if (isset($this->nota) && !empty($this->nota)): echo $this->nota->getNota();
-                else: echo "Não Lançada";
-                endif;
-                ?></h4>
-            <h4>Matricula: <?php echo date('d/m/Y', strtotime($this->dados->getData())); ?></h4>
-        </span>
-    </div>
+    
 
 <?php else: ?>
     <span class="text-center">

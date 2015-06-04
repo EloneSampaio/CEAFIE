@@ -21,9 +21,7 @@
             <div style="position:absolute;
                  top: 250px;
                  left: 550px;">
-                <input type="number" name="ano" id="ano" data-required="1"  placeholder="Ano" maxlength="4"class="span2 m-wrap" />
-
-
+                <input type="number" name="ano" id="ano" data-required="1"  placeholder="Ano" maxlength="4"class="span2 m-wrap"/>
                 <select id="curso" >
                     <option value="">- Curso -</option>
 
@@ -33,42 +31,14 @@
                     <option value="">- Modulo -</option>
 
                 </select>
+                <input type="button" name="btnPesquisar" value="Pesquisar" id="buscar"  onclick="getDados();" class="Pesquisar"/>
+                <input type="button" name="btnPesquisar" value="Carregar Todos" id="buscar"  onclick="getTodos();" class="todos"/>
+                <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
+
             </div>
+            <div id="conteudo">
 
-
-            <table  class="table table-striped table-bordered" id="tabela">   
-                <thead>
-                    <tr class="odd gradeA">
-
-                        <th>Nª BI</th> 
-                        <th>Nome</th>
-                        <th>CURSO</th>
-                        <th>MODÚLO</th>
-                        <th>Ano de Matricula</th>
-                        <th>Editar</th>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <?php if (isset($this->dados) && !empty($this->dados)): ?>
-                        <?php foreach ($this->dados as $dados): ?>
-                            <tr>
-                                <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
-                                <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
-                                <td><?php print $dados->getCurso()->getNome(); ?></td>
-                                <td><?php print $dados->getModulo()->getNome(); ?></td>
-                                 <td><?php print $dados->getAno(); ?></td>
-                                <td><a href="<?php echo URL . "matricula/editarDados/" . $dados->getAluno()->getId(); ?>" id="editar1" rel="<?php echo $dados->getAluno()->getId(); ?>"><i class="icon-edit"></i></a></td>
-                            </tr>
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 </div>

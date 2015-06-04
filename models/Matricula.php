@@ -34,13 +34,6 @@ class Matricula extends Doctrine implements Dao {
     /**
      * @var string
      *
-     * @ORM\Column(name="ano", type="string", length=45, nullable=false)
-     */
-    private $ano;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="estado", type="string", length=45, nullable=false)
      */
     private $estado;
@@ -54,33 +47,6 @@ class Matricula extends Doctrine implements Dao {
      * })
      */
     private $aluno;
-
-    /**
-     * @var \Curso
-     *
-     * @ORM\ManyToOne(targetEntity="Curso")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
-     * })
-     */
-    private $curso;
-
-    /**
-     * @var \Modulo
-     * @ORM\ManyToOne(targetEntity="Modulo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="modulo_id", referencedColumnName="id")
-     * })
-     */
-    private $modulo;
-
-    function getAno() {
-        return $this->ano;
-    }
-
-    function setAno($ano) {
-        $this->ano = $ano;
-    }
 
     function getId() {
         return $this->id;
@@ -96,10 +62,6 @@ class Matricula extends Doctrine implements Dao {
 
     function getAluno() {
         return $this->aluno;
-    }
-
-    function getCurso() {
-        return $this->curso;
     }
 
     function setId($id) {
@@ -118,38 +80,68 @@ class Matricula extends Doctrine implements Dao {
         $this->aluno = $aluno;
     }
 
-    function setCurso(Curso $curso) {
-        $this->curso = $curso;
-    }
-
-    function getModulo() {
-        return $this->modulo;
-    }
-
-    function setModulo(Modulo $modulo) {
-        $this->modulo = $modulo;
-    }
-
     public function adicionar($dados = FALSE) {
         
     }
 
-    public function adiciona($dados, $aluno, $curso, $modulo) {
+    public function adiciona($pessoa, $aluno, $matricula, $usuario, $dados) {
+
         $this->em->getConnection()->beginTransaction();
+
         try {
-            $aluno = $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $aluno));
-            $dados->setAluno($aluno);
-            $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $modulo));
-            $dados->setModulo($modulo);
-            $curso = $this->em->getRepository('models\Curso')->findOneBy(array('id' => $curso));
-            $dados->setCurso($curso);
-            $this->em->persist($dados);
+
+            $this->em->persist($pessoa);
             $this->em->flush();
+            $pessoa1 = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa->getId()));
+            $aluno->setPessoa($pessoa1);
+            $this->em->persist($aluno);
+            $this->em->flush();
+            $aluno1 = $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $aluno->getId()));
+            $matricula->setAluno($aluno1);
+            $this->em->persist($matricula);
+            $this->em->flush();
+
+
+
+            $batchSize = 5;
+
+            if (is_array($dados)) {
+                for ($i = 0; $i < count($dados); ++$i) {
+                    $aluno = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $matricula->getId()));
+                    $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados[$i]));
+                    $md = new MatriculaModulo();
+                    $md->setMatricula($aluno);
+                    $md->setModulo($modulo);
+                    $md->setData($matricula->getData());
+                    $this->em->persist($md);
+                    $this->em->flush();
+
+                    if (($i % $batchSize) == 0) {
+                        $this->em->flush();
+                        $this->em->clear();
+                    }
+                }
+            } else {
+                $md = new MatriculaModulo();
+
+                $m = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $matricula->getId()));
+                $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados));
+                $md->setMatricula($m);
+                $md->setModulo($modulo);
+                $this->em->persist($md);
+                $this->em->flush();
+            }
+
+            $usuario->setPessoa($pessoa1);
+            $this->em->merge($usuario);
+            $this->em->flush();
+
             $this->em->getConnection()->commit();
-            return $dados->getId();
-        } catch (\Doctrine\ORM\UnexpectedResultException $ex) {
-            $this->em->getConnection()->rollBack();
-            echo 'erro' . $ex;
+            return $matricula->getId();
+        } catch (Exception $ex) {
+            $this->em->getConnection()->rollback();
+            $this->em->close();
+            throw $ex;
         }
     }
 
@@ -175,19 +167,32 @@ class Matricula extends Doctrine implements Dao {
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
-    public function pesquisaPorData($dados = FALSE) {
+    public function pesquisaPorData($ano = FALSE, $modulo = FALSE) {
+       
+        if ($ano && $modulo) {
+            $qb = $this->em->createQueryBuilder()
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->from('models\Matricula', 'm')
+                    ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                    ->innerJoin('models\MatriculaModulo', 'md', 'WITH', 'm.id=md.matricula')
+                    ->andWhere("md.modulo =:modulo")
+                    ->andWhere('m.data LIKE :data')
+                    ->setParameter('data', '%' . $ano)
+                    ->setParameter('modulo', $modulo)
+                   ->orderBy('m.id', 'DESC');
 
-        $qb = $this->em->createQueryBuilder()
-                ->select('p.nome', 'p.bi', 'm.estado', 'c.nome', 'md.nome')
-                ->from('models\Matricula', 'm')
-                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
-                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
-                ->leftJoin('models\Modulo', 'md', 'WITH', 'm.modulo=md.id')
-                ->leftJoin('models\Curso', 'c', 'WITH', 'md.curso=c.id')
-                ->andWhere('m.ano =:ano')
-                ->orderBy('m.id', 'DESC')
-                ->setParameter('ano', $dados);
-        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        } else {
+            $qb = $this->em->createQueryBuilder()
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->from('models\Matricula', 'm')
+                    ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                    ->innerJoin('models\MatriculaModulo', 'md', 'WITH', 'm.id=md.matricula')
+                    ->orderBy('m.id', 'DESC');
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        }
     }
 
     public function pesquisar($id = FALSE) {
@@ -195,8 +200,14 @@ class Matricula extends Doctrine implements Dao {
             return $this->em->getRepository('models\Matricula')->findOneBy(array('aluno' => $id));
             $this->em->flush();
         } else {
-            return $this->em->getRepository('models\Matricula')->findby(array(), array('id' => "DESC"));
-            $this->em->flush();
+
+            $qb = $this->em->createQueryBuilder()
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->from('models\Matricula', 'm')
+                    ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                    ->orderBy('m.id', 'DESC');
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT);
         }
     }
 

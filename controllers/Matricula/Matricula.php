@@ -27,6 +27,7 @@ class Matricula extends Controller implements Dao {
     private $curso;
     private $nota;
     private $usuario;
+    private $mm;
 
     public function __construct() {
         parent::__construct();
@@ -37,8 +38,10 @@ class Matricula extends Controller implements Dao {
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         $this->usuario = $this->LoadModelo("Usuario");
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-        $this->view->setJs(array("novo"));
+        $this->mm = $this->LoadModelo('MatriculaModulo');
+
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select'));
+        $this->view->setJs(array("novo", 'jquery.multiple.select'));
 
         $this->view->menu = $this->getFooter('menu');
     }
@@ -204,11 +207,15 @@ class Matricula extends Controller implements Dao {
             $this->aluno->setCategoriaCientifica($this->view->dados['categoria_centifica']);
 
             $this->matricula->setEstado("ABERTO");
-            $this->matricula->setData(date('Y-m-d'));
-            $this->matricula->setAno(date("Y"));
+            $this->matricula->setData($_POST['data']);
+
+            $login = $this->view->dados['nome1'] . rand(5, 10);
+            $this->usuario->setLogin($login);
+            $this->usuario->setSenha(\application\Hash::getHash("md5", $dados['nome1'] . $login, HASH_KEY));
+            $this->usuario->setNivel("aluno");
 
 
-            //verificr dados//
+//verificr dados//
             if ($this->pessoa->pesquisarEmail($_POST['email'])) {
                 $this->view->erro = "O email já esta sendo usado escolha um outro email";
                 $this->view->renderizar("novo");
@@ -226,47 +233,16 @@ class Matricula extends Controller implements Dao {
             }
 
 
-            $id = $this->pessoa->adicionar($this->pessoa);
+
+            $id = $this->matricula->adiciona($this->pessoa, $this->aluno, $this->matricula, $this->usuario, $_POST['modulo']);
             if (!is_int($id)) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
-                // echo json_encode($ret);
-                $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
-                exit;
-            }
-            $id1 = $this->aluno->adiciona($this->aluno, $id);
-            if (!is_int($id1)) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
-                //echo json_encode($ret);
-                $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
-                exit;
-            }
-
-
-            $id2 = $this->matricula->adiciona($this->matricula, $id1, $this->view->dados['curso'], $this->view->dados['modulo']);
-            if (!is_int($id2)) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados");
-                // echo json_encode($ret);
-                $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
-                exit;
-            }
-            $mt = $this->aluno->pesquisar($id1);
-
-            $login = $this->view->dados['nome1'] . rand(5, 10);
-            $this->usuario->setLogin($login);
-            $this->usuario->setSenha(\application\Hash::getHash("md5", $dados['nome1'] . $login, HASH_KEY));
-            $this->usuario->setNivel("aluno");
-            $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
-            if (!is_int($id12)) {
                 $this->view->erro = "Erro ao criar usuario";
                 $this->view->renderizar("novo");
                 exit;
             } else {
 
                 $this->view->mensagem = "Dados guardados com sucesso";
-                }
+            }
         }
 
 
@@ -284,7 +260,7 @@ class Matricula extends Controller implements Dao {
         //Enviar mensagem confirmando a matricula
         $mensagem = "Matricula Confirmada. CEAFIE";
         $telefone = 934895543;
-       // Sms::enviarSMS("127.0.0.1", 8800, "", "", $telefone, $mensagem);
+        // Sms::enviarSMS("127.0.0.1", 8800, "", "", $telefone, $mensagem);
         $this->view->dados = $this->matricula->pesquisar();
         $this->view->renderizar("editar");
     }
@@ -294,13 +270,14 @@ class Matricula extends Controller implements Dao {
         $this->view->renderizar('editarDados');
     }
 
-    public function pesquisaPor($dados = FALSE) {
-        $valor = $this->matricula->pesquisaPorData($this->filtraInt($_GET['id']));
-        echo json_encode($valor);
+    public function pesquisaPor($ano=FALSE, $modulo=FALSE) {
+        $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
+        $this->view->renderizar('ajax');
     }
 
-    public function pesquisar($id = FALSE) {
-        
+    public function pesquisar($id=FALSE) {
+        $this->view->dados = $this->matricula->pesquisaPorData();
+        $this->view->renderizar('ajax');
     }
 
     public function remover($id = FALSE) {
@@ -331,15 +308,16 @@ class Matricula extends Controller implements Dao {
         $this->redirecionar("dashboard");
     }
 
-    public function imprimir($id = FALSE) {
+    public function imprimir($id, $data) {
 
-        $d = $this->matricula->pesquisar($id);
+        $d = $this->mm->pesquisar(array("id" => $id, 'data' => $data));
+
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Recibo($css, 'sam');
-        $report->setBi($d->getAluno()->getPessoa()->getBi());
-        $report->setNome($d->getAluno()->getPessoa()->getNome());
+        $report->setBi($d->getMatricula()->getAluno()->getPessoa()->getBi());
+        $report->setNome($d->getMatricula()->getAluno()->getPessoa()->getNome());
         $report->setData($d->getData());
-        $report->setCurso($d->getCurso()->getNome());
+        $report->setCurso($d->getModulo()->getCurso()->getNome());
         $report->setModulo($d->getModulo()->getNome());
         $report->BuildPDF();
         $report->Exibir();
