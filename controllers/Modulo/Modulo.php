@@ -62,6 +62,16 @@ class Modulo extends Controller implements Dao {
             }
 
             $this->modulo->setNome($this->view->dados['nome']);
+
+            //verificar se já existe um modulo com esse nome
+            $p = $this->modulo->pesquisarModulo($this->view->dados['nome']);
+            if ($p) {
+                $this->view->erro = "Modulo já Existe";
+                $this->view->renderizar("novo");
+                exit;
+            }
+
+            //adiconando modulo
             $id = $this->modulo->adiciona($this->modulo, $this->view->dados);
             if ($id) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");

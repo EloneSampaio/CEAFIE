@@ -7,15 +7,15 @@
 // tabela();
 //
 //    });
-
+$(document).off('.data-api');
+$(document).off('.alert.data-api')
 $(document).ready(function () {
-
 
     $('#carregar').hide();
     $("#modulo").hide();
     setTimeout(function () {
         cursos();
-    }, 50)
+    }, 50);
     modulos();
     modulos1();
     pesquisarEstado();
@@ -24,17 +24,6 @@ $(document).ready(function () {
     remover();
     var oTable = $('#tabela').dataTable();
 
-//    /* Add event listener to the dropdown input */
-//    $('#ano').change(function () {
-//
-//        oTable.fnFilter($(this).val());
-//    });
-//    $('#curso').change(function () {
-//        oTable.fnFilter($(this).val());
-//    });
-//    $('#modulo1').change(function () {
-//        oTable.fnFilter($(this).val());
-//    });
 
     $('#data').datepicker({
         format: "dd-mm-yyyy",
@@ -70,12 +59,10 @@ function modulos() {
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
                 }
-                $('#modulo').html(options).hide();
+                $('#modulo').html(options).show();
                 $('.carregando').hide();
 
-                $("#modulo").multipleSelect({
-                    selectAll: false,
-                });
+
             });
         } else {
             $('#modulo').html('<option value="">-- Escolha um curso --</option>');
@@ -243,7 +230,7 @@ function validar() {
 function remover() {
     var url = "http://localhost/uan/matricula/remover";
     $(document).on('click', '#remover', function () {
-        if (confirm('Pretendes Apagar este Item?')) {
+        if (confirm('Pretendes Apagar este Aluno?')) {
             var id = $(this).attr('rel');
             console.log(id);
             $.post(id)
@@ -286,12 +273,14 @@ function CriaRequest() {
 }
 /** * Função para enviar os dados */
 
-function getDados() {
+function getDados(elemento) {
     // Declaração de Variáveis
 
+    var acao = $('.' + elemento).attr('class');
     var ano = document.getElementById("ano").value;
     var imagem = document.getElementById("img").value;
     var modulo = $("#modulo1").val();
+
     var result = document.getElementById("conteudo");
     var xmlreq = CriaRequest();
     // Exibi a imagem de progresso 
@@ -299,7 +288,7 @@ function getDados() {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/" + ano + '/' + modulo + '/', true);
+    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -309,6 +298,7 @@ function getDados() {
             if (xmlreq.status == 200) {
                 result.innerHTML = xmlreq.responseText;
                 tabela();
+
             }
 
             else {
@@ -323,9 +313,10 @@ function getDados() {
 }
 
 
-function getTodos() {
+function getTodos(elemento) {
 
 
+    var acao = $('.' + elemento).attr('class');
 
     var result = document.getElementById("conteudo");
     var imagem = document.getElementById("img").value;
@@ -335,7 +326,7 @@ function getTodos() {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/", true);
+    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -358,4 +349,56 @@ function getTodos() {
 
 
 }
+
+
+
+function modal(id) {
+    BootstrapDialog.show({
+        closable: false,
+        message: function (dialog) {
+            var $message = $('<div></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+
+            return $message;
+        },
+        data: {
+            'pageToLoad': 'http://localhost/uan/matricula/informacao/' + id
+        },
+        cssClass: 'login-dialog',
+        buttons: [{
+                cssClass: 'btn btn-primary',
+                label: 'Matricular em novo curso',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                    $(location).attr('href', 'http://localhost/uan/matricula/addCurso/' + id);
+
+                }
+            },
+            {
+                cssClass: 'btn btn-info',
+                label: 'Imprimir Ficha',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                    $(location).attr('href', 'http://localhost/uan/matricula/imprimirFicha/' + id);
+
+                }
+            }
+            , {
+                cssClass: 'btn btn-danger',
+                label: 'Fechar',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                    $(location).attr('href', 'http://localhost/uan/matricula/');
+                }
+
+
+            },
+        ]
+
+    });
+
+
+}
+
 

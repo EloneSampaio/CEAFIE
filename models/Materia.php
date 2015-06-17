@@ -135,4 +135,13 @@ class Materia extends Doctrine implements Dao {
     public function remover($id = FALSE) {
         
     }
+    
+    
+        public function pesquisarNome($id = FALSE) {
+        if ($id) {
+            return $this->em->getRepository('models\Materia')->findOneBy(array('nome' => $id));
+            $this->em->flush();
+           
+        } 
+    }
 }

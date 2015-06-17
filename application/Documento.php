@@ -44,5 +44,5 @@ interface Documento  {
      * Método para montar o Corpo do relatório em PDF 
      */
 
-    public function getBody();
+    public function getBody($dados=FALSE);
 }

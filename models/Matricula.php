@@ -10,7 +10,7 @@ use \Doctrine\Common\Util\Debug;
 /**
  * Matricula
  *
- * @ORM\Table(name="matricula", indexes={@ORM\Index(name="fk_matricula_aluno1_idx", columns={"aluno_id"}), @ORM\Index(name="fk_matricula_curso1_idx", columns={"curso_id"}), @ORM\Index(name="fk_matricula_modulo1_idx", columns={"modulo_id"})})
+ * @ORM\Table(name="matricula", indexes={@ORM\Index(name="fk_matricula_aluno1_idx", columns={"aluno_id"}),})
  * @ORM\Entity
  */
 class Matricula extends Doctrine implements Dao {
@@ -101,36 +101,18 @@ class Matricula extends Doctrine implements Dao {
             $this->em->persist($matricula);
             $this->em->flush();
 
+//adicionar aluno em curso
+            $md = new MatriculaModulo();
 
+            $m = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $matricula->getId()));
+            $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados));
+            $md->setMatricula($m);
+            $md->setModulo($modulo);
+            $md->setData($matricula->getData());
+            $this->em->persist($md);
 
-            $batchSize = 5;
+            $this->em->flush();
 
-            if (is_array($dados)) {
-                for ($i = 0; $i < count($dados); ++$i) {
-                    $aluno = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $matricula->getId()));
-                    $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados[$i]));
-                    $md = new MatriculaModulo();
-                    $md->setMatricula($aluno);
-                    $md->setModulo($modulo);
-                    $md->setData($matricula->getData());
-                    $this->em->persist($md);
-                    $this->em->flush();
-
-                    if (($i % $batchSize) == 0) {
-                        $this->em->flush();
-                        $this->em->clear();
-                    }
-                }
-            } else {
-                $md = new MatriculaModulo();
-
-                $m = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $matricula->getId()));
-                $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados));
-                $md->setMatricula($m);
-                $md->setModulo($modulo);
-                $this->em->persist($md);
-                $this->em->flush();
-            }
 
             $usuario->setPessoa($pessoa1);
             $this->em->merge($usuario);
@@ -168,7 +150,7 @@ class Matricula extends Doctrine implements Dao {
     }
 
     public function pesquisaPorData($ano = FALSE, $modulo = FALSE) {
-       
+
         if ($ano && $modulo) {
             $qb = $this->em->createQueryBuilder()
                     ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
@@ -180,7 +162,7 @@ class Matricula extends Doctrine implements Dao {
                     ->andWhere('m.data LIKE :data')
                     ->setParameter('data', '%' . $ano)
                     ->setParameter('modulo', $modulo)
-                   ->orderBy('m.id', 'DESC');
+                    ->orderBy('m.id', 'DESC');
 
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         } else {
@@ -189,7 +171,6 @@ class Matricula extends Doctrine implements Dao {
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
-                    ->innerJoin('models\MatriculaModulo', 'md', 'WITH', 'm.id=md.matricula')
                     ->orderBy('m.id', 'DESC');
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         }
@@ -216,6 +197,31 @@ class Matricula extends Doctrine implements Dao {
         $this->em->remove($id);
         $this->em->flush();
         return TRUE;
+    }
+
+    //função que retorna os cursos e modulos onde um aluno foi matriculado
+    public function buscaMatriculaMod($id) {
+        $qb = $this->em->createQueryBuilder()
+                ->select('m.nome')
+                ->from('models\MatriculaModulo', 'md')
+                ->innerJoin('models\Modulo', 'm', 'WITH', 'md.modulo=m.id')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id')
+                ->andWhere('md.matricula =:id')
+                ->setParameter(':id', $id)
+                ->orderBy('md.id', 'DESC');
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
+    public function pesquisaImpressao($id) {
+        
+        $qb = $this->em->createQueryBuilder()
+                ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->andWhere('m.aluno =:id')
+                ->setParameter('id', $id);
+        $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
 }

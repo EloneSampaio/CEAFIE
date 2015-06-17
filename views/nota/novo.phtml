@@ -91,17 +91,15 @@
                                     <tr>
                                         <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
                                         <td>            
-                                            <form action="<?php print URL; ?>nota/adicionar"   method="POST">            
+                                            <form action="<?php print URL; ?>nota/adicionar/"   method="POST">            
                                                 <select  id="nota" name="nota">
                                                     <option>Seleccionar Nota...</option>
                                                     <option value="Excelente">Excelente</option>
                                                     <option value="Bom">Bom</option>
                                                     <option value="Suficiente">Suficiente</option>
                                                 </select>
-                                                <input type="hidden" name="aluno" value="<?php print $dados->getAluno()->getId(); ?>"/>
-                                                <input type="hidden" name="curso" value="<?php print $dados->getCurso()->getId(); ?>"/>
-                                                <input type="hidden" name="modulo" value="<?php print $dados->getModulo()->getId(); ?>"/>
-                                                <input name="enviar" type="hidden" value="1"/>
+                                                <input type="hidden" name="mod" value="1" />
+
                                                 <input name="button" type="submit" class="input" id="button" value="Adicionar"/>
                                             </form>
                                         </td>

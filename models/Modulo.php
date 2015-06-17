@@ -137,5 +137,14 @@ class Modulo extends Doctrine implements Dao {
             $this->em->flush();
         }
     }
+    
+    
+        public function pesquisarModulo($id = FALSE) {
+        if ($id) {
+            return $this->em->getRepository('models\Modulo')->findOneBy(array('nome' => $id));
+            $this->em->flush();
+            return true;
+        }
+    }
 
 }

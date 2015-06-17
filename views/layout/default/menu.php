@@ -2,6 +2,8 @@
 
 use application\Session; ?>
 <header id="header">
+    <p class="pull-right" style="color: #ffffff; position: absolute; right: 20px; margin-top: 10px; font-size: 14px;"><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
+        
     <hgroup>
         <h1 class="site_title"><a href="index.html">
                 <?php if (Session::get('nivel') == "administrador"):  $menu="dashboard"; ?>
@@ -19,15 +21,14 @@ use application\Session; ?>
                     
                 <?php endif; ?>
 
-            </a>
+            
         </h1>
         <h2 class="section_title"><?php if(isset($this->titulo)): echo $this->titulo; endif;?></h2>
     </hgroup>
 </header> <!-- end of header bar -->
 
-<section id="secondary_bar">
+<section id="secondary_bar" class="">
     <div class="user">
-        <p><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
         <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
     </div>
     <div class="breadcrumbs_container">

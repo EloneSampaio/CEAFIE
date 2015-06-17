@@ -11,6 +11,7 @@ namespace controllers;
 use application\Controller;
 use application\Dao;
 use DateTime;
+use DateTimeZone;
 use application\Session;
 
 /**
@@ -43,7 +44,7 @@ class Programa extends Controller implements Dao {
 
         if ($this->getInt('enviar')) {
 
-            $dados = $_POST;
+            $this->view->dados = $_POST;
             if (!$this->getSqlverifica('curso')) {
                 // $ret = Array("mensagem" => "Porfavor Escolha um curso");
                 // echo json_encode($ret);
@@ -109,24 +110,32 @@ class Programa extends Controller implements Dao {
             }
 
 
-            $format = 'd-m-Y';
-            $inicio = DateTime::createFromFormat($format, $dados['inicio']);
-            $fim = DateTime::createFromFormat($format, $dados['termino']);
+//            $format = 'd-m-Y';
+//            $timeZone = new DateTimeZone('UTC');
+//            $inicio = DateTime::createFromFormat($format, $dados['inicio'],$timeZone);
+//            $fim = DateTime::createFromFormat($format, $dados['termino'],$timeZone);
+//
+//            if ($fim->format($format) < $inicio->format($format)) {
+//                //$ret = Array("mensagem" => "Verifica as Datas");
+//                //echo json_encode($ret);
+//                $this->view->erro = "Verifica as Datas";
+//                $this->view->renderizar("novo");
+//
+//                exit;
+//            }
 
-            if ($fim->format($format) < $inicio->format($format)) {
-                //$ret = Array("mensagem" => "Verifica as Datas");
-                //echo json_encode($ret);
+            if ($this->compararDatas($this->view->dados['inicio'], $this->view->dados['termino'])) {
                 $this->view->erro = "Verifica as Datas";
                 $this->view->renderizar("novo");
-
                 exit;
             }
-            $this->programa->setHoras($dados['hora']);
-            $this->programa->setData($dados['inicio']);
-            $this->programa->setLocal($dados['local']);
-            $this->programa->setDatafinal($dados['termino']);
 
-            if ($this->programa->adiciona($this->programa, $dados)) {
+            $this->programa->setHoras($this->view->dados['hora']);
+            $this->programa->setData($this->view->dados['inicio']);
+            $this->programa->setLocal($this->view->dados['local']);
+            $this->programa->setDatafinal($this->view->dados['termino']);
+
+            if ($this->programa->adiciona($this->programa, $this->view->dados)) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
                 //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardados com sucesso";
@@ -151,23 +160,6 @@ class Programa extends Controller implements Dao {
         if ($this->getInt('enviar')) {
 
             $dados = $_POST;
-//            if (!$this->getSqlverifica('curso')) {
-//                $ret = Array("mensagem" => "Porfavor Escolha um curso");
-//                echo json_encode($ret);
-//                exit;
-//            }
-//
-//            if (!$this->getSqlverifica('modulo')) {
-//                $ret = Array("Porfavor Escolha um modulo");
-//                echo json_encode($ret);
-//                exit;
-//            }
-//
-//            if (!$this->getSqlverifica('docente')) {
-//                $ret = Array("mensagem" => "Porfavor Escolha uma docente");
-//                echo json_encode($ret);
-//                exit;
-//            }
 
 
             if (!$this->getSqlverifica('local')) {
@@ -260,6 +252,15 @@ class Programa extends Controller implements Dao {
     public function editarDados($id = FALSE) {
         $this->view->dados = $this->programa->pesquisar($id);
         $this->view->renderizar('editarDados');
+    }
+
+    public function gerar($id) {
+
+        $d = $this->programa->pesquisar($id);
+        $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
+        $report = new \application\Recibo($css, 'sam');
+        $report->BuildPDFPrograma($d);
+        $report->Exibir();
     }
 
 }

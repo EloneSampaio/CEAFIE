@@ -21,7 +21,7 @@ class Nota extends Controller implements Dao {
 
     //put your code here
     private $nota;
-    private $curso;
+    private $dm;
     private $aluno;
     private $modulo;
     private $matricula;
@@ -30,7 +30,7 @@ class Nota extends Controller implements Dao {
     public function __construct() {
         Session::nivelRestrito(array("administrador", "docente"));
         $this->nota = $this->LoadModelo('Nota');
-        $this->curso = $this->LoadModelo('Curso');
+        $this->dm = $this->LoadModelo('DocentModulo');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->modulo = $this->LoadModelo('Modulo');
         $this->matricula = $this->LoadModelo('Matricula');
@@ -46,6 +46,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
+
         if ($this->getInt('enviar') == 1) {
 
             if (!$this->getSqlverifica('nota')) {
@@ -54,16 +55,20 @@ class Nota extends Controller implements Dao {
                 exit;
             }
 
-            $dados = $_POST;
             $this->nota->setData(date('Y-m-d'));
             $aluno = $this->aluno->pesquisar($this->getInt('aluno'));
             $matricula = $this->matricula->pesquisar($aluno->getId());
-            $modulo = $this->modulo->pesquisaPor($matricula->getModulo()->getId());
+            $modulo = $this->modulo->pesquisaPor($_POST['modulo']);
             $this->nota->setNota($this->getSqlverifica('nota'));
             $this->nota->setModulo($modulo);
             $this->nota->setAluno($aluno);
 
-            $this->nota->adicionar($this->nota);
+            $r = $this->nota->adicionar($this->nota);
+            if ($r) {
+                $this->view->mensagem = "Nota lançada com sucesso";
+            } else {
+                $this->view->erro = "Erro ao  lançar nota";
+            }
         }
 
         $this->view->renderizar('index');
@@ -107,7 +112,7 @@ class Nota extends Controller implements Dao {
             $dados[] = $this->getInt('modulo');
             $dados[] = "FECHADO";
             $dados[] = $this->getSqlverifica('ano');
-            $this->view->dados = $this->nota->pesquisaPor($dados);
+            $this->view->dados = $this->nota->pesquisaPorDOcente($dados);
         }
         $this->view->renderizar('index');
     }
@@ -115,7 +120,7 @@ class Nota extends Controller implements Dao {
     public function pesquisar($id = FALSE) {
 
         if ($this->getInt('enviar') == 1) {
-            
+
 
             if (!$this->getSqlverifica('curso')) {
                 $this->view->erro = "Porfavor Selecciona um dos cursos";
@@ -148,16 +153,57 @@ class Nota extends Controller implements Dao {
 
     public function docente() {
 
-        $id = $this->docente->pesquisar(Session::get('pessoa'));
-        $dados = array("modulo" => $id->getModulo()->getId(), "estado" => "FECHADO");
-        if ($this->view->dados = $this->matricula->pesquisaPor($dados)) {
-            $this->view->renderizar("index1");
+//        $id = $this->docente->pesquisar(Session::get('pessoa'));
+//        $r = $this->dm->pesquisarPor($id->getId());
+//        \Doctrine\Common\Util\Debug::dump($r); 
+//        $dados = array("modulo" => $r->getModulo()->getId(), "estado" => "FECHADO");
+//        if ($this->view->dados = $this->matricula->pesquisaPor($dados)) {
+//            $this->view->renderizar("index1");
+//        }
+        $this->view->renderizar("docente");
+    }
+
+    public function pesquisaNotaDocente() {
+
+        if ($this->getInt('enviar')) {
+            $dados[] = '1';
+            $dados[] = $_POST['modulo'];
+            $dados[] = "FECHADO";
+            $dados[] = $_POST['ano'];
+            $this->view->dados = $this->nota->pesquisaPorDOcente($dados);
+            $this->view->renderizar('docente');
         }
     }
 
     public function listar() {
         $this->view->nota = $this->nota->verNota();
         $this->view->renderizar("notas");
+    }
+
+    public function pesquisarPor($acao = FALSE, $modulo = FALSE, $ano = FALSE) {
+
+        $dados[] = $acao;
+        $dados[] = $modulo;
+        $dados[] = "FECHADO";
+        $dados[] = $ano;
+
+
+        switch ($acao):
+
+            case 'buscar': $this->view->nota = $this->nota->pesquisaPor($dados);
+
+
+                $this->view->renderizar('ajax/lista');
+                break;
+
+        endswitch;
+    }
+
+    public function pesquisaDocenteNotas() {
+        $id = $this->docente->pesquisar(Session::get('pessoa'));
+
+        $t = $this->dm->listagem($id->getId());
+        echo json_encode($t);
     }
 
 }

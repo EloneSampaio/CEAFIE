@@ -6,6 +6,7 @@ use application\Controller;
 use application\Dao;
 use application\Session;
 use application\LogUso;
+use \Eventviva\ImageResize;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,10 +32,10 @@ class Docente extends Controller implements Dao {
         $this->usuario = $this->LoadModelo('Usuario');
         $this->dm = $this->LoadModelo('DocentModulo');
         parent::__construct();
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select'));
-        $this->view->setJs(array("novo", "jquery.multiple.select"));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
+        $this->view->setJs(array("novo", "jquery.multiple.select", 'bootstrap-dialog.min'));
         $this->view->menu = $this->getFooter('menu');
-        $this->view->titulo = "Docente";
+        $this->view->titulo = " Tabela de docentes cadastrados";
     }
 
     public function index() {
@@ -203,9 +204,9 @@ class Docente extends Controller implements Dao {
             $this->dm->adiciona($id1, $_POST['modulo']);
 
 
-            $login = $this->view->dados['nome1'] . rand(8, 12);
-            $this->usuario->setLogin($login);
-            $this->usuario->setSenha(\application\Hash::getHash("md5", $login, HASH_KEY));
+
+            $this->usuario->setLogin($_POST['bi']);
+            $this->usuario->setSenha(\application\Hash::getHash("md5",$_POST['bi'], HASH_KEY)); //$this->geraSenha()
             $this->usuario->setNivel("docente");
             $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
             if (!is_int($id12)) {
@@ -220,7 +221,7 @@ class Docente extends Controller implements Dao {
 
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi criado um novo aluno" . 'Com o nome de : ' . $nome);
+                $lo->gravar("Foi criado um novo docente" . 'Com o nome de : ' . $nome);
 
                 $this->view->mensagem = "Dados guardados com sucesso";
                 $this->view->renderizar("novo");
@@ -241,51 +242,35 @@ class Docente extends Controller implements Dao {
         $this->view->renderizar("editar");
     }
 
-    public function editar1($id = FALSE) {
-        //if ($this->filtraInt($id)) {
-
+    public function editarDados($id = FALSE) {
 
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
 
             if (!$this->getSqlverifica('nome')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
-                //echo json_encode($ret);
 
                 $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
 
-            if (!$this->getSqlverifica('nome1')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um apelido");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um apelido";
-                $this->view->renderizar("novo");
-                exit;
-            }
+
             if (!$this->getSqlverifica('genero')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor Insira um genero";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
 
             if (!$this->getSqlverifica('bi')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero do BI");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor o numero do BI";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             }
 
             if (!$this->verificarBi($this->view->dados['bi'])) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero de BI valido");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor um numero de BI valido";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             }
@@ -293,37 +278,29 @@ class Docente extends Controller implements Dao {
 
 
             if (!$this->getSqlverifica('nacionalidade')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor uma nacionalidade";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             }
 
             if (!$this->getSqlverifica('telefone')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um numero de telefone");
-                //echo json_encode($ret);
 
                 $this->view->erro = "Porfavor um numero de telefone";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             }
 
             if (!$this->getSqlverifica('email')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um email");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor um email";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
 
             if (!$this->getSqlverifica('grau')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma grau");
-                //echo json_encode($ret);
                 $this->view->erro = "Porfavor uma grau";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
 
@@ -339,44 +316,74 @@ class Docente extends Controller implements Dao {
 //Aluno//
             $this->docente->setGrau($this->view->dados['grau']);
 
-            $id = $this->pessoa->editar1($this->pessoa);
-            if (!$id) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
-                //echo json_encode($ret);
+            $r = $this->pessoa->editarDados($this->pessoa);
+            if (!$r) {
                 $this->view->erro = "Erro ao alterar dados";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             }
+
             $this->docente->setId($this->view->dados['id']);
             $id1 = $this->docente->editar($this->docente);
             if (!$id1) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
-                //echo json_encode($ret);
                 $this->view->erro = "Erro ao alterar dados";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
 
                 exit;
             } else {
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi Editado  informações do aluno" . ' Com o nome de : ' . $_POST['nome']);
+                $lo->gravar("Foi Editado  informações do docente" . ' Com o nome de : ' . $_POST['nome']);
 
                 $this->view->mensagem = "Dados alterados com sucesso";
-                $this->view->renderizar("novo");
+                $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
         }
         //}
-    }
-
-    public function editarDados($id = FALSE) {
         $this->view->dados = $this->docente->pesquisar($id);
         $this->view->renderizar('editarDados');
     }
 
-    public function pesquisaPor($dados = FALSE) {
-        
+    public function editarImagem($id = FALSE, $docente = FALSE) {
+        if ($this->filtraInt($id)) {
+            $diretorio = "upload/";
+            move_uploaded_file($_FILES['imagem']["tmp_name"], $diretorio . $_FILES['imagem']["name"]);
+            $resize = new ImageResize($diretorio . $_FILES['imagem']["name"]);
+            $resize->crop(240, 320);
+            unlink($diretorio . $_FILES['imagem']["name"]);
+            $resize->save($diretorio . $_FILES['imagem']["name"]);
+            $this->pessoa->setImagem($diretorio . $_FILES['imagem']["name"]);
+            $this->pessoa->setId($id);
+            $p = $this->pessoa->editar($this->pessoa);
+            if ($p) {
+                $this->redirecionar("docente/informacao/" . $docente);
+            }
+        }
+        $this->redirecionar("docente");
+    }
+
+    public function pesquisaPor($acao = FALSE, $curso = FALSE) {
+
+        switch ($acao):
+
+            case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
+
+                $this->view->renderizar('ajax/lista');
+                break;
+                exit;
+
+            case 'editar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
+                $this->view->renderizar('ajax/editar');
+                break;
+                exit;
+
+            case 'apagar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
+                $this->view->renderizar('ajax/apagar');
+                break;
+                exit;
+        endswitch;
     }
 
     public function pesquisar($id = FALSE) {
@@ -386,7 +393,7 @@ class Docente extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->docente->remover($id)) {
-                 $lo=new LogUso('log');
+                $lo = new LogUso('log');
                 $lo->verificarArquivo();
                 $lo->gravar("Foi removido um  aluno do sistema");
                 return TRUE;
@@ -412,10 +419,41 @@ class Docente extends Controller implements Dao {
         echo json_encode(array_filter($var));
     }
 
-    public function detalhes() {
-        $de = $this->dm->pesquisar($this->filtraInt($_GET['id']));
-        echo json_encode($de);
-        exit;
+    public function informacao($id) {
+        $this->view->dados = $this->docente->pesquisaPor($id);
+        $this->view->modulo = $this->dm->pesquisarPor($id);
+        $this->view->renderizar("informacao");
+    }
+
+    public function addCurso($id) {
+        if ($this->getInt('enviar')) {
+
+            if (!$this->getSqlverifica('curso')) {
+                $this->view->erro = "Porfavor Escolha um curso";
+                $this->view->renderizar("addCurso");
+
+                exit;
+            }
+
+            if (!$this->getSqlverifica('modulo')) {
+                $this->view->erro = "Porfavor Escolha um modulo";
+                $this->view->renderizar("addCurso");
+
+                exit;
+            }
+
+
+            $r = $this->dm->adiciona($id, $_POST['modulo']);
+            if (is_int($r)) {
+                $this->view->mensagem = "Adicionado com sucesso";
+                $this->view->renderizar("addCurso");
+            } else {
+                $this->view->erro = "Erro ao adicionar";
+                $this->view->renderizar("addCurso");
+            }
+        } else {
+            $this->view->renderizar('addCurso');
+        }
     }
 
 }

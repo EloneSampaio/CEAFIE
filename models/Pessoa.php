@@ -164,7 +164,7 @@ class Pessoa extends Doctrine implements Dao {
         return TRUE;
     }
 
-    public function editar1($id = FALSE) {
+    public function editarDados($id = FALSE) {
         $editar = $this->em->getRepository('models\Pessoa')->find(array('id' => $id->getId()));
         $editar->setNome($id->getNome());
         $editar->setGenero($id->getGenero());

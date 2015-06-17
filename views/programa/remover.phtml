@@ -28,7 +28,8 @@
                         <th>INICIO</th>
                         <th>TERMINA</th>
                         <th>HORAS</th>
-                        <th>APAGAR</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -44,6 +45,7 @@
                                 <td><?php print date("d/m/Y", strtotime($dados->getData())); ?></td>
                                 <td><?php print date("d/m/Y", strtotime($dados->getDatafinal())); ?></td>
                                 <td><?php print $dados->getHoras(); ?></td>
+                                <td><a target="__BLANK" href="<?php echo URL . "programa" . DS1 . "gerar/" . $dados->getId(); ?>"><i class="icon icon-print"></i></a></td>
                                 <td><a href="#" id="remover" rel="<?php echo URL . "programa" . DS1 . "remover/" . $dados->getId(); ?>"><i class="icon-trash"></i></a></td>
                             </tr>
 

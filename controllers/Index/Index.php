@@ -29,7 +29,7 @@ class Index extends Controller {
         }
         $this->view->titulo = "Pagina Incial";
         $this->view->setCss(array("css"));
-        $this->view->renderizar("index");
+        $this->redirecionar('dashboard');
     }
 
 }

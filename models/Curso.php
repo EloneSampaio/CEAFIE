@@ -85,7 +85,8 @@ class Curso extends Doctrine implements Dao {
         $this->em->flush();
         return TRUE;
     }
-    function listagem() {
+    
+    public function listagem() {
         $t = $this->em->getRepository('models\Curso');
         $qb = $t->createQueryBuilder('e');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);

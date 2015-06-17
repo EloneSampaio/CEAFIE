@@ -82,6 +82,12 @@ class Materia extends Controller implements Dao {
             $this->materia->setNome($diretorio . $_FILES['arquivo']["name"]);
             $this->materia->setData($dados['data']);
 
+            $p = $this->materia->pesquisarNome($diretorio . $_FILES['arquivo']["name"]);
+            if (!$p) {
+                $this->view->sms = "Já foi publicado um arquivo com esse nome";
+                $this->view->renderizar('novo1');
+                exit;
+            }
             if ($this->materia->adiciona($this->materia, $dados)) {
                 $this->view->mensagem = "Dados guardado com sucesso";
                 $this->view->renderizar('novo');
@@ -107,7 +113,8 @@ class Materia extends Controller implements Dao {
     public function aluno($dados = FALSE) {
         $id = $this->materia->buscaAluno(Session::get('pessoa'));
         \Doctrine\Common\Util\Debug::dump($id);
-        echo $id->getId(); exit;
+        echo $id->getId();
+        exit;
         $this->view->dados = $this->materia->pesquisar($id->getMatricula()->getModulo()->getId());
         $this->view->renderizar("aluno");
     }
@@ -127,26 +134,26 @@ class Materia extends Controller implements Dao {
             $_POST['docente'] = $id->getId();
             $dados = $_POST;
             if (!$this->getSqlverifica('curso')) {
-                $this->view->sms = "Porfavor Selecciona um curso";
+                $this->view->erro = "Porfavor Selecciona um curso";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
             if (!$this->getSqlverifica('modulo')) {
-                $this->view->sms = "Porfavor Selecciona um modulo";
+                $this->view->erro = "Porfavor Selecciona um modulo";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
 
             if (!$this->getSqlverifica('data')) {
-                $this->view->sms = "Porfavor Selecciona uma data";
+                $this->view->erro = "Porfavor Selecciona uma data";
                 $this->view->renderizar('novo1');
                 exit;
             }
 
-            if (!isset($_FILES['arquivo']["name"]) && empty($_FILES['arquivo']["name"])) {
-                $this->view->sms = "Porfavor Selecciona um arquivo";
+            if (empty($_FILES['arquivo']["name"])) {
+                $this->view->erro = "Porfavor Selecciona um arquivo";
                 $this->view->renderizar('novo1');
                 exit;
             }
@@ -157,9 +164,15 @@ class Materia extends Controller implements Dao {
 
             $this->materia->setNome($diretorio . $_FILES['arquivo']["name"]);
             $this->materia->setData($dados['data']);
+            $p = $this->materia->pesquisarNome($diretorio . $_FILES['arquivo']["name"]);
+            if ($p) {
+                //$this->view->sms = "Já foi publicado um arquivo com esse nome";
+                $this->view->renderizar('novo1');
+                exit;
+            }
 
             if ($this->materia->adiciona($this->materia, $dados)) {
-                $this->view->mensagem = "";
+                $this->view->mensagem = "Dados guardado com sucesso";
                 $this->view->sms = "Dados guardado com sucesso";
 
                 $this->view->renderizar('novo1');

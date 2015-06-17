@@ -38,8 +38,8 @@
                                 <td><?php print $dados->getAluno()->getPessoa()->getBi(); ?></td>
                                 <td><?php print $dados->getAluno()->getPessoa()->getNome(); ?></td>
                                 <td><?php print $dados->getModulo()->getCurso()->getNome(); ?></td>
-                                <td><?php print date("Y",  strtotime($dados->getData())); ?></td>
-                                <td><a target="__BLANK" href="<?php echo URL . "diploma" . DS1 . "gerar/" . $dados->getAluno()->getId(); ?>">DIPLOMA</a></td>
+                                <td><?php print date("d/m/Y",  strtotime($dados->getData())); ?></td>
+                                <td><a target="__BLANK" href="<?php echo URL . "diploma" . DS1 . "gerar/" . $dados->getAluno()->getId().'/'.date("d-m-Y",  strtotime($dados->getData())); ?>">DIPLOMA</a></td>
                             </tr>
 
                             <?php

@@ -60,7 +60,7 @@ class Certificado implements Documento {
         $this->setarCSS($css);
     }
 
-    public function getBody() {
+    public function getBody($dados=FALSE) {
 
         $nome = $this->getNome();
         $data = date("d.m.Y",  strtotime($this->getData()));
@@ -86,7 +86,7 @@ class Certificado implements Documento {
 <div style=\"font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif; font-size: 16px;\">
 
 <tr>
-          <td colspan=\"2\"><p style=\"\">Para os devidos efeitos certificamos que <strong>$nome</strong> concluiu aos <strong>$data</strong> o curso de $modulo </p> <p>com um total de 320 horas, conforme consta do livro _______ folha ______ n.º ____.</p>
+          <td colspan=\"2\"><p style=\"\">Para os devidos efeitos certificamos que <strong>$nome</strong> concluiu aos <strong>$data</strong> o curso de $modulo. </p> <p>Com um total de 320 horas, conforme consta do livro _______ folha ______ n.º ____.</p>
         <tr>
           <td colspan=\"2\" align=\"center\"><p>Feito  em Luanda, aos ______ de ________________________ de _____</p></td>
           </tr>

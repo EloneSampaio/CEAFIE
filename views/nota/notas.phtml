@@ -4,7 +4,7 @@
         <div class="block">
 
             <div class="col-12 pull-right">
-                <h3>Acesso Rapido</h3>
+                <h3></h3>
                 <div class="navbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo URL . "nota" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Lançar Nota</span></a></li>
@@ -15,57 +15,34 @@
 
 
             </div>
-            <div style="position:absolute;
-                 top: 258px;
-                 left: 605px;">
-                <input type="number" name="ano" id="ano" data-required="1"  placeholder="Ano" maxlength="4"  class="span2 m-wrap" />
 
+            <div style="position:absolute;
+                 top: 250px;
+                 left: 600px;">
+
+                <input type="number" name="ano" id="ano" data-required="1"  placeholder="Ano" maxlength="4"class="span2 m-wrap"/>
                 <select id="curso" >
                     <option value="">- Curso -</option>
 
                 </select>
 
-                <select id="modulo1">
+                <select id="modulo">
                     <option value="">- Modulo -</option>
 
                 </select>
+                <input type="button" name="btnPesquisar" value="Pesquisar" class="buscar"  onclick="getDados('buscar');"/>
+                <input type="button" name="btnPesquisar" value="Carregar Todos" class="buscar"  onclick="getTodos('buscar');" />
+                <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
+
+            </div>
+            <h3 style="position: absolute; right: 600px;">  <?php
+                if (isset($this->titulo)): echo $this->titulo;
+                endif;
+                ?> </h3>
+            <div id="conteudo">
+
             </div>
 
-
-            <table  class="table table-striped table-bordered" id="tabela">   
-                <thead>
-
-                    <tr class="odd gradeA">
-
-                        <th>Nª BI</th> 
-                        <th>Nome</th>
-                        <th>Nota</th>
-                        <th>Curso</th>
-                        <th>Modúlo</th>
-                        <th>Ano</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <?php if (isset($this->nota) && !empty($this->nota)): ?>
-                        <?php foreach ($this->nota as $dados): ?>
-                            <tr>
-                                <td><?php print $dados['bi']; ?></td>
-                                <td><?php print $dados['nome']; ?></td>
-                                <td><?php print $dados['nota']; ?></td>
-                                <td><?php print $dados['n1']; ?></td>
-                                <td><?php print $dados['n2']; ?></td>
-                                <td><?php print date("Y", strtotime($dados['data'])); ?></td>
-                            </tr>
-
-                            <?php
-                        endforeach;
-                    endif;
-                    ?>
-
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

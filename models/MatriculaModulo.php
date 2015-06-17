@@ -33,14 +33,13 @@ class MatriculaModulo extends Doctrine {
      * })
      */
     private $matricula;
-    
-     /**
+
+    /**
      * @var string
      *
      * @ORM\Column(name="data", type="string", length=45, nullable=false)
      */
     private $data;
-    
 
     /**
      * @var Modulo
@@ -84,41 +83,24 @@ class MatriculaModulo extends Doctrine {
         $this->data = $data;
     }
 
-    
     public function adiciona($id, $dados) {
-//        $batchSize = 5;
-//
-//        if (is_array($dados)) {
-//            for ($i = 0; $i < count($dados); ++$i) {
-//                $aluno = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $id));
-//                $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados[$i]));
-//                $md = new MatriculaModulo();
-//                $md->setMatricula($aluno);
-//                $md->setModulo($modulo);
-//                $this->em->persist($md);
-//                $this->em->flush();
-//
-//                if (($i % $batchSize) == 0) {
-//                    $this->em->flush();
-//                    $this->em->clear();
-//                }
-//            }
-//        } else {
-//
-//            $aluno = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => 21));
-//
-//            Debug::dump($aluno);
-//            exit;
-//            $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados));
-//            $this->setMatricula($aluno);
-//            $this->setModulo($modulo);
-//            $this->em->persist($this);
-//            $this->em->flush();
-//        }
+        $m = $this->em->getRepository('models\Matricula')->findOneBy(array('id' => $id));
+        $modulo = $this->em->getRepository('models\Modulo')->findOneBy(array('id' => $dados['modulo']));
+        $this->setMatricula($m);
+        $this->setModulo($modulo);
+        $this->setData($dados['data']);
+        $this->em->persist($this);
+        $this->em->flush();
+        return $this->getId();
     }
 
     function pesquisar($dados) {
-        return $this->em->getRepository('models\MatriculaModulo')->findOneBy(array('matricula' =>$dados['id'],'data'=>$dados['data']));
+        return $this->em->getRepository('models\MatriculaModulo')->findOneBy(array('matricula' => $dados['id'], 'data' => $dados['data']));
+        $this->em->flush();
+    }
+
+    function pesquisarPor($matricula) {
+        return $this->em->getRepository('models\MatriculaModulo')->findBy(array('matricula' => $matricula),array('id'=>'DESC'));
         $this->em->flush();
     }
 

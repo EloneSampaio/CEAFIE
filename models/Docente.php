@@ -123,4 +123,33 @@ class Docente extends Doctrine implements Dao {
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
+    public function pesquisaPorCurso($curso = FALSE) {
+
+        if ($curso) {
+            $qb = $this->em->createQueryBuilder()
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.nome as nome_modulo', 'm.id as modulo', 'd.id as docente', 'd.grau')
+                    ->from('models\Curso', 'c')
+                    ->innerJoin('models\Modulo', 'm', 'WITH', 'c.id=m.curso')
+                    ->innerJoin('models\DocentModulo', 'dm', 'WITH', 'm.id=dm.modulo')
+                    ->innerJoin('models\Docente', 'd', 'WITH', 'dm.docente=d.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'd.pessoa=p.id')
+                    ->where('c.id =:curso')
+                    ->groupBy('d.id') //agupar com id do docente
+                    ->setParameter('curso', $curso);
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        } else {
+            $qb = $this->em->createQueryBuilder()
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.nome as nome_modulo', 'm.id as modulo', 'd.id as docente', 'd.grau')
+                    ->from('models\Curso', 'c')
+                    ->innerJoin('models\Modulo', 'm', 'WITH', 'c.id=m.curso')
+                    ->innerJoin('models\DocentModulo', 'dm', 'WITH', 'm.id=dm.modulo')
+                    ->innerJoin('models\Docente', 'd', 'WITH', 'dm.docente=d.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'd.pessoa=p.id')
+                    ->groupBy('d.id'); //agupar com id do docente
+
+
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        }
+    }
+
 }

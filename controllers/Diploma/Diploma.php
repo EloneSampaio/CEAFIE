@@ -22,15 +22,17 @@ class Diploma extends Controller {
     //put your code here
     private $matricula;
     private $nota;
+    private $mm;
 
     public function __construct() {
-         Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("administrador"));
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
+        $this->mm = $this->LoadModelo("MatriculaModulo");
         parent::__construct();
-         $this->view->setJs(array("novo"));
-         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
-         $this->view->menu=  $this->getFooter('menu');
+        $this->view->setJs(array("novo"));
+        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->menu = $this->getFooter('menu');
     }
 
     public function index($id = FALSE) {
@@ -39,17 +41,19 @@ class Diploma extends Controller {
         $this->view->renderizar("index");
     }
 
-    public function gerar($id) {
+    public function gerar($id, $data) {
         $d = $this->matricula->pesquisar($id);
+        
+        $r = $this->mm->pesquisarPOr($d->getId());
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Diploma($css, 'sam');
-        $report->setData($d->getData());
-        $report->setNome($d->getAluno()->getPessoa()->getNome());
-        $report->setModulo($d->getModulo()->getNome());
+        $report->setData($r->getMatricula()->getData());
+        $report->setNome($r->getMatricula()->getAluno()->getPessoa()->getNome());
+        $report->setModulo($r->getModulo()->getNome());
         $report->BuildPDF();
-         $lo=new LogUso('log');
-                $lo->verificarArquivo();
-                $lo->gravar("Foi gerado um diploma".'  nome de aluno : '.$d->getAluno()->getPessoa()->getNome());
+        $lo = new LogUso('log');
+        $lo->verificarArquivo();
+        $lo->gravar("Foi gerado um diploma" . '  nome de aluno : ' . $d->getAluno()->getPessoa()->getNome());
         $report->Exibir();
     }
 

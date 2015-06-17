@@ -33,18 +33,17 @@ class Dashboard extends Controller {
             $this->view->titulo = "Dashboard";
             Session::nivelRestrito(array("administrador"));
             $this->view->titulo = "Pagina de Administracção";
-            $this->view->mensage = "Seja BemVindo " . Session::get('nome');
-            $this->view->saudacao = " O Seu Login foi feito com sucesso";
-
-            $total = $this->nota->totalAlunos();
-            $this->view->cap = $this->nota->pesquisaCurso("CAP") / ($total == 0 ? 1 : $total);
-            $this->view->cepac = $this->nota->pesquisaCurso("CEPAC") / ($total == 0 ? 1 : $total);
-            $this->view->cepid = $this->nota->pesquisaCurso("CEPID") / ($total == 0 ? 1 : $total);
-            $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente")) / ($total == 0 ? 1 : $total);
-            $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom")) / ($total == 0 ? 1 : $total);
-            $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente")) / ($total == 0 ? 1 : $total);
-            $this->view->total = $this->view->cap + $this->view->cepac + $this->view->cepid;
-            $this->view->total1 = $this->view->excelente + $this->view->bom;
+            
+//
+//            $total = $this->nota->totalAlunos();
+//            $this->view->cap = $this->nota->pesquisaCurso("CAP") / ($total == 0 ? 1 : $total);
+//            $this->view->cepac = $this->nota->pesquisaCurso("CEPAC") / ($total == 0 ? 1 : $total);
+//            $this->view->cepid = $this->nota->pesquisaCurso("CEPID") / ($total == 0 ? 1 : $total);
+//            $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente")) / ($total == 0 ? 1 : $total);
+//            $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom")) / ($total == 0 ? 1 : $total);
+//            $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente")) / ($total == 0 ? 1 : $total);
+//            $this->view->total = $this->view->cap + $this->view->cepac + $this->view->cepid;
+//            $this->view->total1 = $this->view->excelente + $this->view->bom;
 
 
             $this->view->renderizar('index');

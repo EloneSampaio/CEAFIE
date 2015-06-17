@@ -2,6 +2,63 @@
 
 
 
+<div class="span10 " id="content" style="margin-left: 400px; margin-top: 50px;">
+    <!-- validation -->
+
+    <div class="row-fluid">
+
+        <!-- block -->
+        <div class="block">
+
+
+
+
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <!-- BEGIN FORM-->
+                    <form action="<?php print URL; ?>nota/pesquisaNotaDocente" id="buscar" class="form-horizontal" method="POST" >
+                        <fieldset>
+                            <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
+
+
+                            <div class="control-group">
+                                <label class="control-label">Ano<span class="required">*</span></label>
+                                <div class="controls">
+                                    <input type="text" name="ano" data-required="1" class="span6 m-wrap"/>
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Modúlo<span class="required">*</span></label>
+                                <div class="controls">
+                                    <select class="span6 m-wrap" id="modulo" name="modulo">
+                                        <option value="000">-Seleciona um modulo-</option>
+                                    </select>
+
+
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <input name="enviar" type="hidden" value="1"/>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="buscar">Procurar</button>
+                            <button type="reset" class="btn">Cancelar</button>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+    <!-- /validation -->
+
+</div>
+
+
+
+
 <?php if (isset($this->dados) && !empty($this->dados)): ?>
 
 
@@ -47,6 +104,7 @@
 
                                                     <input name="enviar" type="hidden" value="1"/>
                                                     <input type="hidden" name="aluno" value="<?php print $dados['id']; ?>"/>
+                                                    <input type="hidden" name="modulo" value="1" />
                                                     <input name="button" type="submit" class="input" id="button" value="Adicionar"/>
                                                 </form>
                                             </td>

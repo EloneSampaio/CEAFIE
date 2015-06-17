@@ -12,11 +12,11 @@ use application\Session; ?>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->	
 
-          <script>window.jQuery || document.write("<script src='assets/js/jquery-1.8.3.min.js'>\x3C/script>")</script>
+        <script>window.jQuery || document.write("<script src='assets/js/jquery-1.8.3.min.js'>\x3C/script>")</script>
 
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>jquery-1.9.1.min.js"></script> 
 
-        
+
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-responsive.min.css" media="screen"/>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap.min.css" media="screen"/> 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
@@ -28,7 +28,7 @@ use application\Session; ?>
 
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
-        
+
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap.min.js"></script>
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap-datepicker.js"></script>
         <script type="text/javascript" src="<?php print URL; ?>public/js/jquery.leanModal.min.js"></script>
@@ -45,6 +45,9 @@ use application\Session; ?>
                 <script type="text/javascript" src="<?php print $_layoutParam['js'][$i] ?>"></script>       
             <?php endfor; ?>
         <?php endif; ?>
+        <style>
+            .datepicker{z-index:1151 !important;}
+        </style>
 
     </head>
 

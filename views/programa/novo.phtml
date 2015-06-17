@@ -1,4 +1,10 @@
-<?php echo $this->menu; ?>
+<?php
+echo $this->menu;
+
+function selected($value, $selected) {
+    return $value == $selected ? ' selected="selected"' : '';
+}
+?>
 
 
 <div class="col-12 pull-right">
@@ -63,21 +69,33 @@
                             <div class="control-group">
                                 <label class="control-label">Local<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="local" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" name="local" data-required="1" class="span6 m-wrap" value=" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['local'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Inicio<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" id="inicio" data-provide="datepicker" name="inicio" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" id="inicio" data-provide="datepicker" name="inicio" data-required="1" class="span6 m-wrap"
+                                           value=" <?php
+                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['inicio'];
+                                           endif;
+                                           ?>"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Termino<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" id="termino" name="termino" data-required="1" class="span6 m-wrap" data-provide="datepicker"/>
+                                    <input type="text" id="termino" name="termino" data-required="1" class="span6 m-wrap" data-provide="datepicker"
+                                           value=" <?php
+                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['termino'];
+                                           endif;
+                                           ?>"/>
+                                    
                                 </div>
                             </div>
 
@@ -85,9 +103,15 @@
                                 <label class="control-label">Horas<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap"  name="hora">
-                                        <option value="000">-Seleciona-</option>
-                                        <option value="20h">-20h-</option>
-                                        <option value="40h">-40h-</option>
+                                        <option value=""  >-Seleciona-</option>
+                                        <option value="20h" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['hora'], "20h");
+                                        endif;
+                                        ?>>-20h-</option>
+                                        <option value="40h" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['hora'], "40h");
+                                        endif;
+                                        ?>>-40h-</option>
                                     </select>
 
 

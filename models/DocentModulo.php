@@ -106,7 +106,23 @@ class DocentModulo extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-        
+       
+        $qb = $this->em->createQueryBuilder()
+                ->select('p.nome', 'p.bi', 'n.nota')
+                ->from('models\Matricula', 'm')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->innerJoin('models\Nota', 'n', 'WITH', 'a.id=n.aluno')
+                ->innerJoin('models\MatriculaModulo', 'md', 'WITH', 'm.id=md.matricula')
+                ->andWhere("md.modulo =:modulo")
+                ->andWhere('m.data LIKE :data')
+                ->andWhere('n.nota=:nota')
+                ->setParameter('data', '%' . $dados['ano'])
+                ->setParameter('modulo', $dados['modulo'])
+                ->setParameter('nota', 'NULL')
+                ->orderBy('m.id', 'DESC');
+
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
     public function pesquisar($id = FALSE) {
@@ -115,7 +131,7 @@ class DocentModulo extends Doctrine implements Dao {
                 ->from('models\DocentModulo', 'd')
                 ->innerJoin('models\Modulo', 'm', 'WITH', 'd.modulo=m.id')
                 ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id')
-               ->andWhere('d.docente =:id')
+                ->andWhere('d.docente =:id')
                 ->setParameter(':id', $id)
                 ->orderBy('d.id', 'DESC');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
@@ -123,6 +139,22 @@ class DocentModulo extends Doctrine implements Dao {
 
     public function remover($id = FALSE) {
         
+    }
+
+    function pesquisarPor($docente) {
+        return $this->em->getRepository('models\DocentModulo')->findBy(array('docente' => $docente));
+        $this->em->flush();
+    }
+
+    public function listagem($id) {
+
+        $qb = $this->em->createQueryBuilder()
+                ->select('m.id','m.nome')
+                ->from('models\Modulo', 'm')
+                ->innerJoin('models\DocentModulo', 'dm', 'WITH', 'm.id=dm.modulo')
+                ->andWhere('dm.docente =:id')
+                ->setParameter('id', $id);
+        return  $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
 }

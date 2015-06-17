@@ -144,7 +144,7 @@ class Relatorio implements Documento {
         $this->setarCSS($css);
     }
 
-    public function getBody() {
+    public function getBody($dados=FALSE) {
         
     }
 
@@ -284,15 +284,15 @@ class Relatorio implements Documento {
 </tr>
 	<tr class=\"ro2\"><td style=\" \" class=\"Default\">
 	 </td>
-	<td rowspan=\"2\" style=\" \" class=\"ce2\"><p>NOTAS </p></td>
-	<td colspan=\"2\" style=\" \" class=\"ce5\"><p>GENÉRO</p></td>
+	<td rowspan=\"2\" style=\" \" class=\"ce2\"><strong>NOTAS </strong></td>
+	<td colspan=\"2\" style=\" \" class=\"ce5\"><strong>GENÉRO</strong></td>
 	</tr>
 	<tr class=\"ro2\">
         <td style=\"\" class=\"Default\"> 
 	</td>
 	<td style=\" \" class=\"ce5\"><p>M</p></td><td style=\"text-align:left;width:2.258cm; \" class=\"ce5\"><p>F</p>
         </td>
-        <td style=\" \" class=\"ce5\"><p>TOTAL</p>
+        <td style=\" \" class=\"ce5\"><strong>TOTAL</strong>
         </td>
         </tr>
         <tr class=\"\">

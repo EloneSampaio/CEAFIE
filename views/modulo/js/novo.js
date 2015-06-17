@@ -2,6 +2,7 @@
 $(document).ready(function () {
     cursos();
     tabela();
+    remover();
 
 });
 
@@ -34,7 +35,6 @@ function tabela() {
             "aButtons": ["copy", "csv", "xls", "pdf", "print"]
         },
         "bDestroy": true,
-       
         "aoColumnDefs": [{
                 'bSortable': false,
                 'aTargets': [0, 1]
@@ -63,5 +63,24 @@ function tabela() {
         "aoColumnDefs": [{"sType": "num-html", "aTargets": [0]},
         ]
 
+    });
+}
+
+
+function remover() {
+    var url = "http://localhost/uan/modulo/remover";
+    $(document).on('click', '#remover', function () {
+        if (confirm('Pretendes Apagar este Item?')) {
+            var id = $(this).attr('rel');
+            console.log(id);
+            $.post(id)
+                    .done(function (data) {
+                        alert("Dados apagado com sucesso");
+                        $(location).attr('href', url);
+                    });
+        }
+        else {
+            return false;
+        }
     });
 }

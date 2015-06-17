@@ -2,7 +2,7 @@
 $(document).ready(function () {
     cursos();
     modulos();
-     modulos1();
+    modulos1();
     tabela();
     var oTable = $('#tabela').dataTable();
 
@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('#modulo1').change(function () {
         oTable.fnFilter($(this).val());
     });
+    docenteMOdulo();
 });
 
 
@@ -28,6 +29,22 @@ function cursos() {
         $.each(data, function (id, valor) {
 
             $("#curso").append('<option value="' + valor.id + '">' + valor.nome + '</option>');
+
+        });
+    });
+
+
+}
+
+
+
+function docenteMOdulo() {
+
+    $.getJSON('http://localhost/uan/nota/pesquisaDocenteNotas/', {
+    }).done(function (data) {
+        $.each(data, function (id, valor) {
+
+            $("#modulo").append('<option value="' + valor.id + '">' + valor.nome + '</option>');
 
         });
     });
@@ -123,5 +140,112 @@ function tabela() {
 
     });
 }
+
+
+
+
+/** * Função para criar um objeto XMLHTTPRequest */
+function CriaRequest() {
+    try {
+        request = new XMLHttpRequest();
+    }
+    catch (IEAtual) {
+        try {
+            request = new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch (IEAntigo) {
+
+            try {
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (falha) {
+                request = false;
+            }
+        }
+    }
+
+    if (!request)
+        alert("Seu Navegador não suporta Ajax!");
+    else
+        return request;
+}
+/** * Função para enviar os dados */
+
+function getDados(elemento) {
+    // Declaração de Variáveis
+
+    var acao = $('.' + elemento).attr('class');
+    var ano = document.getElementById("ano").value;
+    var imagem = document.getElementById("img").value;
+    var modulo = $("#modulo").val();
+
+    var result = document.getElementById("conteudo");
+    var xmlreq = CriaRequest();
+    // Exibi a imagem de progresso 
+    result.innerHTML = '<img src="' + imagem + '"/>';
+    // Iniciar uma requisição
+
+
+    xmlreq.open("POST", "http://localhost/uan/nota/pesquisarPor/" + acao + '/' + modulo + '/' + ano + '/', true);
+    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+    xmlreq.onreadystatechange = function () {
+        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+        if (xmlreq.readyState == 4) {
+
+            // Verifica se o arquivo foi encontrado com sucesso 
+            if (xmlreq.status == 200) {
+                result.innerHTML = xmlreq.responseText;
+                tabela();
+
+            }
+
+            else {
+                result.innerHTML = "Erro: " + xmlreq.statusText;
+            }
+        }
+    };
+
+    xmlreq.send(null);
+
+
+}
+
+
+function getTodos(elemento) {
+
+    var acao = $('.' + elemento).attr('class');
+
+    var result = document.getElementById("conteudo");
+    var imagem = document.getElementById("img").value;
+    var xmlreq = CriaRequest();
+    // Exibi a imagem de progresso 
+    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
+    // Iniciar uma requisição
+
+
+    xmlreq.open("POST", "http://localhost/uan/nota/pesquisarPor/" + acao + '/', true);
+    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+    xmlreq.onreadystatechange = function () {
+        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+        if (xmlreq.readyState == 4) {
+
+            // Verifica se o arquivo foi encontrado com sucesso 
+            if (xmlreq.status == 200) {
+                result.innerHTML = xmlreq.responseText;
+                tabela();
+
+            }
+
+            else {
+                result.innerHTML = "Erro: " + xmlreq.statusText;
+            }
+        }
+    };
+
+    xmlreq.send(null);
+
+
+}
+
+
 
 

@@ -5,9 +5,8 @@
         <!-- block -->
         <div class="block">
 
-            <div class="col-12 pull-right">
+            <div class="col-12 pull-left">
 
-                <h3>Acesso Rapido</h3>
                 <div class="navbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>"><span style="font-size: 14px; color: black;">Cadastrar</span></a></li>
@@ -31,11 +30,16 @@
                     <option value="">- Modulo -</option>
 
                 </select>
-                <input type="button" name="btnPesquisar" value="Pesquisar" id="buscar"  onclick="getDados();" class="Pesquisar"/>
-                <input type="button" name="btnPesquisar" value="Carregar Todos" id="buscar"  onclick="getTodos();" class="todos"/>
+                <input type="button" name="btnPesquisar" value="Pesquisar"   onclick="getDados('editar');" class="editar"/>
+                <input type="button" name="btnPesquisar" value="Carregar Todos"   onclick="getTodos('editar');" class="editar"/>
                 <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
 
             </div>
+               <h3 style="position: absolute; right: 600px;">  <?php
+            if (isset($this->titulo)): echo $this->titulo;
+            endif;
+            ?> </h3>
+         
             <div id="conteudo">
 
             </div>

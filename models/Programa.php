@@ -1,8 +1,11 @@
 <?php
+
 namespace models;
+
 use Doctrine\ORM\Mapping as ORM;
 use application\Dao;
 use config\Doctrine;
+
 /**
  * Programa
  *
@@ -10,6 +13,7 @@ use config\Doctrine;
  * @ORM\Entity
  */
 class Programa extends Doctrine implements Dao {
+
     /**
      * @var integer
      *
@@ -18,30 +22,35 @@ class Programa extends Doctrine implements Dao {
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
     /**
      * @var string
      *
      * @ORM\Column(name="data", type="string", nullable=false)
      */
     private $data;
+
     /**
      * @var string
      *
      * @ORM\Column(name="datafinal", type="string", nullable=false)
      */
     private $datafinal;
+
     /**
      * @var string
      *
      * @ORM\Column(name="local", type="string", length=45, nullable=true)
      */
     private $local;
+
     /**
      * @var string
      *
      * @ORM\Column(name="hora", type="string", length=45, nullable=true)
      */
     private $hora;
+
     /**
      * @var \Curso
      *
@@ -51,6 +60,7 @@ class Programa extends Doctrine implements Dao {
      * })
      */
     private $curso;
+
     /**
      * @var \Docente
      *
@@ -60,6 +70,7 @@ class Programa extends Doctrine implements Dao {
      * })
      */
     private $docente;
+
     /**
      * @var \Modulo
      *
@@ -69,63 +80,75 @@ class Programa extends Doctrine implements Dao {
      * })
      */
     private $modulo;
+
     function getId() {
         return $this->id;
     }
+
     function getData() {
         return $this->data;
     }
+
     function getLocal() {
         return $this->local;
     }
+
     function getCurso() {
         return $this->curso;
     }
+
     function getDocente() {
         return $this->docente;
     }
+
     function getModulo() {
         return $this->modulo;
     }
+
     function setId($id) {
         $this->id = $id;
     }
-    function getHoras() {
-        return $this->hora;
-    }
-    function setHoras($hora) {
-        $this->hora = $hora;
-    }
+
     function setData($data) {
         $this->data = $data;
     }
+
     function setLocal($local) {
         $this->local = $local;
     }
+
     function setCurso(Curso $curso) {
         $this->curso = $curso;
     }
+
     function getDatafinal() {
         return $this->datafinal;
     }
+
     function setDatafinal($datafinal) {
         $this->datafinal = $datafinal;
     }
+
     function setDocente(Docente $docente) {
         $this->docente = $docente;
     }
+
     function setModulo(Modulo $modulo) {
         $this->modulo = $modulo;
     }
+
     public function adicionar($dados = FALSE) {
         
     }
-    function getHora() {
+
+    function getHoras() {
         return $this->hora;
     }
-    function setHora($hora) {
+
+    function setHoras($hora) {
         $this->hora = $hora;
     }
+
     public function adiciona($dados = FALSE, $v) {
         $curso = $this->em->find('models\Curso', $v['curso']);
         $modulo = $this->em->find('models\Modulo', $v['modulo']);
@@ -137,9 +160,11 @@ class Programa extends Doctrine implements Dao {
         $this->em->flush();
         return $dados->getId();
     }
+
     public function editar($id = FALSE) {
         
     }
+
     public function editar1($d = FALSE, $v = FALSE) {
         //  var_dump($v);
 //        $curso = $this->em->find('models\Curso', $v['curso']);
@@ -158,9 +183,11 @@ class Programa extends Doctrine implements Dao {
         $this->em->flush();
         return TRUE;
     }
+
     public function pesquisaPor($dados = FALSE) {
         
     }
+
     public function pesquisar($id = FALSE) {
         if ($id) {
             return $this->em->getRepository('models\Programa')->findOneBy(array('id' => $id));
@@ -170,10 +197,12 @@ class Programa extends Doctrine implements Dao {
             $this->em->flush();
         }
     }
+
     public function remover($id = FALSE) {
         $id = $this->em->getPartialReference('models\Programa', $id);
         $this->em->remove($id);
         $this->em->flush();
         return TRUE;
     }
+
 }
