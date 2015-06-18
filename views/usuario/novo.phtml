@@ -1,5 +1,5 @@
-
-<div class="span10 " id="content" style="margin-left: 280px;">
+<?php echo $this->menu; ?>
+<div class="span10 " id="content" style="margin-left: 420px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
@@ -17,11 +17,8 @@
                             <div class="control-group">
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
-                                    <select class="span6 m-wrap" id="pessoa" name="pessoa">
-                                        <option value="000">Escolha um nome</option>
-                                    </select>
 
-
+                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
                                 </div>
                             </div>
 

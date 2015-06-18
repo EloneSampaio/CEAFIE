@@ -114,13 +114,12 @@ class Usuario extends Doctrine implements Dao {
     }
 
     public function adiciona($dados, $pessoa) {
-        
-            $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa));
-            $dados->setPessoa($pessoa);
-            $this->em->persist($dados);
-            $this->em->flush();
-            return $dados->getId();
-        
+
+        $pessoa = $this->em->getRepository('models\Pessoa')->findOneBy(array('id' => $pessoa));
+        $dados->setPessoa($pessoa);
+        $this->em->persist($dados);
+        $this->em->flush();
+        return $dados->getId();
     }
 
     public function editar($id = FALSE) {
@@ -152,7 +151,8 @@ class Usuario extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-        
+        return $this->em->getRepository('models\Usuario')->findOneBy(array('login' => $dados));
+        $this->em->flush();
     }
 
     public function pesquisar($id = FALSE) {

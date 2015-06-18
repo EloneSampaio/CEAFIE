@@ -115,21 +115,20 @@ class Nota extends Doctrine implements Dao {
     public function pesquisaPorDOcente($dados = FALSE) {
         if ($dados['1'] && $dados['2']) {
             $qb = $this->em->createQueryBuilder()
-                    ->select('n.nota', 'n.data', 'p.nome', 'p.bi', 'a.id', 'mod.id as modulo', 'c.nome as curso', 'mod.nome as modnome')
-                    ->from('models\Matricula', 'm')
+                    ->select('n.nota', 'n.data', 'p.nome', 'p.bi', 'a.id', 'mod.id as modulo', 'mod.nome as modnome')
+                    ->from('models\MatriculaModulo', 'md')
+                    ->innerJoin('models\Matricula', 'm', 'WITH', 'md.matricula=m.id')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
                     ->leftJoin('models\Nota', 'n', 'WITH', 'n.aluno=a.id')
-                    ->innerJoin('models\MatriculaModulo', 'md', 'WITH', 'm.id=md.matricula')
-                    ->Join('md.modulo', 'mod')  //juntar tabela modulo atravez do id existente na tabela MatriculaModulo
-                    ->innerJoin('models\Curso', 'c', 'WITH', 'mod.curso=c.id')
+                    ->leftJoin('md.modulo', 'mod')  //juntar tabela modulo atravez do id existente na tabela MatriculaModulo
                     ->andWhere('md.modulo =:modulo')
                     ->andWhere('m.estado =:estado')
                     ->andWhere('m.data LIKE :data')
-                    ->orderBy('a.id', 'DESC')
                     ->setParameter('modulo', $dados['1'])
                     ->setParameter('estado', $dados['2'])
-                    ->setParameter('data', '%' . $dados['3']);
+                    ->setParameter('data', '%' . $dados['3'])
+                    ->groupBy('m.id');
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         }
     }
@@ -274,8 +273,11 @@ class Nota extends Doctrine implements Dao {
 
     public function verNota() {
         $qb = $this->em->createQueryBuilder()
-                ->select('n.nota,n.data', 'p.nome', 'p.bi', 'm.nome as n1', 'c.nome as n2')
-                ->from('models\Nota', 'n')->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')->innerJoin('models\Modulo', 'm', 'WITH', 'n.modulo=m.id')
+                ->select('n.nota,n.data', 'p.nome', 'p.bi', 'm.nome as n1', 'c.nome as n2','a.id as aluno','m.id as modulo')
+                ->from('models\Nota', 'n')
+                ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                ->innerJoin('models\Modulo', 'm', 'WITH', 'n.modulo=m.id')
                 ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id');
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }

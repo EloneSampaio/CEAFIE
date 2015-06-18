@@ -94,8 +94,8 @@ class MatriculaModulo extends Doctrine {
         return $this->getId();
     }
 
-    function pesquisar($dados) {
-        return $this->em->getRepository('models\MatriculaModulo')->findOneBy(array('matricula' => $dados['id'], 'data' => $dados['data']));
+    function pesquisar($dados,$modulo) {
+        return $this->em->getRepository('models\MatriculaModulo')->findOneBy(array('matricula' => $dados,'modulo'=>$modulo));
         $this->em->flush();
     }
 

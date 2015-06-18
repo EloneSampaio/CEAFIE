@@ -29,7 +29,6 @@ class Modulo extends Controller implements Dao {
 
         $this->curso = $this->LoadModelo('Curso');
         $this->modulo = $this->LoadModelo('Modulo');
-
         parent::__construct();
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));

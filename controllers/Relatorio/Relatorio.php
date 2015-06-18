@@ -23,7 +23,7 @@ class Relatorio extends Controller {
     private $nota;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->nota = $this->LoadModelo('Nota');
         parent::__construct();
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));

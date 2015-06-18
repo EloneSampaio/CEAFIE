@@ -65,7 +65,7 @@ class Login extends Controller {
                 Session::set('id', $linha->getId());
                 Session::set('time', time());
 
-                if (Session::get('nivel') == "administrador") {
+                if (Session::get('nivel') == "gestor") {
                     $this->redirecionar('dashboard');
                 }
 
@@ -75,7 +75,12 @@ class Login extends Controller {
 
                 if (Session::get('nivel') == "docente") {
                     $this->redirecionar("dashboard/docente/");
-                } else {
+                }
+                if (Session::get('nivel') == "administrador") {
+                    $this->redirecionar("dashboard/admin/");
+                }
+                
+                else {
                     $this->redirecionar('index');
                 }
             }

@@ -26,7 +26,7 @@ class Programa extends Controller implements Dao {
     private $docente;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
         parent::__construct();

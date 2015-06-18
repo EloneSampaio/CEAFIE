@@ -24,26 +24,16 @@ class Dashboard extends Controller {
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight'));
         $this->view->menu = $this->getFooter('menu');
-        $this->view->titulo="Dashboard";
+        $this->view->titulo = "Dashboard";
     }
 
     public function index() {
 
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
-            Session::nivelRestrito(array("administrador"));
+            Session::nivelRestrito(array("gestor"));
             $this->view->titulo = "Pagina de Administracção";
-            
-//
-//            $total = $this->nota->totalAlunos();
-//            $this->view->cap = $this->nota->pesquisaCurso("CAP") / ($total == 0 ? 1 : $total);
-//            $this->view->cepac = $this->nota->pesquisaCurso("CEPAC") / ($total == 0 ? 1 : $total);
-//            $this->view->cepid = $this->nota->pesquisaCurso("CEPID") / ($total == 0 ? 1 : $total);
-//            $this->view->excelente = $this->nota->buscarNota(array("nota" => "Excelente")) / ($total == 0 ? 1 : $total);
-//            $this->view->bom = $this->nota->buscarNota(array("nota" => "Bom")) / ($total == 0 ? 1 : $total);
-//            $this->view->suficiente = $this->nota->buscarNota(array("nota" => "Suficiente")) / ($total == 0 ? 1 : $total);
-//            $this->view->total = $this->view->cap + $this->view->cepac + $this->view->cepid;
-//            $this->view->total1 = $this->view->excelente + $this->view->bom;
+
 
 
             $this->view->renderizar('index');
@@ -54,14 +44,35 @@ class Dashboard extends Controller {
 
     public function docente() {
         Session::nivelRestrito(array("docente"));
-        $this->view->titulo = "Pagina de Administracção";
-        $this->view->renderizar('docente');
+        if (Strcmp(Session::get('tema'), "default") == 0) {
+            $this->view->titulo = "Dashboard";
+            $this->view->titulo = "Pagina de Docente";
+            $this->view->renderizar('teste1');
+        } else {
+            $this->teste1();
+        }
     }
 
     public function aluno() {
         Session::nivelRestrito(array("aluno"));
-        $this->view->titulo = "Pagina de Administracção";
-        $this->view->renderizar('aluno');
+        if (Strcmp(Session::get('tema'), "default") == 0) {
+            $this->view->titulo = "Dashboard";
+            $this->view->titulo = "Pagina de Aluno";
+            $this->view->renderizar('aluno');
+        } else {
+            $this->teste2();
+        }
+    }
+
+    public function admin() {
+        Session::nivelRestrito(array("administrador"));
+        if (Strcmp(Session::get('tema'), "default") == 0) {
+            $this->view->titulo = "Dashboard";
+            $this->view->titulo = "Pagina de Administração";
+            $this->view->renderizar('admin');
+        } else {
+            $this->teste3();
+        }
     }
 
     public function dados1() {
@@ -95,10 +106,35 @@ class Dashboard extends Controller {
     }
 
     public function teste() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
         $this->view->renderizar("teste");
+    }
+
+    //tema 2 docente
+    public function teste1() {
+        Session::nivelRestrito(array("docente"));
+        $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
+        // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
+        $this->view->renderizar("teste1");
+    }
+
+    //tema 2 aluno
+    public function teste2() {
+        Session::nivelRestrito(array("aluno"));
+        $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
+        // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
+        $this->view->renderizar("teste2");
+    }
+    
+    
+      //tema 2 admin
+    public function teste3() {
+        Session::nivelRestrito(array("administrador"));
+        $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
+        // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
+        $this->view->renderizar("teste3");
     }
 
     public function alteraTema() {

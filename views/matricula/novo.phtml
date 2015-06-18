@@ -1,11 +1,11 @@
 
-<?php
-echo $this->menu;
+<?php echo $this->menu;?>
 
-function selected($value, $selected) {
+    <?php function selected($value, $selected) {
     return $value == $selected ? ' selected="selected"' : '';
-}
+    }
 ?>
+
 
 
 
@@ -62,10 +62,14 @@ function selected($value, $selected) {
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="genero">
                                         <option value="000">-Seleciona um genero-</option>
-                                        <option value="Masculino" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
-                                           endif; ?> >Masculino</option>
-                                        <option value="Femenino" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
-                                           endif; ?> >Femenino</option>
+                                        <option value="Masculino" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
+                                        endif;
+                                        ?> >Masculino</option>
+                                        <option value="Femenino" <?php
+                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
+                                                endif;
+                                                ?> >Femenino</option>
                                     </select>                                    
                                 </div>
                             </div>
@@ -148,14 +152,22 @@ function selected($value, $selected) {
                                 <label class="control-label">Categ Docente<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_docente">
-                                        <option value="Assistente" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
-                                           endif; ?>>Assistente</option>
-                                        <option value="Associado" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Associado");
-                                           endif; ?> >Associado</option>
-                                        <option value="Titular" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Titular");
-                                           endif; ?>>Titular</option>
-                                        <option value="Nenhum" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Nenhum");
-                                           endif; ?>>Nenhum</option>
+                                        <option value="Assistente" <?php
+                                           if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
+                                           endif;
+                                           ?>>Assistente</option>
+                                        <option value="Associado" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Associado");
+                                        endif;
+                                        ?> >Associado</option>
+                                        <option value="Titular" <?php
+                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Titular");
+                                                endif;
+                                                ?>>Titular</option>
+                                        <option value="Nenhum" <?php
+                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Nenhum");
+                                                endif;
+                                                ?>>Nenhum</option>
 
                                     </select>
                                 </div>
@@ -167,12 +179,18 @@ function selected($value, $selected) {
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="funcao">
                                         <option value="000">-Seleciona uma função-</option>
-                                        <option value="Chefe de departamento" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de departamento");
-                                           endif; ?>>Chefe de departamento</option>
-                                        <option value="Chefe de seccao" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de seccao");
-                                           endif; ?> >Chefe de seccao</option>
-                                        <option value="Tecnica" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Tecnica");
-                                           endif; ?>>Tecnica</option>
+                                        <option value="Chefe de departamento" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de departamento");
+                                        endif;
+                                        ?>>Chefe de departamento</option>
+                                        <option value="Chefe de seccao" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de seccao");
+                                        endif;
+                                        ?> >Chefe de seccao</option>
+                                        <option value="Tecnica" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Tecnica");
+                                        endif;
+                                        ?>>Tecnica</option>
 
                                     </select>
                                 </div>
@@ -183,10 +201,14 @@ function selected($value, $selected) {
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_centifica">
                                         <option value="000">-Seleciona uma categoria-</option>
-                                        <option value="Investigador" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Investigador");
-                                           endif; ?>>Investigador</option>
-                                        <option value="Nenhuma" <?php if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Nenhuma");
-                                           endif; ?>>Nenhuma</option>
+                                        <option value="Investigador" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Investigador");
+                                        endif;
+                                        ?>>Investigador</option>
+                                        <option value="Nenhuma" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Nenhuma");
+                                        endif;
+                                        ?>>Nenhuma</option>
 
                                     </select>                                    
 
@@ -221,9 +243,9 @@ function selected($value, $selected) {
                                 <label class="control-label">Data de Inscrição<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="data" class="span6 m-wrap" id="data" data-provide="datepicker" data-required="1" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
-                                           endif;
-                                           ?>"/>
+                                        if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
+                                        endif;
+                                        ?>"/>
                                     <span class="input-group-addon"><span class="icon icon-calendar">
 
                                         </span>

@@ -5,8 +5,17 @@
         <!-- block -->
         <div class="block">
 
+            <div class="col-12 pull-left">
+                <h4>Adicionar Novo</h4>
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active click"><a href="<?php echo URL . "usuario" . DS1 . "adicionar/" ?>"><span style="font-size: 14px; color: black;">Novo</span></a></li>
+                      </ul>
+                </div>
 
-         
+
+            </div>
+
             <div class="block-content collapse in">
                 <div class="span12">
 
@@ -38,7 +47,7 @@
                     <?php else: ?>
                         <h2 class="text-center text-error">Nenhum usuario cadastrado</h2>
                     <?php endif; ?>
-                    <?php if (isset($this->paginacao) && !empty($this->paginacao)) //echo $this->paginacao;     ?>
+                    <?php if (isset($this->paginacao) && !empty($this->paginacao)) //echo $this->paginacao;       ?>
                 </div>
             </div>
         </div>

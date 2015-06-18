@@ -33,24 +33,14 @@ class Usuario extends Controller implements Dao {
      * @funcão index
      */
 
-    public function index($pagina = FALSE) {
-        if (!$this->filtraInt($pagina)) {
-            $pagina = false;
-        } else {
-            $pagina = (int) $pagina;
-        }
-        Session::nivelRestrito(array("admin"));
-        $paginador = new \vendor\paginador\Paginador();
-        $this->view->link = "usuario/adicionar";
-        $this->view->usuarios = $paginador->paginar($this->usuario->pesquisar(), $pagina, 5);
-        $this->view->paginacao = $paginador->getView('paginacao', 'usuario/index');
-
+    public function index() {
+        Session::nivelRestrito(array("administrador"));
 
         if ($this->getInt('enviar') == 1) {
             $dados = $_POST;
 
 
-            if (!$this->getInt('pessoa')) {
+            if (!$this->getSqlverifica('nome')) {
                 $this->view->erro = "Porfavor Introduza um nome valido ";
                 $this->view->renderizar("novo");
                 exit;
@@ -61,13 +51,8 @@ class Usuario extends Controller implements Dao {
                 $this->view->renderizar("novo");
                 exit;
             }
-//            $login = $this->getSqlverifica('login');
-//            $c = $this->usuario->listarLogin($login);
-//            if ($c) {
-//                $this->view->erro = "O usuario já esta registrado.";
-//                $this->view->renderizar("novo");
-//                exit;
-//            }
+
+
 
             if (!$this->getSqlverifica('nivel')) {
                 $this->view->erro = "Porfavor Selecciona um nivel para o usuario ";
@@ -81,24 +66,35 @@ class Usuario extends Controller implements Dao {
                 exit;
             }
 
-
-
-            $this->usuario->setLogin($dados['login']);
-            $this->usuario->setNivel($dados['nivel']);
-            $this->usuario->setSenha(Hash::getHash('md5', $dados['senha'], HASH_KEY));
-
-
-
-            if (!$this->usuario->adiciona($this->usuario, $dados['pessoa'])) {
-                $this->view->erro = "Não Foi Possivel  Concretizar a operção  tenta mais tarde!";
-                $this->view->renderizar("index");
+            $c = $this->usuario->pesquisaPor($_POST['login']);
+            if ($c) {
+                $this->view->erro = "O usuario já esta registrado.";
+                $this->view->renderizar("novo");
                 exit;
             }
 
-            $this->view->dados = FALSE;
-            $this->view->mensagem = "Registro  Efectuado com Sucesso";
+            $this->pessoa->setNome($dados['nome']);
+            $r = $this->pessoa->adicionar($this->pessoa);
+            if ($r) {
+
+                $this->usuario->setLogin($dados['login']);
+                $this->usuario->setNivel($dados['nivel']);
+                $this->usuario->setSenha(Hash::getHash('md5', $dados['senha'], HASH_KEY));
+
+                $ru = $this->usuario->adiciona($this->usuario, $r);
+                if (!is_int($ru)) {
+                    $this->view->erro = "Não Foi Possivel  Concretizar a operção  tenta mais tarde!";
+                    $this->view->renderizar("index");
+                    exit;
+                } else {
+                    $this->view->mensagem = "Registro  Efectuado com Sucesso";
+                    $this->view->renderizar("novo");
+                    exit;
+                }
+            }
         }
 
+        $this->view->usuarios = $this->usuario->pesquisar();
         $this->view->renderizar("index");
     }
 
@@ -110,7 +106,7 @@ class Usuario extends Controller implements Dao {
 
         if ($this->filtraInt($id)) {
             $this->view->dados = $this->usuario->pesquisar($id);
-         }
+        }
         if ($this->getInt('enviar') == 1) {
             $dados = $_POST;
 
@@ -131,7 +127,7 @@ class Usuario extends Controller implements Dao {
 
             $this->usuario->setLogin($dados['login']);
             $this->usuario->setNivel($dados['nivel']);
-            $this->usuario->setSenha(Hash::getHash('md5', $dados['senha'], HASH_KEY));
+            $this->usuario->setSenha(Hash:: getHash('md5', $dados ['senha'], HASH_KEY));
             $this->usuario->setId($dados['id']);
 
             if (!$this->usuario->editar($this->usuario)) {
@@ -145,7 +141,7 @@ class Usuario extends Controller implements Dao {
 
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
                 //echo json_encode($ret);
-               // $this->view->mensagem = "Dados alterados com sucesso";
+                // $this->view->mensagem = "Dados alterados com sucesso";
                 $this->redirecionar("usuario");
                 exit;
             }

@@ -25,7 +25,7 @@ class Diploma extends Controller {
     private $mm;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         $this->mm = $this->LoadModelo("MatriculaModulo");
@@ -37,17 +37,16 @@ class Diploma extends Controller {
 
     public function index($id = FALSE) {
 
-        $this->view->dados = $this->nota->pesquisar();
+        $this->view->dados = $this->nota->verNota();
         $this->view->renderizar("index");
     }
 
     public function gerar($id, $data) {
         $d = $this->matricula->pesquisar($id);
-        
-        $r = $this->mm->pesquisarPOr($d->getId());
+        $r = $this->mm->pesquisar($d->getId(),$data);
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Diploma($css, 'sam');
-        $report->setData($r->getMatricula()->getData());
+        $report->setData($d->getData());
         $report->setNome($r->getMatricula()->getAluno()->getPessoa()->getNome());
         $report->setModulo($r->getModulo()->getNome());
         $report->BuildPDF();

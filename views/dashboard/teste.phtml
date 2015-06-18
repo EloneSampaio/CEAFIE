@@ -1,5 +1,7 @@
 <?php
+
 use application\Session;
+
 function selected($value, $selected) {
     return $value == $selected ? ' selected="selected"' : '';
 }
@@ -20,14 +22,11 @@ function selected($value, $selected) {
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>">Matriculas</a></li>
                         <li><a href="<?php echo URL . "docente" . DS1 . "index/" ?>">Docentes</a></li>
-                        <li><a href="<?php echo URL . "curso" . DS1 . "index/" ?>">Cursos</a></li>
-                        <li><a href="<?php echo URL . "modulo" . DS1 . "index/" ?>">Módulos</a></li>
                         <li><a href="<?php echo URL . "nota" . DS1 . "listar/" ?>">Notas</a></li>
                         <li><a href="<?php echo URL . "relatorio" . DS1 . "graficoGeral/" ?>">Relatório</a></li>
                         <li><a href="<?php echo URL . "diploma" . DS1 . "index/" ?>">Diplomas</a></li>
                         <li><a href="<?php echo URL . "certificado" . DS1 . "index/" ?>">Certificado</a></li>
                         <li><a href="<?php echo URL . "programa" . DS1 . "index/" ?>">Programa</a></li>
-                        <li><a href="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
                         <li><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
                     </ul>
                 </div>
@@ -65,24 +64,21 @@ function selected($value, $selected) {
                             <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
                         </div>
                     </a>
-                    <h2>Cursos</h2>
 
-                    <a class="tile wide imagetext wideimage bg-color-purple" href="<?php echo URL . "curso" . DS1 . "index/" ?>">
-                        <img src="<?php echo URL; ?>public/img/img7.png" alt="sam" style="width:200px;" />
-                        <div class="textover-wrapper bg-color-purple">
-                            <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
-                        </div>
-                    </a>
-                    <h2>Módulos</h2>
+                    <h2>Docentes</h2>
 
-                    <a class="tile wide imagetext wideimage bg-color-blue" href="<?php echo URL . "modulo" . DS1 . "index/" ?>">
-                        <img src="<?php echo URL; ?>public/img/img8.png" alt="sam" style="width:200px;" />
-                        <div class="textover-wrapper bg-color-blueDark">
-                            <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
-                        </div>
-                    </a>
+                    <div class="tile-column-span-2">
 
 
+                        <a class="tile wide imagetext wideimage " href="<?php echo URL . "docente" . DS1 . "index/" ?>" style="background-color:white;">
+                            <img src="<?php echo URL; ?>public/img/img6.png" alt="sam"  style="width:200px;"/>
+
+                            <div class="textover-wrapper bg-color-blueDark">
+                                <div class="text2">Cadastrar,Alterar,Deletar,Pesquisar</div>
+                            </div>
+                        </a>
+
+                    </div>
                 </div>
 
 
@@ -92,22 +88,6 @@ function selected($value, $selected) {
 
 
             <div class="panorama-section">
-
-                <h2>Docentes</h2>
-
-                <div class="tile-column-span-2">
-
-
-                    <a class="tile wide imagetext wideimage " href="<?php echo URL . "docente" . DS1 . "index/" ?>" style="background-color:white;">
-                        <img src="<?php echo URL; ?>public/img/img6.png" alt="sam"  style="width:200px;"/>
-
-                        <div class="textover-wrapper bg-color-blueDark">
-                            <div class="text2">Cadastrar,Alterar,Deletar,Pesquisar</div>
-                        </div>
-                    </a>
-
-                </div>
-
 
                 <h2>Notas</h2>
 
@@ -187,20 +167,15 @@ function selected($value, $selected) {
                         <div class="text4">Imprima Diplomas</div>
                     </div>
                 </a>
-               
-                  <a class="tile  imagetext bg-color-blueDark" href="<?php echo URL . "usuario" . DS1 . "index/" ?>">
-                       <h2>Usuarios</h2>
-                       <img src="<?php echo URL; ?>public/img/5.jpg" alt="sam"  class="img-responsive img-circle" />
-                      
-                </a>
 
+                
 
 
 
 
 
             </div>
-           
+
 
             <div id="charms" class="win-ui-dark slide">
 

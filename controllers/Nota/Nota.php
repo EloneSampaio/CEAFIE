@@ -28,7 +28,7 @@ class Nota extends Controller implements Dao {
     private $docente;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador", "docente"));
+        Session::nivelRestrito(array("gestor", "docente"));
         $this->nota = $this->LoadModelo('Nota');
         $this->dm = $this->LoadModelo('DocentModulo');
         $this->aluno = $this->LoadModelo('Aluno');
@@ -72,6 +72,36 @@ class Nota extends Controller implements Dao {
         }
 
         $this->view->renderizar('index');
+    }
+
+    public function adicionarNotaDocente($dados = FALSE) {
+
+        if ($this->getInt('enviar') == 1) {
+
+            if (!$this->getSqlverifica('nota')) {
+                $this->view->erro = "Porfavor Selecciona uma nota";
+                $this->view->renderizar('docente');
+                exit;
+            }
+
+            
+            $this->nota->setData(date('Y-m-d'));
+            $aluno = $this->aluno->pesquisar($this->getInt('aluno'));
+            $matricula = $this->matricula->pesquisar($aluno->getId());
+            $modulo = $this->modulo->pesquisaPor($_POST['modulo']);
+            $this->nota->setNota($this->getSqlverifica('nota'));
+            $this->nota->setModulo($modulo);
+            $this->nota->setAluno($aluno);
+
+            $r = $this->nota->adicionar($this->nota);
+            if ($r) {
+                $this->view->mensagem = "Nota lançada com sucesso";
+            } else {
+                $this->view->erro = "Erro ao  lançar nota";
+            }
+        }
+
+        $this->view->renderizar('docente');
     }
 
     public function editar($id = FALSE) {
@@ -172,6 +202,8 @@ class Nota extends Controller implements Dao {
             $dados[] = $_POST['ano'];
             $this->view->dados = $this->nota->pesquisaPorDOcente($dados);
             $this->view->renderizar('docente');
+        } else {
+            $this->view->renderizar('docente'); 
         }
     }
 

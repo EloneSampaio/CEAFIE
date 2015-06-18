@@ -26,7 +26,7 @@ class Aluno extends Controller {
     private $usuario;
     private $pessoa;
     private $curso;
-     private $mm;
+    private $mm;
 
     public function __construct() {
         Session::nivelRestrito(array("aluno"));
@@ -37,7 +37,7 @@ class Aluno extends Controller {
         $this->nota = $this->LoadModelo("Nota");
         $this->usuario = $this->LoadModelo("Usuario");
         $this->materia = $this->LoadModelo("Materia");
-          $this->mm = $this->LoadModelo('MatriculaModulo');
+        $this->mm = $this->LoadModelo('MatriculaModulo');
 
         parent::__construct();
         $this->view->setJs(array("novo"));
@@ -49,12 +49,16 @@ class Aluno extends Controller {
         
     }
 
-    public function nota($id = FALSE) {
-        $id = $this->usuario->pesquisar($id);
-        $id1 = $this->pessoa->pesquisar($id->getPessoa()->getId());
-        $id2 = $this->aluno->pesquisaPor($id1->getId());
-        $this->view->dados = $this->nota->pesquisaNota1($id2->getId());
-        $this->view->renderizar('nota');
+    public function nota($id) {
+        if ($id) {
+            $id = $this->usuario->pesquisar($id);
+            $id1 = $this->pessoa->pesquisar($id->getPessoa()->getId());
+            $id2 = $this->aluno->pesquisaPor($id1->getId());
+            $this->view->dados = $this->nota->pesquisaNota1($id2->getId());
+            $this->view->renderizar('nota');
+        } else {
+            $this->redirecionar('dashboard/aluno');   
+        }
     }
 
     public function materia($dados = FALSE) {
@@ -98,7 +102,7 @@ class Aluno extends Controller {
         $id2 = $this->aluno->pesquisaPor($id1->getId());
         $this->view->dados = $this->matricula->pesquisar($id2);
         $this->view->modulo = $this->mm->pesquisarPor($this->view->dados->getId());
-      
+
         $this->view->renderizar("informacao");
     }
 

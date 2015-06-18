@@ -31,7 +31,7 @@ class Matricula extends Controller implements Dao {
 
     public function __construct() {
         parent::__construct();
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->curso = $this->LoadModelo('Curso');
@@ -221,7 +221,7 @@ class Matricula extends Controller implements Dao {
 
 
             $this->usuario->setLogin($this->view->dados['bi']);
-            $this->usuario->setSenha(\application\Hash::getHash("md5", $this->geraSenha(), HASH_KEY));
+            $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY));
             $this->usuario->setNivel("aluno");
 
 
@@ -253,11 +253,9 @@ class Matricula extends Controller implements Dao {
                 exit;
             } else {
 
-
-
-                $this->dadosDeAcesso(array('nome' => $_POST['bi'], 'senha' => $this->geraSenha()));
                 $this->view->mensagem = "Dados guardados com sucesso";
                 $this->view->renderizar('novo');
+                exit;
             }
         }
 

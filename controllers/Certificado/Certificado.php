@@ -25,7 +25,7 @@ class Certificado extends Controller {
     private $mm;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         $this->mm = $this->LoadModelo("MatriculaModulo");
@@ -37,14 +37,13 @@ class Certificado extends Controller {
 
     public function index($id = FALSE) {
 
-        $this->view->dados = $this->nota->pesquisar();
+        $this->view->dados = $this->nota->verNota();
         $this->view->renderizar("index");
     }
 
-    public function gerar($id) {
+    public function gerar($id,$modulo) {
         $d = $this->matricula->pesquisar($id);
-
-        $r = $this->mm->pesquisarPOr($d->getId());
+        $r = $this->mm->pesquisar($d->getId(), $modulo);
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Certificado($css, 'sam');
         $report->setData($r->getMatricula()->getData());

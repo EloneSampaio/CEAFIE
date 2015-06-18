@@ -24,7 +24,7 @@ class Docente extends Controller implements Dao {
     private $dm;
 
     public function __construct() {
-        Session::nivelRestrito(array("administrador"));
+        Session::nivelRestrito(array("gestor"));
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
         $this->curso = $this->LoadModelo('Curso');
