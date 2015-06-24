@@ -10,8 +10,8 @@ function selected($value, $selected) {
 
     <!-- Header
     ================================================== -->
-    <div id="nav-bar">
-        <div class="pull-left" style="margin-left: 180px;">
+    <div id="nav-bar" style="margin-left: 180px;">
+        <div class="pull-left">
             <div id="header-container">
 
                 <div class="dropdown">
@@ -22,11 +22,14 @@ function selected($value, $selected) {
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>">Matriculas</a></li>
                         <li><a href="<?php echo URL . "docente" . DS1 . "index/" ?>">Docentes</a></li>
+                        <li><a href="<?php echo URL . "curso" . DS1 . "index/" ?>">Cursos</a></li>
+                        <li><a href="<?php echo URL . "modulo" . DS1 . "index/" ?>">Módulos</a></li>
                         <li><a href="<?php echo URL . "nota" . DS1 . "listar/" ?>">Notas</a></li>
                         <li><a href="<?php echo URL . "relatorio" . DS1 . "graficoGeral/" ?>">Relatório</a></li>
                         <li><a href="<?php echo URL . "diploma" . DS1 . "index/" ?>">Diplomas</a></li>
                         <li><a href="<?php echo URL . "certificado" . DS1 . "index/" ?>">Certificado</a></li>
                         <li><a href="<?php echo URL . "programa" . DS1 . "index/" ?>">Programa</a></li>
+                        <li><a href="<?php echo URL . "usuario" . DS1 . "index/" ?>">Usuarios</a></li>
                         <li><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
                     </ul>
                 </div>
@@ -40,7 +43,7 @@ function selected($value, $selected) {
                 <a id="logged-user" href="#" class="win-command pull-right">
                     <span class="win-commandicon win-commandring icon-user"></span>
                 </a>
-                <div class="pull-left">
+                <div class="pull-right" style="margin-right:150px; ">
                     <h3><?php echo application\Session::get('nome'); ?></h3>
                     <a href="<?php echo URL . "login/logof"; ?>"><h4 class="text-warning pull-right">Sair</h4></a>
                 </div>
@@ -64,21 +67,24 @@ function selected($value, $selected) {
                             <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
                         </div>
                     </a>
+                    <h2>Cursos</h2>
 
-                    <h2>Docentes</h2>
+                    <a class="tile wide imagetext wideimage bg-color-purple" href="<?php echo URL . "curso" . DS1 . "index/" ?>">
+                        <img src="<?php echo URL; ?>public/img/img7.png" alt="sam" style="width:200px;" />
+                        <div class="textover-wrapper bg-color-purple">
+                            <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
+                        </div>
+                    </a>
+                    <h2>Módulos</h2>
 
-                    <div class="tile-column-span-2">
+                    <a class="tile wide imagetext wideimage bg-color-blue" href="<?php echo URL . "modulo" . DS1 . "index/" ?>">
+                        <img src="<?php echo URL; ?>public/img/img8.png" alt="sam" style="width:200px;" />
+                        <div class="textover-wrapper bg-color-blueDark">
+                            <div class="text2">Cadastrar, Alterar, DEletar, Alunos</div>
+                        </div>
+                    </a>
 
 
-                        <a class="tile wide imagetext wideimage " href="<?php echo URL . "docente" . DS1 . "index/" ?>" style="background-color:white;">
-                            <img src="<?php echo URL; ?>public/img/img6.png" alt="sam"  style="width:200px;"/>
-
-                            <div class="textover-wrapper bg-color-blueDark">
-                                <div class="text2">Cadastrar,Alterar,Deletar,Pesquisar</div>
-                            </div>
-                        </a>
-
-                    </div>
                 </div>
 
 
@@ -88,6 +94,22 @@ function selected($value, $selected) {
 
 
             <div class="panorama-section">
+
+                <h2>Docentes</h2>
+
+                <div class="tile-column-span-2">
+
+
+                    <a class="tile wide imagetext wideimage " href="<?php echo URL . "docente" . DS1 . "index/" ?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img6.png" alt="sam"  style="width:200px;"/>
+
+                        <div class="textover-wrapper bg-color-blueDark">
+                            <div class="text2">Cadastrar,Alterar,Deletar,Pesquisar</div>
+                        </div>
+                    </a>
+
+                </div>
+
 
                 <h2>Notas</h2>
 
@@ -168,14 +190,36 @@ function selected($value, $selected) {
                     </div>
                 </a>
 
-                
 
 
 
 
+
+                <div id="charms" class="win-ui-dark slide">
+
+                    <div id="theme-charms-section" class="charms-section">
+                        <div class="charms-header">
+                            <a href="#" class="close-charms win-backbutton"></a>
+                            <h2>Definições</h2>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <form action="dashboard/alteraTema" id="tema">
+                                    <label for="win-theme-select">Alterar Tema:</label>
+                                    <select id="win-theme-select" class="tema" name="tema">
+
+                                        <option value="default" <?php echo selected(Session::get('tema'), "default") ?> >Default</option>
+                                        <option value="metro" <?php echo selected(Session::get('tema'), "metro") ?> >Metro</option>
+                                    </select>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-
 
             <div id="charms" class="win-ui-dark slide">
 
@@ -200,8 +244,12 @@ function selected($value, $selected) {
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-    
-    <?php echo $this->menuVertical;?>
+</div>
+
+
+
+<?php echo $this->menuVertical; ?>
 
