@@ -276,10 +276,11 @@ function CriaRequest() {
 function getDados(elemento) {
     // Declaração de Variáveis
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
     var ano = document.getElementById("ano").value;
     var imagem = document.getElementById("img").value;
     var modulo = $("#modulo1").val();
+    
 
     var result = document.getElementById("conteudo");
     var xmlreq = CriaRequest();
@@ -316,7 +317,7 @@ function getDados(elemento) {
 function getTodos(elemento) {
 
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
 
     var result = document.getElementById("conteudo");
     var imagem = document.getElementById("img").value;
@@ -375,16 +376,16 @@ function modal(id) {
 
                 }
             },
-            {
-                cssClass: 'btn btn-info',
-                label: 'Imprimir Ficha',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/matricula/imprimirFicha/' + id);
-
-                }
-            }
-            , {
+//            {
+//                cssClass: 'btn btn-info',
+//                label: 'Imprimir Ficha',
+//                action: function (dialogItself) {
+//                    dialogItself.close();
+//                    $(location).attr('href', 'http://localhost/uan/matricula/imprimirFicha/' + id);
+//
+//                }
+//            }
+             {
                 cssClass: 'btn btn-danger',
                 label: 'Fechar',
                 action: function (dialogItself) {

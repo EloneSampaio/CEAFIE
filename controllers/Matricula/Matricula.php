@@ -37,6 +37,7 @@ class Matricula extends Controller implements Dao {
         $this->curso = $this->LoadModelo('Curso');
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
+        $this->view->menuVertical = $this->getFooter('menuVertical');
         $this->usuario = $this->LoadModelo("Usuario");
         $this->mm = $this->LoadModelo('MatriculaModulo');
         $this->view->titulo = "Tabela de Alunos Matriculados";
@@ -496,7 +497,7 @@ class Matricula extends Controller implements Dao {
 
     public function imprimir($id, $data) {
 
-        $d = $this->mm->pesquisar(array("id" => $id, 'data' => $data));
+        $d = $this->mm->pesquisarImprimi($id, $data);
 
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Recibo($css, 'sam');
@@ -565,8 +566,6 @@ class Matricula extends Controller implements Dao {
 
     public function imprimirFicha($id = FALSE) {
         $dados = $this->matricula->pesquisaImpressao($id);
-        \Doctrine\Common\Util\Debug::dump($dados);
-        exit;
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Impressao($css, 'impressao');
         $report->getBody($dados);

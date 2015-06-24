@@ -219,16 +219,16 @@ function modal(id) {
 
                 }
             },
-            {
-                cssClass: 'btn btn-info',
-                label: 'Imprimir Ficha',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/docente/imprimirFicha/' + id);
-
-                }
-            }
-            , {
+//            {
+//                cssClass: 'btn btn-info',
+//                label: 'Imprimir Ficha',
+//                action: function (dialogItself) {
+//                    dialogItself.close();
+//                    $(location).attr('href', 'http://localhost/uan/docente/imprimirFicha/' + id);
+//
+//                }
+//            }
+             {
                 cssClass: 'btn btn-danger',
                 label: 'Fechar',
                 action: function (dialogItself) {
@@ -276,7 +276,7 @@ function CriaRequest() {
 function getDados(elemento) {
     // Declaração de Variáveis
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
     var imagem = document.getElementById("img").value;
     var curso = $("#curso").val();
 
@@ -315,7 +315,7 @@ function getDados(elemento) {
 function getTodos(elemento) {
 
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
 
     var result = document.getElementById("conteudo");
     var imagem = document.getElementById("img").value;

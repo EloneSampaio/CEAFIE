@@ -106,7 +106,7 @@ class DocentModulo extends Doctrine implements Dao {
     }
 
     public function pesquisaPor($dados = FALSE) {
-       
+
         $qb = $this->em->createQueryBuilder()
                 ->select('p.nome', 'p.bi', 'n.nota')
                 ->from('models\Matricula', 'm')
@@ -137,6 +137,20 @@ class DocentModulo extends Doctrine implements Dao {
         return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
+    public function pesquisarCurso($id = FALSE) {
+        $qb = $this->em->createQueryBuilder()
+                ->select('m.nome', 'p.nome', 'dc.grau','p.bi')
+                ->from('models\DocentModulo', 'd')
+                ->innerJoin('models\Modulo', 'm', 'WITH', 'd.modulo=m.id')
+                ->innerJoin('models\Curso', 'c', 'WITH', 'm.curso=c.id')
+                ->innerJoin('models\Docente', 'dc', 'WITH', 'd.docente=dc.id')
+                ->innerJoin('models\Pessoa', 'p', 'WITH', 'dc.pessoa=p.id')
+                ->andWhere('m.curso =:id')
+                ->setParameter(':id', $id)
+                ->orderBy('d.id', 'DESC');
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
     public function remover($id = FALSE) {
         
     }
@@ -149,12 +163,12 @@ class DocentModulo extends Doctrine implements Dao {
     public function listagem($id) {
 
         $qb = $this->em->createQueryBuilder()
-                ->select('m.id','m.nome')
+                ->select('m.id', 'm.nome')
                 ->from('models\Modulo', 'm')
                 ->innerJoin('models\DocentModulo', 'dm', 'WITH', 'm.id=dm.modulo')
                 ->andWhere('dm.docente =:id')
                 ->setParameter('id', $id);
-        return  $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 
 }

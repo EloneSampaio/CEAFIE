@@ -1,33 +1,38 @@
 
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
 
-    <?php function selected($value, $selected) {
+<?php
+
+function selected($value, $selected) {
     return $value == $selected ? ' selected="selected"' : '';
-    }
+}
 ?>
 
 
 
 
-<div class="col-12 pull-right">
 
 
-    <div class="navbar">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Ver Alunos</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
-        </ul>
-    </div>
-
-
-</div>
 <div class="span10 " id="content" style="margin-left: 420px; ">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <br />
         <div class="block">
+
+            <div class="col-12 pull-left">
+
+                <h3></h3>
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver Alunos</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+                    </ul>
+                </div>
+
+
+            </div>
 
             <div class="navbar navbar-inner block-header">
                 <div class="muted pull-right">Dados do Aluno</div>
@@ -67,9 +72,9 @@
                                         endif;
                                         ?> >Masculino</option>
                                         <option value="Femenino" <?php
-                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
-                                                endif;
-                                                ?> >Femenino</option>
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
+                                        endif;
+                                        ?> >Femenino</option>
                                     </select>                                    
                                 </div>
                             </div>
@@ -78,9 +83,9 @@
                                 <label class="control-label">Nª Bi<span class="required">*</span></label>
                                 <div class="controls">
                                     <input name="bi" type="text" class="span6 m-wrap" maxlength="14" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
 
@@ -88,9 +93,9 @@
                                 <label class="control-label">Nacionalidade<span class="required">*</span></label>
                                 <div class="controls">
                                     <input name="nacionalidade" id="nacionalidade" type="text" class="span6 m-wrap" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nacionalidade'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nacionalidade'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
 
@@ -98,9 +103,9 @@
                                 <label class="control-label">Telefone<span class="required">*</span></label>
                                 <div class="controls">
                                     <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
-                                           endif;
-                                           ?>"/> 
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
+                                    endif;
+                                    ?>"/> 
                                 </div>
                             </div>
 
@@ -108,9 +113,9 @@
                                 <label class="control-label">Email<span class="required">*</span></label>
                                 <div class="controls">
                                     <input name="email"  class="span6 m-wrap" type="email" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
 
@@ -121,18 +126,18 @@
                                 <label class="control-label">graduação<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="graduacao" data-required="1" class="span6 m-wrap" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['graduacao'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['graduacao'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Universidade<span class="required">*</span></label>
                                 <div class="controls">
                                     <input name="universidade" type="text" class="span6 m-wrap" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['universidade'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['universidade'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
                         </fieldset>
@@ -143,9 +148,9 @@
                                 <label class="control-label">Unidade Organica<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap" value="<?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo $this->dados['unidade_organica'];
-                                           endif;
-                                           ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['unidade_organica'];
+                                    endif;
+                                    ?>"/>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -153,21 +158,21 @@
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_docente">
                                         <option value="Assistente" <?php
-                                           if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
-                                           endif;
-                                           ?>>Assistente</option>
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
+                                        endif;
+                                        ?>>Assistente</option>
                                         <option value="Associado" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Associado");
                                         endif;
                                         ?> >Associado</option>
                                         <option value="Titular" <?php
-                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Titular");
-                                                endif;
-                                                ?>>Titular</option>
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Titular");
+                                        endif;
+                                        ?>>Titular</option>
                                         <option value="Nenhum" <?php
-                                                if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Nenhum");
-                                                endif;
-                                                ?>>Nenhum</option>
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Nenhum");
+                                        endif;
+                                        ?>>Nenhum</option>
 
                                     </select>
                                 </div>
@@ -243,9 +248,9 @@
                                 <label class="control-label">Data de Inscrição<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="data" class="span6 m-wrap" id="data" data-provide="datepicker" data-required="1" value="<?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
-                                        endif;
-                                        ?>"/>
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
+                                    endif;
+                                    ?>"/>
                                     <span class="input-group-addon"><span class="icon icon-calendar">
 
                                         </span>

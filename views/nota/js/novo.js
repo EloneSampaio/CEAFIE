@@ -173,7 +173,7 @@ function CriaRequest() {
 function getDados(elemento) {
     // Declaração de Variáveis
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
     var ano = document.getElementById("ano").value;
     var imagem = document.getElementById("img").value;
     var modulo = $("#modulo").val();
@@ -212,7 +212,7 @@ function getDados(elemento) {
 
 function getTodos(elemento) {
 
-    var acao = $('.' + elemento).attr('class');
+    var acao = $('#' + elemento).attr('id');
 
     var result = document.getElementById("conteudo");
     var imagem = document.getElementById("img").value;

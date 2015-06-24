@@ -365,7 +365,6 @@ class Docente extends Controller implements Dao {
     }
 
     public function pesquisaPor($acao = FALSE, $curso = FALSE) {
-
         switch ($acao):
 
             case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);

@@ -24,6 +24,7 @@ class Dashboard extends Controller {
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight'));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->menuVertical = $this->getFooter('menuVertical');
         $this->view->titulo = "Dashboard";
     }
 

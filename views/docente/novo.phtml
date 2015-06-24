@@ -1,23 +1,25 @@
 <?php echo $this->menu; ?>
 
 
-<div class="col-12 pull-right">
-    <h3>Acesso Rapido</h3>
-    <div class="navbar">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Ver Docentes</span></a></li>
-            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
-            <li class="active"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
-        </ul>
-    </div>
 
 
-</div>
 <div class="span10 " id="content" style="margin-left: 420px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
+
+            <div class="col-12 pull-left">
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Novo</span></a></li>
+                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+                    </ul>
+                </div>
+
+
+            </div>
             <div class="navbar navbar-inner block-header">
                 <div class="muted pull-right">Dados do Docente</div>
             </div>
