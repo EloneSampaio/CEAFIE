@@ -1,7 +1,7 @@
 
-
+<!--margin-top: 0px; margin-left: 0px; padding-top: 0px;-->
 <br /><br /><br />
-<aside id="sidebar" class="column" style="margin-top: -842px; margin-left: 4px; padding-top: 10px;">
+<aside id="sidebar" class="column" style="position: absolute; top: 40px;">
     <hr/>
     <h3>Aluno</h3>
     <ul class="toggle">

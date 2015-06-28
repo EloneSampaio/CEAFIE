@@ -1,29 +1,31 @@
 <?php echo $this->menu; ?>
 
+<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
 
 
-<div class="" id="content" style="margin-left: 120px; " >
+    <div class="navbar">
+        <h3></h3>
+        <h3></h3>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Cadastrar</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+<div  id="content" style="margin-left: 120px; ">
     <div class="row-fluid">
 
         <div class="block">
 
 
-            <div class="col-12 pull-left">
-
-                <h3></h3>
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Cadastrar</span></a></li>
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-                    </ul>
-                </div>
 
 
-            </div>
 
-
-            <div class="span6 " id="content" style="margin-left: 100px; margin-top: 50px;">
+            <div class="span6 " id="content" style="margin-left: 330px; margin-top: 50px;">
                 <!-- validation -->
 
                 <div class="row-fluid">
@@ -79,7 +81,7 @@
                                         <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
                                     </div>
                                 </form>
-                               
+
                                 <!-- END FORM-->
                             </div>
                         </div>

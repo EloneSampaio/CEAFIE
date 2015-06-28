@@ -1,25 +1,30 @@
 <?php echo $this->menu; ?>
-<div class=" " id="content" style="margin-left: 220px;">
+
+<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
+    <div class="navbar">
+        <h3></h3>
+        <h3></h3>
+        <ul class="nav navbar-nav">
+            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Novo</span></a></li>
+            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+<div class=" " id="content" style="margin-left: 120px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
 
-            <div class="col-12 pull-left">
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Novo</span></a></li>
-                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-                        <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-                    </ul>
-                </div>
 
 
-            </div>
 
-          
 
-            <div class="span6 " id="content" style="margin-left: 100px; margin-top: 50px;">
+            <div class="span6 " id="content" style="margin-left: 330px; margin-top: 50px;">
                 <!-- validation -->
 
                 <div class="row-fluid">
@@ -72,8 +77,12 @@
                 endif;
                 ?>
             </h3>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <div id="conteudo">
 
             </div>
+        </div>
+    </div>
+</div>
+
 

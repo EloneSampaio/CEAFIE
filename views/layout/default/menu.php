@@ -5,9 +5,9 @@ use application\Session; ?>
     <p class="pull-right" style="color: #ffffff; position: absolute; right: 20px; margin-top: 10px; font-size: 14px;"><?php print Session::get('nome'); ?> (<a href="<?php print URL ?>login/logof">Sair</a>)</p>
 
     <hgroup>
-        <h1 class="site_title"><a href="index.html">
+        <h1 class="site_title" style="position: absolute; left: 600px;">
                 <?php if (Session::get('nivel') == "gestor"): $menu = "dashboard"; ?>
-                    <a class="brand" href="#">Painel de Administração</a>
+                <a class="brand" href="#">Painel de Administração</a>
 
                 <?php endif; ?>
 
