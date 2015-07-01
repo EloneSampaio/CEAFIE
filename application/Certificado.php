@@ -26,6 +26,15 @@ class Certificado implements Documento {
     private $curso;
     private $data;
     private $modulo;
+    private $nota;
+
+    function getNota() {
+        return $this->nota;
+    }
+
+    function setNota($nota) {
+        $this->nota = $nota;
+    }
 
     function getModulo() {
         return $this->modulo;
@@ -60,11 +69,12 @@ class Certificado implements Documento {
         $this->setarCSS($css);
     }
 
-    public function getBody($dados=FALSE) {
+    public function getBody($dados = FALSE) {
 
         $nome = $this->getNome();
-        $data = date("d.m.Y",  strtotime($this->getData()));
+        $data = date("d/m/Y", strtotime($this->getData()));
         $modulo = $this->getModulo();
+        $nota = $this->getNota();
 
 
         $retorno = "
@@ -86,7 +96,28 @@ class Certificado implements Documento {
 <div style=\"font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif; font-size: 16px;\">
 
 <tr>
-          <td colspan=\"2\"><p style=\"\">Para os devidos efeitos certificamos que <strong>$nome</strong> concluiu aos <strong>$data</strong> o curso de $modulo. </p> <p>Com um total de 320 horas, conforme consta do livro _______ folha ______ n.º ____.</p>
+          <td colspan=\"2\"><p style=\"\">Para os devidos efeitos certificamos que <strong>$nome</strong> realizou com aproveitamento os seguintes modúlos do curso de agregação Pedagogica 
+                
+                <tbody>
+<br /><br />
+<table class=\"table table-striped table-bordered\">
+<tr>
+<td>MODOULO</td>
+<td>DATA DE CONCLUSÃO</td>
+<td>APROVEITAMENTO</td>
+
+</tr>
+<tr>
+
+<td>$modulo</td>
+<td>$data</td>
+    <td>$nota</td>
+
+
+</tr>
+</tbody>
+        </table>"
+                . " <p>A média final é  BOM, conforme consta do livro _______ folha ______ n.º ____.</p>
         <tr>
           <td colspan=\"2\" align=\"center\"><p>Feito  em Luanda, aos ______ de ________________________ de _____</p></td>
           </tr>
@@ -102,7 +133,7 @@ class Certificado implements Documento {
         </tr>
 <tr>
           <td align=\"center\">&nbsp;</td>
-          <td align=\"center\"><em><strong><em>O Reitor</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></td>
+          <td align=\"center\"><em><strong><em>O Vice-Reitor para a Área Cientifica</em></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></td>
         </tr>
         <tr>        
 <tr>
@@ -137,7 +168,7 @@ class Certificado implements Documento {
         return $retorno;
     }
 
-    public function getHeader($header=FALSE) {
+    public function getHeader($header = FALSE) {
         $retorno = "<img src='public/img/UAN2.png' class='img-responsive' style='margin-left:500px;' />";
 
         return $retorno;

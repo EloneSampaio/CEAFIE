@@ -44,11 +44,13 @@ class Certificado extends Controller {
     public function gerar($id,$modulo) {
         $d = $this->matricula->pesquisar($id);
         $r = $this->mm->pesquisar($d->getId(), $modulo);
+        $n=  $this->nota->pesquisaNota($d->getAluno()->getId());
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Certificado($css, 'sam');
         $report->setData($r->getMatricula()->getData());
         $report->setNome($r->getMatricula()->getAluno()->getPessoa()->getNome());
         $report->setModulo($r->getModulo()->getNome());
+        $report->setNota($n->getNota());
         $report->BuildPDF();
         $lo = new LogUso('log');
         $lo->verificarArquivo();
