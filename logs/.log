@@ -343,3 +343,18 @@ IP da Maquina do Usuario: 127.0.0.1
 Usuario: ADMINISTRADOR
 Acção feita: Foi gerado um diploma  nome de aluno : Elone Miguel
 -------------------------------------------------------------------------------------------------
+---------Log Gerado em 01-07-2015 12:07:04------------
+IP da Maquina do Usuario: 127.0.0.1
+Usuario: Admin
+Acção feita: Foi criado um novo docenteCom o nome de : Dario Germano Samuel
+-------------------------------------------------------------------------------------------------
+---------Log Gerado em 01-07-2015 12:07:04------------
+IP da Maquina do Usuario: 127.0.0.1
+Usuario: Admin
+Acção feita: Foi Editado  informações do docente Com o nome de : Dario Germano Samuel
+-------------------------------------------------------------------------------------------------
+---------Log Gerado em 01-07-2015 12:07:21------------
+IP da Maquina do Usuario: 127.0.0.1
+Usuario: Admin
+Acção feita: Foi removido um  aluno do sistema
+-------------------------------------------------------------------------------------------------
