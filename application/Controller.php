@@ -150,6 +150,8 @@ abstract class Controller {
         // var_dump(unlink($caminho));
     }
 
+    
+    /** função para verificar Bi*/
     public function verificarBi($bi) {
         $expressao_regular = "/^[0-9]{9}[A-Z]{2}[0-9]{3}$/";
         if (preg_match($expressao_regular, $bi)) {

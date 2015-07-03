@@ -127,7 +127,7 @@ class Docente extends Controller implements Dao {
             if (!$this->getSqlverifica('grau')) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma grau");
                 //echo json_encode($ret);
-                $this->view->erro = "Porfavor uma grau";
+                $this->view->erro = "Porfavor Insira um grau ";
                 $this->view->renderizar("novo");
                 exit;
             }
