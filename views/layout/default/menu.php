@@ -7,7 +7,7 @@ use application\Session; ?>
     <hgroup>
         <h1 class="site_title" style="position: absolute; left: 600px;">
                 <?php if (Session::get('nivel') == "gestor"): $menu = "dashboard"; ?>
-                <a class="brand" href="#">Painel de Administração</a>
+                <a class="brand" href="#">Painel de Gestão</a>
 
                 <?php endif; ?>
 
@@ -22,7 +22,7 @@ use application\Session; ?>
                 <?php endif; ?>
 
                 <?php if (Session::get('nivel') == "administrador"): $menu = "dashboard/admin/"; ?>
-                    <a class="brand" href="#">Painel de Aluno</a>
+                    <a class="brand" href="#">Painel de Administrador</a>
 
                 <?php endif; ?>
 

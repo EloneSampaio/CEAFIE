@@ -33,7 +33,7 @@ class Dashboard extends Controller {
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
             Session::nivelRestrito(array("gestor"));
-            $this->view->titulo = "Pagina de Administracção";
+            $this->view->titulo = "Pagina de Gestão";
 
 
 
@@ -66,11 +66,11 @@ class Dashboard extends Controller {
     }
 
     public function admin() {
+         $this->view->titulo = "Pagina de Administrador";
         Session::nivelRestrito(array("administrador"));
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
-            $this->view->titulo = "Pagina de Administração";
-            $this->view->renderizar('admin');
+           $this->view->renderizar('admin');
         } else {
             $this->teste3();
         }
@@ -115,6 +115,7 @@ class Dashboard extends Controller {
 
     //tema 2 docente
     public function teste1() {
+        $this->view->titulo = "Pagina de Docente";
         Session::nivelRestrito(array("docente"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));

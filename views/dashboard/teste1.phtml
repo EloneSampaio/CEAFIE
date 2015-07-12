@@ -14,7 +14,7 @@ function selected($value, $selected) {
 
                 <div class="dropdown">
                     <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#" style="color: white;">
-                        Painel de Administração
+                       <?php if(isset($this->titulo)): echo $this->titulo; endif;?>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">

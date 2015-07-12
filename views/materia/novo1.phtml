@@ -1,7 +1,20 @@
 
 <?php echo $this->menu; ?>
 
+<?php if (strcmp(application\Session::get('nivel'), 'docente') == 0): ?>
+    <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
+        <h3></h3>
+        <div class="navbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="<?php echo URL . "materia" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Lista</span></a></li>
+                <li class="active"><a href="<?php echo URL . "materia" . DS1 . "adicionar1/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Cadastrar</span></a></li>
+                 
+            </ul>
+        </div>
 
+
+    </div>
+<?php endif; ?>
 <div class="span10 " id="content" style="margin-left: 420px; margin-top: 50px;">
     <!-- validation -->
     <div class="row-fluid">
