@@ -70,7 +70,7 @@ class Matricula extends Controller implements Dao {
                 exit;
             }
 
-            if (!$this->getSqlverifica('nome1')) {
+            if (!$this->getSqlverifica('apelido')) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um apelido");
                 //echo json_encode($ret);
                 $this->view->erro = "Porfavor Insira um apelido";
@@ -200,7 +200,7 @@ class Matricula extends Controller implements Dao {
                 exit;
             }
 
-            $nome = $this->view->dados['nome'] . " " . $this->view->dados['nome1'];
+            $nome = $this->view->dados['nome'] . " " . $this->view->dados['apelido'];
             $this->pessoa->setNome($nome);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
@@ -255,6 +255,7 @@ class Matricula extends Controller implements Dao {
             } else {
 
                 $this->view->mensagem = "Dados guardados com sucesso";
+                $this->view->dados=array();
                 $this->view->renderizar('novo');
                 exit;
             }

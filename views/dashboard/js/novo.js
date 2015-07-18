@@ -40,7 +40,7 @@ function notificacao(nome, mensagem, url) {
 
 
 function saudacao() {
-    $.getJSON('http://localhost/uan/dashboard/listarUsuario', function (data) {
+    $.getJSON('https://localhost/uan/dashboard/listarUsuario', function (data) {
         notificacao(data.nome, data.mensagem, data.url);
     });
 }
@@ -72,7 +72,7 @@ function editarTema() {
                     var json = $.parseJSON(data);
 
                     alert(json.mensagem);
-                    $(location).attr('href', "http://localhost/uan/login");
+                    $(location).attr('href', "https://localhost/uan/login");
                 });
 
         return false;
@@ -149,7 +149,7 @@ function remover() {
 
 
 function validar() {
-    var url = "http://localhost/uan/matricula/index";
+    var url = "https://localhost/uan/matricula/index";
     $(document).on('click', '#validar', function () {
 
         var id = $(this).attr('rel');
@@ -167,7 +167,7 @@ function editarMatricula1() {
 
     $(document).on('click', '#editar1', function () {
         var id = $(this).attr('rel');
-        var url = "http://localhost/uan/matricula/editarDados/" + id;
+        var url = "https://localhost/uan/matricula/editarDados/" + id;
         console.log(id);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -179,7 +179,7 @@ function editarDocente1() {
 
     $(document).on('click', '#docente1', function () {
         var id = $(this).attr('rel');
-        var url = "http://localhost/uan/docente/editarDados/" + id;
+        var url = "https://localhost/uan/docente/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -190,7 +190,7 @@ function editarCurso1() {
 
     $(document).on('click', '#curso1', function () {
         var id = $(this).attr('rel');
-        var url = "http://localhost/uan/curso/editarDados/" + id;
+        var url = "https://localhost/uan/curso/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -201,7 +201,7 @@ function editarModulo1() {
 
     $(document).on('click', '#modulo1', function () {
         var id = $(this).attr('rel');
-        var url = "http://localhost/uan/modulo/editarDados/" + id;
+        var url = "https://localhost/uan/modulo/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -212,7 +212,7 @@ function editarPrograma1() {
 
     $(document).on('click', '#programa1', function () {
         var id = $(this).attr('rel');
-        var url = "http://localhost/uan/programa/editarDados/" + id;
+        var url = "https://localhost/uan/programa/editarDados/" + id;
         console.log(url);
         setTimeout("$('#pageContent').load('" + url + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -225,7 +225,7 @@ function editarUsuario1() {
 
     $(document).on('click', '#usuario1', function () {
         var id = $(this).attr('rel');
-        // var url = "http://localhost/uan/usuario/editarDados/" + id;
+        // var url = "https://localhost/uan/usuario/editarDados/" + id;
         console.log(id);
         setTimeout("$('#pageContent').load('" + id + "', function(){ $('#imagem').hide(); });", 1000);
 
@@ -246,7 +246,7 @@ function editarUsuario1() {
 
 function grafico() {
 
-    $.getJSON('http://localhost/uan/dashboard/dados', function (data) {
+    $.getJSON('https://localhost/uan/dashboard/dados', function (data) {
 
         console.log(data)
         var json = $.parseJSON(data);
@@ -291,7 +291,7 @@ function grafico() {
 
 function grafico1() {
 
-    $.getJSON('http://localhost/uan/dashboard/dados1', function (data) {
+    $.getJSON('https://localhost/uan/dashboard/dados1', function (data) {
 
         console.log(data)
         var json = $.parseJSON(data);
@@ -336,7 +336,7 @@ function pesquisar() {
 
     $('#pesquisaEstado').change(function () {
         if ($(this).val()) {
-            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 console.log(j);
             });
         } else {

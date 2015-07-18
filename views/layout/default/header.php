@@ -19,20 +19,10 @@ use application\Session; ?>
 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-responsive.min.css" media="screen"/>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap.min.css" media="screen"/> 
-        <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/media/ZeroClipboard/ZeroClipboard.js"></script>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/media/js/TableTools.js"></script>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>datatables/js/dataTables.bootstrap.js"></script>
-
-
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
+        <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-datepicker.min.css" media="screen"/> 
 
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap.min.js"></script>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap-datepicker.js"></script>
-        <script type="text/javascript" src="<?php print URL; ?>public/js/jquery.leanModal.min.js"></script>
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_assets"] ?>scripts.js"></script>
+        <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
 
         <?php if (isset($_layoutParam['css']) && count($_layoutParam['css'])): ?>
             <?php for ($i = 0; $i < count($_layoutParam['css']); $i++): ?>
@@ -47,6 +37,21 @@ use application\Session; ?>
         <?php endif; ?>
         <style>
             .datepicker{z-index:1151 !important;}
+
+
+            label.error {
+                border: 1px solid red;
+                /*color: red;*/
+                font-weight: bold;
+                padding: 3px;
+                /*background-color: #99CCFF;*/
+                /*                background:#8D0000 url('imagem/button.png') repeat-x scroll top left;
+                                color:#ffffff;
+                                margin: 6px 0;
+                                width: 120px;*/
+                text-align: center;
+            }
+
         </style>
 
     </head>

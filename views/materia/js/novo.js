@@ -3,16 +3,21 @@ $(document).ready(function () {
     tabela();
     cursos();
     modulos();
+    validar();
+    var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     $('#data').datepicker({
-        format: "dd-mm-yyyy",
-        language: "pt-BR"
+        format: "dd/mm/yyyy",
+        language: "pt-BR",
+        startDate: today,
+        clearBtn: true,
     });
 
 });
 
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -32,7 +37,7 @@ function modulos() {
             $('#modulo').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
@@ -108,7 +113,6 @@ function tabela() {
             "aButtons": ["copy", "csv", "xls", "pdf", "print"]
         },
         "bDestroy": true,
-       
         "aoColumnDefs": [{
                 'bSortable': false,
                 'aTargets': [0, 1]
@@ -139,5 +143,35 @@ function tabela() {
 
     });
 }
+
+function validar() {
+    $("#adicionar").validate({
+        rules: {
+            curso: {
+                required: true,
+            },
+            modulo: {
+                required: true,
+            },
+            docente: {
+                required: true,
+            },
+            inicio: {
+                required: true,
+            },
+            arquivo: {
+                required: true,
+            },
+            data: {
+                required: true,
+                 dateBR: true
+            }
+
+
+        }
+    });
+
+}
+
 
 

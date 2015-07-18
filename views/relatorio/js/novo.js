@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 function grafico() {
 
-    $.getJSON('http://localhost/uan/dashboard/dados', function (data) {
+    $.getJSON('https://localhost/uan/dashboard/dados', function (data) {
 
         console.log(data)
         var json = $.parseJSON(data);
@@ -57,7 +57,7 @@ function grafico() {
 
 function grafico1() {
 
-    $.getJSON('http://localhost/uan/dashboard/dados1', function (data) {
+    $.getJSON('https://localhost/uan/dashboard/dados1', function (data) {
 
         console.log(data)
         var json = $.parseJSON(data);

@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     tabela();
     remover();
+    validar();
 
 
 });
@@ -13,7 +14,7 @@ $(document).ready(function () {
 
 function pessoas() {
 
-    $.getJSON('http://localhost/uan/usuario/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/usuario/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -70,7 +71,7 @@ function tabela() {
 
 
 function remover() {
-    var url = "http://localhost/uan/usuario/index";
+    var url = "https://localhost/uan/usuario/index";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
@@ -88,3 +89,28 @@ function remover() {
     });
 }
 
+
+function validar() {
+    $("#adicionar").validate({
+        rules: {
+            nome: {
+                required: true,
+                 minlength: 4
+            },
+            login: {
+                required: true,
+                 minlength: 4
+            },
+            senha: {
+                required: true,
+                 minlength: 6
+            },
+            nivel: {
+                required: true,
+               
+            }
+
+        }
+    });
+
+}

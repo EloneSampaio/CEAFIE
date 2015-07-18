@@ -159,12 +159,12 @@ class Usuario extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-        if ($this->filtraInt($id)) {
-            $this->pessoa->remover($id);
-            return TRUE;
+        $r = $this->pessoa->remover($id);
+        if ($r) {
+           
+            $this->view->dados = $this->usuario->pesquisar();
+            $this->redirecionar('usuario/index/');
         }
-        $this->view->dados = $this->usuario->pesquisar();
-        $this->view->renderizar("index");
     }
 
     public function editarDados($id = FALSE) {

@@ -16,13 +16,15 @@ function selected($value, $selected) {
 
                 <div class="dropdown">
                     <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#" style="color: white;">
-                      <?php if(isset($this->titulo)): echo $this->titulo; endif;?>
+                        <?php if (isset($this->titulo)): echo $this->titulo;
+                        endif;
+                        ?>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?php echo URL . "curso" . DS1 . "index/" . Session::get('id'); ?>">Curso</a></li>
                         <li><a href="<?php echo URL . "modulo" . DS1 . "index/" ?>">Modulo</a></li>
-                        <li><a href="<?php echo URL . "usuarios" . DS1 . "index/"?>">Usuarios</a></li>
+                        <li><a href="<?php echo URL . "usuarios" . DS1 . "index/" ?>">Usuarios</a></li>
                         <li><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
                     </ul>
                 </div>
@@ -64,40 +66,53 @@ function selected($value, $selected) {
                             <div class="text2">cadastrar, alterar, dEletar</div>
                         </div>
                     </a>
-           
+
+                    <div class="panorama-section tile-span-4">
+                        <h2>Documentos</h2>
+
+
+                        <a class="tile wide imagetext bg-color-grayLight" href="<?php echo URL . "relatorio" . DS1 . "graficoGeral/" ?>">
+                            <div class="image-wrapper">
+                                <img src="<?php echo URL; ?>public/img/img4.png" alt="sam"  class="img-responsive img-rounded" />
+                            </div>
+                            <div class="column-text">
+                                <div class="text4">Imprima Relatorios</div>
+                            </div>
+                        </a>
+
+
+
+                    </div>
+
 
 
                 </div>
 
 
 
-            </div>
+                <div id="charms" class="win-ui-dark slide">
 
+                    <div id="theme-charms-section" class="charms-section">
+                        <div class="charms-header">
+                            <a href="#" class="close-charms win-backbutton"></a>
+                            <h2>Definições</h2>
+                        </div>
 
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <form action="dashboard/alteraTema" id="tema">
+                                    <label for="win-theme-select">Alterar Tema:</label>
+                                    <select id="win-theme-select" class="tema" name="tema">
 
-            <div id="charms" class="win-ui-dark slide">
+                                        <option value="default" <?php echo selected(Session::get('tema'), "default") ?> >Default</option>
+                                        <option value="metro" <?php echo selected(Session::get('tema'), "metro") ?> >Metro</option>
+                                    </select>
+                                </form>
 
-                <div id="theme-charms-section" class="charms-section">
-                    <div class="charms-header">
-                        <a href="#" class="close-charms win-backbutton"></a>
-                        <h2>Definições</h2>
-                    </div>
-
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <form action="dashboard/alteraTema" id="tema">
-                                <label for="win-theme-select">Alterar Tema:</label>
-                                <select id="win-theme-select" class="tema" name="tema">
-
-                                    <option value="default" <?php echo selected(Session::get('tema'), "default") ?> >Default</option>
-                                    <option value="metro" <?php echo selected(Session::get('tema'), "metro") ?> >Metro</option>
-                                </select>
-                            </form>
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

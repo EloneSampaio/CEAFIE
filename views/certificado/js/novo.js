@@ -67,7 +67,7 @@ function tabela() {
 }
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 

@@ -56,8 +56,8 @@ function selected($value, $selected) {
                             <div class="control-group">
                                 <label class="control-label">Apelido<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="nome1" data-required="1" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome1'];
+                                    <input type="text" name="apelido" data-required="1" class="span6 m-wrap" value="<?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
                                     endif;
                                     ?>"/>
                                 </div>
@@ -66,7 +66,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Genero<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="genero">
-                                        <option value="000">-Seleciona um genero-</option>
+                                        <option value=""></option>
                                         <option value="Masculino" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
                                         endif;
@@ -157,6 +157,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Categ Docente<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_docente">
+                                          <option value=""></option>
                                         <option value="Assistente" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
                                         endif;
@@ -183,7 +184,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Função<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="funcao">
-                                        <option value="000">-Seleciona uma função-</option>
+                                        <option value=""></option>
                                         <option value="Chefe de departamento" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de departamento");
                                         endif;
@@ -205,7 +206,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Categ Cientifica<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_centifica">
-                                        <option value="000">-Seleciona uma categoria-</option>
+                                        <option value=""></option>
                                         <option value="Investigador" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Investigador");
                                         endif;
@@ -251,13 +252,15 @@ function selected($value, $selected) {
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
                                     endif;
                                     ?>"/>
-                                    <span class="input-group-addon"><span class="icon icon-calendar">
+                                    <span class="input-group-addon">
+                                        <span class="icon icon-calendar">
 
                                         </span>
 
                                     </span>
                                 </div>
                             </div>
+                            <br /><br /><br />
 
                             <input name="enviar" type="hidden" value="1"/>
                             <div class="form-actions">

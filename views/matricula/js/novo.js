@@ -22,12 +22,16 @@ $(document).ready(function () {
     pesquisarData();
     validar();
     remover();
+    validaForm();
+    validaFormEdit();
     var oTable = $('#tabela').dataTable();
 
-
+var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     $('#data').datepicker({
         format: "dd-mm-yyyy",
-        language: "pt-BR"
+        language: "pt-BR",
+         startDate: today,
     });
 
 
@@ -37,7 +41,7 @@ $(document).ready(function () {
 
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -54,7 +58,7 @@ function modulos() {
             $('#modulo').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options;
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
@@ -77,7 +81,7 @@ function modulos1() {
             $('#modulo1').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
@@ -142,7 +146,7 @@ function pesquisarEstado() {
 
     $('#pesquisaEstado').change(function () {
         if ($(this).val()) {
-            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 console.log(j.id);
             });
         } else {
@@ -157,7 +161,7 @@ function pesquisarData() {
 
     $('#pesquisaData').change(function () {
         if ($(this).val()) {
-            $.getJSON('http://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/matricula/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 console.log(j.nome);
             });
         } else {
@@ -213,7 +217,7 @@ function tabela() {
 
 
 function validar() {
-    var url = "http://localhost/uan/matricula/index";
+    var url = "https://localhost/uan/matricula/index";
     $(document).on('click', '#validar', function () {
 
         var id = $(this).attr('rel');
@@ -228,7 +232,7 @@ function validar() {
 
 
 function remover() {
-    var url = "http://localhost/uan/matricula/remover";
+    var url = "https://localhost/uan/matricula/remover";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Aluno?')) {
             var id = $(this).attr('rel');
@@ -280,7 +284,7 @@ function getDados(elemento) {
     var ano = document.getElementById("ano").value;
     var imagem = document.getElementById("img").value;
     var modulo = $("#modulo1").val();
-    
+
 
     var result = document.getElementById("conteudo");
     var xmlreq = CriaRequest();
@@ -289,7 +293,7 @@ function getDados(elemento) {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -327,7 +331,7 @@ function getTodos(elemento) {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -364,7 +368,7 @@ function modal(id) {
             return $message;
         },
         data: {
-            'pageToLoad': 'http://localhost/uan/matricula/informacao/' + id
+            'pageToLoad': 'https://localhost/uan/matricula/informacao/' + id
         },
         cssClass: 'login-dialog',
         buttons: [{
@@ -372,7 +376,7 @@ function modal(id) {
                 label: 'Matricular em novo curso',
                 action: function (dialogItself) {
                     dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/matricula/addCurso/' + id);
+                    $(location).attr('href', 'https://localhost/uan/matricula/addCurso/' + id);
 
                 }
             },
@@ -381,16 +385,16 @@ function modal(id) {
 //                label: 'Imprimir Ficha',
 //                action: function (dialogItself) {
 //                    dialogItself.close();
-//                    $(location).attr('href', 'http://localhost/uan/matricula/imprimirFicha/' + id);
+//                    $(location).attr('href', 'https://localhost/uan/matricula/imprimirFicha/' + id);
 //
 //                }
 //            }
-             {
+            {
                 cssClass: 'btn btn-danger',
                 label: 'Fechar',
                 action: function (dialogItself) {
                     dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/matricula/');
+                    $(location).attr('href', 'https://localhost/uan/matricula/');
                 }
 
 
@@ -401,5 +405,171 @@ function modal(id) {
 
 
 }
+
+
+function validaForm() {
+    $("#adicionar").validate({
+        rules: {
+            apelido: {
+                required: true,
+                minlength: 3
+            },
+            nome: {
+                required: true,
+                minlength: 3,
+            },
+            genero: {
+                required: true
+
+            },
+            bi: {
+                required: true,
+                minlength: 14,
+                maxlength: 14,
+            },
+            nacionalidade: {
+                required: true,
+                minlength: 4
+            },
+            telefone: {
+                required: true,
+                number: true,
+                minlength: 9,
+                maxlength: 9
+
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            grau: {
+                required: true,
+                minlength: 4,
+            },
+            dados: {
+                required: true
+            },
+            graduacao: {
+                required: true,
+                minlength: 4,
+            },
+            universidade: {
+                required: true,
+                minlength: 5,
+            },
+            unidade_organica: {
+                required: true,
+                minlength: 5,
+            },
+            categoria_docente: {
+                required: true
+            },
+            funcao: {
+                required: true
+            },
+            categoria_centifica: {
+                required: true
+            },
+            curso: {
+                required: true
+            },
+            modulo: {
+                required: true
+            },
+            data: {
+                required: true
+            },
+        },
+        messages: {
+            bi: {minlength: "exemplo 235467891LA034"},
+            telefone: {minlength: "exemplo 932345678"},
+        }
+    });
+
+}
+
+
+
+function validaFormEdit() {
+    $("#editar").validate({
+        rules: {
+            apelido: {
+                required: true,
+                minlength: 3
+            },
+            nome: {
+                required: true,
+                minlength: 3,
+            },
+            genero: {
+                required: true
+
+            },
+            bi: {
+                required: true,
+                minlength: 14,
+                maxlength: 14,
+            },
+            nacionalidade: {
+                required: true,
+                minlength: 4
+            },
+            telefone: {
+                required: true,
+                number: true,
+                minlength: 9,
+                maxlength: 9
+
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            grau: {
+                required: true,
+                minlength: 4,
+            },
+            dados: {
+                required: true
+            },
+            graduacao: {
+                required: true,
+                minlength: 4,
+            },
+            universidade: {
+                required: true,
+                minlength: 5,
+            },
+            unidade_organica: {
+                required: true,
+                minlength: 5,
+            },
+            categoria_docente: {
+                required: true
+            },
+            funcao: {
+                required: true
+            },
+            categoria_centifica: {
+                required: true
+            },
+            curso: {
+                required: true
+            },
+            modulo: {
+                required: true
+            },
+            data: {
+                required: true
+            },
+        },
+        messages: {
+            bi: {minlength: "exemplo 235467891LA034"},
+            telefone: {minlength: "exemplo 932345678"},
+        }
+    });
+
+}
+
 
 

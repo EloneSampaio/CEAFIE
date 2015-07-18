@@ -3,6 +3,8 @@ $(document).ready(function () {
 
     tabela();
     remover();
+    validar();
+    editar();
 
 });
 
@@ -53,7 +55,7 @@ function tabela() {
 
 
 function remover() {
-    var url = "http://localhost/uan/curso/remover";
+    var url = "https://localhost/uan/curso/remover";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
@@ -70,3 +72,43 @@ function remover() {
         }
     });
 }
+
+function validar() {
+    $("#adicionar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            descricao: {
+                required: true,
+                minlength: 8
+            }
+
+        }
+        
+    });
+
+}
+
+
+function editar() {
+    $("#editar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            descricao: {
+                required: true,
+                minlength: 8
+            }
+
+        }
+    });
+
+}
+
+

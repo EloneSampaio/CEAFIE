@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -34,7 +34,7 @@ function modulos() {
             $('#modulo').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';

@@ -123,7 +123,8 @@ class Programa extends Controller implements Dao {
 //
 //                exit;
 //            }
-
+            
+          
             if ($this->compararDatas($this->view->dados['inicio'], $this->view->dados['termino'])) {
                 $this->view->erro = "Verifica as Datas";
                 $this->view->renderizar("novo");

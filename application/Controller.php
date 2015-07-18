@@ -205,21 +205,22 @@ abstract class Controller {
     public function compararDatas($dataInicio = false, $dataFim) {
 
         if ($dataInicio) {
-            $d1 = & explode('-', $dataInicio);
-            $d2 = & explode('-', $dataFim);
+            $d1 = & explode('/', $dataInicio);
+            $d2 = & explode('/', $dataFim);
 
             $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
             $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);
-
+            
+            echo $t1.$t2;
             if ($t2 < $t1) {
                 return TRUE;
             } else {
                 return FALSE;    
             }
         } else {
-            $dataInicio = date('d-m-Y');
-            $d1 = & explode('-', $dataInicio);
-            $d2 = & explode('-', $dataFim);
+            $dataInicio = date('d/m/Y');
+            $d1 = & explode('/', $dataInicio);
+            $d2 = & explode('/', $dataFim);
 
             $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
             $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);

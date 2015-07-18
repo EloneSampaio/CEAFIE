@@ -1,9 +1,11 @@
 
 $(document).ready(function () {
     cursos();
+    validar();
     modulos();
     modulos1();
     tabela();
+    
     var oTable = $('#tabela').dataTable();
 
     /* Add event listener to the dropdown input */
@@ -24,7 +26,7 @@ $(document).ready(function () {
 
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -40,7 +42,7 @@ function cursos() {
 
 function docenteMOdulo() {
 
-    $.getJSON('http://localhost/uan/nota/pesquisaDocenteNotas/', {
+    $.getJSON('https://localhost/uan/nota/pesquisaDocenteNotas/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -60,7 +62,7 @@ function modulos() {
             $('#modulo').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
@@ -84,7 +86,7 @@ function modulos1() {
             $('#modulo1').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
                     options += '<option value="' + j[i].nome + '">' + j[i].nome + '</option>';
@@ -185,7 +187,7 @@ function getDados(elemento) {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/nota/pesquisarPor/" + acao + '/' + modulo + '/' + ano + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/nota/pesquisarPor/" + acao + '/' + modulo + '/' + ano + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -222,7 +224,7 @@ function getTodos(elemento) {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/nota/pesquisarPor/" + acao + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/nota/pesquisarPor/" + acao + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -243,6 +245,27 @@ function getTodos(elemento) {
 
     xmlreq.send(null);
 
+
+}
+
+
+function validar() {
+    $("#buscar").validate({
+        rules: {
+            ano: {
+                required: true,
+                number: true
+
+            },
+            curso: {
+                required: true,
+            },
+            modulo: {
+                required: true,
+            }
+
+        }
+    });
 
 }
 

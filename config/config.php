@@ -7,7 +7,7 @@
 //error_reporting(E_ALL);
 //ini_set("display_errors", 0);
 
-define("URL", "http://localhost/uan/");
+define("URL", "https://localhost/uan/");
 
 //define a pasta layout com a pagina padrão de layout
 define("DEFAULT_LAYOUT", "default");

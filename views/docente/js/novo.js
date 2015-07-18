@@ -3,7 +3,8 @@ $(document).off('.data-api');
 $(document).off('.alert.data-api')
 $(document).ready(function () {
     teste();
-
+    validar();
+    validaEditar();
     cursos();
     modulos();
     tabela();
@@ -27,7 +28,7 @@ function extras() {
     $(".modal1").click(function () {
         var id = $(this).attr('rel');
 
-        $.getJSON('http://localhost/uan/docente/detalhes/', {id: id, ajax: 'true'}, function (data) {
+        $.getJSON('https://localhost/uan/docente/detalhes/', {id: id, ajax: 'true'}, function (data) {
 
             $("#myModal").modal('show');
             var html;
@@ -49,7 +50,7 @@ function extras() {
 
 function teste() {
 
-    $.getJSON('http://localhost/uan/docente/preencherSelect/', {
+    $.getJSON('https://localhost/uan/docente/preencherSelect/', {
     }).done(function (data) {
 
 
@@ -94,7 +95,7 @@ function cursos() {
 
 
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
 
         $.each(data, function (id, valor) {
@@ -112,7 +113,7 @@ function modulos() {
             $('#modulo').hide();
             $('.carregando').hide();
             $('.carregando').html("carregando...").show();
-            $.getJSON('http://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
+            $.getJSON('https://localhost/uan/modulo/pesquisaPor/', {id: $(this).val(), ajax: 'true'}, function (j) {
                 console.log(j);
                 var options = '<option value=""></option>';
                 for (var i = 0; i < j.length; i++) {
@@ -177,7 +178,7 @@ function tabela() {
 
 
 function remover() {
-    var url = "http://localhost/uan/docente/remover";
+    var url = "https://localhost/uan/docente/remover";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
@@ -207,7 +208,7 @@ function modal(id) {
             return $message;
         },
         data: {
-            'pageToLoad': 'http://localhost/uan/docente/informacao/' + id
+            'pageToLoad': 'https://localhost/uan/docente/informacao/' + id
         },
         cssClass: 'login-dialog',
         buttons: [{
@@ -215,7 +216,7 @@ function modal(id) {
                 label: 'Lecionar em novo curso',
                 action: function (dialogItself) {
                     dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/docente/addCurso/' + id);
+                    $(location).attr('href', 'https://localhost/uan/docente/addCurso/' + id);
 
                 }
             },
@@ -224,16 +225,16 @@ function modal(id) {
 //                label: 'Imprimir Ficha',
 //                action: function (dialogItself) {
 //                    dialogItself.close();
-//                    $(location).attr('href', 'http://localhost/uan/docente/imprimirFicha/' + id);
+//                    $(location).attr('href', 'https://localhost/uan/docente/imprimirFicha/' + id);
 //
 //                }
 //            }
-             {
+            {
                 cssClass: 'btn btn-danger',
                 label: 'Fechar',
                 action: function (dialogItself) {
                     dialogItself.close();
-                    $(location).attr('href', 'http://localhost/uan/docente/');
+                    $(location).attr('href', 'https://localhost/uan/docente/');
                 }
 
 
@@ -287,7 +288,7 @@ function getDados(elemento) {
     // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "http://localhost/uan/docente/pesquisaPor/" + acao + '/' + curso + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/' + curso + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -319,14 +320,14 @@ function getTodos(elemento) {
 
     var result = document.getElementById("conteudo");
     var imagem = document.getElementById("img").value;
-    
+
 
     var xmlreq = CriaRequest();
     // Exibi a imagem de progresso 
     result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
     // Iniciar uma requisição
 
-    xmlreq.open("POST", "http://localhost/uan/docente/pesquisaPor/" + acao + '/', true);
+    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/', true);
     // Atribui uma função para ser executada sempre que houver uma mudança de ado
     xmlreq.onreadystatechange = function () {
         // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
@@ -347,6 +348,113 @@ function getTodos(elemento) {
 
     xmlreq.send(null);
 
+
+}
+
+
+function validar() {
+
+    $("#adicionar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            apelido: {
+                required: true,
+                minlength: 3
+            },
+            genero: {
+                required: true
+
+            },
+            bi: {
+                required: true,
+                minlength: 14,
+                maxlength: 14,
+            },
+            nacionalidade: {
+                required: true,
+                minlength: 4
+            },
+            telefone: {
+                required: true,
+                number: true,
+                minlength: 9,
+                maxlength: 9
+
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            grau: {
+                required: true
+            },
+            dados: {
+                required: true
+            },
+        },
+        messages: {
+            bi: {minlength: "exemplo 235467891LA034"},
+            telefone: {minlength: "exemplo 932345678"},
+            apelido: {minlength: "obrigat&oacute;rio."},
+        }
+    });
+
+}
+
+
+function validaEditar() {
+    $("#editar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            apelido: {
+                required: true,
+                minlength: 3
+            },
+            genero: {
+                required: true
+
+            },
+            bi: {
+                required: true,
+                minlength: 14,
+                maxlength: 14,
+            },
+            nacionalidade: {
+                required: true,
+                minlength: 4
+            },
+            telefone: {
+                required: true,
+                number: true,
+                minlength: 9,
+                maxlength: 9
+
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            grau: {
+                required: true
+            },
+            dados: {
+                required: true
+            },
+        },
+        messages: {
+            bi: {minlength: "exemplo 235467891LA034"},
+            telefone: {minlength: "exemplo 932345678"},
+            apelido: {minlength: "obrigat&oacute;rio."},
+        }
+    });
 
 }
 

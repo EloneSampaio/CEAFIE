@@ -62,7 +62,7 @@ class Docente extends Controller implements Dao {
                 exit;
             }
 
-            if (!$this->getSqlverifica('nome1')) {
+            if (!$this->getSqlverifica('apelido')) {
                 // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um apelido");
                 //echo json_encode($ret);
                 $this->view->erro = "Porfavor Insira um apelido";
@@ -132,9 +132,17 @@ class Docente extends Controller implements Dao {
                 exit;
             }
 
+            if (!isset($_POST['modulo'])) {
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma grau");
+                //echo json_encode($ret);
+                $this->view->erro = "Porfavor selecciona pelo menos um modulo ";
+                $this->view->renderizar("novo");
+                exit;
+            }
 
 
-            $nome = $this->view->dados['nome'] . " " . $this->view->dados['nome1'];
+
+            $nome = $this->view->dados['nome'] . " " . $this->view->dados['apelido'];
             $this->pessoa->setNome($nome);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
@@ -206,7 +214,7 @@ class Docente extends Controller implements Dao {
 
 
             $this->usuario->setLogin($_POST['bi']);
-            $this->usuario->setSenha(\application\Hash::getHash("md5",$_POST['bi'], HASH_KEY)); //$this->geraSenha()
+            $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY)); //$this->geraSenha()
             $this->usuario->setNivel("docente");
             $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
             if (!is_int($id12)) {
@@ -332,11 +340,11 @@ class Docente extends Controller implements Dao {
 
                 exit;
             } else {
+                $this->view->mensagem = "Dados alterados com sucesso";
+                
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
                 $lo->gravar("Foi Editado  informações do docente" . ' Com o nome de : ' . $_POST['nome']);
-
-                $this->view->mensagem = "Dados alterados com sucesso";
                 $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }

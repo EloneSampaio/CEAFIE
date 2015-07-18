@@ -3,6 +3,8 @@ $(document).ready(function () {
     cursos();
     tabela();
     remover();
+    validar();
+    editar();
 
 });
 
@@ -10,7 +12,7 @@ $(document).ready(function () {
 
 function cursos() {
 
-    $.getJSON('http://localhost/uan/curso/pesquisaPor/', {
+    $.getJSON('https://localhost/uan/curso/pesquisaPor/', {
     }).done(function (data) {
         $.each(data, function (id, valor) {
 
@@ -68,7 +70,7 @@ function tabela() {
 
 
 function remover() {
-    var url = "http://localhost/uan/modulo/remover";
+    var url = "https://localhost/uan/modulo/remover";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
@@ -83,4 +85,43 @@ function remover() {
             return false;
         }
     });
+}
+
+
+
+
+function validar() {
+    $("#adicionar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            curso: {
+                required: true,
+            }
+
+        }
+
+    });
+
+}
+
+
+function editar() {
+    $("#editar").validate({
+        rules: {
+            nome: {
+                required: true,
+                minlength: 3
+
+            },
+            curso: {
+                required: true,
+            }
+
+        }
+    });
+
 }
