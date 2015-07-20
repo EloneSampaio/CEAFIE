@@ -16,18 +16,21 @@ use application\Dao;
 class MatriculaOnline extends Controller {
 
 //put your code here
-    private $usuario;
     private $pessoa;
+    private $aluno;
+    private $matricula;
+    private $curso;
+    private $usuario;
 
     public function __construct() {
         parent::__construct();
-        
-        echo 'sam'; exit;
+
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->curso = $this->LoadModelo('Curso');
         $this->matricula = $this->LoadModelo("Matricula");
         $this->mm = $this->LoadModelo('MatriculaModulo');
+        $this->usuario = $this->LoadModelo("Usuario");
 
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array("novo", 'jquery.multiple.select', 'run_prettify', 'bootstrap-dialog.min'));
@@ -37,12 +40,7 @@ class MatriculaOnline extends Controller {
      * @funcão index
      */
 
-    public function index() {
-
-        $this->view->renderizar("index");
-    }
-
-    public function adicionar($dados = FALSE) {
+    public function index($dados = FALSE) {
 
         $this->view->titulo = "Formulario de Cadastro";
         if ($this->getInt('enviar') == 1) {
@@ -240,7 +238,7 @@ class MatriculaOnline extends Controller {
                 exit;
             } else {
 
-                $this->view->mensagem = "Dados guardados com sucesso";
+                $this->view->mensagem = "Dados guardados com sucesso(Login/Senha usa o seu numero de BI para acessar)";
                 $this->view->dados = array();
                 $this->view->renderizar('novo');
                 exit;

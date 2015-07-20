@@ -2,7 +2,7 @@
 $(document).ready(function () {
     cursos();
     modulos();
-//    alerta();
+valida();
 
 
 
@@ -96,5 +96,24 @@ function alerta(mensagem) {
 
     });
 
+
+}
+
+
+
+function valida() {
+    $("#editar").validate({
+        rules: {
+            senha: {
+                required: true,
+                minlength: 5
+            },
+         
+        },
+        messages: {
+            senha: {minlength: "senha fraca"},
+            
+        }
+    });
 
 }

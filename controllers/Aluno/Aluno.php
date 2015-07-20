@@ -57,7 +57,7 @@ class Aluno extends Controller {
             $this->view->dados = $this->nota->pesquisaNota1($id2->getId());
             $this->view->renderizar('nota');
         } else {
-            $this->redirecionar('dashboard/aluno');   
+            $this->redirecionar('dashboard/aluno');
         }
     }
 
@@ -115,6 +115,7 @@ class Aluno extends Controller {
 
         if ($this->getInt('enviar') == 1) {
 
+            
             $this->usuario->setSenha($_POST['senha']);
             $this->usuario->setId(Session::get('id'));
             if ($this->usuario->editarSenha($this->usuario)) {
