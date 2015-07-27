@@ -17,7 +17,7 @@ use application\Session;
  *
  * @author sam
  */
-class Log extends Controller{
+class Log extends Controller {
 
     //put your code here
 
@@ -25,6 +25,7 @@ class Log extends Controller{
     private $log;
 
     public function __construct() {
+        Session::nivelRestrito(array("administrador"));
         $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJs(array("novo"));
@@ -40,7 +41,7 @@ class Log extends Controller{
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->log->remover($id)) {
-               
+
                 return TRUE;
             }
         }

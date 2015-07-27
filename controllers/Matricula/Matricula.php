@@ -28,11 +28,12 @@ class Matricula extends Controller implements Dao {
     private $nota;
     private $usuario;
     private $mm;
-      private $log;
+    private $log;
 
     public function __construct() {
-        parent::__construct();
         Session::nivelRestrito(array("gestor"));
+        parent::__construct();
+
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->curso = $this->LoadModelo('Curso');
@@ -41,7 +42,7 @@ class Matricula extends Controller implements Dao {
         $this->view->menuVertical = $this->getFooter('menuVertical');
         $this->usuario = $this->LoadModelo("Usuario");
         $this->mm = $this->LoadModelo('MatriculaModulo');
-          $this->log = $this->LoadModelo('Log');
+        $this->log = $this->LoadModelo('Log');
         $this->view->titulo = "Tabela de Alunos Matriculados";
 
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
