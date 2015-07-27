@@ -28,6 +28,7 @@ class Matricula extends Controller implements Dao {
     private $nota;
     private $usuario;
     private $mm;
+      private $log;
 
     public function __construct() {
         parent::__construct();
@@ -40,6 +41,7 @@ class Matricula extends Controller implements Dao {
         $this->view->menuVertical = $this->getFooter('menuVertical');
         $this->usuario = $this->LoadModelo("Usuario");
         $this->mm = $this->LoadModelo('MatriculaModulo');
+          $this->log = $this->LoadModelo('Log');
         $this->view->titulo = "Tabela de Alunos Matriculados";
 
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
@@ -253,9 +255,14 @@ class Matricula extends Controller implements Dao {
                 $this->view->renderizar("novo");
                 exit;
             } else {
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Foi criado um novo aluno com o nome de : ' . $nome);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
 
                 $this->view->mensagem = "Dados guardados com sucesso";
-                $this->view->dados=array();
+                $this->view->dados = array();
                 $this->view->renderizar('novo');
                 exit;
             }
@@ -429,6 +436,11 @@ class Matricula extends Controller implements Dao {
             $r = $this->aluno->edita($this->aluno, $this->pessoa);
 
             if ($r) {
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao("Foi Editado  informações do aluno");
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->mensagem = "Dados alterado com sucesso";
             } else {
                 $this->view->erro = "Erro ao alterar dados";
@@ -471,6 +483,11 @@ class Matricula extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->matricula->remover($id)) {
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Removido um aluno ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;
             }
         }

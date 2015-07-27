@@ -26,6 +26,7 @@ class Nota extends Controller implements Dao {
     private $modulo;
     private $matricula;
     private $docente;
+      private $log;
 
     public function __construct() {
         Session::nivelRestrito(array("gestor", "docente"));
@@ -35,6 +36,7 @@ class Nota extends Controller implements Dao {
         $this->modulo = $this->LoadModelo('Modulo');
         $this->matricula = $this->LoadModelo('Matricula');
         $this->docente = $this->LoadModelo('Docente');
+          $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
@@ -66,6 +68,11 @@ class Nota extends Controller implements Dao {
             $r = $this->nota->adicionar($this->nota);
             if ($r) {
                 $this->view->mensagem = "Nota lançada com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Foi Lançada a Nota do aluno ' . $matricula->getAluno()->getPessoa()->getNome());
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
             } else {
                 $this->view->erro = "Erro ao  lançar nota";
             }
@@ -84,7 +91,7 @@ class Nota extends Controller implements Dao {
                 exit;
             }
 
-            
+
             $this->nota->setData(date('Y-m-d'));
             $aluno = $this->aluno->pesquisar($this->getInt('aluno'));
             $matricula = $this->matricula->pesquisar($aluno->getId());
@@ -96,6 +103,11 @@ class Nota extends Controller implements Dao {
             $r = $this->nota->adicionar($this->nota);
             if ($r) {
                 $this->view->mensagem = "Nota lançada com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Foi Lançada a Nota do aluno ' . $matricula->getAluno()->getPessoa()->getNome());
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
             } else {
                 $this->view->erro = "Erro ao  lançar nota";
             }
@@ -174,6 +186,11 @@ class Nota extends Controller implements Dao {
         if ($this->getInt('id')) {
             if ($this->nota->remover($this->getInt('id'))) {
                 $this->view->mensagem = "Nota Apagada com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Foi Apagada a Nota ');
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->dados = $this->nota->pesquisar();
             }
         }
@@ -203,7 +220,7 @@ class Nota extends Controller implements Dao {
             $this->view->dados = $this->nota->pesquisaPorDOcente($dados);
             $this->view->renderizar('docente');
         } else {
-            $this->view->renderizar('docente'); 
+            $this->view->renderizar('docente');
         }
     }
 

@@ -24,11 +24,13 @@ class Modulo extends Controller implements Dao {
 
     private $modulo;
     private $curso;
+      private $log;
 
     public function __construct() {
 
         $this->curso = $this->LoadModelo('Curso');
         $this->modulo = $this->LoadModelo('Modulo');
+          $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
@@ -76,6 +78,11 @@ class Modulo extends Controller implements Dao {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
                 //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardado com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Adicionado novo modúlo ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
                 exit;
             } else {
@@ -114,6 +121,11 @@ class Modulo extends Controller implements Dao {
                 // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados alterados com sucesso", "status" => "ok");
                 // echo json_encode($ret);
                 $this->view->mensagem = "Dados alterados com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Alterado o modúlo para ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
                 exit;
             }
@@ -134,6 +146,11 @@ class Modulo extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->modulo->remover($id)) {
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Removido o curso ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;
             }
         }

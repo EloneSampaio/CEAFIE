@@ -15,10 +15,12 @@ use application\LogUso;
 class Curso extends Controller implements Dao {
 
     private $curso;
+    private $log;
 
     public function __construct() {
 
         $this->curso = $this->LoadModelo('Curso');
+        $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJs(array("novo"));
         $this->view->menu = $this->getFooter('menu');
@@ -60,11 +62,16 @@ class Curso extends Controller implements Dao {
                 exit;
             }
             $id = $this->curso->adicionar($this->curso);
+            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+            $this->log->setAcao('Adicionado novo curso ' . $_POST['nome']);
+            $this->log->setData(date('d-m-Y H:m:s'));
+
+            $this->log->adicionar($this->log, Session::get('id'));
             if ($id) {
-                
-                $lo=new LogUso('log');
+
+                $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi criado um novo curso".'Com o nome de : '.$_POST['nome']);
+                $lo->gravar("Foi criado um novo curso" . 'Com o nome de : ' . $_POST['nome']);
                 $this->view->mensagem = "Dados guardado com sucesso";
                 $this->view->renderizar("novo");
 
@@ -105,6 +112,12 @@ class Curso extends Controller implements Dao {
             $this->curso->setDescricao($this->getSqlverifica('descricao'));
             $this->curso->setId($this->getInt('id'));
             $id = $this->curso->editar($this->curso);
+            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+            $this->log->setAcao('Alterado o curso para ' . $_POST['nome']);
+            $this->log->setData(date('d-m-Y H:m:s'));
+
+            $this->log->adicionar($this->log, Session::get('id'));
+
             if (!$id) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
                 //echo json_encode($ret);
@@ -113,9 +126,9 @@ class Curso extends Controller implements Dao {
                 exit;
             } else {
 
-                $lo=new LogUso('log');
+                $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi Editado um curso".' Com o nome de : '.$_POST['nome']);
+                $lo->gravar("Foi Editado um curso" . ' Com o nome de : ' . $_POST['nome']);
                 $this->view->mensagem = "Dados alterados com sucesso";
                 $this->view->renderizar("novo");
 
@@ -136,13 +149,19 @@ class Curso extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-        if ($this->filtraInt($id)) {
-            if ($this->curso->remover($id)) {
-                $lo=new LogUso('log');
-                $lo->verificarArquivo();
-                $lo->gravar("Foi apagado um  curso");
-                return TRUE;
-            }
+
+        if ($id) {
+            $this->curso->remover($id);
+            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+            $this->log->setAcao('Removido o curso ' . $_POST['nome']);
+            $this->log->setData(date('d-m-Y H:m:s'));
+
+            $this->log->adicionar($this->log, Session::get('id'));
+
+            $lo = new LogUso('log');
+            $lo->verificarArquivo();
+            $lo->gravar("Foi apagado um  curso");
+            return TRUE;
         }
         $this->view->dados = $this->curso->pesquisar();
         $this->view->renderizar("remover");

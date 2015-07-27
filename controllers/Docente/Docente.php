@@ -22,6 +22,7 @@ class Docente extends Controller implements Dao {
     private $modulo;
     private $curso;
     private $dm;
+    private $log;
 
     public function __construct() {
         Session::nivelRestrito(array("gestor"));
@@ -31,6 +32,7 @@ class Docente extends Controller implements Dao {
         $this->modulo = $this->LoadModelo('Modulo');
         $this->usuario = $this->LoadModelo('Usuario');
         $this->dm = $this->LoadModelo('DocentModulo');
+        $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array("novo", "jquery.multiple.select", 'bootstrap-dialog.min'));
@@ -226,6 +228,11 @@ class Docente extends Controller implements Dao {
 
                 exit;
             } else {
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Foi criado um novo docente com o nome de : ' . $nome);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
 
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
@@ -341,10 +348,14 @@ class Docente extends Controller implements Dao {
                 exit;
             } else {
                 $this->view->mensagem = "Dados alterados com sucesso";
-                
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao("Foi Editado  informações do docente" . ' Com o nome de : ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi Editado  informações do docente" . ' Com o nome de : ' . $_POST['nome']);
+                $lo->gravar("Foi Editado  informações do docente");
                 $this->redirecionar("docente/editarDados/" . $id);
                 exit;
             }
@@ -395,19 +406,6 @@ class Docente extends Controller implements Dao {
 
     public function pesquisar($id = FALSE) {
         
-    }
-
-    public function remover($id = FALSE) {
-        if ($this->filtraInt($id)) {
-            if ($this->docente->remover($id)) {
-                $lo = new LogUso('log');
-                $lo->verificarArquivo();
-                $lo->gravar("Foi removido um  aluno do sistema");
-                return TRUE;
-            }
-        }
-        $this->view->dados = $this->docente->pesquisar();
-        $this->view->renderizar("remover");
     }
 
     public function preencherSelect() {
@@ -461,6 +459,25 @@ class Docente extends Controller implements Dao {
         } else {
             $this->view->renderizar('addCurso');
         }
+    }
+
+    public function remover($id = FALSE) {
+        if ($id) {
+            $this->docente->remover($id);
+            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+            $this->log->setAcao("Foi removido um  docente do sistema");
+            $this->log->setData(date('d-m-Y H:m:s'));
+            $this->log->adicionar($this->log, Session::get('id'));
+
+            $lo = new LogUso('log');
+            $lo->verificarArquivo();
+            $lo->gravar("Foi removido um  docente do sistema");
+             return TRUE;
+        }
+        $this->view->dados = $this->docente->pesquisar();
+
+
+        $this->view->renderizar("remover");
     }
 
 }

@@ -18,12 +18,14 @@ class Usuario extends Controller implements Dao {
 //put your code here
     private $usuario;
     private $pessoa;
+      private $log;
 
     public function __construct() {
         Session::nivelRestrito(array("administrador"));
         parent::__construct();
         $this->usuario = $this->LoadModelo("Usuario");
         $this->pessoa = $this->LoadModelo("Pessoa");
+          $this->log = $this->LoadModelo('Log');
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
@@ -88,6 +90,12 @@ class Usuario extends Controller implements Dao {
                     exit;
                 } else {
                     $this->view->mensagem = "Registro  Efectuado com Sucesso";
+
+                    $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                    $this->log->setAcao('Criado um novo usuario ');
+                    $this->log->setData(date('d-m-Y H:m:s'));
+
+                    $this->log->adicionar($this->log, Session::get('id'));
                     $this->view->renderizar("novo");
                     exit;
                 }
@@ -161,7 +169,11 @@ class Usuario extends Controller implements Dao {
     public function remover($id = FALSE) {
         $r = $this->pessoa->remover($id);
         if ($r) {
-           
+            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+            $this->log->setAcao('Removido um usuario ');
+            $this->log->setData(date('d-m-Y H:m:s'));
+
+            $this->log->adicionar($this->log, Session::get('id'));
             $this->view->dados = $this->usuario->pesquisar();
             $this->redirecionar('usuario/index/');
         }

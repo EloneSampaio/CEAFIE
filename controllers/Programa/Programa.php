@@ -24,11 +24,13 @@ class Programa extends Controller implements Dao {
     //put your code here
     private $programa;
     private $docente;
+      private $log;
 
     public function __construct() {
         Session::nivelRestrito(array("gestor"));
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
+          $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJS(array('novo'));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
@@ -123,8 +125,8 @@ class Programa extends Controller implements Dao {
 //
 //                exit;
 //            }
-            
-          
+
+
             if ($this->compararDatas($this->view->dados['inicio'], $this->view->dados['termino'])) {
                 $this->view->erro = "Verifica as Datas";
                 $this->view->renderizar("novo");
@@ -140,6 +142,11 @@ class Programa extends Controller implements Dao {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
                 //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardados com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Criado um novo programa ');
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
                 exit;
             } else {
@@ -209,6 +216,11 @@ class Programa extends Controller implements Dao {
                 //    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
                 //   echo json_encode($ret);
                 $this->view->mensagem = "Dados guardados com sucesso";
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Alterado um  programa ');
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
 
                 exit;
@@ -243,6 +255,11 @@ class Programa extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->programa->remover($id)) {
+                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Apagado um  programa ');
+                $this->log->setData(date('d-m-Y H:m:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;
             }
         }

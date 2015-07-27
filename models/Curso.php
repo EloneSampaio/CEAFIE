@@ -29,7 +29,12 @@ class Curso extends Doctrine implements Dao {
      *
      * @ORM\Column(name="nome", type="string", length=45, nullable=false)
      */
+    
     private $nome;
+    
+    
+    
+    
     function getNome() {
         return $this->nome;
     }
@@ -57,6 +62,7 @@ class Curso extends Doctrine implements Dao {
         $editar = $this->em->getRepository('models\Curso')->find(array('id' => $id->getId()));
         $editar->setNome($id->getNome());
         $editar->setDescricao($id->getDescricao());
+        $this->em->merge($editar);
         $this->em->flush();
         return TRUE;
     }
