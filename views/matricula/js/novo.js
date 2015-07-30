@@ -450,12 +450,12 @@ function validaForm() {
                 required: true
             },
             graduacao: {
-                required: true,
-                minlength: 4,
+                required: true
+                
             },
             universidade: {
-                required: true,
-                minlength: 5,
+                required: true
+                
             },
             unidade_organica: {
                 required: true,

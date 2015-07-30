@@ -144,8 +144,7 @@ class Programa extends Controller implements Dao {
                 $this->view->mensagem = "Dados guardados com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Criado um novo programa ');
-                $this->log->setData(date('d-m-Y H:m:s'));
-
+                 $this->log->setData(date('d-m-Y h:i:s'));
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
                 exit;
@@ -218,7 +217,7 @@ class Programa extends Controller implements Dao {
                 $this->view->mensagem = "Dados guardados com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Alterado um  programa ');
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
@@ -257,7 +256,7 @@ class Programa extends Controller implements Dao {
             if ($this->programa->remover($id)) {
                  $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Apagado um  programa ');
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;

@@ -207,7 +207,7 @@ require "config.php";
                     <div class="row">
                         <div class="section-title text-center">
                             <h3>Principais Links</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
+                            <p>Conheça as universidades de Angola</p>
                         </div>
                     </div>
                     <div class="row">
@@ -216,7 +216,7 @@ require "config.php";
                                 <i class="fa fa-magic"></i>
                                 <div class="feature-content">
                                     <h4><a href="http://www.agostinhoneto.co.ao/" target="_blank">UAN</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                                    <p>Universidade Agostinho Neto</p>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 -->
@@ -225,7 +225,7 @@ require "config.php";
                                 <i class="fa fa-gift"></i>
                                 <div class="feature-content">
                                     <h4><a href="http://www.uor.ed.ao/" target="_blank">UOR</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 -->
@@ -234,7 +234,7 @@ require "config.php";
                                 <i class="fa fa-wordpress"></i>
                                 <div class="feature-content">
                                     <h4><a href="http://www.unia.ao/" target="_blank">UNIA</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                                    <p> Universidade Independente de Angola</p>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 -->
@@ -243,8 +243,9 @@ require "config.php";
                                 <i class="fa fa-plug"></i>
                                 <div class="feature-content">
                                     <h4><a href="http://www.ucan.edu/www14/index.php" target="_blank">UCAN</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
-                                </div>
+                                  <!--  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p> -->
+                                <p>Universidade Católica de Angola</p>
+								</div>
                             </div>
                         </div><!-- /.col-md-3 -->
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -252,8 +253,9 @@ require "config.php";
                                 <i class="fa fa-joomla"></i>
                                 <div class="feature-content">
                                     <h4><a href="#">ISUTIC</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
-                                </div>
+                                   <!-- <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p> -->
+									<p>Instituto Superior das tecnologias de Informação e Comunicação</p>
+							   </div>
                             </div>
                         </div><!-- /.col-md-3 -->
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -261,7 +263,7 @@ require "config.php";
                                 <i class="fa fa-cube"></i>
                                 <div class="feature-content">
                                    <h4><a href="#" target="_blank">Metodista</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                                    <p>Univerdade Metodista de Angola</p>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 -->
@@ -269,7 +271,7 @@ require "config.php";
                             <div class="feature">
                                 <i class="fa fa-css3"></i>
                                 <div class="feature-content">
-                                     <h4><a href="#" target="_blank">MEC</a></h4>
+                                     <h4><a href="#" target="_blank"> MEC</a></h4>
                                     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
                                 </div>
                             </div>
@@ -279,7 +281,7 @@ require "config.php";
                                 <i class="fa fa-android"></i>
                                 <div class="feature-content">
                                      <h4><a href="#" target="_blank">MTTI</a></h4>
-                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor. reprehenderit</p>
+                                    <p>Ministério das Telecomunicações e Tecnologias de Informação</p>
                                 </div>
                             </div>
                         </div><!-- /.col-md-3 -->
@@ -306,7 +308,7 @@ require "config.php";
                     <div class="row">
                         <div class="section-title text-center">
                             <h3>Acesso ao sistema</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
+                            <p>Cadastre-se ou faça o login </p>
                         </div>
                     </div>
                     <div class="row">
@@ -453,14 +455,16 @@ require "config.php";
                     <div class="row">
                         <div class="section-title text-center">
                             <h3>Sobre Nós</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
+							<p>O CEAFIE é um centro de estudo para apoio a formação investigação e extensão da UAN; É uma estrutura de investigação de natureza multidisciplinar, inserida na UAN e estreitamente particulada com todos departamentos de ensino e investigação (DEI) de todas as Unidades orgânicas desta universidade</p>
+                            <p>Lema: Transformar problemas em projetos, através de estreitamento da realação Universidade-Sociedade</p>
+							
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="about-text">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident. It has roots in a piece of classical Latin literature from 45 BC</p>
-                                <div class="row">
+                             <div class="about-text">
+                                <!-- <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident. It has roots in a piece of classical Latin literature from 45 BC</p> -->
+                             <!--  <div class="row">
                                     <div class="col-md-4 col-sm-6">
                                         <ul>
                                             <li><i class="fa fa-check-square"></i>Sed ut perspiciatis unde omnis iste natus</li>
@@ -486,7 +490,9 @@ require "config.php";
                                         </ul>
                                     </div>
                                 </div><!-- /.row -->
+								
                             </div>
+							
                         </div>
                     </div><!-- /.row -->
                     <div class="row">
@@ -496,33 +502,45 @@ require "config.php";
 
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="custom-tab">
+                        <div class="col-md-6"; style=" margin-left: 250px; margin-top: -50px; ">
+                            <div class="custom-tab" >
                         
                                 <ul class="nav nav-tabs nav-justified" role="tablist">
                                     <li class="active"><a href="#tab-1" role="tab" data-toggle="tab">Nossa Missão</a></li>
-                                    <li><a href="#tab-2" role="tab" data-toggle="tab">Nossa Visão</a></li>
-                                    <li><a href="#tab-3" role="tab" data-toggle="tab">Nossa Historia</a></li>
+                                    <li><a href="#tab-2" role="tab" data-toggle="tab">Nosso Objetivo</a></li>
+                                    <li><a href="#tab-3" role="tab" data-toggle="tab">público alvo</a></li>
                                 </ul>
 
                                 <div class="tab-content">
 
                                     <div class="tab-pane active" id="tab-1">
-                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                                     </div>
+                                        <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p> -->
+                                       <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p> -->
+										<p>Contribuir numa perspectiva inovadora, para o densevolvimento da educação de angola, mediante a geração, adaptação, difusão e transferênicia de áreas de conheimento científico e tecnológico.</p>
+									</div>
 
 
                                     <div class="tab-pane" id="tab-2">
-                                        <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
-                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                                    </div>
+                                      <!--  <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>-->
+                                       <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p> -->
+										<p>Por em prática acções que ontribuam para o desenvolvimento do ensino superior na UAN e da vida académica, científica, cultural, social, e económica do país</p>
+								   </div>
 
 
                                     <div class="tab-pane" id="tab-3">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                                    </div>
+                                       <!-- <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p> -->
+                                       <!-- <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p> -->
+									<p>Docentes, investigadores e estudantes do ensino superior da UAN  e das outras universidades. </p>
+									<p>Funcionários do Ministério do ensino superior e da ciência e tecnologia</p>
+									<p>Profissionais de organizações inseridas nos diferentes projetos do CEAFIE.</p>
+									<p>O estado</p>
+									<p>AS instituições de produção e o serviço</p>
+									<p>A sociedade de uma forma geral</p>
+									<p></p>
+									
+									
+				
+								   </div>
 
                                 </div><!-- /.tab-content -->
 
@@ -908,38 +926,47 @@ require "config.php";
                     <div class="row">
                         <div class="section-title text-center">
                             <h3>Sobre os Cursos</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
+                            <p>Conheça os nossos cursos</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="latest-post">
-                                <img src="images/blog-01.jpg" class="img-responsive" alt="">
+                               <!-- <img src="images/blog-01.jpg" class="img-responsive" alt=""> -->
                                 <h4><a href="#">Curso de Elaboracao de Projectos de Investigação(CEPAC)</a></h4>
                                 <div class="post-details">
                                     <ul>
                                        <h2> <a href="#portfolio-modal" data-toggle="modal">Inscreva-se</a> </h2>
                                     </ul>
                                 </div>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p> 
+                                <!-- <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p> -->
+								<p>Propiciar um espaçao de cooperação reflexiva em torno da necessidade de formar profissionais efectivos e competentes na docência universitária e investigação que possam participar em ambientes competitivos.</p>
+								<p>Favorecer a qualidade da docência universitária e a investigação a partir da aquisição de modos de actuação incluídos em modelos de formação de profissionais efectivos competentes.</p>
+								<p>Potenciar o desenho, a execução e a direcção do processo docente educativo com uma visão crítica e criativa por parte de profissionais efectivos competentes.</p>
                                
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="latest-post">
-                                <img src="images/blog-02.jpg" class="img-responsive" alt="">
-                                <h4><a href="#">Curso de Elaboracao e Publicacao de Artigos(CEPAC) </a></h4>
+                               <!-- <img src="images/blog-02.jpg" class="img-responsive" alt=""> -->
+                                <h4><a href="#">Curso de Elaboracao e Publicação de Artigos(CEPID) </a></h4>
                                 <div class="post-details">
                                     <ul>
                                         <h2> <a href="#portfolio-modal" data-toggle="modal">Inscreva-se</a> </h2>
                                     </ul>
                                 </div>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+                                <!-- <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p> -->
+								<p>Propiciar um espatáculo de cooperação;o reflexiva em torno da necessidade de formar profissionais efectivos e competentes na docência universitária e investigação; o que possam participar em ambientes competitivos.</p>
+								<p>Favorecer a qualidade da docência universitária e a investigação a partir da aquisição de modos de actuação incluídos em modelos de formação de profissionais efectivos competentes.</p>
+								<p>Potenciar o desenho, a execução e a direcção do processo docente educativo com uma visão crítica e criativa por parte de profissionais efectivos competentes.</p>
                                 
                             </div>
                         </div>
-                        
+						
+						
+					
+
           <!--               <div class="col-md-6">
                             <div class="latest-post">
                                 <img src="images/blog-03.jpg" class="img-responsive" alt="">
@@ -958,14 +985,17 @@ require "config.php";
                         
                         <div class="col-md-6">
                             <div class="latest-post">
-                                <img src="images/blog-04.jpg" class="img-responsive" alt="">
+                                <!-- <img src="images/blog-04.jpg" class="img-responsive" alt=""> -->
                                 <h4><a href="#">Curso de Agregação Pedagogica(CAP)</a></h4>
                                 <div class="post-details">
                                     <ul>
                                          <h2> <a href="#portfolio-modal" data-toggle="modal">Inscreva-se</a> </h2>
                                     </ul>
                                 </div>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+                                <!-- <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p> -->
+								<p>Propiciar um espaçao de cooperação reflexiva em torno da necessidade de formar profissionais efectivos e competentes na docência universitária e investigação que possam participar em ambientes competitivos.</p>
+								<p>Favorecer a qualidade da docência universitária e a investigação a partir da aquisição de modos de actuação incluídos em modelos de formação de profissionais efectivos competentes.</p>
+								<p>Potenciar o desenho, a execução e a direcção do processo docente educativo com uma visão crítica e criativa por parte de profissionais efectivos competentes.</p>
                                 
                             </div>
                         </div>
@@ -992,20 +1022,20 @@ require "config.php";
                 <div class="container">
                     <div class="row">
                         <div class="section-title text-center">
-                            <h3>Contacte-nos atraves de</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate</p>
+                            <h3>Contacte-nos</h3>
+                            <p></p>
                         </div>
                     </div>
                     <div class="row">
                         
                         <div class="col-md-4">
                             <div class="footer-contact-info">
-                                <h4>Informação de Contact o</h4>
+                                <h4>Informação de Contacto</h4>
                                 <ul>
-                                    <li><strong>E-mail :</strong> your-email@mail.com</li>
+                                    <li><strong>E-mail :</strong> ceafie@gmail.com</li>
                                     <li><strong>Fixo :</strong> +24422222222</li>
-                                    <li><strong>Telefone :</strong> +2449346576</li>
-                                    <li><strong>Site :</strong> yourdomain.com</li>
+                                    <li><strong>Telefone :</strong> (+244) 923 097 529</li>
+                                    
                                 </ul>
                             </div>
                         </div>

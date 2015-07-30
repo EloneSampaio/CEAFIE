@@ -1,10 +1,4 @@
 <?php echo $this->menu; ?>
-<?php
-
-function selected($value, $selected) {
-    return $value == $selected ? ' selected="selected"' : '';
-}
-?>
 
 <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
     <div class="navbar">
@@ -21,15 +15,15 @@ function selected($value, $selected) {
 </div>
 
 
-<div class="span10 " id="content" style="margin-left: 420px;">
+<div class="span10 " id="content" style="margin-left: 150px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
 
 
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-right">Dados do Docente</div>
+            <div class="navbar navbar-inner block-header" style="margin-top: 20px;">
+                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Docente</div>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
@@ -40,35 +34,29 @@ function selected($value, $selected) {
                             <div class="control-group">
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php
+                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Apelido<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="apelido" data-required="1" class="span6 m-wrap"  value=" <?php
+                                    <input type="text" name="apelido" data-required="1" class="span6 m-wrap" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Genero<span class="required">*</span></label>
                                 <div class="controls">
-                                    <select class="span6 m-wrap" name="genero" required >
-                                        <option value=""></option>
-                                        <option value="Masculino" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
-                                        endif;
-                                        ?>>Masculino</option>
-                                        <option value="Femenino" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
-                                        endif;
-                                        ?>>Femenino</option>
+                                    <select class="span6 m-wrap" name="genero">
+                                        <option value="">-Seleciona um genero-</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
                                     </select>                                    
                                 </div>
                             </div>
@@ -76,40 +64,40 @@ function selected($value, $selected) {
                             <div class="control-group">
                                 <label class="control-label">Nª Bi<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14" value="<?php
+                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Nacionalidade<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="nacionalidade" id="nacionalidade" type="text" class="span6 m-wrap" value="<?php
+                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nacionalidade'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Telefone<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="telefone" type="text" class="span6 m-wrap" maxlength="9" required value="<?php
+                                    <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label">Email<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="email"  class="span6 m-wrap" type="email" value="<?php
+                                    <input name="email"  class="span6 m-wrap" type="email" <?php
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
                                     endif;
-                                    ?>"/>
+                                    ?>/>
                                 </div>
                             </div>
 
@@ -117,21 +105,11 @@ function selected($value, $selected) {
                             <div class="control-group">
                                 <label class="control-label">Grau<span class="required">*</span></label>
                                 <div class="controls">
-                                    <select class="span6 m-wrap" name="grau" required>
-                                        <option value=""></option>
-                                        <option value="Licenciado" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['grau'], "Licenciado");
-                                        endif;
-                                        ?>>Licenciado</option>
-                                        <option value="Mestre"
-                                        <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['grau'], "Mestre");
-                                        endif;
-                                        ?>>Mestre</option>
-                                        <option value="Doctor" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['grau'], "Doctor");
-                                        endif;
-                                        ?>>Doctor</option>
+                                    <select class="span6 m-wrap" name="grau">
+                                        <option value="000">-Seleciona um grau-</option>
+                                        <option value="Licenciado">Licenciado</option>
+                                        <option value="Mestre">Mestre</option>
+                                        <option value="Doctor">Doctor</option>
                                     </select>                                    
                                 </div>
                             </div>
@@ -139,7 +117,7 @@ function selected($value, $selected) {
                             <fieldset>
                                 <legend>Curso a Lecionar</legend>
 
-                                <select  id="dados" name="modulo[]" multiple="multiple" required>
+                                <select  id="dados" name="modulo[]" multiple="multiple">
                                     <!--                                    <optgroup label="Group 1">
                                                                             <option value="1">1</option>
                                                                             ...

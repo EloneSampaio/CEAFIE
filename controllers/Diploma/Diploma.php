@@ -54,7 +54,7 @@ class Diploma extends Controller {
         $report->BuildPDF();
         $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
         $this->log->setAcao('Foi gerado o diploma  do  aluno'. $d->getAluno()->getPessoa()->getNome());
-        $this->log->setData(date('d-m-Y H:m:s'));
+        $this->log->setData(date('d-m-Y h:i:s'));
 
         $this->log->adicionar($this->log, Session::get('id'));
 

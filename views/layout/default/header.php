@@ -20,6 +20,8 @@ use application\Session; ?>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-responsive.min.css" media="screen"/>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap.min.css" media="screen"/> 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-datepicker.min.css" media="screen"/> 
+
+        <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap.min.js"></script>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
 
         <?php if (isset($_layoutParam['css']) && count($_layoutParam['css'])): ?>
@@ -28,16 +30,11 @@ use application\Session; ?>
             <?php endfor; ?>
         <?php endif; ?>
 
-
-
-        <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap.min.js"></script>
-
         <?php if (isset($_layoutParam['js']) && count($_layoutParam['js'])): ?>
             <?php for ($i = 0; $i < count($_layoutParam['js']); $i++): ?>
                 <script type="text/javascript" src="<?php print $_layoutParam['js'][$i] ?>"></script>       
             <?php endfor; ?>
         <?php endif; ?>
-
         <style>
             .datepicker{z-index:1151 !important;}
 

@@ -258,7 +258,8 @@ class Matricula extends Controller implements Dao {
             } else {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Foi criado um novo aluno com o nome de : ' . $nome);
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
+
 
                 $this->log->adicionar($this->log, Session::get('id'));
 
@@ -439,7 +440,7 @@ class Matricula extends Controller implements Dao {
             if ($r) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao("Foi Editado  informações do aluno");
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->mensagem = "Dados alterado com sucesso";
@@ -486,7 +487,7 @@ class Matricula extends Controller implements Dao {
             if ($this->matricula->remover($id)) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Removido um aluno ' . $_POST['nome']);
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;

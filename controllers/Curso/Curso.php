@@ -62,18 +62,18 @@ class Curso extends Controller implements Dao {
                 exit;
             }
             $id = $this->curso->adicionar($this->curso);
-            $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
-            $this->log->setAcao('Adicionado novo curso ' . $_POST['nome']);
-            $this->log->setData(date('d-m-Y H:m:s'));
-
-            $this->log->adicionar($this->log, Session::get('id'));
+            
             if ($id) {
 
-                $lo = new LogUso('log');
-                $lo->verificarArquivo();
-                $lo->gravar("Foi criado um novo curso" . 'Com o nome de : ' . $_POST['nome']);
+               //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
+                //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardado com sucesso";
-                $this->view->renderizar("novo");
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setAcao('Adicionado novo modúlo ' . $_POST['nome']);
+                $this->log->setData(date('d-m-Y h:i:s'));
+
+                $this->log->adicionar($this->log, Session::get('id'));
+                  $this->view->renderizar("novo");
 
                 exit;
             } else {
@@ -114,8 +114,8 @@ class Curso extends Controller implements Dao {
             $id = $this->curso->editar($this->curso);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
             $this->log->setAcao('Alterado o curso para ' . $_POST['nome']);
-            $this->log->setData(date('d-m-Y H:m:s'));
-
+           $this->log->setData(date('d-m-Y h:i:s'));
+           
             $this->log->adicionar($this->log, Session::get('id'));
 
             if (!$id) {
@@ -154,7 +154,8 @@ class Curso extends Controller implements Dao {
             $this->curso->remover($id);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
             $this->log->setAcao('Removido o curso ' . $_POST['nome']);
-            $this->log->setData(date('d-m-Y H:m:s'));
+           $this->log->setData(date('d-m-Y h:i:s'));
+           
 
             $this->log->adicionar($this->log, Session::get('id'));
 

@@ -93,7 +93,7 @@ class Usuario extends Controller implements Dao {
 
                     $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                     $this->log->setAcao('Criado um novo usuario ');
-                    $this->log->setData(date('d-m-Y H:m:s'));
+                   $this->log->setData(date('d-m-Y h:i:s'));
 
                     $this->log->adicionar($this->log, Session::get('id'));
                     $this->view->renderizar("novo");

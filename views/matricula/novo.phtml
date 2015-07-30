@@ -25,24 +25,22 @@ function selected($value, $selected) {
             </div>
 
 
-<div class="span10 " id="content" style="margin-left: 420px; ">
+<div class="span10 " id="content" style="margin-left: 150px; ">
     <!-- validation -->
-    <div class="row-fluid">
-        <!-- block -->
-        <br />
-        <div class="block">
-
-       
-
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-right">Dados do Aluno</div>
-            </div>
+		<div class="row-fluid">
+			<!-- block -->
+			<br />
+			<div class="block">
+			<div class="navbar navbar-inner block-header" style="margin-top: 20px;">
+                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Aluno</div>
+			</div>
+        </div>
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
                     <form action="<?php print URL; ?>matricula/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data" target="">
                         <fieldset>
-                            <legend>Dados Pessoas</legend>
+                            <legend>Dados Pessoais</legend>
                             <div class="control-group">
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
@@ -66,7 +64,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Genero<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="genero">
-                                        <option value=""></option>
+                                        <option value="">-Seleciona um genero-</option>
                                         <option value="Masculino" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
                                         endif;
@@ -125,19 +123,63 @@ function selected($value, $selected) {
                             <div class="control-group">
                                 <label class="control-label">graduação<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" name="graduacao" data-required="1" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['graduacao'];
-                                    endif;
-                                    ?>"/>
-                                </div>
+                                     <select class="span6 m-wrap" name="graduacao">
+                                        <option value="">-Seleciona a sua graduação-</option>
+                                        <option value="Licenciado" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Licenciado");
+                                        endif;
+                                        ?> >Licenciado</option>
+                                        <option value="Mestrado" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Mestrado");
+                                        endif;
+                                        ?> >Mestrado</option>
+                                        <option value="Doutoramento" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Doutoramento");
+                                        endif;
+                                        ?> >Doutoramento</option>
+                                    </select>                   
+                                    </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Universidade<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input name="universidade" type="text" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['universidade'];
-                                    endif;
-                                    ?>"/>
+                                   <select class="span6 m-wrap" name="universidade">
+                                        <option value="">-Seleciona a sua universidade-</option>
+                                        <option value="UAN" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UAN");
+                                        endif;
+                                        ?> >UAN</option>
+                                        <option value="UCAN" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UCAN");
+                                        endif;
+                                        ?> >UCAN</option>
+                                        <option value="UNIA" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UNIA");
+                                        endif;
+                                        ?> >UNIA</option>
+
+                                           <option value="Metodista" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "Metodista");
+                                        endif;
+                                        ?> >Metodista</option>
+                                    
+
+                                    <option value="ISUTIC" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "ISUTIC");
+                                        endif;
+                                        ?> >ISUTIC</option>
+                                               
+
+                                    <option value="UOR" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UOR");
+                                        endif;
+                                        ?> >UOR</option>
+
+                                          <option value="Outro" <?php
+                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "Outro");
+                                        endif;
+                                        ?> >Outro</option>
+                                    </select>             
                                 </div>
                             </div>
                         </fieldset>
@@ -157,8 +199,8 @@ function selected($value, $selected) {
                                 <label class="control-label">Categ Docente<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_docente">
-                                          <option value=""></option>
-                                        <option value="Assistente" <?php
+ <option value=""></option>                                       
+									   <option value="Assistente" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
                                         endif;
                                         ?>>Assistente</option>
@@ -184,7 +226,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Função<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="funcao">
-                                        <option value=""></option>
+                                        <option value="">-Seleciona uma função-</option>
                                         <option value="Chefe de departamento" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de departamento");
                                         endif;
@@ -206,7 +248,7 @@ function selected($value, $selected) {
                                 <label class="control-label">Categ Cientifica<span class="required">*</span></label>
                                 <div class="controls">
                                     <select class="span6 m-wrap" name="categoria_centifica">
-                                        <option value=""></option>
+                                        <option value="">-Seleciona uma categoria-</option>
                                         <option value="Investigador" <?php
                                         if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Investigador");
                                         endif;
@@ -252,16 +294,14 @@ function selected($value, $selected) {
                                     if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
                                     endif;
                                     ?>"/>
-                                    <span class="input-group-addon">
-                                        <span class="icon icon-calendar">
+                                    <span class="input-group-addon"><span class="icon icon-calendar">
 
                                         </span>
 
                                     </span>
                                 </div>
                             </div>
-                            <br /><br /><br />
-
+<br /><br />
                             <input name="enviar" type="hidden" value="1"/>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary" id="adicionar" >Salvar Dados</button>

@@ -42,8 +42,8 @@
                         <td><?php print $dados->getModulo()->getNome(); ?></td>
                         <td><?php print $dados->getDocente()->getPessoa()->getNome(); ?></td>
                         <td><?php print $dados->getLocal(); ?></td>
-                        <td><?php print $dados->getData(); ?></td>
-                        <td><?php print $dados->getDatafinal(); ?></td>
+                        <td><?php print date("d/m/Y", strtotime($dados->getData())); ?></td>
+                        <td><?php print date("d/m/Y", strtotime($dados->getDatafinal())); ?></td>
                         <td><?php print $dados->getHoras(); ?></td>
                         <td><a target="__BLANK" href="<?php echo URL . "programa" . DS1 . "gerar/" . $dados->getId(); ?>"><i class="icon icon-print"></i></a></td>
 

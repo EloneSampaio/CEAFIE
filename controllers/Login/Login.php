@@ -16,10 +16,13 @@ class Login extends Controller {
     //put your code here
 
     private $log;
+     private $logsys;
 
     public function __construct() {
-        parent::__construct();
         $this->log = $this->LoadModelo('Usuario');
+        $this->logsys = $this->LoadModelo('Log');
+        parent::__construct();
+        
     }
 
     public function index() {
@@ -64,8 +67,14 @@ class Login extends Controller {
                  Session::set('pessoa', $linha->getPessoa()->getId());
                 Session::set('id', $linha->getId());
                 Session::set('time', time());
+                
 
                 if (Session::get('nivel') == "gestor") {
+                $this->logsys->setIpMaquina($_SERVER['REMOTE_ADDR']);
+               $this->logsys->setAcao('Foi feito um login  ');
+                $this->logsys->setData(date('d-m-Y'));
+
+                $this->logsys->adicionar($this->logsys, Session::get('id'));
                     $this->redirecionar('dashboard');
                 }
 
@@ -74,9 +83,19 @@ class Login extends Controller {
                 }
 
                 if (Session::get('nivel') == "docente") {
+                	  $this->logsys->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->logsys->setAcao('Foi feito um login  ');
+                $this->logsys->setData(date('d-m-Y h:i:s'));
+
+                $this->logsys->adicionar($this->logsys, Session::get('id'));
                     $this->redirecionar("dashboard/docente/");
                 }
                 if (Session::get('nivel') == "administrador") {
+                	  $this->logsys->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->logsys->setAcao('Foi feito um login');
+                $this->logsys->setData(date('d-m-Y h:i:s'));
+
+                $this->logsys->adicionar($this->logsys, Session::get('id'));
                     $this->redirecionar("dashboard/admin/");
                 }
                 

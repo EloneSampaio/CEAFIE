@@ -31,20 +31,3 @@ label.control-label {
   font-weight: 600;
   color: #777;  
 }
-
-
-label.error {
-	border: 1px solid red;
-	/*color: red;*/
-	font-weight: bold;
-	padding: 3px;
-	/*background-color: #99CCFF;*/
-	background:#8D0000 url('imagem/button.png') repeat-x scroll top left;
-	color:#ffffff;
-	margin: 6px 0;
-	width: 120px;
-	text-align: center;
-	}
-
-
-

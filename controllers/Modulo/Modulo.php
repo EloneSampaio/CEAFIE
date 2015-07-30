@@ -80,7 +80,7 @@ class Modulo extends Controller implements Dao {
                 $this->view->mensagem = "Dados guardado com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Adicionado novo modúlo ' . $_POST['nome']);
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
@@ -123,7 +123,7 @@ class Modulo extends Controller implements Dao {
                 $this->view->mensagem = "Dados alterados com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Alterado o modúlo para ' . $_POST['nome']);
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->renderizar("novo");
@@ -148,7 +148,7 @@ class Modulo extends Controller implements Dao {
             if ($this->modulo->remover($id)) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Removido o curso ' . $_POST['nome']);
-                $this->log->setData(date('d-m-Y H:m:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;
