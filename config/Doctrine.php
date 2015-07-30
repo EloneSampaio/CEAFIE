@@ -87,7 +87,7 @@ class Doctrine {
         $dbParams = array(
             'driver' => 'pdo_mysql',
             'user' => 'root',
-            'password' => 'elone',
+            'password' => '',
             'dbname' => 'ceafie',
             'charset' => 'utf8',
             'driverOptions' => array(1002 => 'SET NAMES utf8')
