@@ -17,55 +17,40 @@ class Generico extends Doctrine {
         return $enty->getId();
     }
 
-    public function editar($aluno, $pessoa) {
-        $this->em->getConnection()->beginTransaction();
-        try {
-
-            $editar1 = $this->em->getRepository('models\Pessoa')->find(array('id' => $pessoa->getId()));
-            $editar1->setNome($pessoa->getNome());
-            $editar1->setGenero($pessoa->getGenero());
-            $editar1->setNacionalidade($pessoa->getNacionalidade());
-            $editar1->setTelefone($pessoa->getTelefone());
-            $editar1->setEmail($pessoa->getEmail());
-            $editar1->setBi($pessoa->getBi());
-            $this->em->merge($editar1);
-            $this->em->flush();
-
-////aluno
-            $editar = $this->em->getRepository('models\Aluno')->find(array('id' => $aluno->getId()));
-            $editar->setGraduacao($aluno->getGraduacao());
-            $editar->setUniversidade($aluno->getUniversidade());
-            $editar->setUnidadeOrganica($aluno->getUnidadeOrganica());
-            $editar->setCategoriaDocente($aluno->getCategoriaDocente());
-            $editar->setFuncao($aluno->getFuncao());
-            $editar->setCategoriaCientifica($aluno->getCategoriaCientifica());
-            $this->em->merge($editar);
-            $this->em->flush();
-            $this->em->getConnection()->commit();
-            return TRUE;
-        } catch (Exception $exc) {
-            $this->em->getConnection()->rollback();
-            $this->em->close();
-            throw $ex;
-        }
-
-
-
+    public function editar($entidade, $id,$dados) {
+        $classe = (string) ucfirst($entidade);
+        $model = "\\" . "models" . "\\" . $classe;
+        $editar = $this->em->getRepository($model)->find(array('id' => $id));
+        $editar->setNome($dados['nome']);
+        $this->em->merge($editar);
+        $this->em->flush();
         return TRUE;
     }
 
-    public function pesquisar($id = FALSE) {
+    public function pesquisar($entidade = FALSE, $id = FALSE) {
+
         if ($id) {
-            return $this->em->getRepository('models\Aluno')->findOneBy(array('id' => $id));
+            $classe = (string) ucfirst($entidade);
+            $model = "\\" . "models" . "\\" . $classe;
+
+            return $this->em->getRepository($model)->find($id);
             $this->em->flush();
         } else {
-            return $this->em->getRepository('models\Aluno')->findby(array(), array('id' => "DESC"));
+            $classe = (string) ucfirst($entidade);
+            $model = "\\" . "models" . "\\" . $classe;
+
+            return $this->em->getRepository($model)->findby(array(), array('id' => "DESC"));
             $this->em->flush();
         }
     }
 
-    public function remover($id = FALSE) {
-        
+    public function remover($id = FALSE, $entidade) {
+        $classe = (string) ucfirst($entidade);
+        $model = "\\" . "models" . "\\" . $classe;
+        $id = $this->em->getPartialReference($model, $id);
+        $this->em->remove($id);
+        $this->em->flush();
+        return TRUE;
     }
 
     public function listagem($entidade) {

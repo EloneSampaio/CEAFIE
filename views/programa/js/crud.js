@@ -40,7 +40,7 @@ function adicionar() {
         var data = $(this).serialize();
         $.post(url, data)
                 .done(function (data) {
- alert(data);
+
                     var json = $.parseJSON(data);
 
                     if (json.cod === 1) {

@@ -27,17 +27,21 @@ class Generico extends Controller {
     }
 
     public function index() {
-        $this->view->dados = $this->curso->pesquisar();
-        $this->view->renderizar('index');
+        
     }
 
-    public function adicionar($dados=FALSE) {
+    public function render($dados) {
+        $this->view->dados = $this->generico->pesquisar($dados);
+        $this->view->renderizar($dados . '/index');
+    }
+
+    public function adicionar($dados = FALSE) {
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
 
             if (!$this->getSqlverifica('nome')) {
                 $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar($dados."/novo");
+                $this->view->renderizar($dados . "/novo");
                 exit;
             }
 
@@ -48,10 +52,10 @@ class Generico extends Controller {
 //                $this->view->renderizar("funcao/novo");
 //                exit;
 //            }
-            
-            
+
+
             $id = $this->generico->adicionar($this->view->dados['nome'], $this->view->dados['opcao']);
-            
+
 
             if ($id) {
                 $this->view->mensagem = "Dados guardado com sucesso";
@@ -60,35 +64,33 @@ class Generico extends Controller {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-               $this->view->renderizar($dados."/novo");
+                $this->view->renderizar($dados . "/novo");
 
                 exit;
             } else {
                 $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar($dados."/novo");
+                $this->view->renderizar($dados . "/novo");
 
                 exit;
             }
         }
 
-        $this->view->renderizar($dados.'/novo');
+        $this->view->renderizar($dados . '/novo');
     }
 
-    public function editar($id = FALSE) {
-        if ($this->getInt('id')) {
+    public function editar($id = FALSE, $entidade = FALSE) {
+        if ($this->getInt('enviar')) {
 
 
             if (!$this->getSqlverifica('nome')) {
                 $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar("funcao/novo");
+                $this->view->renderizar($entidade.'/index');
                 exit;
             }
 
-            $this->curso->setNome($this->getSqlverifica('nome'));
-            $this->curso->setId($this->getInt('id'));
-            $id = $this->curso->editar($this->curso);
+            $id = $this->generico->editar($entidade,$id,$_POST);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
-            $this->log->setAcao('Alterado o curso para ' . $_POST['nome']);
+            $this->log->setAcao('Alterado ' . $_POST['nome']);
             $this->log->setData(date('d-m-Y h:i:s'));
 
             $this->log->adicionar($this->log, Session::get('id'));
@@ -101,43 +103,38 @@ class Generico extends Controller {
 
                 $lo = new LogUso('log');
                 $lo->verificarArquivo();
-                $lo->gravar("Foi Editado um curso" . ' Com o nome de : ' . $_POST['nome']);
+                $lo->gravar("Foi Editado uma ".$entidade);
                 $this->view->mensagem = "Dados alterados com sucesso";
-                $this->view->renderizar("novo");
+                $this->redirecionar('generico/render/'.$entidade);
 
                 exit;
             }
         }
-        $this->view->dados = $this->curso->pesquisar();
-        $this->view->renderizar("editar");
+        $this->view->dados = $this->generico->pesquisar($entidade,$id);
+        $this->view->renderizar($entidade.'/editarDados');
     }
 
-    public function remover($id = FALSE) {
+    public function remover($id = FALSE, $entidade = FALSE) {
 
         if ($id) {
-            $this->curso->remover($id);
+            $this->generico->remover($id, $entidade);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
-            $this->log->setAcao('Removido o curso ' . $_POST['nome']);
+            $this->log->setAcao('Removido ' . $entidade);
             $this->log->setData(date('d-m-Y h:i:s'));
 
 
             $this->log->adicionar($this->log, Session::get('id'));
 
-            $lo = new LogUso('log');
-            $lo->verificarArquivo();
-            $lo->gravar("Foi apagado um  curso");
-            return TRUE;
         }
-        $this->view->dados = $this->curso->pesquisar();
-        $this->view->renderizar("remover");
+        $this->view->dados = $this->generico->pesquisar($entidade);
+        $this->view->renderizar($entidade . "/index");
     }
 
     public function pesquisar($entidade = FALSE) {
-        $this->view->dados = $this->generico->pesquisar($id);
-        $this->view->renderizar('editarDados');
+        
     }
-    
-     public function pesquisaPor($entidade = FALSE) {
+
+    public function pesquisaPor($entidade = FALSE) {
         $t = $this->generico->listagem($entidade);
         echo json_encode($t);
     }

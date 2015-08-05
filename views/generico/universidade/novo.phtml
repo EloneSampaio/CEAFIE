@@ -1,4 +1,14 @@
 <?php echo $this->menu; ?>
+<div class="col-12 pull-left" style="margin-left: 20px; margin-top:   -90px; display: block;">
+    <!--<h4>Adicionar Novo</h4>-->
+    <div class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active click"><a href="<?php echo URL . "generico" . DS1 . "render/universidade" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Ver</span></a></li>
+        </ul>
+    </div>
+
+
+</div>
 <div class="span10 " id="content" style="margin-left: 150px;">
     <!-- validation -->
     <div class="row-fluid">
@@ -18,15 +28,15 @@
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
 
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
+                                    <input type="text" name="nome" data-required="1" class="form-control span6 m-wrap"/>
                                 </div>
                             </div>
                         </fieldset>
                         <input name="enviar" type="hidden" value="1"/>
                         <input name="opcao" type="hidden" value="universidade"/>
-                        <div class="form-actions">
+                        <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="adicionar">Adicionar</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
 
                         <!-- END FORM-->

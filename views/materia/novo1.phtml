@@ -1,6 +1,15 @@
 
 <?php echo $this->menu; ?>
+<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
+    <h3></h3>
+    <div class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="<?php echo URL . "materia" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">lista</span></a></li>
+        </ul>
+    </div>
 
+
+</div>
 
 <div class="span10 " id="content" style="margin-left: 420px; margin-top: 50px;">
     <!-- validation -->
@@ -13,43 +22,45 @@
                     <!-- BEGIN FORM-->
                     <form action="<?php print URL; ?>materia/adicionar1" class="form-horizontal" method="POST" accept-charset="utf-8" enctype="multipart/form-data" >
                         <fieldset>
-                            <legend class="text-info text-center"><?php if(isset($this->sms) && !empty($this->sms)): echo $this->sms; endif;?></legend>
+                            <legend class="text-info text-center"><?php
+                                if (isset($this->sms) && !empty($this->sms)): echo $this->sms;
+                                endif;
+                                ?>
+                            </legend>
 
-                            <div class="group-control">
-                                <label class="control-label">Curso<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap " id="curso" name="curso">
-                                        <option value="000">-Selecciona um curso-</option>
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label">Curso<span class="required">*</span></label>
 
+                                <select class=" form-control span6 m-wrap " id="curso" name="curso">
+                                    <option value="000">-Selecciona um curso-</option>
+                                </select>
 
-                                </div>
                             </div>
 
-                            <div class="group-control">
-                                <label class="control-label">Modúlo<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" id="modulo" name="modulo">
-                                        <option value="000">-Seleciona um modulo-</option>
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label">Modúlo<span class="required">*</span></label>
+
+                                <select class="form-control span6 m-wrap" id="modulo" name="modulo">
+                                    <option value="000">-Seleciona um modulo-</option>
+                                </select>
 
 
-                                </div>
+
                             </div>
 
-                            <div class="group-control">
-                                <label class="control-label">data<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" id="data" data-provide="datepicker" name="data" data-required="1" class="span6 m-wrap"/>
-                                </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label">data<span class="required">*</span></label>
+
+                                <input type="text" id="data" data-provide="datepicker" name="data" data-required="1" class="form-control span6 m-wrap"/>
+
                             </div>
 
 
-                            <div class="group-control">
-                                <label class="control-label">Arquivo<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="file" name="arquivo" data-required="1" class="span6 m-wrap"/>
-                                </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label">Arquivo<span class="required">*</span></label>
+
+                                <input type="file" name="arquivo" data-required="1" class="form-control span6 m-wrap"/>
+
                             </div>
 
 
@@ -58,9 +69,9 @@
                         </fieldset>
                         <input name="docente" type="hidden" value="<?php ?>"/>
                         <input name="enviar" type="hidden" value="1"/>
-                        <div class="form-actions">
+                        <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="adicionar">Adicionar</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger active">Cancelar</button>
                         </div>
                     </form>
                     <!-- END FORM-->

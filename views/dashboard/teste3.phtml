@@ -16,14 +16,13 @@ function selected($value, $selected) {
 
                 <div class="dropdown">
                     <a class="header-dropdown dropdown-toggle accent-color" data-toggle="dropdown" href="#" style="color: white;">
-                        <?php if (isset($this->titulo)): echo $this->titulo;
+                        <?php
+                        if (isset($this->titulo)): echo $this->titulo;
                         endif;
                         ?>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo URL . "curso" . DS1 . "index/" . Session::get('id'); ?>">Curso</a></li>
-                        <li><a href="<?php echo URL . "modulo" . DS1 . "index/" ?>">Modulo</a></li>
                         <li><a href="<?php echo URL . "usuarios" . DS1 . "index/" ?>">Usuarios</a></li>
                         <li><a href="<?php echo URL . "login/logof"; ?>">Sair</a></li>
                     </ul>
@@ -63,56 +62,126 @@ function selected($value, $selected) {
                     <a class="tile wide imagetext wideimage bg-color-blue" href="<?php echo URL . "usuario" . DS1 . "index/" ?>">
                         <img src="<?php echo URL; ?>public/img/img3.png" alt="sam" style="width:200px;" />
                         <div class="textover-wrapper bg-color-blueDark">
-                            <div class="text2">cadastrar, alterar, dEletar</div>
+                            <div class="text2">cadastrar, alterar, Apagar</div>
                         </div>
                     </a>
 
-                    <div class="panorama-section tile-span-4">
-                        <h2>Logs do sistema</h2>
-
-
-                        <a class="tile wide imagetext bg-color-grayLight" href="<?php echo URL . "log" . DS1 . "index/" ?>">
-                            <div class="image-wrapper">
-                                <img src="<?php echo URL; ?>public/img/img4.png" alt="sam"  class="img-responsive img-rounded" />
-                            </div>
-                            <div class="column-text">
-                                <div class="text4">Ver logs</div>
-                            </div>
-                        </a>
-
-
-
-                    </div>
-
-
 
                 </div>
+                
+                
+                <h2>Categoria Cientifica</h2>
+
+                <div class="tile-column-span-2">
 
 
+                    <a class="tile wide imagetext wideimage " href="<?php echo URL . "generico" . DS1 . "render/categoriaCientifica" ?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img10.png" alt="sam"  style="width:200px;"/>
 
-                <div id="charms" class="win-ui-dark slide">
-
-                    <div id="theme-charms-section" class="charms-section">
-                        <div class="charms-header">
-                            <a href="#" class="close-charms win-backbutton"></a>
-                            <h2>Definições</h2>
+                        <div class="textover-wrapper bg-color-blueDark">
+                            <div class="text2">Cadastrar,Alterar,Apagar</div>
                         </div>
+                    </a>
 
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <form action="dashboard/alteraTema" id="tema">
-                                    <label for="win-theme-select">Alterar Tema:</label>
-                                    <select id="win-theme-select" class="tema" name="tema">
-
-                                        <option value="default" <?php echo selected(Session::get('tema'), "default") ?> >Default</option>
-                                        <option value="metro" <?php echo selected(Session::get('tema'), "metro") ?> >Metro</option>
-                                    </select>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
+
+            <div class="panorama-section">
+
+
+
+                <h2>Categoria de Docente</h2>
+
+                <div class="tile-column-span-2">
+
+
+                    <a class="tile wide imagetext wideimage" href="<?php echo URL . "generico" . DS1 . "render/categoriaDocente/" ?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img10.png" alt="sam"  style="width:200px;"/>
+
+                        <div class="textover-wrapper bg-color-red">
+                            <div class="text2">Cadastrar,Alterar,Apagar</div>
+                        </div>
+                    </a>
+
+                </div>
+
+
+                <h2>Unidade Organica</h2>
+
+                <div class="tile-column-span-2">
+
+
+                    <a class="tile wide imagetext wideimage" href="<?php echo URL . "generico" . DS1 . "render/unidadeOrganica/" ?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img10.png" alt="sam"  style="width:200px;"/>
+
+                        <div class="textover-wrapper bg-color-blueDark">
+                            <div class="text2">Cadastrar,Alterar,Apagar</div>
+                        </div>
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            <div class="panorama-section">
+
+                <h2>Universidade</h2>
+
+                <div class="tile-column-span-2">
+
+
+                    <a class="tile wide imagetext wideimage " href="<?php echo URL . "generico" . DS1 . "render/universidade/"?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img10.png" alt="sam"  style="width:200px;"/>
+
+                        <div class="textover-wrapper bg-color-blueDark">
+                            <div class="text2">Cadastrar,Alterar,Apagar</div>
+                        </div>
+                    </a>
+
+                </div>
+
+
+                <h2>Função</h2>
+
+                <div class="tile-column-span-2">
+
+
+                    <a class="tile wide imagetext wideimage" href="<?php echo URL . "generico" . DS1 . "render/funcao/" ?>" style="background-color:white;">
+                        <img src="<?php echo URL; ?>public/img/img10.png" alt="sam"  style="width:200px;"/>
+
+                        <div class="textover-wrapper bg-color-red">
+                            <div class="text2">Cadastrar,Alterar,Apagar</div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="panorama-section tile-span-4">
+                <h2>Logs do sistema</h2>
+
+
+                <a class="tile wide imagetext bg-color-grayLight wideimage" href="<?php echo URL . "log" . DS1 . "index/" ?>">
+                    <div class="image-wrapper">
+                        <img src="<?php echo URL; ?>public/img/img4.png"   class="img-responsive img-rounded" />
+                    </div>
+                    <div class="column-text">
+                        <div class="text4">Ver logs</div>
+                    </div>
+                </a>
+
+
+
+            </div>
+
+       
+
+
         </div>
     </div>
+</div>

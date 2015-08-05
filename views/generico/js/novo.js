@@ -71,7 +71,6 @@ function tabela() {
 
 
 function remover() {
-    var url = "https://localhost/uan/usuario/index";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');
@@ -80,7 +79,7 @@ function remover() {
                     .done(function (data) {
                         alert("Dados apagado com sucesso");
 
-                        $(location).attr('href', url);
+                        
                     });
         }
         else {

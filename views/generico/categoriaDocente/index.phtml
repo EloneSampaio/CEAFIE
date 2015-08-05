@@ -9,8 +9,8 @@
                 <!--<h4>Adicionar Novo</h4>-->
                 <div class="navbar">
                     <ul class="nav navbar-nav">
-                        <li class="active click"><a href="<?php echo URL . "usuario" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Novo</span></a></li>
-                      </ul>
+                        <li class="active click"><a href="<?php echo URL . "generico" . DS1 . "adicionar/categoriaDocente" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Novo</span></a></li>
+                    </ul>
                 </div>
 
 
@@ -20,26 +20,22 @@
                 <div class="span12">
 
                     <table  class="table table-striped table-bordered" id="tabela">   
+                        <caption class="text-center text-big text-info">Tabela de categoria de docente cadastradas</caption>
                         <thead>
                             <tr class="odd gradeA">
                                 <th>Nome</th> 
-                                <th>Login</th>
-                                <th>Nivel</th>
-                                <th>Alterar</th>
-                                <th>Apagar</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php if (isset($this->usuarios) && !empty($this->usuarios)): ?>
-                                <?php foreach ($this->usuarios as $dados): ?>
+                            <?php if (isset($this->dados) && !empty($this->dados)): ?>
+                                <?php foreach ($this->dados as $dados): ?>
 
                                     <tr>
-                                        <td><?php print $dados->getPessoa()->getNome(); ?></td>
-                                        <td><?php print $dados->getLogin(); ?></td>
-                                        <td><?php print $dados->getNivel(); ?></td>
-                                        <td><a rel="<?php print URL . "usuario/editar/" . $dados->getId(); ?>" href="<?php print URL . "usuario/editar/" . $dados->getId(); ?>" id="usuario1"><i class="icon-pencil"></i></a></td>
-                                        <td><a rel="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" href="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" id="remover"><i class="icon-trash"></i></a></td>
+                                        <td><?php print $dados->getNome(); ?></td>
+                                        <td><a rel="<?php print URL . "generico/editar/" . $dados->getId(); ?>/categoriaDocente" href="<?php print URL . "generico/editar/" . $dados->getId(); ?>/categoriaDocente" id="usuario1"><i class="glyphicon glyphicon-pencil" ></i></a></td>
+                                        <td><a rel="<?php print URL . "generico/editar/" . $dados->getId(); ?>/categoriaDocente" href="<?php print URL . "generico/remover/" . $dados->getId(); ?>/categoriaDocente" id="remover"><i class="glyphicon glyphicon-trash" style="color: red;"></i></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -47,7 +43,7 @@
                     <?php else: ?>
                         <h2 class="text-center text-error">Nenhum usuario cadastrado</h2>
                     <?php endif; ?>
-                    <?php if (isset($this->paginacao) && !empty($this->paginacao)) //echo $this->paginacao;       ?>
+                   
                 </div>
             </div>
         </div>

@@ -7952,7 +7952,7 @@ Progress control. */
 .panorama .panorama-sections h2 {
   margin-left: 5px;
   font-weight: 300;
-  text-transform: lowercase;
+  //text-transform: lowercase;
 }
 
 .panorama .panorama-sections .panorama-section {
@@ -8532,7 +8532,7 @@ Progress control. */
   line-height: 34px;
   color: #555555;
   text-decoration: none;
-  text-transform: lowercase;
+  //text-transform: lowercase;
 }
 
 .pivot > .pivot-headers > a:hover {

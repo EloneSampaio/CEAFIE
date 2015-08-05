@@ -152,40 +152,43 @@ class Programa extends Controller implements Dao {
 
 
             if (!$this->getSqlverifica('local')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha um local");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha um local";
-                $this->view->renderizar("novo");
-
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um local");
+                echo json_encode($ret);
                 exit;
+                // $this->view->erro = "Porfavor Escolha um local";
+                ////$this->view->renderizar("novo");
+                //exit;
             }
 
 
             if (!$this->getSqlverifica('termino')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
-                //echo json_encode($ret);
-
-                $this->view->erro = "Porfavor Escolha uma data de termino";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha uma data de termino");
+                echo json_encode($ret);
                 exit;
+                // $this->view->erro = "Porfavor Escolha uma data de termino";
+                // $this->view->renderizar("novo");
+                //exit;
             }
 
             if (!$this->getSqlverifica('inicio')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha uma data de inicio";
-                $this->view->renderizar("novo");
+
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um data de inicio");
+                echo json_encode($ret);
                 exit;
+                //$this->view->erro = "Porfavor Escolha uma data de inicio";
+                //$this->view->renderizar("novo");
+                //exit;
             }
 
 
             if (!$this->getSqlverifica('hora')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma hora");
-                //echo json_encode($ret);
 
-                $this->view->erro = "Porfavor Escolha uma hora";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha uma hora");
+                echo json_encode($ret);
                 exit;
+// $this->view->erro = "Porfavor Escolha uma hora";
+                //$this->view->renderizar("novo");
+                //exit;
             }
 
             $this->programa->setHoras($dados['hora']);
@@ -193,7 +196,7 @@ class Programa extends Controller implements Dao {
             $this->programa->setLocal($dados['local']);
             $this->programa->setDatafinal($dados['termino']);
 
-            if ($this->programa->editar1($this->programa, $dados)) {
+            if ($this->programa->editar1($this->programa, $id)) {
                 //    $ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
                 //   echo json_encode($ret);
                 $this->view->mensagem = "Dados guardados com sucesso";
@@ -202,16 +205,16 @@ class Programa extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-                $this->view->renderizar("novo");
-
+                $ret = Array("tipo" => 'success', "mensagem" => "Dados alterado com sucesso", 'cod' => 1);
+                echo json_encode($ret);
                 exit;
             } else {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
-                //echo json_encode($ret);
-                $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
-
+                $ret = Array("tipo" => 'error', "mensagem" => "Erro ao alterar dados");
+                echo json_encode($ret);
                 exit;
+                //$this->view->erro = "Erro ao guardar dados";
+                //$this->view->renderizar("novo");
+                //exit;
             }
         }
 

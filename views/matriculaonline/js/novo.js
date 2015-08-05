@@ -9,10 +9,17 @@
 //    });
 $(document).off('.data-api');
 $(document).off('.alert.data-api')
+
 $(document).ready(function () {
+    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+    //$('#telefone').attr('data-mask', '(999) 999-999');
+    
 
     $('#carregar').hide();
     $("#modulo").hide();
+    $("#modhide").hide();
+
     setTimeout(function () {
         cursos();
     }, 50);
@@ -26,12 +33,12 @@ $(document).ready(function () {
     validaFormEdit();
     var oTable = $('#tabela').dataTable();
 
-var nowDate = new Date();
+    var nowDate = new Date();
     var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     $('#data').datepicker({
         format: "dd-mm-yyyy",
         language: "pt-BR",
-         startDate: today,
+        startDate: today,
     });
 
 
@@ -64,6 +71,7 @@ function modulos() {
                     options += '<option value="' + j[i].id + '">' + j[i].nome + '</option>';
                 }
                 $('#modulo').html(options).show();
+                $('#modhide').show();
                 $('.carregando').hide();
 
 
@@ -172,7 +180,6 @@ function pesquisarData() {
 }
 
 
-
 function tabela() {
 
 
@@ -231,129 +238,118 @@ function validar() {
 }
 
 
-function remover() {
-    var url = "https://localhost/uan/matricula/remover";
-    $(document).on('click', '#remover', function () {
-        if (confirm('Pretendes Apagar este Aluno?')) {
-            var id = $(this).attr('rel');
-            console.log(id);
-            $.post(id)
-                    .done(function (data) {
-                        alert("Dados apagado com sucesso");
-
-                        $(location).attr('href', url);
-                    });
-        }
-        else {
-            return false;
-        }
-    });
-}
 
 
-/** * Função para criar um objeto XMLHTTPRequest */
-function CriaRequest() {
-    try {
-        request = new XMLHttpRequest();
-    }
-    catch (IEAtual) {
-        try {
-            request = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch (IEAntigo) {
-
-            try {
-                request = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (falha) {
-                request = false;
-            }
-        }
-    }
-
-    if (!request)
-        alert("Seu Navegador não suporta Ajax!");
-    else
-        return request;
-}
+///** * Função para criar um objeto XMLHTTPRequest */
+//function CriaRequest() {
+//    try {
+//        request = new XMLHttpRequest();
+//    }
+//    catch (IEAtual) {
+//        try {
+//            request = new ActiveXObject("Msxml2.XMLHTTP");
+//        }
+//        catch (IEAntigo) {
+//
+//            try {
+//                request = new ActiveXObject("Microsoft.XMLHTTP");
+//            } catch (falha) {
+//                request = false;
+//            }
+//        }
+//    }
+//
+//    if (!request)
+//        alert("Seu Navegador não suporta Ajax!");
+//    else
+//        return request;
+//}
 /** * Função para enviar os dados */
 
-function getDados(elemento) {
-    // Declaração de Variáveis
+//function getDados(elemento) {
+//    // Declaração de Variáveis
+//
+//    var acao = $('#' + elemento).attr('id');
+//    var ano = document.getElementById("ano").value;
+//    var imagem = document.getElementById("img").value;
+//    var modulo = $("#modulo1").val();
+//
+//
+//    var result = document.getElementById("conteudo");
+//    var xmlreq = CriaRequest();
+//    // Exibi a imagem de progresso 
+//    result.innerHTML = '<img src="' + imagem + '"/>';
+//    // Iniciar uma requisição
+//
+//
+//    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
+//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+//    xmlreq.onreadystatechange = function () {
+//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+//        if (xmlreq.readyState == 4) {
+//
+//            // Verifica se o arquivo foi encontrado com sucesso 
+//            if (xmlreq.status == 200) {
+//                result.innerHTML = xmlreq.responseText;
+//                tabela();
+//                
+//
+//            }
+//
+//            else {
+//                result.innerHTML = "Erro: " + xmlreq.statusText;
+//            }
+//        }
+//    };
+//
+//    xmlreq.send(null);
+//
+//
+//}
+//
+//
+//function getTodos(elemento) {
+//
+//
+//    var acao = $('#' + elemento).attr('id');
+//
+//    var result = document.getElementById("conteudo");
+//    var imagem = document.getElementById("img").value;
+//    var xmlreq = CriaRequest();
+//    // Exibi a imagem de progresso 
+//    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
+//    // Iniciar uma requisição
+//
+//
+//    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
+//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+//    xmlreq.onreadystatechange = function () {
+//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+//        if (xmlreq.readyState == 4) {
+//
+//            // Verifica se o arquivo foi encontrado com sucesso 
+//            if (xmlreq.status == 200) {
+//                result.innerHTML = xmlreq.responseText;
+//                tabela();
+//
+//            }
+//
+//            else {
+//                result.innerHTML = "Erro: " + xmlreq.statusText;
+//            }
+//        }
+//    };
+//
+//    xmlreq.send(null);
+//
+//
+//}
+//
 
-    var acao = $('#' + elemento).attr('id');
-    var ano = document.getElementById("ano").value;
-    var imagem = document.getElementById("img").value;
-    var modulo = $("#modulo1").val();
 
 
-    var result = document.getElementById("conteudo");
-    var xmlreq = CriaRequest();
-    // Exibi a imagem de progresso 
-    result.innerHTML = '<img src="' + imagem + '"/>';
-    // Iniciar uma requisição
 
 
-    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
-    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-    xmlreq.onreadystatechange = function () {
-        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-        if (xmlreq.readyState == 4) {
-
-            // Verifica se o arquivo foi encontrado com sucesso 
-            if (xmlreq.status == 200) {
-                result.innerHTML = xmlreq.responseText;
-                tabela();
-
-            }
-
-            else {
-                result.innerHTML = "Erro: " + xmlreq.statusText;
-            }
-        }
-    };
-
-    xmlreq.send(null);
-
-
-}
-
-
-function getTodos(elemento) {
-
-
-    var acao = $('#' + elemento).attr('id');
-
-    var result = document.getElementById("conteudo");
-    var imagem = document.getElementById("img").value;
-    var xmlreq = CriaRequest();
-    // Exibi a imagem de progresso 
-    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
-    // Iniciar uma requisição
-
-
-    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
-    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-    xmlreq.onreadystatechange = function () {
-        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-        if (xmlreq.readyState == 4) {
-
-            // Verifica se o arquivo foi encontrado com sucesso 
-            if (xmlreq.status == 200) {
-                result.innerHTML = xmlreq.responseText;
-                tabela();
-
-            }
-
-            else {
-                result.innerHTML = "Erro: " + xmlreq.statusText;
-            }
-        }
-    };
-
-    xmlreq.send(null);
-
-
-}
 
 
 
@@ -405,171 +401,3 @@ function modal(id) {
 
 
 }
-
-
-function validaForm() {
-    $("#adicionar").validate({
-        rules: {
-            apelido: {
-                required: true,
-                minlength: 3
-            },
-            nome: {
-                required: true,
-                minlength: 3,
-            },
-            genero: {
-                required: true
-
-            },
-            bi: {
-                required: true,
-                minlength: 14,
-                maxlength: 14,
-            },
-            nacionalidade: {
-                required: true,
-                minlength: 4
-            },
-            telefone: {
-                required: true,
-                number: true,
-                minlength: 9,
-                maxlength: 9
-
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            grau: {
-                required: true,
-                minlength: 4,
-            },
-            dados: {
-                required: true
-            },
-            graduacao: {
-                required: true,
-                minlength: 4,
-            },
-            universidade: {
-                required: true,
-                minlength: 5,
-            },
-            unidade_organica: {
-                required: true,
-                minlength: 5,
-            },
-            categoria_docente: {
-                required: true
-            },
-            funcao: {
-                required: true
-            },
-            categoria_centifica: {
-                required: true
-            },
-            curso: {
-                required: true
-            },
-            modulo: {
-                required: true
-            },
-            data: {
-                required: true
-            },
-        },
-        messages: {
-            bi: {minlength: "exemplo 235467891LA034"},
-            telefone: {minlength: "exemplo 932345678"},
-        }
-    });
-
-}
-
-
-
-function validaFormEdit() {
-    $("#editar").validate({
-        rules: {
-            apelido: {
-                required: true,
-                minlength: 3
-            },
-            nome: {
-                required: true,
-                minlength: 3,
-            },
-            genero: {
-                required: true
-
-            },
-            bi: {
-                required: true,
-                minlength: 14,
-                maxlength: 14,
-            },
-            nacionalidade: {
-                required: true,
-                minlength: 4
-            },
-            telefone: {
-                required: true,
-                number: true,
-                minlength: 9,
-                maxlength: 9
-
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            grau: {
-                required: true,
-                minlength: 4,
-            },
-            dados: {
-                required: true
-            },
-            graduacao: {
-                required: true,
-                minlength: 4,
-            },
-            universidade: {
-                required: true,
-                minlength: 5,
-            },
-            unidade_organica: {
-                required: true,
-                minlength: 5,
-            },
-            categoria_docente: {
-                required: true
-            },
-            funcao: {
-                required: true
-            },
-            categoria_centifica: {
-                required: true
-            },
-            curso: {
-                required: true
-            },
-            modulo: {
-                required: true
-            },
-            data: {
-                required: true
-            },
-        },
-        messages: {
-            bi: {minlength: "exemplo 235467891LA034"},
-            telefone: {minlength: "exemplo 932345678"},
-        }
-    });
-
-}
-
-
-

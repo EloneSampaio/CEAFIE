@@ -30,6 +30,11 @@ define("APP_PATH",  "application" . DS1);
 //define  nome do arquivo onde se encontra o arquivo de erro
 define("DEFAULT_ERRO", "errorController");
 define("DEFAULT_CONTROLLER", "index");
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', 'elone');
+define('DB_NAME', 'ceafie');
+define('DB_CHAR', 'utf8');
 
 
 

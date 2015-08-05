@@ -21,8 +21,8 @@ abstract class Controller {
     protected $acl;
 
     public function __construct() {
-
-        $this->view = new View(new Request);
+$this->_acl = new ACL();
+        $this->view = new View(new Request,$this->_acl);
     }
 
     protected function LoadModelo($modelo) {

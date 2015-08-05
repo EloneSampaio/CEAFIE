@@ -5,6 +5,7 @@ namespace controllers;
 use application\Controller;
 use application\Dao;
 use application\Session;
+use \Eventviva\ImageResize;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,7 +42,7 @@ class Aluno extends Controller {
 
         parent::__construct();
         $this->view->setJs(array("novo"));
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->setCss(array('build', 'layout', 'ie','font-awesome.min'));
         $this->view->menu = $this->getFooter('menu');
     }
 
@@ -130,6 +131,25 @@ class Aluno extends Controller {
         } else {
             $this->view->renderizar('senha');
         }
+    }
+    
+    
+        public function editarImagem($id) {
+        if ($this->filtraInt($id)) {
+            $diretorio = "upload/";
+            move_uploaded_file($_FILES['imagem']["tmp_name"], $diretorio . $_FILES['imagem']["name"]);
+            $resize = new ImageResize($diretorio . $_FILES['imagem']["name"]);
+            $resize->crop(240, 320);
+            unlink($diretorio . $_FILES['imagem']["name"]);
+            $resize->save($diretorio . $_FILES['imagem']["name"]);
+            $this->pessoa->setImagem($diretorio . $_FILES['imagem']["name"]);
+            $this->pessoa->setId($id);
+            $p = $this->pessoa->editar($this->pessoa);
+            if ($p) {
+                $this->redirecionar("aluno/informacao/".Session::get('id'));
+            }
+        }
+        $this->redirecionar("dashboard/aluno");
     }
 
 }

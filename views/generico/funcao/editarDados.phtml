@@ -1,63 +1,46 @@
 <?php echo $this->menu; ?>
-<?php
+<div class="col-12 pull-left" style="margin-left: 20px; margin-top:   -90px; display: block;">
+    <!--<h4>Adicionar Novo</h4>-->
+    <div class="navbar">
+        <ul class="nav navbar-nav">
+            <li class="active click"><a href="<?php echo URL . "generico" . DS1 . "render/funcao" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Ver</span></a></li>
+        </ul>
+    </div>
 
-function selected($value, $selected) {
-    return $value == $selected ? ' selected="selected"' : '';
-}
-?>
+
+</div>
 <div class="span10 " id="content" style="margin-left: 150px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Usuario</div>
+            <div class="navbar navbar-inner block-header" style="margin-top: 20px;">
+                <div class="muted pull-right"  style="padding: 10px; float: left; color: blue;"></div>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>usuario/editar" id="editar" class="form-horizontal" method="POST">
+                    <form id="" class="form-horizontal" method="POST">
                         <fieldset>
-                            <legend>Dados do Usuario</legend>
-
-
-                            <div class="group-control">
-                                <label class="control-label">Login<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="login" data-required="1" class="span6 m-wrap" value="<?php echo $this->dados->getLogin(); ?>"/>
-                                </div>
-                            </div>
-
-
+                            <legend>Editar  função</legend>
 
                             <div class="group-control">
-                                <input type="checkbox" value="Activar" name="check" class="checkbox" id="checkbox" onclick="this.checked ? getElementById('senha').removeAttribute('readOnly') : getElementById('senha').setAttribute('readOnly', 'readOnly')"/>
-                                <label class="control-label">Senha<span class="required">*</span></label>
+                                <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="password" name="senha" data-required="1"  class="span6 m-wrap" readonly="true" id="senha"/>
+
+                                    <input type="text" name="nome" data-required="1" class="form-control span6 m-wrap" value="<?php if(isset($this->dados)): echo $this->dados->getNome(); endif;?>"/>
                                 </div>
                             </div>
-
-                            <div class="group-control">
-                                <label class="control-label">Nivel<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="nivel">
-                                        <option value="administrador" <?php echo selected($this->dados->getNivel(), "administrador") ?> >administrador</option>
-                                        <option value="docente" <?php echo selected($this->dados->getNivel(), "docente") ?> >docente</option>
-                                        <option value="aluno" <?php echo selected($this->dados->getNivel(), "aluno") ?> >aluno</option>
-                                    </select>                                    
-                                </div>
-                            </div>
-
                         </fieldset>
                         <input name="enviar" type="hidden" value="1"/>
-                        <input name="id" type="hidden" value="<?php echo $this->dados->getId(); ?>"/>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary" id="editar">Editar</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                        <input name="opcao" type="hidden" value="funcao"/>
+                        <div class="form-actions span10 text-center">
+                            <button type="submit" class="btn btn-primary" id="ediat">Editar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
 
                         <!-- END FORM-->
+                    </form>
                 </div>
             </div>
         </div>
@@ -71,39 +54,3 @@ function selected($value, $selected) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</form>
-<!-- END FORM-->
-</div>
-</div>
-</div>
-<!-- /block -->
-</div>
-<!-- /validation -->
-
-</div>
-</div>

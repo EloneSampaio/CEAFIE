@@ -1,0 +1,119 @@
+
+<?php
+
+//if ($_SERVER["SERVER_PORT"] != 443){ 
+  //  header("Location: https://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']); 
+   // exit(); 
+//}
+
+
+$adldap = new adLDAP();        
+$data=new DateTime();   
+
+try{
+$adldap->authenticate("elone.sampaio","esampaio"); 
+    }
+catch (adLDAPException $e) {
+            echo $e; 
+            exit();   
+        }
+ 
+$result = $adldap->user()->all();
+//infoCollection("*", array("*"));
+
+
+spl_autoload_register('class_pagination');
+      
+$params = array(
+    'mode'       => 'Sliding',
+    'perPage'    => 10,
+ 
+    'itemData'   => $result
+        
+);
+
+$pager = & Pager::factory($params);
+$data  = $pager->getPageData();
+
+$d=new ArrayIterator($data);
+
+
+
+?>
+
+
+
+
+<br />
+<br />
+
+<div id="pageContent"></div>
+<div id="esconder">
+ <div id="page-wrapper" >
+    
+ 
+     
+<div class="row" style="margin-left: 70px;">
+    <div class="col-lg-9">   
+
+       
+     <div class="col-xs-5 col-sm-3 pull-right">
+         <form class="navbar-form"  method="get" action="<?php echo URL;?>grupo/user_member">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="nome" id="nome">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button" id="enviar"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+            
+            <div class="panel-body">
+           
+<table class="table  table-condensed table-hover table-striped table-bordered">
+ 
+        <thead>
+        <tr>
+            <th>Nome</th> 
+            <th>Login</th>
+            <th>Data de Expiracao</th>
+            <th>Status</th>
+        <button  id="usuario" class="btn btn-success pull-left" type="button"><i class="glyphicon glyphicon-saved "></i>Criar Novo Usuario</button>    
+        </tr>
+        </thead>
+    
+        <tbody>
+
+        <?php      
+for($i=5;$i<count($result);$i++):
+	$username = $result[$i];
+        $user = $adldap->user()->infoCollection("$username", array("*"));
+        $data->setTimestamp($user->accountexpires);
+        
+?>
+        <tr>
+            <td><a href="#" id="dados" rel="<?php echo  $user->samaccountname;?>"><?php echo  $user->displayName;?></a></td>
+            <td><?php echo  $user->samaccountname; ?></td>
+            <td><?php echo date_format($data,"d/m/Y"); ?></td>
+            <td><?php echo  ($user->enabled==0 ? 'No' : 'YES'); ?></td>
+            <td><?php echo  $user->enabled; ?></td>
+            <td><a rel="<?php echo $user->samaccountname ?>" href="#" id="altera"><i class="glyphicon glyphicon-pencil">Alterar</i></a></td>
+            <td><a rel="<?php echo $user->samaccountname ?>" href="#" id="delete"><i class="glyphicon glyphicon-trash">Apagar</i></a></td>
+        
+        </tr>
+        
+    <?php endfor;?>
+            
+    </tbody>
+    
+</table>
+</div>
+        
+        </div>     
+    </div>
+</div>
+ </div>
+
+<script src='<?php URL ?>public/js/jquery-1.9.1.min.js'></script>
+<script src='<?php URL ?>views/usuario/js/js.js'></script>
+
