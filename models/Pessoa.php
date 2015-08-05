@@ -33,6 +33,13 @@ class Pessoa extends Doctrine implements Dao {
     /**
      * @var string
      *
+     * @ORM\Column(name="apelido", type="string", length=45, nullable=true)
+     */
+    private $apelido;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="genero", type="string", nullable=false)
      */
     private $genero;
@@ -68,16 +75,24 @@ class Pessoa extends Doctrine implements Dao {
     /**
      * @var string
      *
-     * @ORM\Column(name="bi", type="string", length=45, nullable=false)
+     * @ORM\Column(name="bi", type="string", length=45, nullable=true)
      */
     private $bi;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="documento", type="string", length=45, nullable=false)
+     * @ORM\Column(name="documento", type="string", length=45, nullable=true)
      */
     private $documento;
+
+    function getApelido() {
+        return $this->apelido;
+    }
+
+    function setApelido($apelido) {
+        $this->apelido = $apelido;
+    }
 
     function getId() {
         return $this->id;

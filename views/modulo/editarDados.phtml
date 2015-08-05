@@ -17,7 +17,7 @@ function selected($value, $selected) {
                     <form action="<?php print URL; ?>modulo/editar" id="editar" class="form-horizontal" method="POST">
                         <fieldset>
                             <legend>Dados do Modúlo</legend>
-                            <div class="control-group">
+                            <div class="group-control">
                                 <label class="control-label">Nome<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getNome(); ?>"/>

@@ -1,3 +1,43 @@
+<style>
+
+    .container {
+        margin-top: 25px;
+    }
+    .form-inline .form-group > div.col-xs-8 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .form-inline label {
+        line-height: 34px;
+    }
+    .form-inline .form-control {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .form-inline .form-group {
+            margin-bottom: 15px;
+        }
+    }
+
+    .verifica{
+        padding:3px;
+        font-size:18px;
+        border:3px #CCC solid;
+    }
+
+    .borda{
+        border: 3px #CCC solid;
+    }
+    .texto{
+        color: red;
+        font-size: 13px;
+    }
+
+</style>
+
+
+
+
 <?php echo $this->menu; ?>
 <?php
 
@@ -32,72 +72,84 @@ function selected($value, $selected) {
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="" id="editar" class="form-horizontal" method="POST">
+                    <form action="" id="edita" class="form form-inline form-multiple" method="POST">
                         <fieldset>
                             <legend>Dados Pessoas</legend>
-                            <div class="control-group">
-                                <label class="control-label">Nome<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getNome(); ?>"/>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Nome</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="nome"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getNome(); ?>"/>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <label class="control-label">Genero<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="genero">
 
-                                        <option value="Masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Masculino") ?> >Masculino</option>
-                                        <option value="Femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "Femenino") ?>>Femenino</option>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Apelido</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="apelido"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getApelido(); ?>"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Genero</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="genero">
+                                        <option value="masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "masculino") ?> >Masculino</option>
+                                        <option value="femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "femenino") ?> >Femenino</option>
                                     </select>                                    
                                 </div>
                             </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Nacionalidade</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9" name="nacionalidade" id="nacionalidade">
+                                        <option value="ANGOLANA" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "ANGOLANA") ?> >Angolana</option>
+                                        <option value="Outro" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "Outro") ?> >Outro</option>
 
-                            <div class="control-group">
-                                <label class="control-label">Nª Bi<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="bi" type="text" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getBi(); ?>"/>
+                                    </select>                   
                                 </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Nacionalidade<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getNacionalidade(); ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Telefone<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="telefone" type="tel" class="span6 m-wrap" value="<?php print $this->dados->getPessoa()->getTelefone(); ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Email<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="email"  class="span6 m-wrap" type="email" value="<?php print $this->dados->getPessoa()->getEmail(); ?>"/>
-                                </div>
-                            </div>
-
-
-
-                            <div class="controls">
-                                <select class="span6 m-wrap" name="grau">
-
-                                    <option value="Licenciado" <?php echo selected($this->dados->getGrau(), "Licenciado") ?>>Licenciado</option>
-                                    <option value="Mestre" <?php echo selected($this->dados->getGrau(), "Mestre") ?>>Mestre</option>
-                                    <option value="Doctor" <?php echo selected($this->dados->getGrau(), "Doctor") ?>>Doctor</option>
-                                </select>                                    
                             </div>
 
                         </fieldset>
+
+
+                        <fieldset>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-8">Nª Doc</label>
+                                <div class="col-xs-12">
+                                    <input name="bi" type="text" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getBi(); ?>"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Telefone</label>
+                                <div class="col-xs-12">
+                                    <input name="telefone" type="tel" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getTelefone(); ?>"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Email</label>
+                                <div class="col-xs-12">
+                                    <input name="email"  class="form-control span9 borda" type="email" value="<?php print $this->dados->getPessoa()->getEmail(); ?>"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-12">Grau</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="grau">
+
+                                        <option value="Licenciado" <?php echo selected($this->dados->getGrau(), "Licenciado") ?>>Licenciado</option>
+                                        <option value="Mestre" <?php echo selected($this->dados->getGrau(), "Mestre") ?>>Mestre</option>
+                                        <option value="Doctor" <?php echo selected($this->dados->getGrau(), "Doctor") ?>>Doctor</option>
+                                    </select>                                    
+                                </div>
+                            </div>
+                        </fieldset>
+
                         <input name="enviar" type="hidden" value="1"/>
                         <input name="id" type="hidden" value="<?php print $this->dados->getId(); ?>"/>
                         <input name="pessoa" type="hidden" value="<?php print $this->dados->getPessoa()->getId(); ?>"/>
-                        <div class="form-actions">
+                        <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="editar">Salvar Dados</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
 
                         <!-- END FORM-->

@@ -3,8 +3,6 @@ $(document).off('.data-api');
 $(document).off('.alert.data-api')
 $(document).ready(function () {
     teste();
-    validar();
-    validaEditar();
     cursos();
     modulos();
     tabela();
@@ -352,111 +350,6 @@ function getTodos(elemento) {
 }
 
 
-function validar() {
-
-    $("#adicionar").validate({
-        rules: {
-            nome: {
-                required: true,
-                minlength: 3
-
-            },
-            apelido: {
-                required: true,
-                minlength: 3
-            },
-            genero: {
-                required: true
-
-            },
-            bi: {
-                required: true,
-                minlength: 14,
-                maxlength: 14,
-            },
-            nacionalidade: {
-                required: true,
-                minlength: 4
-            },
-            telefone: {
-                required: true,
-                number: true,
-                minlength: 9,
-                maxlength: 9
-
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            grau: {
-                required: true
-            },
-            dados: {
-                required: true
-            },
-        },
-        messages: {
-            bi: {minlength: "exemplo 235467891LA034"},
-            telefone: {minlength: "exemplo 932345678"},
-            apelido: {minlength: "obrigat&oacute;rio."},
-        }
-    });
-
-}
-
-
-function validaEditar() {
-    $("#editar").validate({
-        rules: {
-            nome: {
-                required: true,
-                minlength: 3
-
-            },
-            apelido: {
-                required: true,
-                minlength: 3
-            },
-            genero: {
-                required: true
-
-            },
-            bi: {
-                required: true,
-                minlength: 14,
-                maxlength: 14,
-            },
-            nacionalidade: {
-                required: true,
-                minlength: 4
-            },
-            telefone: {
-                required: true,
-                number: true,
-                minlength: 9,
-                maxlength: 9
-
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            grau: {
-                required: true
-            },
-            dados: {
-                required: true
-            },
-        },
-        messages: {
-            bi: {minlength: "exemplo 235467891LA034"},
-            telefone: {minlength: "exemplo 932345678"},
-            apelido: {minlength: "obrigat&oacute;rio."},
-        }
-    });
-
-}
 
 
 

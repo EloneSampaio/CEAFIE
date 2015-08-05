@@ -28,7 +28,7 @@
 
 
 
-            <div class="span6 " id="content" style="margin-left: 100px; margin-top: 50px;">
+            <div class="span6 " id="content" style="margin-left: 100px; margin-top: 30px;">
                 <!-- validation -->
 
                 <div class="row-fluid">
@@ -46,9 +46,9 @@
                                     <fieldset>
                                         <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
 
-                                        <div class="control-group">
+                                        <div class="form-group">
                                             <label class="control-label">Curso<span class="required">*</span></label>
-                                            <div class="controls">
+                                            <div>
                                                 <select class="span6 m-wrap " id="curso" name="curso">
                                                     <option value="000">-Selecciona um curso-</option>
                                                 </select>
@@ -59,7 +59,7 @@
                                     </fieldset>
 
                                     <input name="enviar" type="hidden" value="1"/>
-                                    <div class="form-actions">
+                                    <div class="form-actions span10 text-center">
                                         <input type="button" name="btnPesquisar" value="Pesquisar" class="btn btn-success" id="buscar"  onclick="getDados('buscar');"/>
                                         <input type="button" name="btnPesquisar" value="Carregar Todos" class="btn btn-primary" id="buscar"  onclick="getTodos('buscar');" />
                                         <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
@@ -76,12 +76,7 @@
 
             </div>
 
-            <h3 style="position: absolute; right: 600px;">  <?php
-                if (isset($this->titulo)): echo $this->titulo;
-                endif;
-                ?>
-            </h3>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br />
             <div id="conteudo">
 
             </div>

@@ -1,3 +1,92 @@
+
+<?php $graduacao = $this->dados->getAluno()->getGraduacao(); ?>
+<?php $unorganica = $this->dados->getAluno()->getUnidadeOrganica(); ?>
+<?php $universidade = $this->dados->getAluno()->getUniversidade(); ?>
+<?php $catDocente = $this->dados->getAluno()->getCategoriaDocente(); ?>
+<?php $funcao = $this->dados->getAluno()->getFuncao(); ?>
+<?php $cientifica = $this->dados->getAluno()->getCategoriaCientifica(); ?>
+
+
+<style>
+
+    .container {
+        margin-top: 25px;
+    }
+    .form-inline .form-group > div.col-xs-8 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .form-inline label {
+        line-height: 34px;
+    }
+    .form-inline .form-control {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .form-inline .form-group {
+            margin-bottom: 15px;
+        }
+    }
+
+    .verifica{
+        padding:3px;
+        font-size:18px;
+        border:3px #CCC solid;
+    }
+
+    .borda{
+        border: 3px #CCC solid;
+    }
+    .texto{
+        color: red;
+        font-size: 13px;
+    }
+
+</style>
+<script>
+    $(document).ready(function () {
+        alert('altera apenas o que for necessario');
+        var graduacao = "<?php echo $graduacao; ?>";
+        setTimeout(function () {
+            $("#graduacao option:contains('" + graduacao + "')").attr('selected', true);
+        }, 20);
+
+        var universidade = "<?php echo $universidade; ?>";
+        setTimeout(function () {
+            $("#universidade option:contains('" + universidade + "')").attr('selected', true);
+        }, 20);
+
+        var unorganica = "<?php echo $unorganica; ?>";
+
+        setTimeout(function () {
+            $("#unidade_organica option:contains('" + unorganica + "')").attr('selected', true);
+        }, 20);
+
+        var catDocente = "<?php echo $catDocente; ?>";
+
+        setTimeout(function () {
+            $("#categoria_docente option:contains('" + catDocente + "')").attr('selected', true);
+        }, 20);
+
+        var funcao = "<?php echo $funcao; ?>";
+
+
+        setTimeout(function () {
+            $("#funcao option:contains('" + funcao + "')").attr('selected', true);
+        }, 20);
+
+        var cientifica = "<?php echo $cientifica; ?>";
+
+
+        setTimeout(function () {
+            $("#funcao option:contains('" + cientifica + "')").attr('selected', true);
+        }, 20);
+
+
+        // alert(variavel);
+
+    });
+</script>
 <?php echo $this->menu; ?>
 <?php
 
@@ -11,7 +100,7 @@ function selected($value, $selected) {
     <h3></h3>
     <div class="navbar">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver Alunos</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver Formandos</span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
         </ul>
@@ -22,161 +111,178 @@ function selected($value, $selected) {
 
 
 
-    <div class="span10 " id="content" style="margin-left: 150px;">
-        <!-- validation -->
-        <div class="row-fluid">
-            <!-- block -->
-            <div class="block">
-                <div class="navbar navbar-inner block-header" style="margin-top: 20px;">
-                    <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Aluno</div>
-                </div>
-                <div class="block-content collapse in">
-                    <div class="span12">
-                        <!-- BEGIN FORM-->
-                        <form action="" id="adicionar" class="form-horizontal" method="POST" >
-                            <fieldset>
-                                <legend>Dados Pessoas</legend>
-                                <?php if (isset($this->dados) && !empty($this->dados)): ?>
-
-
-                                    <div class="control-group">
-                                        <label class="control-label">Nome<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getPessoa()->getNome(); ?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Genero<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <select class="span6 m-wrap" name="genero">
-                                                <option value="Masculino" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "Masculino") ?> >Masculino</option>
-                                                <option value="Femenino" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "Femenino") ?> >Femenino</option>
-
-                                            </select>                                    
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label">Nª Bi<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input name="bi" type="text" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getPessoa()->getBi(); ?>"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label">Nacionalidade<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input name="nacionalidade" id="telefone" type="text" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getPessoa()->getNacionalidade(); ?>"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label">Telefone<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input name="telefone" type="tel" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getPessoa()->getTelefone(); ?>"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label">Email<span class="required">*</span></label>
-                                        <div class="controls">
-                                            <input name="email"  class="span6 m-wrap" type="email" value="<?php print $this->dados->getAluno()->getPessoa()->getEmail(); ?>"/>
-                                        </div>
-                                    </div>
-
-
-
-                                    <fieldset>
-                                        <legend>Dados Académicos</legend>
-                                        <div class="control-group">
-                                            <label class="control-label">graduação<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <input type="text" name="graduacao" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getGraduacao(); ?>"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Universidade<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <input name="universidade" type="text" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUniversidade(); ?>"/>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <fieldset>
-                                        <legend>Dados Profissionais</legend>
-                                        <div class="control-group">
-                                            <label class="control-label">Unidade Organica<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap" value="<?php print $this->dados->getAluno()->getUnidadeOrganica(); ?>"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Categoria Docente<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <select class="span6 m-wrap" name="categoria_docente">
-                                                    <option value="Assistente" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Assistente") ?>>Assistente</option>
-                                                    <option value="Associado" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Associado") ?> >Associado</option>
-                                                    <option value="Titular" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Titular") ?>>Titular</option>
-                                                    <option value="Nenhum" <?php echo selected($this->dados->getAluno()->getCategoriaDocente(), "Nenhum") ?>>Nenhum</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br />
-
-                                        <div class="control-group">
-                                            <label class="control-label">Função<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <select class="span6 m-wrap" name="funcao">
-                                                    <option value="Chefe de departamento" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de departamento") ?>>Chefe de departamento</option>
-                                                    <option value="Chefe de seccao" <?php echo selected($this->dados->getAluno()->getFuncao(), "Chefe de seccao") ?>>Chefe de seccao</option>
-                                                    <option value="Tecnica" <?php echo selected($this->dados->getAluno()->getFuncao(), "Tecnica") ?>>Tecnica</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="control-group">
-                                            <label class="control-label">Categoria Cientifica<span class="required">*</span></label>
-                                            <div class="controls">
-                                                <select class="span6 m-wrap" name="categoria_centifica">
-                                                    <option value="Investigador" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Investigador") ?>>Investigador</option>
-                                                    <option value="Nenhuma" <?php echo selected($this->dados->getAluno()->getCategoriaCientifica(), "Nenhuma") ?>>Nenhuma</option>
-                                                </select>  
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
-
-
-
-                                    <input name="enviar" type="hidden" value="1"/>
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                                        <button type="reset" class="btn">Cancelar</button>
-                                    </div>
-                                </fieldset>
-                                <?php
-                            endif;
-                            ?>
-                        </form>
-
-                        <!-- END FORM-->
-                    </div>
-                </div>
+<div class="span12 " id="content" style="margin-left: 150px; ">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <br />
+        <div class="block">
+            <div class="navbar-nav container block-header" style="margin-top: 20px;">
+                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Formando</div>
             </div>
-            <!-- /block -->
         </div>
-        <!-- /validation -->
+        <div class="block-content collapse in">
+            <div class="span12">
+                <!-- BEGIN FORM-->
+                <form  action="" id="edita" class="form form-inline form-multiple" method="POST" enctype="multipart/form-data" >
+                    <fieldset>
+                        <legend>Dados Pessoais</legend>
+                        <?php if (isset($this->dados) && !empty($this->dados)): ?>
 
+
+
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Nome</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="nome"  class="form-control span9 borda" value=" <?php print $this->dados->getAluno()->getPessoa()->getNome(); ?>"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+
+                                <label class="col-xs-4">Apelido</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="apelido" class="form-control span9 borda" value="<?php print $this->dados->getAluno()->getPessoa()->getApelido(); ?>"/>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Genero</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="genero">
+                                        <option value="masculino" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "masculino") ?> >Masculino</option>
+                                        <option value="femenino" <?php echo selected($this->dados->getAluno()->getPessoa()->getGenero(), "femenino") ?> >Femenino</option>
+                                    </select>                                    
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <p></p>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Nacionalidade</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9" name="nacionalidade" id="nacionalidade">
+                                        <option value="ANGOLANA" <?php echo selected($this->dados->getAluno()->getPessoa()->getNacionalidade(), "ANGOLANA") ?> >Angolana</option>
+                                        <option value="Outro" <?php echo selected($this->dados->getAluno()->getPessoa()->getNacionalidade(), "Outro") ?> >Outro</option>
+
+                                    </select>                   
+                                </div>
+                            </div>
+
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3" id="bi">
+                                <label class="col-xs-4">Nª Doc</label>
+                                <div class="col-xs-12">
+                                    <input name="bi" type="text" class="form-control span9" maxlength="14" value="<?php print $this->dados->getAluno()->getPessoa()->getBi(); ?>"/>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Telefone</label>
+                                <div class="col-xs-12">
+                                    <input name="telefone" type="tel" class="form-control span9 borda" maxlength="9" value="<?php
+                                    echo $this->dados->getAluno()->getPessoa()->getTelefone();
+                                    ?>"/> 
+                                </div>
+                            </div>
+
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Email</label>
+                                <div class="col-xs-12">
+                                    <input name="email"  class="form-control span9 borda" type="email" value="<?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?>"/>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Dados Académicos</legend>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">graduação</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="graduacao" id="graduacao">
+
+
+                                    </select>                   
+                                </div>
+                            </div>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Universidade</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="universidade" id="universidade">
+
+                                    </select>             
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                        <legend>Dados Profissionais</legend>
+
+                        <fieldset>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-8">Unidade Organica</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="unidade_organica" id="unidade_organica">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-12">Categ Docente</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="categoria_docente" id="categoria_docente">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-4">Função</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="funcao" id="funcao">
+
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                                <label class="col-xs-12">Categ Cientifica</label>
+                                <div class="col-xs-12">
+                                    <select class="form-control span9 borda" name="categoria_centifica" id="categoria_centifica">
+
+
+                                    </select>                                    
+
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+
+
+                        <br /><br />
+                        <input name="enviar" type="hidden" value="1"/>
+
+                        <div class="form-actions span10 text-center">
+                            <button type="submit" class="btn btn-primary" id ="editas" >Salvar Dados</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
+                        </div>
+                        <br /><br />
+
+                    </form>
+                    <?php
+                endif;
+                ?>
+                <!-- END FORM-->
+            </div>
+        </div>
     </div>
+    <!-- /block -->
 
-</form>
-<!-- END FORM-->
-</div>
-</div>
-</div>
-<!-- /block -->
+    <!-- /block -->
 </div>
 <!-- /validation -->
-
-</div>
-</div>

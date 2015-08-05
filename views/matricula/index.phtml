@@ -17,7 +17,7 @@
 </div>
 
 <div  id="content" style="margin-left: 80px; ">
-    <div class="row-fluid">
+    <div class="container-fluid">
 
         <div class="block">
 
@@ -39,34 +39,34 @@
                         <div class="block-content collapse in">
                             <div class="span12">
                                 <!-- BEGIN FORM-->
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" action="<?php print URL; ?>matricula/pesquisaPor/" method="POST" target="_BLANK">
                                     <fieldset>
                                         <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
 
 
-                                        <div class="control-group">
+                                        <div class="group-control">
                                             <label class="control-label">Ano<span class="required">*</span></label>
                                             <div class="controls">
                                                 <input type="text" name="ano" data-required="1" class="span6 m-wrap" id="ano"/>
 
                                             </div>
                                         </div>
-                                        <div class="control-group">
+                                        <div class="group-control">
                                             <label class="control-label">Curso<span class="required">*</span></label>
                                             <div class="controls">
-                                                <select class="span6 m-wrap " id="curso" name="curso">
-                                                    <option value="000">-Selecciona um curso-</option>
+                                                <select class="span6 m-wrap" id="curso" name="curso">
+                                                    <option value="">-Selecciona um curso-</option>
                                                 </select>
 
 
                                             </div>
                                         </div>
 
-                                        <div class="control-group">
+                                        <div class="group-control">
                                             <label class="control-label">Modúlo<span class="required">*</span></label>
                                             <div class="controls">
                                                 <select class="span6 m-wrap" id="modulo1" name="modulo1">
-                                                    <option value="000">-Seleciona um modulo-</option>
+                                                    <option value="">-Seleciona um modulo-</option>
                                                 </select>
 
 
@@ -75,10 +75,11 @@
                                     </fieldset>
 
                                     <input name="enviar" type="hidden" value="1"/>
-                                    <div class="form-actions">
-                                        <input type="button" name="btnPesquisar" value="Pesquisar" class="btn btn-success" id="buscar"  onclick="getDados('buscar');"/>
-                                        <input type="button" name="btnPesquisar" value="Carregar Todos" class="btn btn-primary" id="buscar"  onclick="getTodos('buscar');" />
-                                        <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
+                                    <input name="acao" type="hidden" value="buscar"/>
+                                   <div class="form-actions span12 text-center">
+                                        <button  name="pesquisa"  class="btn btn-success" value="pesquisar">Pesquisar</button>
+                                        <button  name="pesquisaT"  class="btn btn-primary"  >Carregar Todos</button>
+<!--                                        <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>-->
                                     </div>
                                 </form>
 
@@ -94,17 +95,7 @@
 
 
 
-
-            <h3 style="position: absolute; right: 550px;">  <?php
-                if (isset($this->titulo)): echo $this->titulo;
-                endif;
-                ?> </h3>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <div id="conteudo">
-
-            </div>
-
-        </div>
+         </div>
 
     </div>
 

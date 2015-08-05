@@ -1,7 +1,7 @@
 <?php
 
 namespace application;
-error_reporting(0);
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -150,8 +150,7 @@ abstract class Controller {
         // var_dump(unlink($caminho));
     }
 
-    
-    /** função para verificar Bi*/
+    /** função para verificar Bi */
     public function verificarBi($bi) {
         $expressao_regular = "/^[0-9]{9}[A-Z]{2}[0-9]{3}$/";
         if (preg_match($expressao_regular, $bi)) {
@@ -214,7 +213,7 @@ abstract class Controller {
             if ($t2 < $t1) {
                 return TRUE;
             } else {
-                return FALSE;    
+                return FALSE;
             }
         } else {
             $dataInicio = date('d-m-Y');
@@ -226,6 +225,16 @@ abstract class Controller {
 
             if ($t2 < $t1) {
                 return TRUE;
+            }
+        }
+    }
+
+    function get_post_action($name) {
+        $params = func_get_args();
+
+        foreach ($params as $name) {
+            if (isset($_POST[$name])) {
+                return $name;
             }
         }
     }

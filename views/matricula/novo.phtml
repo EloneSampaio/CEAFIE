@@ -9,316 +9,313 @@ function selected($value, $selected) {
 ?>
 
 
+<style>
 
-    <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
+    .container {
+        margin-top: 25px;
+    }
+    .form-inline .form-group > div.col-xs-8 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .form-inline label {
+        line-height: 34px;
+    }
+    .form-inline .form-control {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .form-inline .form-group {
+            margin-bottom: 15px;
+        }
+    }
 
-                <h3></h3>
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver Alunos</span></a></li>
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-                        <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-                    </ul>
-                </div>
+    .verifica{
+        padding:3px;
+        font-size:18px;
+        border:3px #CCC solid;
+    }
 
+    .borda{
+        border: 3px #CCC solid;
+    }
+    .texto{
+        color: red;
+        font-size: 13px;
+    }
 
-            </div>
-
-
-<div class="span10 " id="content" style="margin-left: 150px; ">
-    <!-- validation -->
-		<div class="row-fluid">
-			<!-- block -->
-			<br />
-			<div class="block">
-			<div class="navbar navbar-inner block-header" style="margin-top: 20px;">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Aluno</div>
-			</div>
-        </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>matricula/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data" target="">
-                        <fieldset>
-                            <legend>Dados Pessoais</legend>
-                            <div class="control-group">
-                                <label class="control-label">Nome<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap" value=" <?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Apelido<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="apelido" data-required="1" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Genero<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="genero">
-                                        <option value="">-Seleciona um genero-</option>
-                                        <option value="Masculino" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
-                                        endif;
-                                        ?> >Masculino</option>
-                                        <option value="Femenino" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
-                                        endif;
-                                        ?> >Femenino</option>
-                                    </select>                                    
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Nª Bi<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="bi" type="text" class="span6 m-wrap" maxlength="14" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Nacionalidade<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="nacionalidade" id="nacionalidade" type="text" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nacionalidade'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Telefone<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="telefone" type="tel" class="span6 m-wrap" maxlength="9" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
-                                    endif;
-                                    ?>"/> 
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Email<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input name="email"  class="span6 m-wrap" type="email" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
+</style>
 
 
+<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
 
-                            <legend>Dados Académicos</legend>
-                            <div class="control-group">
-                                <label class="control-label">graduação<span class="required">*</span></label>
-                                <div class="controls">
-                                     <select class="span6 m-wrap" name="graduacao">
-                                        <option value="">-Seleciona a sua graduação-</option>
-                                        <option value="Licenciado" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Licenciado");
-                                        endif;
-                                        ?> >Licenciado</option>
-                                        <option value="Mestrado" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Mestrado");
-                                        endif;
-                                        ?> >Mestrado</option>
-                                        <option value="Doutoramento" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['graduacao'], "Doutoramento");
-                                        endif;
-                                        ?> >Doutoramento</option>
-                                    </select>                   
-                                    </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Universidade<span class="required">*</span></label>
-                                <div class="controls">
-                                   <select class="span6 m-wrap" name="universidade">
-                                        <option value="">-Seleciona a sua universidade-</option>
-                                        <option value="UAN" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UAN");
-                                        endif;
-                                        ?> >UAN</option>
-                                        <option value="UCAN" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UCAN");
-                                        endif;
-                                        ?> >UCAN</option>
-                                        <option value="UNIA" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UNIA");
-                                        endif;
-                                        ?> >UNIA</option>
-
-                                           <option value="Metodista" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "Metodista");
-                                        endif;
-                                        ?> >Metodista</option>
-                                    
-
-                                    <option value="ISUTIC" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "ISUTIC");
-                                        endif;
-                                        ?> >ISUTIC</option>
-                                               
-
-                                    <option value="UOR" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "UOR");
-                                        endif;
-                                        ?> >UOR</option>
-
-                                          <option value="Outro" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['universidade'], "Outro");
-                                        endif;
-                                        ?> >Outro</option>
-                                    </select>             
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset>
-                            <legend>Dados Profissionais</legend>
-                            <div class="control-group">
-                                <label class="control-label">Unidade Organica<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="unidade_organica" data-required="1" class="span6 m-wrap" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['unidade_organica'];
-                                    endif;
-                                    ?>"/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">Categ Docente<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="categoria_docente">
- <option value=""></option>                                       
-									   <option value="Assistente" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Assistente");
-                                        endif;
-                                        ?>>Assistente</option>
-                                        <option value="Associado" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Associado");
-                                        endif;
-                                        ?> >Associado</option>
-                                        <option value="Titular" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Titular");
-                                        endif;
-                                        ?>>Titular</option>
-                                        <option value="Nenhum" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_docente'], "Nenhum");
-                                        endif;
-                                        ?>>Nenhum</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <br />
-
-                            <div class="control-group">
-                                <label class="control-label">Função<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="funcao">
-                                        <option value="">-Seleciona uma função-</option>
-                                        <option value="Chefe de departamento" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de departamento");
-                                        endif;
-                                        ?>>Chefe de departamento</option>
-                                        <option value="Chefe de seccao" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Chefe de seccao");
-                                        endif;
-                                        ?> >Chefe de seccao</option>
-                                        <option value="Tecnica" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['funcao'], "Tecnica");
-                                        endif;
-                                        ?>>Tecnica</option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label">Categ Cientifica<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="categoria_centifica">
-                                        <option value="">-Seleciona uma categoria-</option>
-                                        <option value="Investigador" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Investigador");
-                                        endif;
-                                        ?>>Investigador</option>
-                                        <option value="Nenhuma" <?php
-                                        if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['categoria_centifica'], "Nenhuma");
-                                        endif;
-                                        ?>>Nenhuma</option>
-
-                                    </select>                                    
-
-                                </div>
-                            </div>
-
-                            <legend>Curso a frequentar</legend>
-                            <div class="control-group">
-                                <label class="control-label">Curso<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" id="curso" name="curso">
-                                        <option value="">Selecciona um curso</option>
-                                    </select>
-
-
-                                </div>
-                            </div>
-                            <div class="carregando"></div>
-                            <div class="control-group">
-                                <label class="control-label">Modúlo<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" id="modulo" name="modulo" >
-
-                                    </select>
-
-
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
-                                <label class="control-label">Data de Inscrição<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="data" class="span6 m-wrap" id="data" data-provide="datepicker" data-required="1" value="<?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
-                                    endif;
-                                    ?>"/>
-                                    <span class="input-group-addon"><span class="icon icon-calendar">
-
-                                        </span>
-
-                                    </span>
-                                </div>
-                            </div>
-<br /><br />
-                            <input name="enviar" type="hidden" value="1"/>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary" id="adicionar" >Salvar Dados</button>
-                                <button type="reset" class="btn">Cancelar</button>
-                            </div>
-
-                        </fieldset>
-                    </form>
-
-                    <!-- END FORM-->
-                </div>
-            </div>
-        </div>
-        <!-- /block -->
+    <p></p>
+    <div class="navbar-nav">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver Formandos</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+        </ul>
     </div>
-    <!-- /validation -->
+
 
 </div>
+
+
+<div class="span12 " id="content" style="margin-left: 150px; ">
+    <!-- validation -->
+    <div class="row-fluid">
+        <!-- block -->
+        <br />
+        <div class="block">
+            <div class="navbar-nav container block-header" style="margin-top: 20px;">
+                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Formando</div>
+            </div>
+        </div>
+        <div class="block-content collapse in">
+            <div class="span12">
+                <!-- BEGIN FORM-->
+                <form action="<?php print URL; ?>matricula/adicionar" id="adicionar" class="form form-inline form-multiple" method="POST"  >
+                    <fieldset>
+                        <legend>Dados Pessoais</legend>
+
+
+
+
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Nome</label>
+                            <div class="col-xs-12">
+                                <input type="text" name="nome"  class="form-control span9 borda" value=" <?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
+                                endif;
+                                ?>"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+
+                            <label class="col-xs-4">Apelido</label>
+                            <div class="col-xs-12">
+                                <input type="text" name="apelido"  class="form-control span9 borda" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
+                                endif;
+                                ?>"/>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Genero</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="genero" id="genero">
+                                    <option value="">-Seleciona um genero-</option>
+                                    <option value="Masculino" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
+                                    endif;
+                                    ?> >Masculino</option>
+                                    <option value="Femenino" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
+                                    endif;
+                                    ?> >Femenino</option>
+                                </select>                                    
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <p></p>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Nacionalidade</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="nacionalidade" id="nacionalidade">
+                                    <option value="">-Seleciona a nacionalidade-</option>
+                                    <option value="ANGOLANA" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "ANGOLANA");
+                                    endif;
+                                    ?>>-Angola-</option>
+                                    <option value="Outro" <?php
+                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "Outro");
+                                    endif;
+                                    ?>>-Outro-</option>
+                                </select>                   
+                            </div>
+                        </div>
+
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3" id="bi">
+                            <label class="col-xs-4">Nª Bi</label>
+                            <div class="col-xs-12">
+                                <input name="bi" id="bix" type="text" class="form-control span9 borda" maxlength="14" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
+                                endif;
+                                ?>"/>
+                                <p class="texto" id="textobi"></p>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3" id="passaporte">
+                            <label class="col-xs-4">Nª Doc</label>
+                            <div class="col-xs-12">
+                                <input name="passaporte" id="passportes" type="text" class="form-control span9 borda" maxlength="7" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['passaporte'];
+                                endif;
+                                ?>"/>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Telefone</label>
+                            <div class="col-xs-12">
+                                <input name="telefone" id="telefone" type="tel" class="form-control span9 verifica" maxlength="9" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
+                                endif;
+                                ?>"/> 
+                                <p class="texto" id="textofone"></p>
+                            </div>
+
+
+                        </div>
+
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Email</label>
+                            <div class="col-xs-12">
+                                <input name="email"  id="email" class="form-control span9 verifica" type="email" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
+                                endif;
+                                ?>"/>
+                                <p class="texto" id="textoemail"></p>
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Dados Académicos</legend>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">graduação</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="graduacao" id="graduacao">
+                                    <option value="">-Seleciona a sua graduação-</option>
+
+                                </select>                   
+                            </div>
+                        </div>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Universidade</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="universidade" id="universidade">
+                                    <option value="">-Seleciona a sua universidade-</option>
+
+                                </select>             
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <legend>Dados Profissionais</legend>
+
+                    <fieldset>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-8">Unidade Organica</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span12 borda" name="unidade_organica" id="unidade_organica">
+                                    <option value="">-Seleciona uma unidade organica</option>                                       
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-12">Categ Docente</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="categoria_docente" id="categoria_docente">
+                                    <option value="">-Seleciona uma categoria</option>                                       
+
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Função</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="funcao" id="funcao">
+                                    <option value="">-Seleciona uma função-</option>
+
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-12">Categ Cientifica</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="categoria_centifica" id="categoria_centifica">
+                                    <option value="">-Seleciona uma categoria-</option>
+
+
+                                </select>                                    
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <legend>Curso a frequentar</legend>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Curso</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" id="curso" name="curso">
+                                    <option value="">Selecciona um curso</option>
+                                </select>
+
+
+                            </div>
+                        </div>
+                        <div class="carregando"></div>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3" id="modhide">
+                            <label class="col-xs-4">Modúlo</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" id="modulo" name="modulo" >
+
+                                </select>
+
+
+                            </div>
+
+                        </div>
+                        <div class="group-control col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Data</label>
+                            <div class="col-xs-12">
+                                <input type="text" name="data" class="form-control span9 borda" id="data" data-provide="datepicker" data-required="1" value="<?php
+                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
+                                endif;
+                                ?>"/>
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <br /><br /><br /><br />
+                    <input name="enviar" type="hidden" value="1"/>
+
+                    <div class="form-actions span10 text-center">
+                        <button type="submit" class="btn btn-primary" id ="adiciona" >Salvar Dados</button>
+                        <button type="reset" class="btn btn-danger   active">Cancelar</button>
+                    </div>
+                    <br /><br />
+
+                </form>
+
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+    <!-- /block -->
+</div>
+<!-- /validation -->
 
 

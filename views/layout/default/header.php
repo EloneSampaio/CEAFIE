@@ -40,8 +40,8 @@ use application\Session; ?>
 
 
             label.error {
-                border: 1px solid red;
-                /*color: red;*/
+                //border: 1px solid red;
+                color: red;
                 font-weight: bold;
                 padding: 3px;
                 /*background-color: #99CCFF;*/

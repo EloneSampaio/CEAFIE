@@ -14,13 +14,13 @@
                         <fieldset>
                             <legend>Dados Pessoas</legend>
                             <?php if (isset($this->dados) && !empty($this->dados)): ?>
-                                <div class="control-group">
+                                <div class="group-control">
                                     <label class="control-label">Nome<span class="required">*</span></label>
                                     <div class="controls">
                                         <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php echo $this->dados->getNome(); ?>"/>
                                     </div>
                                 </div>
-                                <div class="control-group">
+                                <div class="group-control">
                                     <label class="control-label">Descrição<span class="required">*</span></label>
                                     <div class="controls">
                                         <textarea name="descricao"  class="span6 m-wrap"><?php echo $this->dados->getDescricao(); ?></textarea>

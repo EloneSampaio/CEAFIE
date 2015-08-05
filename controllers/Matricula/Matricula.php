@@ -29,6 +29,7 @@ class Matricula extends Controller implements Dao {
     private $usuario;
     private $mm;
     private $log;
+    private $generico;
 
     public function __construct() {
         Session::nivelRestrito(array("gestor"));
@@ -42,11 +43,12 @@ class Matricula extends Controller implements Dao {
         $this->view->menuVertical = $this->getFooter('menuVertical');
         $this->usuario = $this->LoadModelo("Usuario");
         $this->mm = $this->LoadModelo('MatriculaModulo');
+        $this->generico = $this->LoadModelo('Generico');
         $this->log = $this->LoadModelo('Log');
         $this->view->titulo = "Tabela de Alunos Matriculados";
 
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
-        $this->view->setJs(array("novo", 'jquery.multiple.select', 'run_prettify', 'bootstrap-dialog.min'));
+        $this->view->setCss(array('animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
+        $this->view->setJs(array('novo', 'ajax', 'validacao', 'crud', 'jquery.multiple.select', 'run_prettify', 'bootstrap-dialog.min', 'jquery.noty.packaged.min'));
 
         $this->view->menu = $this->getFooter('menu');
     }
@@ -67,151 +69,169 @@ class Matricula extends Controller implements Dao {
 
 
             if (!$this->getSqlverifica('nome')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
-                $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um nome");
+                echo json_encode($ret);
+//                $this->view->erro = "Porfavor Insira um nome";
+//                $this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('apelido')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um apelido");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um apelido";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um apelido");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um apelido";
+                //$this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('genero')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um genero";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um genero");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um genero";
+                //$this->view->renderizar("novo");
                 exit;
             }
-
-            if (!$this->getSqlverifica('bi')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero do BI");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira o numero do BI";
-                $this->view->renderizar("novo");
-                exit;
-            }
-
-            if (!$this->verificarBi($this->view->dados['bi'])) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira  numero de BI valido...");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira numero de BI valido";
-                $this->view->renderizar("novo");
-                exit;
-            }
+//
+//            if (!$this->getSqlverifica('bi')) {
+//                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira o numero do BI");
+//                echo json_encode($ret);
+//                //$this->view->erro = "Porfavor Insira o numero do BI";
+//                //$this->view->renderizar("novo");
+//                exit;
+//            }
+//            if (!$this->verificarBi($this->view->dados['bi'])) {
+//                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira  numero de BI valido...");
+//                //echo json_encode($ret);
+//                $this->view->erro = "Porfavor Insira numero de BI valido";
+//                $this->view->renderizar("novo");
+            // exit;
+//            }
 
 
             if (!$this->getSqlverifica('nacionalidade')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma nacionalidade";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um nacionalidade");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma nacionalidade";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('telefone')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um numero de telefone");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira  um numero de telefone";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um numero de telefone");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira  um numero de telefone";
+                //$this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('email')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um email");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um email";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um email");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um email";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('graduacao')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma graduacao");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma graduacao";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma graduacao");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma graduacao";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('universidade')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma universidade");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma universidade";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma universidade");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma universidade";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('unidade_organica')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma unidade organica");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma unidade organica";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma unidade organica");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma unidade organica";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('categoria_docente')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma categoria para o docente");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma categoria para o docente";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma categoria para o docente");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma categoria para o docente";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('funcao')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma função");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma função";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma função");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma função";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('categoria_centifica')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha uma categoria centifica");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha uma categoria centifica";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha uma categoria centifica");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Escolha uma categoria centifica";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
             if (!$this->getSqlverifica('data')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha uma categoria centifica");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha uma data";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha uma categoria centifica");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Escolha uma data";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('curso')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um curso");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha um curso";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um curso");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Escolha um curso";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             $nome = $this->view->dados['nome'] . " " . $this->view->dados['apelido'];
-            $this->pessoa->setNome($nome);
+            $this->pessoa->setNome($this->view->dados['nome']);
+            $this->pessoa->setApelido($this->view->dados['apelido']);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
             $this->pessoa->setTelefone($this->view->dados['telefone']);
             $this->pessoa->setImagem(NULL);
             $this->pessoa->setEmail($this->view->dados['email']);
-            $this->pessoa->setBi($this->view->dados['bi']);
-
+            if ($this->view->dados['bi'] == '') {
+                $this->pessoa->setBi($this->view->dados['passaporte']);
+                if ($this->pessoa->pesquisarBi($_POST['passaporte'])) {
+                    $ret = Array("tipo" => 'error', "mensagem" => "O numero do passaporte já esta sendo usado escolha um outro");
+                    echo json_encode($ret);
+                    //$this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
+                    //$this->view->renderizar("novo");
+                    exit;
+                }
+            } else {
+                $this->pessoa->setBi($this->view->dados['bi']);
+                if ($this->pessoa->pesquisarBi($_POST['bi'])) {
+                    $ret = Array("tipo" => 'error', "mensagem" => "O numero de bi já esta sendo usado escolha um outro bi");
+                    echo json_encode($ret);
+                    //$this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
+                    //$this->view->renderizar("novo");
+                    exit;
+                }
+            }
             //Aluno//
             $this->aluno->setGraduacao($this->view->dados['graduacao']);
             $this->aluno->setUniversidade($this->view->dados['universidade']);
@@ -231,18 +251,18 @@ class Matricula extends Controller implements Dao {
 
 //verificr dados//
             if ($this->pessoa->pesquisarEmail($_POST['email'])) {
-                $this->view->erro = "O email já esta sendo usado escolha um outro email";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "O email já esta sendo usado escolha um outro email");
+                echo json_encode($ret);
+                //$this->view->erro = "O email já esta sendo usado escolha um outro email";
+                //$this->view->renderizar("novo");
                 exit;
             }
-            if ($this->pessoa->pesquisarBi($_POST['bi'])) {
-                $this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
-                $this->view->renderizar("novo");
-                exit;
-            }
+
             if ($this->pessoa->pesquisarTelefone($_POST['telefone'])) {
-                $this->view->erro = "O numero de telefone já esta sendo usado escolha um outro numero";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "O numero de telefone já esta sendo usado escolha um outro numero");
+                echo json_encode($ret);
+                //$this->view->erro = "O numero de telefone já esta sendo usado escolha um outro numero";
+                //$this->view->renderizar("novo");
                 exit;
             }
 
@@ -252,8 +272,11 @@ class Matricula extends Controller implements Dao {
 
 
             if (!is_int($id)) {
-                $this->view->erro = "Erro ao criar usuario";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Erro ao cadastrar ");
+                echo json_encode($ret);
+
+                //$this->view->erro = "Erro ao criar usuario";
+                //$this->view->renderizar("novo");
                 exit;
             } else {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
@@ -263,9 +286,11 @@ class Matricula extends Controller implements Dao {
 
                 $this->log->adicionar($this->log, Session::get('id'));
 
-                $this->view->mensagem = "Dados guardados com sucesso";
-                $this->view->dados = array();
-                $this->view->renderizar('novo');
+                $ret = Array("tipo" => 'success', "mensagem" => "Dados guardados com sucesso", 'cod' => 1);
+                echo json_encode($ret);
+                //$this->view->mensagem = "Dados guardados com sucesso";
+                //$this->view->dados = array();
+                //$this->view->renderizar('novo');
                 exit;
             }
         }
@@ -295,135 +320,138 @@ class Matricula extends Controller implements Dao {
 
         if ($this->getInt('enviar')) {
 
-
-
             $this->view->dados = $_POST;
 
 
             if (!$this->getSqlverifica('nome')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
-                $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um nome");
+                echo json_encode($ret);
+//                $this->view->erro = "Porfavor Insira um nome";
+//                $this->view->renderizar("novo");
                 exit;
             }
 
-
+            if (!$this->getSqlverifica('apelido')) {
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um apelido");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um apelido";
+                //$this->view->renderizar("novo");
+                exit;
+            }
 
             if (!$this->getSqlverifica('genero')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha um genero");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um genero";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um genero");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um genero";
+                //$this->view->renderizar("novo");
                 exit;
             }
-
-            if (!$this->getSqlverifica('bi')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira o numero do BI");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira o numero do BI";
-                $this->view->renderizar("novo");
-                exit;
-            }
-
-            if (!$this->verificarBi($this->view->dados['bi'])) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira  numero de BI valido...");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira numero de BI valido";
-                $this->view->renderizar("novo");
-                exit;
-            }
+//
+//            if (!$this->getSqlverifica('bi')) {
+//                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira o numero do BI");
+//                echo json_encode($ret);
+//                //$this->view->erro = "Porfavor Insira o numero do BI";
+//                //$this->view->renderizar("novo");
+//                exit;
+//            }
+//            if (!$this->verificarBi($this->view->dados['bi'])) {
+//                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira  numero de BI valido...");
+//                //echo json_encode($ret);
+//                $this->view->erro = "Porfavor Insira numero de BI valido";
+//                $this->view->renderizar("novo");
+            // exit;
+//            }
 
 
             if (!$this->getSqlverifica('nacionalidade')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nacionalidade");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma nacionalidade";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um nacionalidade");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma nacionalidade";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('telefone')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um numero de telefone");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira  um numero de telefone";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um numero de telefone");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira  um numero de telefone";
+                //$this->view->renderizar("novo");
                 exit;
             }
 
             if (!$this->getSqlverifica('email')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um email");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira um email";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira um email");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira um email";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('graduacao')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma graduacao");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma graduacao";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma graduacao");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma graduacao";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('universidade')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma universidade");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma universidade";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma universidade");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma universidade";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('unidade_organica')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma unidade organica");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma unidade organica";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma unidade organica");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma unidade organica";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('categoria_docente')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma categoria para o docente");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma categoria para o docente";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma categoria para o docente");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma categoria para o docente";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
             if (!$this->getSqlverifica('funcao')) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira uma função");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Insira uma função";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Insira uma função");
+                echo json_encode($ret);
+                //$this->view->erro = "Porfavor Insira uma função";
+                //$this->view->renderizar("novo");
 
                 exit;
             }
 
-            if (!$this->getSqlverifica('categoria_centifica')) {
-                // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Escolha uma categoria centifica");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha uma categoria centifica";
-                $this->view->renderizar("novo");
-
-                exit;
-            }
+           
 
 
-            $nome = $this->view->dados['nome'];
-            $this->pessoa->setNome($nome);
+            $nome = $this->view->dados['nome'] . " " . $this->view->dados['apelido'];
+            $this->pessoa->setNome($this->view->dados['nome']);
+            $this->pessoa->setApelido($this->view->dados['apelido']);
             $this->pessoa->setGenero($this->view->dados['genero']);
             $this->pessoa->setNacionalidade($this->view->dados['nacionalidade']);
             $this->pessoa->setTelefone($this->view->dados['telefone']);
-            $this->pessoa->setEmail($this->view->dados['email']);
-            $this->pessoa->setBi($this->view->dados['bi']);
             $this->pessoa->setId($pessoa);
-
+            $this->pessoa->setEmail($this->view->dados['email']);
+            if ($this->view->dados['bi'] == '') {
+                $this->pessoa->setBi($this->view->dados['passaporte']);
+                
+            } else {
+                $this->pessoa->setBi($this->view->dados['bi']);
+                
+            }
             //Aluno//
             $this->aluno->setGraduacao($this->view->dados['graduacao']);
             $this->aluno->setUniversidade($this->view->dados['universidade']);
@@ -432,7 +460,6 @@ class Matricula extends Controller implements Dao {
             $this->aluno->setFuncao($this->view->dados['funcao']);
             $this->aluno->setCategoriaCientifica($this->view->dados['categoria_centifica']);
             $this->aluno->setId($id);
-
             //metodos para alteração//
 
             $r = $this->aluno->edita($this->aluno, $this->pessoa);
@@ -443,9 +470,19 @@ class Matricula extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-                $this->view->mensagem = "Dados alterado com sucesso";
+                $ret = Array("tipo" => 'success', "mensagem" => "Dados alterado com sucesso", 'cod' => 1);
+                echo json_encode($ret);
+                //$this->view->mensagem = "Dados guardados com sucesso";
+                //$this->view->dados = array();
+                //$this->view->renderizar('novo');
+                exit;
             } else {
-                $this->view->erro = "Erro ao alterar dados";
+                $ret = Array("tipo" => 'error', "mensagem" => "Erro ao alterar ");
+                echo json_encode($ret);
+
+                //$this->view->erro = "Erro ao criar usuario";
+                //$this->view->renderizar("novo");
+                exit;
             }
         }
 
@@ -454,8 +491,10 @@ class Matricula extends Controller implements Dao {
         $this->view->renderizar('editarDados');
     }
 
-    public function pesquisaPor($acao = FALSE, $modulo = FALSE, $ano = FALSE) {
-
+    public function pesquisaPor($acao = FALSE) {
+        $acao = $_POST['acao'];
+        $modulo = $_POST['modulo1'];
+        $ano = $_POST['ano'];
 
         switch ($acao):
 
@@ -601,6 +640,46 @@ class Matricula extends Controller implements Dao {
         $report->getBody($dados);
         $report->BuildPDF();
         $report->Exibir();
+    }
+
+    public function verificarTel() {
+        $r = $this->pessoa->pesquisarTelefone($_POST['telefone']);
+        if ($r) {
+            echo json_encode(1);
+        } else {
+
+            echo json_encode(0);
+        }
+    }
+
+    public function verificarEmail() {
+        $r = $this->pessoa->pesquisarEmail($_POST['email']);
+        if ($r) {
+            echo json_encode(1);
+        } else {
+
+            echo json_encode(0);
+        }
+    }
+
+    public function verificarBi() {
+        $r = $this->pessoa->pesquisarBi($_POST['bi']);
+        if ($r) {
+            echo json_encode(1);
+        } else {
+
+            echo json_encode(0);
+        }
+    }
+
+    public function verificarPas() {
+        $r = $this->pessoa->pesquisarBi($_POST['passaporte']);
+        if ($r) {
+            echo json_encode(1);
+        } else {
+
+            echo json_encode(0);
+        }
     }
 
 }

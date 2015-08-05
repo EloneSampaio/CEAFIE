@@ -136,7 +136,7 @@ class Matricula extends Doctrine implements Dao {
 
     public function pesquisaPor($dados = FALSE) {
         $qb = $this->em->createQueryBuilder()
-                ->select('n.nota', 'p.nome', 'a.id')
+                ->select('n.nota', 'p.nome','p.apelido', 'a.id')
                 ->from('models\Matricula', 'm')
                 ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -153,7 +153,7 @@ class Matricula extends Doctrine implements Dao {
 
         if ($ano && $modulo) {
             $qb = $this->em->createQueryBuilder()
-                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->select('p.nome', 'p.apelido','p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -167,7 +167,7 @@ class Matricula extends Doctrine implements Dao {
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         } else {
             $qb = $this->em->createQueryBuilder()
-                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->select('p.nome', 'p.apelido','p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -183,7 +183,7 @@ class Matricula extends Doctrine implements Dao {
         } else {
 
             $qb = $this->em->createQueryBuilder()
-                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->select('p.nome', 'p.apelido','p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -215,7 +215,7 @@ class Matricula extends Doctrine implements Dao {
     public function pesquisaImpressao($id) {
         
         $qb = $this->em->createQueryBuilder()
-                ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                ->select('p.nome', 'p.apelido','p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
                 ->from('models\Matricula', 'm')
                 ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')

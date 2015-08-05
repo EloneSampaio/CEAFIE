@@ -158,9 +158,10 @@ class Aluno extends Doctrine implements Dao {
     public function edita($aluno, $pessoa) {
         $this->em->getConnection()->beginTransaction();
         try {
-
+           
             $editar1 = $this->em->getRepository('models\Pessoa')->find(array('id' => $pessoa->getId()));
             $editar1->setNome($pessoa->getNome());
+            $editar1->setApelido($pessoa->getApelido());
             $editar1->setGenero($pessoa->getGenero());
             $editar1->setNacionalidade($pessoa->getNacionalidade());
             $editar1->setTelefone($pessoa->getTelefone());
