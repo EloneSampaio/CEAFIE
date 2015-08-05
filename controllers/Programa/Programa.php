@@ -24,16 +24,16 @@ class Programa extends Controller implements Dao {
     //put your code here
     private $programa;
     private $docente;
-      private $log;
+    private $log;
 
     public function __construct() {
         Session::nivelRestrito(array("gestor"));
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
-          $this->log = $this->LoadModelo('Log');
+        $this->log = $this->LoadModelo('Log');
         parent::__construct();
-        $this->view->setJS(array('novo'));
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
+        $this->view->setJS(array('novo', 'validacao', 'crud', 'jquery.noty.packaged.min'));
+        $this->view->setCss(array('amaran.min', 'animate', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
     }
 
@@ -48,66 +48,48 @@ class Programa extends Controller implements Dao {
 
             $this->view->dados = $_POST;
             if (!$this->getSqlverifica('curso')) {
-                // $ret = Array("mensagem" => "Porfavor Escolha um curso");
-                // echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha um curso";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha um curso");
+                echo json_encode($ret);
                 exit;
             }
 
             if (!$this->getSqlverifica('modulo')) {
-                //$ret = Array("Porfavor Escolha um modulo");
-                //echo json_encode($ret);
-
-                $this->view->erro = "Porfavor Escolha um modulo";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha um módulo");
+                echo json_encode($ret);
                 exit;
             }
 
             if (!$this->getSqlverifica('docente')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha um docente");
-                //echo json_encode($ret);
-
-                $this->view->erro = "Porfavor Escolha um docente";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha um docente");
+                echo json_encode($ret);
                 exit;
             }
 
 
             if (!$this->getSqlverifica('local')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha um local");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha um local";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha um local");
+                echo json_encode($ret);
 
                 exit;
             }
 
 
             if (!$this->getSqlverifica('termino')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma data de termino");
-                //echo json_encode($ret);
-
-                $this->view->erro = "Porfavor Escolha uma data de termino";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha uma data de termino");
+                echo json_encode($ret);
                 exit;
             }
 
             if (!$this->getSqlverifica('inicio')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma data de inicio");
-                //echo json_encode($ret);
-                $this->view->erro = "Porfavor Escolha uma data de inicio";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha um data de inicio");
+                echo json_encode($ret);
                 exit;
             }
 
 
             if (!$this->getSqlverifica('hora')) {
-                //$ret = Array("mensagem" => "Porfavor Escolha uma hora");
-                //echo json_encode($ret);
-
-                $this->view->erro = "Porfavor Escolha uma hora";
-                $this->view->renderizar("novo");
+                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor escolha uma hora");
+                echo json_encode($ret);
                 exit;
             }
 
@@ -125,13 +107,14 @@ class Programa extends Controller implements Dao {
 //
 //                exit;
 //            }
-
-
-            if ($this->compararDatas($this->view->dados['inicio'], $this->view->dados['termino'])) {
-                $this->view->erro = "Verifica as Datas";
-                $this->view->renderizar("novo");
-                exit;
-            }
+//            if ($this->compararDatas($this->view->dados['inicio'], $this->view->dados['termino'])) {
+//                $ret = Array("tipo" => 'error', "mensagem" => "Verifica as Datas");
+//                echo json_encode($ret);
+//                // 
+//                /// $this->view->erro = "Verifica as Datas";
+//                //$this->view->renderizar("novo");
+//                exit;
+//            }
 
             $this->programa->setHoras($this->view->dados['hora']);
             $this->programa->setData($this->view->dados['inicio']);
@@ -139,21 +122,20 @@ class Programa extends Controller implements Dao {
             $this->programa->setDatafinal($this->view->dados['termino']);
 
             if ($this->programa->adiciona($this->programa, $this->view->dados)) {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardados com sucesso");
-                //echo json_encode($ret);
-                $this->view->mensagem = "Dados guardados com sucesso";
+
+
+                //$this->view->mensagem = "Dados guardados com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Criado um novo programa ');
-                 $this->log->setData(date('d-m-Y h:i:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
                 $this->log->adicionar($this->log, Session::get('id'));
-                $this->view->renderizar("novo");
+
+                $ret = Array("tipo" => 'success', "mensagem" => "Dados guardados com sucesso", 'cod' => 1);
+                echo json_encode($ret);
                 exit;
             } else {
-                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao guardar dados ");
-                //echo json_encode($ret);
-                $this->view->mensagem = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
-
+                $ret = Array("tipo" => 'error', "mensagem" => "Erro ao criar programa");
+                echo json_encode($ret);
                 exit;
             }
         }
@@ -162,7 +144,7 @@ class Programa extends Controller implements Dao {
         $this->view->renderizar("novo");
     }
 
-    public function editar1($dados = FALSE) {
+    public function editarDados($id) {
 
         if ($this->getInt('enviar')) {
 
@@ -234,7 +216,8 @@ class Programa extends Controller implements Dao {
         }
 
 
-        $this->view->renderizar("editar");
+        $this->view->dados = $this->programa->pesquisar($id);
+        $this->view->renderizar('editarDados');
     }
 
     public function editar($id = FALSE) {
@@ -254,7 +237,7 @@ class Programa extends Controller implements Dao {
     public function remover($id = FALSE) {
         if ($this->filtraInt($id)) {
             if ($this->programa->remover($id)) {
-                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
+                $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Apagado um  programa ');
                 $this->log->setData(date('d-m-Y h:i:s'));
 
@@ -264,11 +247,6 @@ class Programa extends Controller implements Dao {
         }
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("remover");
-    }
-
-    public function editarDados($id = FALSE) {
-        $this->view->dados = $this->programa->pesquisar($id);
-        $this->view->renderizar('editarDados');
     }
 
     public function gerar($id) {

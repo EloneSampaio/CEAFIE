@@ -9,28 +9,11 @@ $(document).ready(function () {
         startDate: today,
         clearBtn: true,
     });
-
-//    $('#inicio')
-//            .on('change', function () {
-//               var inicio = $(this).val().split("/");
-//                var sDate = new Date(inicio[1] + "/" + inicio[0] + "/" + inicio[2]);
-//                $('#termino').datepicker({
-//                    language: "pt-BR",
-//                    format: "dd/mm/yyyy",
-//                    startDate: sDate,
-//                    clearBtn: true,
-//                });
-//
-//            })
-//            .on('blur', function () {/*your blur code*/
-//            });
-
-
-    cursos();
+ cursos();
     modulos();
     tabela();
     remover();
-    validar();
+   
     //comparaData();
 });
 
@@ -225,11 +208,11 @@ function validar() {
             },
             inicio: {
                 required: true,
-                dateBR: true
+               
             },
             termino: {
                 required: true,
-                dateBR: true
+               
             },
             hora: {
                 required: true,

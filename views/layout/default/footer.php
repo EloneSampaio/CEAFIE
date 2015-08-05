@@ -13,7 +13,7 @@
 <script type="text/javascript" src="<?php print URL; ?>public/js/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="<?php print $_layoutParam["caminho_assets"] ?>scripts.js"></script>
 
-
+<script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>jquery.mask.js"></script>
 
 <script type="text/javascript" src="<?php print $_layoutParam["caminho_assets"] ?>js/bootmetro-panorama.js"></script>
 <script type="text/javascript" src="<?php print $_layoutParam["caminho_assets"] ?>js/bootmetro-pivot.js"></script>

@@ -8,8 +8,25 @@
 
 $(document).ready(function () {
     validaForm();
-    validaFormEdit();
+    //validaFormEdit();
+    $("#telefone")
+            .mask("(999) 999 99 99")
+            .bind("blur", function () {
+                // force revalidate on blur.
 
+                var frm = $(this).parents("form");
+                // if form has a validator
+                if ($.data(frm[0], 'validator')) {
+                    var validator = $(this).parents("form").validate();
+                    validator.settings.onfocusout.apply(validator, [this]);
+                }
+            });
+
+    $('input,select,textarea').each(function () {
+        $(this).blur(function () {
+            $(this).closest('form').validate().element($(this));
+        });
+    });
 
 
 
@@ -150,7 +167,6 @@ function validaForm() {
                 required: true,
                 number: true,
                 minlength: 9,
-                maxlength: 9,
                 verificaTel: true
 
             },
@@ -235,8 +251,6 @@ function validaFormEdit() {
                 required: true,
                 number: true,
                 minlength: 9,
-                maxlength: 9
-
             },
             email: {
                 required: true,

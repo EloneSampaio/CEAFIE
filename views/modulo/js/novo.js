@@ -5,6 +5,17 @@ $(document).ready(function () {
     remover();
     validar();
     editar();
+    jQuery.validator.addMethod("string", function (valor, elemento) {
+        var str = jQuery.trim(valor);// retira espaços em branco
+        var exp = new RegExp(/^[a-záàâãéèêíïóôõöúçñ ]+$/i);
+
+        if (!str.match(exp)) {
+            return false;
+        }
+
+        return true;
+
+    }, "Somente Letras"); // Mensagem padrão 
 
 });
 
@@ -95,6 +106,7 @@ function validar() {
         rules: {
             nome: {
                 required: true,
+                string: true,
                 minlength: 3
 
             },
@@ -114,6 +126,7 @@ function editar() {
         rules: {
             nome: {
                 required: true,
+                string: true,
                 minlength: 3
 
             },

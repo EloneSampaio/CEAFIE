@@ -201,33 +201,33 @@ abstract class Controller {
      * $dataInicio que é alternativo
      * $dataFim que é a data que queremos compara-lo
      * * */
-    public function compararDatas($dataInicio = false, $dataFim) {
-
-        if ($dataInicio) {
-            $d1 = & explode('-', $dataInicio);
-            $d2 = & explode('-', $dataFim);
-
-            $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
-            $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);
-
-            if ($t2 < $t1) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } else {
-            $dataInicio = date('d-m-Y');
-            $d1 = & explode('-', $dataInicio);
-            $d2 = & explode('-', $dataFim);
-
-            $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
-            $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);
-
-            if ($t2 < $t1) {
-                return TRUE;
-            }
-        }
-    }
+//    public function compararDatas($dataInicio = False, $dataFim=FALSE) {
+//
+//        if ($dataInicio) {
+//            $d1 = & explode('-', $dataInicio);
+//            $d2 = & explode('-', $dataFim);
+//
+//            $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
+//            $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);
+//
+//            if ($t2 < $t1) {
+//                return TRUE;
+//            } else {
+//                return FALSE;
+//            }
+//        } else {
+//            $dataInicio = date('d-m-Y');
+//            $d1 = & explode('-', $dataInicio);
+//            $d2 = & explode('-', $dataFim);
+//
+//            $t1 = & mktime(0, 0, 0, $d1[1], $d1[0], $d1[2]);
+//            $t2 = & mktime(0, 0, 0, $d2[1], $d2[0], $d2[2]);
+//
+//            if ($t2 < $t1) {
+//                return TRUE;
+//            }
+//        }
+//    }
 
     function get_post_action($name) {
         $params = func_get_args();

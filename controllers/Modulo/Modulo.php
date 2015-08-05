@@ -114,7 +114,7 @@ class Modulo extends Controller implements Dao {
                 // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
                 //echo json_encode($ret);
                 $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("novo");
+                $this->view->renderizar("editar");
                 exit;
             } else {
 
@@ -126,7 +126,7 @@ class Modulo extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-                $this->view->renderizar("novo");
+                $this->view->renderizar("editar");
                 exit;
             }
         }

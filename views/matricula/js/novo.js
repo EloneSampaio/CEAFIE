@@ -9,11 +9,17 @@
 //    });
 $(document).off('.data-api');
 $(document).off('.alert.data-api')
+
 $(document).ready(function () {
+    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+    //$('#telefone').attr('data-mask', '(999) 999-999');
+    
 
     $('#carregar').hide();
     $("#modulo").hide();
-     $("#modhide").hide();
+    $("#modhide").hide();
+
     setTimeout(function () {
         cursos();
     }, 50);

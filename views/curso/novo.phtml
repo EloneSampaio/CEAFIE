@@ -31,24 +31,24 @@
                     <form action="<?php print URL; ?>curso/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         <fieldset>
                             <legend>Dados do Curso</legend>
-                            <div class="group-control">
-                                <label class="control-label">Nome<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
+                             <div class="form-group col-xs-12 col-sm-6 col-lg-8">
+                                <label class="col-xs-12">Nome</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="nome"  class="form-control span9 borda"/>
                                 </div>
                             </div>
-                            <div class="group-control">
-                                <label class="control-label">Descrição<span class="required">*</span></label>
-                                <div class="controls">
-                                    <textarea name="descricao"  class="span6 m-wrap"></textarea>
+                             <div>
+                                <label class="col-xs-12">Descrição</label>
+                                <div class="col-xs-12">
+                                    <textarea name="descricao"  class="form-control span9 borda"></textarea>
                                 </div>
                             </div>
                         </fieldset>
 
                         <input name="enviar" type="hidden" value="1"/>
-                        <div class="form-actions">
+                       <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
                         </fieldset>
                     </form>

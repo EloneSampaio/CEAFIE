@@ -32,17 +32,17 @@
                     <form action="<?php print URL; ?>modulo/adicionar" id="adicionar" class="form-horizontal" method="POST">
                         <fieldset>
                             <legend>Dados do Modúlo</legend>
-                            <div class="group-control">
-                                <label class="control-label">Nome<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="nome" data-required="1" class="span6 m-wrap"/>
+                             <div class="form-group col-xs-12 col-sm-6 col-lg-5">
+                                <label class="col-xs-4">Nome</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="nome"  class="form-control span9 borda"/>
                                 </div>
                             </div>
-                            <div class="group-control">
-                                <label class="control-label">Curso<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap " id="curso" name="curso">
-                                        <option value="000">-Selecciona um curso-</option>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-5">
+                                <label class="col-xs-4">Curso</label>
+                                 <div class="col-xs-12">
+                                    <select class="form-control span9 borda" id="curso" name="curso">
+                                        <option value="">-Selecciona um curso-</option>
                                     </select>
 
 
@@ -51,11 +51,11 @@
                         </fieldset>
 
                         <input name="enviar" type="hidden" value="1"/>
-                        <div class="form-actions">
+                         <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
-                        </fieldset>
+                   
                     </form>
 
                     <!-- END FORM-->

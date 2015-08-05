@@ -170,7 +170,7 @@ class Programa extends Doctrine implements Dao {
 //        $curso = $this->em->find('models\Curso', $v['curso']);
 //        $modulo = $this->em->find('models\Modulo', $v['modulo']);
 //        $docente = $this->em->find('models\Docente', $v['docente']);
-        $editar = $this->em->getRepository('models\Programa')->find(array('id' => $v['id']));
+        $editar = $this->em->getRepository('models\Programa')->find(array('id' => $v));
         //\Doctrine\Common\Util\Debug::dump($editar); exit;
 //        $editar->setCurso($curso);
 //        $editar->setModulo($modulo);

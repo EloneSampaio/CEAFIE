@@ -6,6 +6,18 @@ $(document).ready(function () {
     validar();
     editar();
 
+    jQuery.validator.addMethod("string", function (valor, elemento) {
+        var str = jQuery.trim(valor);// retira espaços em branco
+        var exp = new RegExp(/^[a-záàâãéèêíïóôõöúçñ ]+$/i);
+
+        if (!str.match(exp)) {
+            return false;
+        }
+
+        return true;
+
+    }, "Somente Letras"); // Mensagem padrão 
+
 });
 
 
@@ -78,16 +90,20 @@ function validar() {
         rules: {
             nome: {
                 required: true,
-                minlength: 3
+                 string: true,
+                minlength: 3,
+               
 
             },
             descricao: {
                 required: true,
-                minlength: 8
+                string: true,
+                minlength: 8,
+                
             }
 
         }
-        
+
     });
 
 }
@@ -95,15 +111,19 @@ function validar() {
 
 function editar() {
     $("#editar").validate({
-        rules: {
+      rules: {
             nome: {
                 required: true,
-                minlength: 3
+                 string: true,
+                minlength: 3,
+               
 
             },
             descricao: {
                 required: true,
-                minlength: 8
+                string: true,
+                minlength: 8,
+                
             }
 
         }

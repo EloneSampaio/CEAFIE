@@ -34,7 +34,7 @@ class Docente extends Controller implements Dao {
         $this->dm = $this->LoadModelo('DocentModulo');
         $this->log = $this->LoadModelo('Log');
         parent::__construct();
-        $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
+        $this->view->setCss(array('amaran.min', 'animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array("novo", 'validacao', 'crud', "jquery.multiple.select", 'bootstrap-dialog.min', 'jquery.noty.packaged.min'));
         $this->view->menu = $this->getFooter('menu');
         $this->view->titulo = " Tabela de docentes cadastrados";

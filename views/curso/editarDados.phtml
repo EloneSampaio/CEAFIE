@@ -1,4 +1,4 @@
-<?php echo $this->menu;?>
+<?php echo $this->menu; ?>
 <div class="span10 " id="content" style="margin-left: 150px;">
     <!-- validation -->
     <div class="row-fluid">
@@ -12,29 +12,27 @@
                     <!-- BEGIN FORM-->
                     <form action="<?php print URL; ?>curso/editar" id="editar" class="form-horizontal" method="POST">
                         <fieldset>
-                            <legend>Dados Pessoas</legend>
-                            <?php if (isset($this->dados) && !empty($this->dados)): ?>
-                                <div class="group-control">
-                                    <label class="control-label">Nome<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input type="text" name="nome" data-required="1" class="span6 m-wrap" value="<?php echo $this->dados->getNome(); ?>"/>
-                                    </div>
+                            <legend>Dados do Curso</legend>
+                            <div class="form-group col-xs-12 col-sm-6 col-lg-8">
+                                <label class="col-xs-12">Nome</label>
+                                <div class="col-xs-12">
+                                    <input type="text" name="nome"  class="form-control span9 borda" value="<?php echo $this->dados->getNome(); ?>"/>
                                 </div>
-                                <div class="group-control">
-                                    <label class="control-label">Descrição<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <textarea name="descricao"  class="span6 m-wrap"><?php echo $this->dados->getDescricao(); ?></textarea>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <input name="enviar" type="hidden" value="1"/>
-                            <input name="id" type="hidden" value="<?php echo $this->dados->getId(); ?>"/>                     
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary" id="editar">Salvar Dados</button>
-                                <button type="reset" class="btn">Cancelar</button>
                             </div>
-                        <?php endif; ?>
+                            <div>
+                                <label class="col-xs-12">Descrição</label>
+                                <div class="col-xs-12">
+                                    <textarea name="descricao"  class="form-control span9 borda"><?php echo $this->dados->getDescricao(); ?></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <input name="enviar" type="hidden" value="1"/>
+                        <input name="id" type="hidden" value="<?php echo $this->dados->getId(); ?>"/>   
+                        <div class="form-actions span10 text-center">
+                            <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
+                        </div>
                         </fieldset>
                     </form>
 
