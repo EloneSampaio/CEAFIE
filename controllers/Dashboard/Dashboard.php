@@ -26,7 +26,7 @@ class Dashboard extends Controller {
         $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight'));
         $this->view->menu = $this->getFooter('menu');
         $this->view->menuVertical = $this->getFooter('menuVertical');
-        $this->view->titulo = "Dashboard";
+       
     }
 
     public function index() {
@@ -58,7 +58,6 @@ class Dashboard extends Controller {
     public function aluno() {
         Session::nivelRestrito(array("aluno"));
         if (Strcmp(Session::get('tema'), "default") == 0) {
-            $this->view->titulo = "Dashboard";
             $this->view->titulo = "Pagina de Aluno";
             $this->view->renderizar('aluno');
         } else {
@@ -67,10 +66,9 @@ class Dashboard extends Controller {
     }
 
     public function admin() {
-        $this->view->titulo = "Pagina de Administrador";
+        $this->view->titulo = "Pagina de Administração";
         Session::nivelRestrito(array("administrador"));
         if (Strcmp(Session::get('tema'), "default") == 0) {
-            $this->view->titulo = "Dashboard";
             $this->view->renderizar('admin');
         } else {
             $this->adminx();
@@ -109,6 +107,7 @@ class Dashboard extends Controller {
 
     public function gestor() {
         Session::nivelRestrito(array("gestor", "funcionario"));
+         $this->view->titulo = "Dashboard";
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
         $this->view->renderizar("gestor");
@@ -116,7 +115,7 @@ class Dashboard extends Controller {
 
     //tema 2 docente
     public function docentex() {
-        $this->view->titulo = "Pagina de Docente";
+        $this->view->titulo = "Área do docente";
         Session::nivelRestrito(array("docente"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
@@ -126,6 +125,7 @@ class Dashboard extends Controller {
     //tema 2 aluno
     public function alunox() {
         Session::nivelRestrito(array("aluno"));
+         $this->view->titulo = "Área do aluno";
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
         $this->view->renderizar("aluno");

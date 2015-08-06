@@ -3,7 +3,7 @@
 <br /><br /><br />
 <aside id="sidebar" class="column" style="position: absolute; top: 40px;">
     <hr/>
-    <h3>Aluno</h3>
+    <h3>Formando</h3>
     <ul class="toggle">
         <li class="icn_categories"><a  href="<?php echo URL . "matricula" . DS1 . "index/" ?>"  >Ver</a></li>
         <li class="icn_new_article"><a  href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>" >Novo</a></li>
@@ -12,7 +12,7 @@
         <li class="icn_jump_back"><a   href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" >Apagar</a></li>
         <?php endif;?>
     </ul>
-    <h3>Docente</h3>
+    <h3>Formador</h3>
     <ul class="toggle">
         <li class="icn_categories"><a   href="<?php echo URL . "docente" . DS1 . "index/" ?>" >Ver</a></li>
         <li class="icn_new_article"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" >Novo</a></li>

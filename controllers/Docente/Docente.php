@@ -37,7 +37,7 @@ class Docente extends Controller implements Dao {
         $this->view->setCss(array('amaran.min', 'animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array("novo", 'validacao', 'crud', "jquery.multiple.select", 'bootstrap-dialog.min', 'jquery.noty.packaged.min'));
         $this->view->menu = $this->getFooter('menu');
-        $this->view->titulo = " Tabela de docentes cadastrados";
+        $this->view->titulo = " Tabela de formadores inscritos";
     }
 
     public function index() {
