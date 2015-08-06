@@ -1,3 +1,4 @@
+<?php use application\Session; ?>
 <?php echo $this->menu; ?>
 
 
@@ -10,7 +11,9 @@
         <ul class="nav navbar-nav">
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Novo</span></a></li>
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 

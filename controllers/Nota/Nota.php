@@ -26,17 +26,17 @@ class Nota extends Controller implements Dao {
     private $modulo;
     private $matricula;
     private $docente;
-      private $log;
+    private $log;
 
     public function __construct() {
-        Session::nivelRestrito(array("gestor", "docente"));
+
         $this->nota = $this->LoadModelo('Nota');
         $this->dm = $this->LoadModelo('DocentModulo');
         $this->aluno = $this->LoadModelo('Aluno');
         $this->modulo = $this->LoadModelo('Modulo');
         $this->matricula = $this->LoadModelo('Matricula');
         $this->docente = $this->LoadModelo('Docente');
-          $this->log = $this->LoadModelo('Log');
+        $this->log = $this->LoadModelo('Log');
         parent::__construct();
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
@@ -48,6 +48,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         if ($this->getInt('enviar') == 1) {
 
@@ -70,7 +71,7 @@ class Nota extends Controller implements Dao {
                 $this->view->mensagem = "Nota lançada com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Foi Lançada a Nota do aluno ' . $matricula->getAluno()->getPessoa()->getNome());
-                 $this->log->setData(date('d-m-Y h:i:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
             } else {
@@ -82,6 +83,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function adicionarNotaDocente($dados = FALSE) {
+        Session::nivelRestrito(array("docente"));
 
         if ($this->getInt('enviar') == 1) {
 
@@ -117,7 +119,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-
+        Session::nivelRestrito(array("gestor", "docente", "funcionario"));
 
         if ($this->getInt('enviar') == 1) {
             if (!$this->getSqlverifica('nota')) {
@@ -183,12 +185,13 @@ class Nota extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
+         Session::nivelRestrito(array("gestor"));
         if ($this->getInt('id')) {
             if ($this->nota->remover($this->getInt('id'))) {
                 $this->view->mensagem = "Nota Apagada com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
                 $this->log->setAcao('Foi Apagada a Nota ');
-               $this->log->setData(date('d-m-Y h:i:s'));
+                $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 $this->view->dados = $this->nota->pesquisar();
@@ -211,6 +214,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function pesquisaNotaDocente() {
+         Session::nivelRestrito(array("docente"));
 
         if ($this->getInt('enviar')) {
             $dados[] = '1';
@@ -225,6 +229,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function listar() {
+         Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->nota = $this->nota->verNota();
         $this->view->renderizar("notas");
     }

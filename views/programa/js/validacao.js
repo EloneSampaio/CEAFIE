@@ -80,7 +80,8 @@ function validaForm() {
             },
             local: {
                 required: true,
-                minlength: 4
+                minlength: 4,
+                string:true
             },
             inicio: {
                 required: true,

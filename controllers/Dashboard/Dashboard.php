@@ -17,10 +17,11 @@ class Dashboard extends Controller {
     private $usuario;
 
     public function __construct() {
+        parent::__construct();
+
         $this->nota = $this->LoadModelo('Nota');
         $this->matricula = $this->LoadModelo('Matricula');
         $this->usuario = $this->LoadModelo('Usuario');
-        parent::__construct();
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->setJs(array("jquery.amaran.min", 'novo', 'hideshow', 'jquery.equalHeight'));
         $this->view->menu = $this->getFooter('menu');
@@ -32,14 +33,14 @@ class Dashboard extends Controller {
 
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
-            Session::nivelRestrito(array("gestor"));
+            Session::nivelRestrito(array("gestor", "funcionario"));
             $this->view->titulo = "Pagina de Gestão";
 
 
 
-            $this->view->renderizar('index');
+            $this->view->renderizar('gestor');
         } else {
-            $this->teste();
+            $this->gestor();
         }
     }
 
@@ -48,9 +49,9 @@ class Dashboard extends Controller {
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
             $this->view->titulo = "Pagina de Docente";
-            $this->view->renderizar('teste1');
+            $this->view->renderizar('docente');
         } else {
-            $this->teste1();
+            $this->docentex();
         }
     }
 
@@ -61,18 +62,18 @@ class Dashboard extends Controller {
             $this->view->titulo = "Pagina de Aluno";
             $this->view->renderizar('aluno');
         } else {
-            $this->teste2();
+            $this->alunox();
         }
     }
 
     public function admin() {
-         $this->view->titulo = "Pagina de Administrador";
+        $this->view->titulo = "Pagina de Administrador";
         Session::nivelRestrito(array("administrador"));
         if (Strcmp(Session::get('tema'), "default") == 0) {
             $this->view->titulo = "Dashboard";
-           $this->view->renderizar('admin');
+            $this->view->renderizar('admin');
         } else {
-            $this->teste3();
+            $this->adminx();
         }
     }
 
@@ -106,37 +107,36 @@ class Dashboard extends Controller {
         echo json_encode($ret);
     }
 
-    public function teste() {
-        Session::nivelRestrito(array("gestor"));
+    public function gestor() {
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
-        $this->view->renderizar("teste");
+        $this->view->renderizar("gestor");
     }
 
     //tema 2 docente
-    public function teste1() {
+    public function docentex() {
         $this->view->titulo = "Pagina de Docente";
         Session::nivelRestrito(array("docente"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
-        $this->view->renderizar("teste1");
+        $this->view->renderizar("docente");
     }
 
     //tema 2 aluno
-    public function teste2() {
+    public function alunox() {
         Session::nivelRestrito(array("aluno"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
-        $this->view->renderizar("teste2");
+        $this->view->renderizar("aluno");
     }
-    
-    
-      //tema 2 admin
-    public function teste3() {
+
+    //tema 2 admin
+    public function adminx() {
         Session::nivelRestrito(array("administrador"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
-        $this->view->renderizar("teste3");
+        $this->view->renderizar("admin");
     }
 
     public function alteraTema() {

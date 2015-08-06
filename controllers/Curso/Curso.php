@@ -62,10 +62,10 @@ class Curso extends Controller implements Dao {
                 exit;
             }
             $id = $this->curso->adicionar($this->curso);
-            
+
             if ($id) {
 
-               //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
+                //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Dados guardado com sucesso");
                 //echo json_encode($ret);
                 $this->view->mensagem = "Dados guardado com sucesso";
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
@@ -73,7 +73,7 @@ class Curso extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-                  $this->view->renderizar("novo");
+                $this->view->renderizar("novo");
 
                 exit;
             } else {
@@ -90,6 +90,7 @@ class Curso extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
+        Session::nivelRestrito(array("gestor", 'funcionario'));
         if ($this->getInt('id')) {
 
 
@@ -114,8 +115,8 @@ class Curso extends Controller implements Dao {
             $id = $this->curso->editar($this->curso);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
             $this->log->setAcao('Alterado o curso para ' . $_POST['nome']);
-           $this->log->setData(date('d-m-Y h:i:s'));
-           
+            $this->log->setData(date('d-m-Y h:i:s'));
+
             $this->log->adicionar($this->log, Session::get('id'));
 
             if (!$id) {
@@ -130,9 +131,6 @@ class Curso extends Controller implements Dao {
                 $lo->verificarArquivo();
                 $lo->gravar("Foi Editado um curso" . ' Com o nome de : ' . $_POST['nome']);
                 $this->view->mensagem = "Dados alterados com sucesso";
-                $this->view->renderizar("novo");
-
-                exit;
             }
         }
         $this->view->dados = $this->curso->pesquisar();
@@ -149,13 +147,13 @@ class Curso extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-
+        Session::nivelRestrito(array("gestor", 'funcionario'));
         if ($id) {
             $this->curso->remover($id);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
             $this->log->setAcao('Removido o curso ' . $_POST['nome']);
-           $this->log->setData(date('d-m-Y h:i:s'));
-           
+            $this->log->setData(date('d-m-Y h:i:s'));
+
 
             $this->log->adicionar($this->log, Session::get('id'));
 
@@ -169,6 +167,7 @@ class Curso extends Controller implements Dao {
     }
 
     public function editarDados($id = FALSE) {
+        Session::nivelRestrito(array("gestor", 'funcionario'));
         $this->view->dados = $this->curso->pesquisar($id);
         $this->view->renderizar('editarDados');
     }

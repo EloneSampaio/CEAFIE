@@ -1,5 +1,6 @@
-<?php echo $this->menu; ?>
 
+<?php echo $this->menu; ?>
+<?php use application\Session; ?>
 <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
     <div class="navbar">
         <h3></h3>
@@ -7,7 +8,9 @@
         <ul class="nav navbar-nav">
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Novo</span></a></li>
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 
@@ -54,7 +57,7 @@
                                     </fieldset>
 
                                     <input name="enviar" type="hidden" value="1"/>
-                                   <div class="form-actions span10 text-center">
+                                    <div class="form-actions span10 text-center">
                                         <input type="button" name="btnPesquisar" value="Pesquisar" class="btn btn-success" id="apagar"  onclick="getDados('apagar');"/>
                                         <input type="button" name="btnPesquisar" value="Carregar Todos" class="btn btn-primary" id="apagar"  onclick="getTodos('apagar');" />
                                         <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
@@ -71,7 +74,7 @@
 
             </div>
 
-         
+
             <br /><br /><br /><br /><br /><br />
             <div id="conteudo">
 

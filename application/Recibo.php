@@ -110,7 +110,7 @@ class Recibo implements Documento {
 </tbody>
 </table>
 </div>
-<br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br />
 <div class=\"span15\">
 <div style=\"-webkit-border-radius: 14px 4px 4px 4px;
 border-radius: 14px 4px 4px 4px; border-width: medium;

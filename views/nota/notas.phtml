@@ -1,3 +1,4 @@
+<?php use application\Session; ?>
 <?php echo $this->menu; ?>
 
 <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
@@ -6,7 +7,9 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo URL . "nota" . DS1 . "index/" ?>"class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Lançar Nota</span></a></li>
             <li class="active"><a href="<?php echo URL . "nota" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Editar</span></a></li>
-            <li class="active"><a href="<?php echo URL . "nota" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Apagar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active"><a href="<?php echo URL . "nota" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 
@@ -85,7 +88,7 @@
             </div>
 
         </div>
-<br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br />
         <div id="conteudo">
 
         </div>

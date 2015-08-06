@@ -35,7 +35,7 @@
 
 </style>
 
-
+<?php use application\Session; ?>
 <?php echo $this->menu; ?>
 
 <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
@@ -45,7 +45,9 @@
         <ul class="nav navbar-nav">
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Ver</span></a></li>
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 

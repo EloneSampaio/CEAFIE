@@ -27,7 +27,7 @@ class Programa extends Controller implements Dao {
     private $log;
 
     public function __construct() {
-        Session::nivelRestrito(array("gestor"));
+
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
         $this->log = $this->LoadModelo('Log');
@@ -38,12 +38,13 @@ class Programa extends Controller implements Dao {
     }
 
     public function index() {
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("index");
     }
 
     public function adicionar($dados = FALSE) {
-
+        Session::nivelRestrito(array("gestor", "funcionario"));
         if ($this->getInt('enviar')) {
 
             $this->view->dados = $_POST;
@@ -145,6 +146,7 @@ class Programa extends Controller implements Dao {
     }
 
     public function editarDados($id) {
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         if ($this->getInt('enviar')) {
 
@@ -224,6 +226,7 @@ class Programa extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("editar");
     }
@@ -238,6 +241,7 @@ class Programa extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
+        Session::nivelRestrito(array("gestor"));
         if ($this->filtraInt($id)) {
             if ($this->programa->remover($id)) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
@@ -253,7 +257,7 @@ class Programa extends Controller implements Dao {
     }
 
     public function gerar($id) {
-
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $d = $this->programa->pesquisar($id);
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Recibo($css, 'sam');

@@ -21,8 +21,8 @@ abstract class Controller {
     protected $acl;
 
     public function __construct() {
-$this->_acl = new ACL();
-        $this->view = new View(new Request,$this->_acl);
+
+        $this->view = new View(new Request);
     }
 
     protected function LoadModelo($modelo) {
@@ -201,7 +201,7 @@ $this->_acl = new ACL();
      * $dataInicio que é alternativo
      * $dataFim que é a data que queremos compara-lo
      * * */
-//    public function compararDatas($dataInicio = False, $dataFim=FALSE) {
+//    public function compararDatas($dataInicio = false, $dataFim) {
 //
 //        if ($dataInicio) {
 //            $d1 = & explode('-', $dataInicio);
