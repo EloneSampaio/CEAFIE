@@ -6,6 +6,37 @@ $(document).ready(function () {
     remover();
     validar();
 
+    jQuery.validator.addMethod("string", function (valor, elemento) {
+        var str = jQuery.trim(valor);// retira espaços em branco
+        var exp = new RegExp(/^[a-záàâãéèêíïóôõöúçñ ]+$/i);
+
+        if (!str.match(exp)) {
+            return false;
+        }
+
+        return true;
+
+    }, "Somente Letras"); // Mensagem padrão 
+
+
+    $.validator.addMethod("loginVerifica", function (valor, elemento) {
+        console.log(valor);
+        var sms = false;
+        $.ajax({
+            type: 'POST', url: 'https://localhost/uan/usuario/verificarUsuario',
+            data: 'login=' + valor,
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (response) {
+
+                sms = response === 1 ? false : true
+            }
+        });
+
+        return sms;
+
+    }, "Este usuario já existe"); // Mensagem padrão
 
 });
 
@@ -95,19 +126,20 @@ function validar() {
         rules: {
             nome: {
                 required: true,
-                 minlength: 4
+                minlength: 4,
+                string: true
             },
             login: {
                 required: true,
-                 minlength: 4
+                minlength: 4,
+                loginVerifica: true
             },
             senha: {
                 required: true,
-                 minlength: 6
+                minlength: 6
             },
             nivel: {
                 required: true,
-               
             }
 
         }

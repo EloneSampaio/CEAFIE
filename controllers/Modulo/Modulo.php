@@ -38,11 +38,13 @@ class Modulo extends Controller implements Dao {
     }
 
     public function index() {
+         Session::nivelRestrito(array("gestor","funcionario"));
         $this->view->dados = $this->modulo->pesquisa();
         $this->view->renderizar('index');
     }
 
     public function adicionar($dados = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
 
@@ -98,6 +100,7 @@ class Modulo extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         if ($this->getInt('id')) {
             if (!$this->getSqlverifica('nome')) {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
@@ -126,8 +129,7 @@ class Modulo extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
-                $this->view->renderizar("editar");
-                exit;
+               
             }
         }
         $this->view->dados = $this->modulo->pesquisar();
@@ -144,6 +146,7 @@ class Modulo extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
+         Session::nivelRestrito(array("gestor"));
         if ($this->filtraInt($id)) {
             if ($this->modulo->remover($id)) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
@@ -159,6 +162,7 @@ class Modulo extends Controller implements Dao {
     }
 
     public function editarDados($id = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         $this->view->dados = $this->modulo->pesquisa1($id);
         $this->view->renderizar('editarDados');
     }

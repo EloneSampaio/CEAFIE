@@ -53,6 +53,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function index() {
+         Session::nivelRestrito(array("gestor","funcionario"));
         $this->view->titulo = "Tabela de Alunos Matriculados";
 
         $this->view->dados = $this->matricula->pesquisar();
@@ -61,7 +62,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
 
         $this->view->titulo = "Formulario de Cadastro";
@@ -302,7 +303,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         if ($this->filtraInt($id)) {
             $this->matricula->setEstado("FECHADO");
@@ -320,7 +321,7 @@ class Matricula extends Controller implements Dao {
 
     /** função para edição de registro do aluno* */
     public function editarDados($id = FALSE, $pessoa = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
 
         if ($this->getInt('enviar')) {
@@ -495,7 +496,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function pesquisaPor($acao = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
         $acao = $_POST['acao'];
         $modulo = $_POST['modulo1'];
@@ -522,7 +523,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function pesquisar($id = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         $this->view->dados = $this->matricula->pesquisaPorData();
         $this->view->renderizar('ajax');
@@ -546,7 +547,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function editarImagem($id) {
-        Session::nivelRestrito(array("gestor"));
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         if ($this->filtraInt($id)) {
             $diretorio = "upload/";
@@ -566,7 +567,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function imprimir($id, $data) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
         $d = $this->mm->pesquisarImprimi($id, $data);
 
@@ -582,7 +583,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function informacao($id) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
         $this->view->dados = $this->matricula->pesquisar($id);
         if ($this->view->dados) {
@@ -594,7 +595,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function detalhes() {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
         $de = $this->matricula->buscaMatriculaMod($this->filtraInt($_GET['id']));
         echo json_encode($de);
@@ -602,7 +603,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function addCurso($id) {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor","funcionario"));
 
         if ($this->getInt('enviar')) {
 
@@ -642,7 +643,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function imprimirFicha($id = FALSE) {
-        Session::nivelRestrito(array("gestor"));
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         $dados = $this->matricula->pesquisaImpressao($id);
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
@@ -653,7 +654,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function dadosDeAcesso($dados) {
-        Session::nivelRestrito(array("gestor"));
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\DadosDeAcesso($css, 'impressao');

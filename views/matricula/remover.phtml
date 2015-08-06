@@ -1,3 +1,4 @@
+<?php use application\Session; ?>
 <?php echo $this->menu; ?>
 
 <div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
@@ -6,7 +7,9 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Ver Formandos</span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Editar</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Apagar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 
@@ -73,7 +76,7 @@
 
                                     <input name="enviar" type="hidden" value="1"/>
                                     <input name="acao" type="hidden" value="apagar"/>
-                                     <div class="form-actions span12 text-center">
+                                    <div class="form-actions span12 text-center">
                                         <button  name="pesquisa"  class="btn btn-success" value="pesquisar">Pesquisar</button>
                                         <button  name="pesquisaT"  class="btn btn-primary"  >Carregar Todos</button>
 <!--                                        <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>-->

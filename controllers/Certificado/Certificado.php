@@ -26,7 +26,7 @@ class Certificado extends Controller {
     private $log;
 
     public function __construct() {
-        Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor",'funcionario'));
         $this->matricula = $this->LoadModelo("Matricula");
         $this->nota = $this->LoadModelo("Nota");
         $this->mm = $this->LoadModelo("MatriculaModulo");

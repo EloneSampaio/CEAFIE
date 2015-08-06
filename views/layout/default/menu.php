@@ -6,30 +6,31 @@ use application\Session; ?>
 
     <hgroup>
         <h1 class="site_title" style="position: absolute; left: 600px;">
-                <?php if (Session::get('nivel') == "gestor"): $menu = "dashboard"; ?>
+            <?php if (strcmp(Session::get('nivel'), "gestor") == 0|| strcmp(Session::get('nivel'), "funcionario") == 0): $menu = "dashboard"; ?>
                 <a class="brand" href="#">Painel de Gestão</a>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (Session::get('nivel') == "docente"): $menu = "dashboard/docente/"; ?>
-                    <a class="brand" href="#">Painel de Docente</a>
+            <?php if (strcmp(Session::get('nivel'), 'docente') == 0): $menu = "dashboard/docente/"; ?>
+                <a class="brand" href="#">Painel de Docente</a>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (Session::get('nivel') == "aluno"): $menu = "dashboard/aluno/"; ?>
-                    <a class="brand" href="#">Painel de Aluno</a>
+            <?php if (Session::get('nivel') == "aluno"): $menu = "dashboard/aluno/"; ?>
+                <a class="brand" href="#">Painel de Aluno</a>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if (Session::get('nivel') == "administrador"): $menu = "dashboard/admin/"; ?>
-                    <a class="brand" href="#">Painel de Administrador</a>
+            <?php if (Session::get('nivel') == "administrador"): $menu = "dashboard/admin/"; ?>
+                <a class="brand" href="#">Painel de Administrador</a>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
 
         </h1>
         <h2 class="section_title"><?php if (isset($this->titulo)): echo $this->titulo;
-                endif; ?></h2>
+            endif;
+            ?></h2>
     </hgroup>
 </header> <!-- end of header bar -->
 

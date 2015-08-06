@@ -25,7 +25,7 @@ class Docente extends Controller implements Dao {
     private $log;
 
     public function __construct() {
-        Session::nivelRestrito(array("gestor"));
+       
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
         $this->curso = $this->LoadModelo('Curso');
@@ -41,6 +41,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function index() {
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         $this->view->dados = $this->docente->pesquisar();
         $this->view->detalhes = $this->dm->pesquisar();
@@ -48,6 +49,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
 
 
         if ($this->getInt('enviar') == 1) {
@@ -235,6 +237,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         if ($this->filtraInt($id)) {
             $this->docente->setId($id);
             $this->docente->editar($this->docente);
@@ -244,6 +247,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function editarDados($id = FALSE) {
+         Session::nivelRestrito(array("gestor","funcionario"));
 
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
@@ -387,6 +391,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function pesquisaPor($acao = FALSE, $curso = FALSE) {
+        
         switch ($acao):
 
             case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
@@ -428,12 +433,14 @@ class Docente extends Controller implements Dao {
     }
 
     public function informacao($id) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         $this->view->dados = $this->docente->pesquisaPor($id);
         $this->view->modulo = $this->dm->pesquisarPor($id);
         $this->view->renderizar("informacao");
     }
 
     public function addCurso($id) {
+         Session::nivelRestrito(array("gestor","funcionario"));
         if ($this->getInt('enviar')) {
 
             if (!$this->getSqlverifica('curso')) {
@@ -465,6 +472,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
+         Session::nivelRestrito(array("gestor"));
         if ($id) {
             $this->docente->remover($id);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);

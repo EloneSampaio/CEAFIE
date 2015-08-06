@@ -272,15 +272,32 @@ class MatriculaOnline extends Controller {
 
                 $this->log->adicionar($this->log, Session::get('id'));
 
-                $ret = Array("tipo" => 'success', "mensagem" => "Dados guardados com sucesso", 'cod' => 1);
+                $ret = Array("tipo" => 'success', "mensagem" => "Dados guardados com sucesso", 'cod' => 1,'id'=>$id,'data'=>  $_POST['data']);
                 echo json_encode($ret);
-                 exit;
+               exit; 
             }
+           
         }
 
 
 
         $this->view->renderizar("novo");
+    }
+    
+        public function imprimir($id, $data) {
+        Session::nivelRestrito(array("gestor","funcionario"));
+
+        $d = $this->mm->pesquisarImprimi($id, $data);
+
+        $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
+        $report = new \application\Recibo($css, 'sam');
+        $report->setBi($d->getMatricula()->getAluno()->getPessoa()->getBi());
+        $report->setNome($d->getMatricula()->getAluno()->getPessoa()->getNome());
+        $report->setData($d->getData());
+        $report->setCurso($d->getModulo()->getCurso()->getNome());
+        $report->setModulo($d->getModulo()->getNome());
+        $report->BuildPDF();
+        $report->Exibir();
     }
 
 }

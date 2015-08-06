@@ -19,7 +19,7 @@ class View {
     private $_controller;
     private $_js;
     private $_css;
-
+   
     //put your code here
     function __construct(Request $pedido) {
         //parent::__construct();

@@ -53,7 +53,9 @@ function adicionar() {
                     if (json.cod === 1) {
                         notificar(json.mensagem, json.tipo);
                         setTimeout(function () {
+                            var url="https://localhost/uan/matriculaonline/imprimir/"+json.id+'/'+json.data;
                             $(location).attr('href', url);
+                           
                         }, 2000);
                     }
                     else {

@@ -174,4 +174,10 @@ class Usuario extends Doctrine implements Dao {
         $this->em->flush();
     }
 
+    public function verificarUsuario($id = FALSE) {
+        return $this->em->getRepository('models\Usuario')->findOneBy(array('login' => $id));
+        $this->em->flush();
+        return TRUE;
+    }
+
 }
