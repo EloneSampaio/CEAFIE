@@ -29,7 +29,7 @@
                         <?php foreach ($this->dados as $dados): ?>
                             <tr> 
                                 <td><?php print $dados['bi']; ?></td>
-                                <td><a href="#" onclick="modal(<?php echo $dados['aluno']; ?>);"><?php print $dados['nome'].' '.$dados['apelido']; ?></a></td>
+                                <td><a href="https://localhost/uan/matricula/informacao/<?php echo $dados['aluno']; ?>"><?php print $dados['nome'].' '.$dados['apelido']; ?></a></td>
                                 <td><?php print date("Y", strtotime($dados['data'])); ?></td>
                                 <?php if (strcmp($dados['estado'], "ABERTO") == 0): ?>
                                     <td>
@@ -56,27 +56,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <p>One fine body…</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
 

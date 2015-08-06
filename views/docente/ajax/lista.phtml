@@ -23,7 +23,7 @@
             <?php foreach ($this->dados as $dados): ?>
                 <tr>
                     <td><?php print $dados['bi']; ?></td>
-                    <td><a href="#" onclick="modal(<?php echo $dados['docente']; ?>);"><?php print $dados['nome']; ?></a></td>
+                    <td><a href="https://localhost/uan/docente/informacao/<?php echo $dados['docente'];?>"><?php print $dados['nome']; ?></a></td>
                     <td><?php print $dados['grau']; ?></td>
                     <td><?php print $dados['nome_modulo']; ?></td>
                 </tr>

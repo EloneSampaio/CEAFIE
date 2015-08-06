@@ -1,13 +1,57 @@
 
 <?php echo $this->menu; ?>
-<div class="col-12 pull-right">
+<?php
+
+use application\Session ?>
+
+<style>
+
+    .container {
+        margin-top: 25px;
+    }
+    .form-inline .form-group > div.col-xs-8 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .form-inline label {
+        line-height: 34px;
+    }
+    .form-inline .form-control {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .form-inline .form-group {
+            margin-bottom: 15px;
+        }
+    }
+
+    .verifica{
+        padding:3px;
+        font-size:18px;
+        border:3px #CCC solid;
+    }
+
+    .borda{
+        border: 3px #CCC solid;
+    }
+    .texto{
+        color: red;
+        font-size: 13px;
+    }
+
+</style>
 
 
-    <div class="navbar">
+<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
+
+    <p></p>
+    <div class="navbar-nav">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>"><span style="font-size: 14px; color: black;">Ver Alunos</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>"><span style="font-size: 14px; color: black;">Editar</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>"><span style="font-size: 14px; color: black;">Apagar</span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver </span></a></li>
+            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
+            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
+                <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+<?php endif; ?>
         </ul>
     </div>
 
@@ -21,52 +65,40 @@
         <div class="block">
 
             <div class="navbar navbar-inner block-header">
-                <div class="muted pull-right">Matricular em novo curso</div>
+                <div class="muted pull-right">Inscrever em novo curso</div>
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
                     <!-- BEGIN FORM-->
-                    <form action="" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form action=""  class="form-horizontal" method="POST">
 
                         <legend>Curso a frequentar</legend>
-                        <div class="group-control">
-                            <label class="control-label">Curso<span class="required">*</span></label>
-                            <div class="controls">
-                                <select class="span6 m-wrap" id="curso" name="curso">
-                                    <option value="">Selecciona um curso</option>
-                                </select>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Curso</label>
 
-
-                            </div>
+                            <select class="form-control span6 m-wrap borda" id="curso" name="curso">
+                                <option value="">Selecciona um curso</option>
+                            </select>
                         </div>
                         <div class="carregando"></div>
-                        <div class="group-control">
-                            <label class="control-label">Modúlo<span class="required">*</span></label>
-                            <div class="controls">
-                                <select class="span6 m-wrap" id="modulo" name="modulo" >
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Modúlo<span class="required">*</span></label>
+                            <select class="form-control  span6 m-wrap borda" id="modulo" name="modulo" >
 
-                                </select>
+                            </select>
 
-
-                            </div>
                         </div>
 
-                        <div class="group-control">
-                            <label class="control-label">Data de Inscrição<span class="required">*</span></label>
-                            <div class="controls">
-                                <input type="text" name="data" class="span6 m-wrap" id="data" data-provide="datepicker" data-required="1"/>
-                                <span class="input-group-addon"><span class="icon icon-calendar">
-
-                                    </span>
-
-                                </span>
-                            </div>
+                        <div class="form-group">
+                            <label class="col-xs-2 control-label">Data de Inscrição<span class="required">*</span></label>
+                            <input type="text" name="data" class=" form-control span6 m-wrap borda" id="data" data-provide="datepicker" data-required="1"/>
                         </div>
+
 
                         <input name="enviar" type="hidden" value="1"/>
-                        <div class="form-actions">
+                        <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
 
 
