@@ -176,14 +176,14 @@ class Matricula extends Doctrine implements Dao {
         }
     }
 
-    public function pesquisar($id = FALSE) {
+ public function pesquisar($id = FALSE) {
         if ($id) {
             return $this->em->getRepository('models\Matricula')->findOneBy(array('aluno' => $id));
             $this->em->flush();
         } else {
 
             $qb = $this->em->createQueryBuilder()
-                    ->select('p.nome', 'p.apelido','p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
+                    ->select('p.nome', 'p.bi', 'p.id as pessoa', 'm.estado', 'm.data', 'm.id', 'a.id as aluno')
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
@@ -191,6 +191,7 @@ class Matricula extends Doctrine implements Dao {
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_OBJECT);
         }
     }
+
 
     public function remover($id = FALSE) {
         $id = $this->em->getPartialReference('models\Pessoa', $id);

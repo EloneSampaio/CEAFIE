@@ -94,13 +94,13 @@ abstract class Controller {
         }
     }
 
-    protected function verificarEmail($chave) {
-        if (isset($_POST[$chave]) && !empty($_POST[$chave])) {
-            if (filter_var($_POST[$chave], FILTER_VALIDATE_EMAIL)) {
-                return trim($_POST[$chave]);
-            }
-        }
-    }
+//    protected function verificarEmail($chave) {
+//        if (isset($_POST[$chave]) && !empty($_POST[$chave])) {
+//            if (filter_var($_POST[$chave], FILTER_VALIDATE_EMAIL)) {
+//                return trim($_POST[$chave]);
+//            }
+//        }
+//    }
 
     protected function getPostParam($param) {
 
@@ -151,14 +151,14 @@ abstract class Controller {
     }
 
     /** função para verificar Bi */
-    public function verificarBi($bi) {
-        $expressao_regular = "/^[0-9]{9}[A-Z]{2}[0-9]{3}$/";
-        if (preg_match($expressao_regular, $bi)) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
+//    public function verificarBi($bi) {
+//        $expressao_regular = "/^[0-9]{9}[A-Z]{2}[0-9]{3}$/";
+//        if (preg_match($expressao_regular, $bi)) {
+//            return TRUE;
+//        } else {
+//            return FALSE;
+//        }
+//    }
 
     /**
      * Função para gerar senhas aleatórias

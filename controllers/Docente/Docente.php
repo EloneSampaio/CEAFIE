@@ -372,8 +372,8 @@ class Docente extends Controller implements Dao {
         $this->view->renderizar('editarDados');
     }
 
-    public function editarImagem($id = FALSE, $docente = FALSE) {
-        if ($this->filtraInt($id)) {
+    public function editarImagem() {
+        if ($this->getInt('id')) {
             $diretorio = "upload/";
             move_uploaded_file($_FILES['imagem']["tmp_name"], $diretorio . $_FILES['imagem']["name"]);
             $resize = new ImageResize($diretorio . $_FILES['imagem']["name"]);
@@ -381,13 +381,13 @@ class Docente extends Controller implements Dao {
             unlink($diretorio . $_FILES['imagem']["name"]);
             $resize->save($diretorio . $_FILES['imagem']["name"]);
             $this->pessoa->setImagem($diretorio . $_FILES['imagem']["name"]);
-            $this->pessoa->setId($id);
+            $this->pessoa->setId($_POST['id']);
             $p = $this->pessoa->editar($this->pessoa);
             if ($p) {
-                $this->redirecionar("docente/informacao/" . $docente);
+                $this->redirecionar("docente/informacao/" . $_POST['docente']);
             }
         }
-        $this->redirecionar("docente");
+        $this->view->renderizar('dashboard/docente');
     }
 
     public function pesquisaPor($acao = FALSE, $curso = FALSE) {
@@ -461,7 +461,7 @@ class Docente extends Controller implements Dao {
             $r = $this->dm->adiciona($id, $_POST['modulo']);
             if (is_int($r)) {
                 $this->view->mensagem = "Adicionado com sucesso";
-                $this->view->renderizar("addCurso");
+                $this->informacao($id);
             } else {
                 $this->view->erro = "Erro ao adicionar";
                 $this->view->renderizar("addCurso");

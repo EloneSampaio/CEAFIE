@@ -30,7 +30,7 @@
                         <?php foreach ($this->dados as $dados): ?>
                             <tr> 
                                 <td><?php print $dados['bi']; ?></td>
-                                <td><a href="#" onclick="modal(<?php echo $dados['aluno']; ?>)"><?php print $dados['nome'].' '.$dados['apelido']; ?></a></td>
+                                <td><a href="https://localhost/uan/matricula/informacao/<?php echo $dados['aluno']; ?>"><?php print $dados['nome'] . ' ' . $dados['apelido']; ?></a></td>
                                 <td><?php print date("Y", strtotime($dados['data'])); ?></td>
                                 <td><a href="<?php echo URL . "matricula/editarDados/" . $dados['aluno'] . "/" . $dados['pessoa'] ?>" id="editar1" rel="<?php echo $dados['aluno']; ?>"><span class="glyphicon glyphicon-pencil" style="color: orangered"></span></a></td>
 

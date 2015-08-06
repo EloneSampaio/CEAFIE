@@ -53,7 +53,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function index() {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->titulo = "Tabela de formandos inscritos";
 
         $this->view->dados = $this->matricula->pesquisar();
@@ -62,7 +62,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
-        Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
 
         $this->view->titulo = "Formulario de Cadastro";
@@ -303,7 +303,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         if ($this->filtraInt($id)) {
             $this->matricula->setEstado("FECHADO");
@@ -321,7 +321,7 @@ class Matricula extends Controller implements Dao {
 
     /** função para edição de registro do aluno* */
     public function editarDados($id = FALSE, $pessoa = FALSE) {
-        Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
 
         if ($this->getInt('enviar')) {
@@ -496,34 +496,41 @@ class Matricula extends Controller implements Dao {
     }
 
     public function pesquisaPor($acao = FALSE) {
-        Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
-        $acao = $_POST['acao'];
-        $modulo = $_POST['modulo1'];
-        $ano = $_POST['ano'];
+        if (isset($_POST['acao'])) {
+            $acao = $_POST['acao'];
+            $modulo = $_POST['modulo1'];
+            $ano = $_POST['ano'];
 
-        switch ($acao):
+            switch ($acao):
 
-            case 'buscar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
+                case 'buscar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
 
-                $this->view->renderizar('ajax/lista');
-                break;
-                exit;
+                    $this->view->renderizar('ajax/lista');
+                    break;
+                    exit;
 
-            case 'editar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
-                $this->view->renderizar('ajax/editar');
-                break;
-                exit;
+                case 'editar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
+                    $this->view->renderizar('ajax/editar');
+                    break;
+                    exit;
 
-            case 'apagar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
-                $this->view->renderizar('ajax/apagar');
-                break;
-                exit;
-        endswitch;
+                case 'apagar': $this->view->dados = $this->matricula->pesquisaPorData($ano, $modulo);
+                    $this->view->renderizar('ajax/apagar');
+                    break;
+                    exit;
+            endswitch;
+        }
+        else {
+            $this->view->dados = $this->matricula->pesquisar();
+
+            $this->view->renderizar("index");
+        }
     }
 
     public function pesquisar($id = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $this->view->dados = $this->matricula->pesquisaPorData();
         $this->view->renderizar('ajax');
@@ -547,7 +554,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function editarImagem($id) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario","docente"));
 
         if ($this->filtraInt($id)) {
             $diretorio = "upload/";
@@ -560,14 +567,14 @@ class Matricula extends Controller implements Dao {
             $this->pessoa->setId($id);
             $p = $this->pessoa->editar($this->pessoa);
             if ($p) {
-                $this->redirecionar("matricula");
+                $this->redirecionar("matricula/informacao/".$_POST['id']);
             }
         }
         $this->redirecionar("dashboard");
     }
 
     public function imprimir($id, $data) {
-        Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $d = $this->mm->pesquisarImprimi($id, $data);
 
@@ -582,9 +589,7 @@ class Matricula extends Controller implements Dao {
         $report->Exibir();
     }
 
-    public function informacao($id) {
-        Session::nivelRestrito(array("gestor","funcionario"));
-
+      public function informacao($id) {
         $this->view->dados = $this->matricula->pesquisar($id);
         if ($this->view->dados) {
             $this->view->modulo = $this->mm->pesquisarPor($this->view->dados->getId());
@@ -594,8 +599,9 @@ class Matricula extends Controller implements Dao {
         }
     }
 
+
     public function detalhes() {
-        Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $de = $this->matricula->buscaMatriculaMod($this->filtraInt($_GET['id']));
         echo json_encode($de);
@@ -603,8 +609,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function addCurso($id) {
-        Session::nivelRestrito(array("gestor","funcionario"));
-
+       
         if ($this->getInt('enviar')) {
 
             if (!$this->getSqlverifica('curso')) {
@@ -630,9 +635,10 @@ class Matricula extends Controller implements Dao {
 
             $matricula = $this->matricula->pesquisar($id);
             $r = $this->mm->adiciona($matricula->getId(), $_POST);
+            
             if ($r) {
                 $this->view->mensagem = "Adicionado com sucesso";
-                $this->view->renderizar("ajax/addCurso");
+                $this->informacao($id);
             } else {
                 $this->view->erro = "Erro ao adicionar";
                 $this->view->renderizar("ajax/addCurso");
@@ -643,7 +649,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function imprimirFicha($id = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $dados = $this->matricula->pesquisaImpressao($id);
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
@@ -654,7 +660,7 @@ class Matricula extends Controller implements Dao {
     }
 
     public function dadosDeAcesso($dados) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\DadosDeAcesso($css, 'impressao');

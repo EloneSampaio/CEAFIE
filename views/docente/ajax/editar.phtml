@@ -23,11 +23,11 @@
         <?php if (isset($this->dados) && !empty($this->dados)): ?>
             <?php foreach ($this->dados as $dados):  ?>
                 <tr>
-                    <td><?php print $dados['bi']; ?></td>
-                    <td><a href="#" onclick="modal(<?php echo $dados['docente']; ?>);"><?php print $dados['nome']; ?></a></td>
+                   <td><?php print $dados['bi']; ?></td>
+                    <td><a href="https://localhost/uan/docente/informacao/<?php echo $dados['docente'];?>"><?php print $dados['nome']; ?></a></td>
                     <td><?php print $dados['grau']; ?></td>
                     <td><?php print $dados['nome_modulo']; ?></td>
-                    <td><a href="<?php echo URL . "docente/editarDados/" . $dados['pessoa']; ?>" id="docente1" rel="<?php echo $dados['pessoa']; ?>"><i class="glyphicon glyphicon-pencil" style="color: orangered"></i></a></td>
+                 <td><a href="<?php echo URL . "docente/editarDados/" . $dados['pessoa']; ?>" id="docente1" rel="<?php echo $dados['pessoa']; ?>"><i class="glyphicon glyphicon-pencil" style="color: orangered"></i></a></td>
                 </tr>
 
                 <?php
