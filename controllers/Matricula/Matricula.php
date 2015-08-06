@@ -44,7 +44,7 @@ class Matricula extends Controller implements Dao {
         $this->mm = $this->LoadModelo('MatriculaModulo');
         $this->generico = $this->LoadModelo('Generico');
         $this->log = $this->LoadModelo('Log');
-        $this->view->titulo = "Tabela de Alunos Matriculados";
+        $this->view->titulo = "Tabela de formandos Matriculados";
 
         $this->view->setCss(array('animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array('novo', 'ajax', 'validacao', 'crud', 'jquery.multiple.select', 'run_prettify', 'bootstrap-dialog.min', 'jquery.noty.packaged.min'));
@@ -54,7 +54,7 @@ class Matricula extends Controller implements Dao {
 
     public function index() {
          Session::nivelRestrito(array("gestor","funcionario"));
-        $this->view->titulo = "Tabela de Alunos Matriculados";
+        $this->view->titulo = "Tabela de formandos inscritos";
 
         $this->view->dados = $this->matricula->pesquisar();
 
