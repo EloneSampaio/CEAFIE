@@ -26,7 +26,7 @@
                         <th>Nome</th>
                         <th>CURSO</th>
                         <th>Ano de Conclusão</th>
-                        <th>Acão</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -39,7 +39,7 @@
                                 <td><?php print $dados['nome']; ?></td>
                                 <td><?php print $dados['n2']; ?></td>
                                 <td><?php print date("d/m/Y", strtotime($dados['data'])); ?></td>
-                                <td><a target="__BLANK" href="<?php echo URL . "certificado" . DS1 . "gerar/" . $dados['aluno'] . '/' . $dados['modulo']; ?>">Imprimir</a></td>
+                                <td><a target="__BLANK" href="<?php echo URL . "certificado" . DS1 . "gerar/" . $dados['aluno'] . '/' . $dados['modulo']; ?>"><i class="glyphicon glyphicon-print"></i></a></td>
                             </tr>
 
                             <?php

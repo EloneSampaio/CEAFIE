@@ -19,7 +19,7 @@ use application\Session;
  */
 class Nota extends Controller implements Dao {
 
-    //put your code here
+//put your code here
     private $nota;
     private $dm;
     private $aluno;
@@ -41,6 +41,7 @@ class Nota extends Controller implements Dao {
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->titulo = "Tabela de notas lançadas";
     }
 
     public function index() {
@@ -185,7 +186,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-         Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor"));
         if ($this->getInt('id')) {
             if ($this->nota->remover($this->getInt('id'))) {
                 $this->view->mensagem = "Nota Apagada com sucesso";
@@ -214,7 +215,7 @@ class Nota extends Controller implements Dao {
     }
 
     public function pesquisaNotaDocente() {
-         Session::nivelRestrito(array("docente"));
+        Session::nivelRestrito(array("docente"));
 
         if ($this->getInt('enviar')) {
             $dados[] = '1';
@@ -229,31 +230,38 @@ class Nota extends Controller implements Dao {
     }
 
     public function listar() {
-         Session::nivelRestrito(array("gestor", "funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->nota = $this->nota->verNota();
         $this->view->renderizar("notas");
     }
 
-    public function pesquisarPor($acao = FALSE, $modulo = FALSE, $ano = FALSE) {
-
-        $dados[] = $acao;
-        $dados[] = $modulo;
-        $dados[] = "FECHADO";
-        $dados[] = $ano;
-
-
-        switch ($acao):
-
-            case 'buscar': $this->view->nota = $this->nota->pesquisaPor($dados);
+    public function pesquisarPor($acao = FALSE) {
+        
+        if (isset($_POST['acao'])) {
+            $dados[] = $_POST['acao'];
+            $dados[] = $_POST['modulo'];
+            $dados[] = "FECHADO";
+            $dados[] = $_POST['ano'];
 
 
-                $this->view->renderizar('ajax/lista');
-                break;
+            switch ($_POST['acao']):
 
-        endswitch;
+                case 'buscar': $this->view->nota = $this->nota->pesquisaPor($dados);
+
+                    $this->view->renderizar('ajax/lista');
+                    break;
+                    exit;
+
+            endswitch;
+             }else {
+               
+                $this->listar();
+            }
+       
     }
 
-    public function pesquisaDocenteNotas() {
+    public
+            function pesquisaDocenteNotas() {
         $id = $this->docente->pesquisar(Session::get('pessoa'));
 
         $t = $this->dm->listagem($id->getId());

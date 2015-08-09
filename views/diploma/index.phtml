@@ -1,5 +1,7 @@
 <?php echo $this->menu; ?>
-<div id="content" style="margin-left: 15px;">
+
+
+<div id="content" style="margin-left: 120px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
@@ -16,7 +18,7 @@
 
         </div>
 
-        <table  class="table table-striped table-bordered" id="tabela">   
+        <table  class="table table-striped table-bordered" id="tabela" cellspacing="0" width="100%">   
             <thead>
                 <tr class="odd gradeA">
 
@@ -24,7 +26,7 @@
                     <th>Nome</th>
                     <th>CURSO</th>
                     <th>Ano de Conclusão</th>
-                    <th>IMPRIMIR</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -37,7 +39,7 @@
                             <td><?php print $dados['nome']; ?></td>
                             <td><?php print $dados['n2']; ?></td>
                             <td><?php print date("d/m/Y", strtotime($dados['data'])); ?></td>
-                            <td><a target="__BLANK" href="<?php echo URL . "diploma" . DS1 . "gerar/" . $dados['aluno'] . '/' . $dados['modulo']; ?>">DIPLOMA</a></td>
+                            <td><a target="__BLANK" href="<?php echo URL . "diploma" . DS1 . "gerar/" . $dados['aluno'] . '/' . $dados['modulo']; ?>"><i class="glyphicon glyphicon-print"></i></a></td>
                         </tr>
 
                         <?php

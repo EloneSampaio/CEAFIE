@@ -2,7 +2,7 @@
 $(document).ready(function () {
     pessoas();
 
-    tabela();
+    var oTable = $('#tabela').dataTable();
     remover();
     validar();
 

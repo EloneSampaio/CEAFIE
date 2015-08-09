@@ -25,7 +25,7 @@ class Docente extends Controller implements Dao {
     private $log;
 
     public function __construct() {
-       
+
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->docente = $this->LoadModelo('Docente');
         $this->curso = $this->LoadModelo('Curso');
@@ -34,14 +34,14 @@ class Docente extends Controller implements Dao {
         $this->dm = $this->LoadModelo('DocentModulo');
         $this->log = $this->LoadModelo('Log');
         parent::__construct();
-        $this->view->setCss(array('amaran.min', 'animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
+        $this->view->setCss(array('animate', 'layout', 'ie', 'multiple-select', 'bootstrap-dialog.min'));
         $this->view->setJs(array("novo", 'validacao', 'crud', "jquery.multiple.select", 'bootstrap-dialog.min', 'jquery.noty.packaged.min'));
         $this->view->menu = $this->getFooter('menu');
         $this->view->titulo = " Tabela de formadores inscritos";
     }
 
     public function index() {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         $this->view->dados = $this->docente->pesquisar();
         $this->view->detalhes = $this->dm->pesquisar();
@@ -49,7 +49,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function adicionar($dados = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
 
         if ($this->getInt('enviar') == 1) {
@@ -237,7 +237,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function editar($id = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
         if ($this->filtraInt($id)) {
             $this->docente->setId($id);
             $this->docente->editar($this->docente);
@@ -247,7 +247,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function editarDados($id = FALSE) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
 
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
@@ -336,7 +336,7 @@ class Docente extends Controller implements Dao {
             $this->pessoa->setId($id);
             $this->pessoa->setEmail($this->view->dados['email']);
             $this->pessoa->setBi($this->view->dados['bi']);
-           
+
 
 //Docente//
             $this->docente->setGrau($this->view->dados['grau']);
@@ -390,26 +390,34 @@ class Docente extends Controller implements Dao {
         $this->view->renderizar('dashboard/docente');
     }
 
-    public function pesquisaPor($acao = FALSE, $curso = FALSE) {
-        
-        switch ($acao):
+    public function pesquisaPor($acao = FALSE) {
 
-            case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
+        if (isset($_POST['acao'])) {
+            $acao = $_POST['acao'];
 
-                $this->view->renderizar('ajax/lista');
-                break;
-                exit;
+            switch ($acao):
 
-            case 'editar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
-                $this->view->renderizar('ajax/editar');
-                break;
-                exit;
+                case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                    $this->view->renderizar('ajax/lista');
+                    break;
+                    exit;
 
-            case 'apagar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
-                $this->view->renderizar('ajax/apagar');
-                break;
-                exit;
-        endswitch;
+                case 'editar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                    $this->view->renderizar('ajax/editar');
+                    break;
+                    exit;
+
+                case 'apagar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                    $this->view->renderizar('ajax/apagar');
+                    break;
+                    exit;
+            endswitch;
+        }
+        else {
+            $this->view->dados = $this->docente->pesquisar();
+
+            $this->view->renderizar("index");
+        }
     }
 
     public function pesquisar($id = FALSE) {
@@ -433,14 +441,14 @@ class Docente extends Controller implements Dao {
     }
 
     public function informacao($id) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->dados = $this->docente->pesquisaPor($id);
         $this->view->modulo = $this->dm->pesquisarPor($id);
         $this->view->renderizar("informacao");
     }
 
     public function addCurso($id) {
-         Session::nivelRestrito(array("gestor","funcionario"));
+        Session::nivelRestrito(array("gestor", "funcionario"));
         if ($this->getInt('enviar')) {
 
             if (!$this->getSqlverifica('curso')) {
@@ -472,7 +480,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function remover($id = FALSE) {
-         Session::nivelRestrito(array("gestor"));
+        Session::nivelRestrito(array("gestor"));
         if ($id) {
             $this->docente->remover($id);
             $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);

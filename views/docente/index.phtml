@@ -1,4 +1,6 @@
-<?php use application\Session; ?>
+<?php
+
+use application\Session; ?>
 <?php echo $this->menu; ?>
 
 
@@ -13,7 +15,7 @@
             <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
             <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
                 <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-            <?php endif; ?>
+<?php endif; ?>
         </ul>
     </div>
 
@@ -45,7 +47,7 @@
                         <div class="block-content collapse in">
                             <div class="span12">
                                 <!-- BEGIN FORM-->
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" action="<?php print URL; ?>docente/pesquisaPor/" target="_BLANK" method="POST">
                                     <fieldset>
                                         <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
 
@@ -53,7 +55,7 @@
                                             <label class="control-label">Curso<span class="required">*</span></label>
                                             <div>
                                                 <select class="span6 m-wrap " id="curso" name="curso">
-                                                    <option value="000">-Selecciona um curso-</option>
+                                                    <option value="">-Selecciona um curso-</option>
                                                 </select>
 
 
@@ -62,9 +64,11 @@
                                     </fieldset>
 
                                     <input name="enviar" type="hidden" value="1"/>
+                                    <input name="acao" type="hidden" value="buscar"/>
+
                                     <div class="form-actions span10 text-center">
-                                        <input type="button" name="btnPesquisar" value="Pesquisar" class="btn btn-success" id="buscar"  onclick="getDados('buscar');"/>
-                                        <input type="button" name="btnPesquisar" value="Carregar Todos" class="btn btn-primary" id="buscar"  onclick="getTodos('buscar');" />
+                                        <button name="btnPesquisar"  class="btn btn-success">Pesquisar</button>
+                                        <button name="btnPesquisar"  class="btn btn-primary" >Carregar Todos</button>
                                         <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
                                     </div>
                                 </form>

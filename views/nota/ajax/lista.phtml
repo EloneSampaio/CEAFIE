@@ -1,7 +1,17 @@
+<div class="" id="content" style="margin-left: 55px;">
+    <!-- validation -->
+    <div class="row-fluid">
+        <br /><br /><br />
+        <!-- block -->
+        <div class="block">
 
-            <table  class="table table-striped table-bordered" id="tabela">  
-                <caption class="text-big text-center">Tabela de notas lançadas</caption>
-                <thead>
+            <h3 class="text-info text-big">  <?php
+                if (isset($this->titulo)): echo $this->titulo;
+                endif;
+                ?> 
+            </h3>
+            <table  class="table table-striped table-bordered" id="tabela" cellspacing="0" width="100%">  
+                 <thead>
 
                     <tr class="odd gradeA">
 
@@ -34,3 +44,6 @@
 
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>

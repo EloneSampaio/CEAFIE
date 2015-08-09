@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     cursos();
-    tabela();
+    var oTable = $('#tabela').dataTable();
     remover();
     validar();
     editar();

@@ -16,16 +16,21 @@
 
 
 </div>
-<div class="" id="content" style="margin-left: 15px;">
+<br /><br /><br />
+<div id="content" style="margin-left: 15px;">
     <!-- validation -->
     <div class="row-fluid">
         <!-- block -->
         <div class="block">
 
+ <h3 class="text-info text-big">  <?php
+                if (isset($this->titulo)): echo $this->titulo;
+                endif;
+                ?>
+            </h3>
 
 
-            <table  class="table table-striped table-bordered" id="tabela">  
-                <caption class="text-big text-center text-info">Tabela de módulos cadastrados</caption>
+            <table  class="table table-striped table-bordered" id="tabela" cellspacing="0" width="100%">  
                 <thead>
                     <tr class="odd gradeA">
 

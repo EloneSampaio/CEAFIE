@@ -111,4 +111,8 @@ class Login extends Controller {
         $this->redirecionar("login");
     }
 
+    public function testaBd() {
+        
+    }
+
 }

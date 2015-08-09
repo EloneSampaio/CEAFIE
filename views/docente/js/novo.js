@@ -4,10 +4,8 @@ $(document).off('.alert.data-api')
 $(document).ready(function () {
     teste();
     cursos();
+    var oTable = $('#tabela').dataTable();
     modulos();
-    tabela();
-    remover();
-
     extras();
 
 
@@ -193,164 +191,164 @@ function remover() {
     });
 }
 
-
-function modal(id) {
-
-    BootstrapDialog.show({
-        closable: false,
-        message: function (dialog) {
-            var $message = $('<div></div>');
-            var pageToLoad = dialog.getData('pageToLoad');
-            $message.load(pageToLoad);
-
-            return $message;
-        },
-        data: {
-            'pageToLoad': 'https://localhost/uan/docente/informacao/' + id
-        },
-        cssClass: 'login-dialog',
-        buttons: [{
-                cssClass: 'btn btn-primary',
-                label: 'Lecionar em novo curso',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'https://localhost/uan/docente/addCurso/' + id);
-
-                }
-            },
-//            {
-//                cssClass: 'btn btn-info',
-//                label: 'Imprimir Ficha',
+//
+//function modal(id) {
+//
+//    BootstrapDialog.show({
+//        closable: false,
+//        message: function (dialog) {
+//            var $message = $('<div></div>');
+//            var pageToLoad = dialog.getData('pageToLoad');
+//            $message.load(pageToLoad);
+//
+//            return $message;
+//        },
+//        data: {
+//            'pageToLoad': 'https://localhost/uan/docente/informacao/' + id
+//        },
+//        cssClass: 'login-dialog',
+//        buttons: [{
+//                cssClass: 'btn btn-primary',
+//                label: 'Lecionar em novo curso',
 //                action: function (dialogItself) {
 //                    dialogItself.close();
-//                    $(location).attr('href', 'https://localhost/uan/docente/imprimirFicha/' + id);
+//                    $(location).attr('href', 'https://localhost/uan/docente/addCurso/' + id);
 //
 //                }
+//            },
+////            {
+////                cssClass: 'btn btn-info',
+////                label: 'Imprimir Ficha',
+////                action: function (dialogItself) {
+////                    dialogItself.close();
+////                    $(location).attr('href', 'https://localhost/uan/docente/imprimirFicha/' + id);
+////
+////                }
+////            }
+//            {
+//                cssClass: 'btn btn-danger',
+//                label: 'Fechar',
+//                action: function (dialogItself) {
+//                    dialogItself.close();
+//                    $(location).attr('href', 'https://localhost/uan/docente/');
+//                }
+//
+//
+//            },
+//        ]
+//
+//    });
+//
+//
+//}
+//
+//
+///** * Função para criar um objeto XMLHTTPRequest */
+//function CriaRequest() {
+//    try {
+//        request = new XMLHttpRequest();
+//    }
+//    catch (IEAtual) {
+//        try {
+//            request = new ActiveXObject("Msxml2.XMLHTTP");
+//        }
+//        catch (IEAntigo) {
+//
+//            try {
+//                request = new ActiveXObject("Microsoft.XMLHTTP");
+//            } catch (falha) {
+//                request = false;
 //            }
-            {
-                cssClass: 'btn btn-danger',
-                label: 'Fechar',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'https://localhost/uan/docente/');
-                }
-
-
-            },
-        ]
-
-    });
-
-
-}
-
-
-/** * Função para criar um objeto XMLHTTPRequest */
-function CriaRequest() {
-    try {
-        request = new XMLHttpRequest();
-    }
-    catch (IEAtual) {
-        try {
-            request = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch (IEAntigo) {
-
-            try {
-                request = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (falha) {
-                request = false;
-            }
-        }
-    }
-
-    if (!request)
-        alert("Seu Navegador não suporta Ajax!");
-    else
-        return request;
-}
-
-
-
-function getDados(elemento) {
-    // Declaração de Variáveis
-
-    var acao = $('#' + elemento).attr('id');
-    var imagem = document.getElementById("img").value;
-    var curso = $("#curso").val();
-
-    var result = document.getElementById("conteudo");
-    var xmlreq = CriaRequest();
-    // Exibi a imagem de progresso 
-    result.innerHTML = '<img src="' + imagem + '"/>';
-    // Iniciar uma requisição
-
-
-    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/' + curso + '/', true);
-    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-    xmlreq.onreadystatechange = function () {
-        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-        if (xmlreq.readyState == 4) {
-
-            // Verifica se o arquivo foi encontrado com sucesso 
-            if (xmlreq.status == 200) {
-                result.innerHTML = xmlreq.responseText;
-                tabela();
-
-            }
-
-            else {
-                result.innerHTML = "Erro: " + xmlreq.statusText;
-            }
-        }
-    };
-
-    xmlreq.send(null);
-
-
-}
-
-
-function getTodos(elemento) {
-
-
-    var acao = $('#' + elemento).attr('id');
-
-    var result = document.getElementById("conteudo");
-    var imagem = document.getElementById("img").value;
-
-
-    var xmlreq = CriaRequest();
-    // Exibi a imagem de progresso 
-    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
-    // Iniciar uma requisição
-
-    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/', true);
-    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-    xmlreq.onreadystatechange = function () {
-        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-        if (xmlreq.readyState == 4) {
-
-            // Verifica se o arquivo foi encontrado com sucesso 
-            if (xmlreq.status == 200) {
-                result.innerHTML = xmlreq.responseText;
-                tabela();
-
-            }
-
-            else {
-                result.innerHTML = "Erro: " + xmlreq.statusText;
-            }
-        }
-    };
-
-    xmlreq.send(null);
-
-
-}
-
-
-
-
-
+//        }
+//    }
+//
+//    if (!request)
+//        alert("Seu Navegador não suporta Ajax!");
+//    else
+//        return request;
+//}
+//
+//
+//
+//function getDados(elemento) {
+//    // Declaração de Variáveis
+//
+//    var acao = $('#' + elemento).attr('id');
+//    var imagem = document.getElementById("img").value;
+//    var curso = $("#curso").val();
+//
+//    var result = document.getElementById("conteudo");
+//    var xmlreq = CriaRequest();
+//    // Exibi a imagem de progresso 
+//    result.innerHTML = '<img src="' + imagem + '"/>';
+//    // Iniciar uma requisição
+//
+//
+//    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/' + curso + '/', true);
+//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+//    xmlreq.onreadystatechange = function () {
+//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+//        if (xmlreq.readyState == 4) {
+//
+//            // Verifica se o arquivo foi encontrado com sucesso 
+//            if (xmlreq.status == 200) {
+//                result.innerHTML = xmlreq.responseText;
+//                tabela();
+//
+//            }
+//
+//            else {
+//                result.innerHTML = "Erro: " + xmlreq.statusText;
+//            }
+//        }
+//    };
+//
+//    xmlreq.send(null);
+//
+//
+//}
+//
+//
+//function getTodos(elemento) {
+//
+//
+//    var acao = $('#' + elemento).attr('id');
+//
+//    var result = document.getElementById("conteudo");
+//    var imagem = document.getElementById("img").value;
+//
+//
+//    var xmlreq = CriaRequest();
+//    // Exibi a imagem de progresso 
+//    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
+//    // Iniciar uma requisição
+//
+//    xmlreq.open("POST", "https://localhost/uan/docente/pesquisaPor/" + acao + '/', true);
+//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
+//    xmlreq.onreadystatechange = function () {
+//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
+//        if (xmlreq.readyState == 4) {
+//
+//            // Verifica se o arquivo foi encontrado com sucesso 
+//            if (xmlreq.status == 200) {
+//                result.innerHTML = xmlreq.responseText;
+//                tabela();
+//
+//            }
+//
+//            else {
+//                result.innerHTML = "Erro: " + xmlreq.statusText;
+//            }
+//        }
+//    };
+//
+//    xmlreq.send(null);
+//
+//
+//}
+//
+//
+//
+//
+//
 
