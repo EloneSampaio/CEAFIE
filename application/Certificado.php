@@ -23,10 +23,19 @@ class Certificado implements Documento {
     private $css;
     private $bi;
     private $nome;
+    private $apelido;
     private $curso;
     private $data;
     private $modulo;
     private $nota;
+
+    function getApelido() {
+        return $this->apelido;
+    }
+
+    function setApelido($apelido) {
+        $this->apelido = $apelido;
+    }
 
     function getNota() {
         return $this->nota;
@@ -71,7 +80,7 @@ class Certificado implements Documento {
 
     public function getBody($dados = FALSE) {
 
-        $nome = $this->getNome();
+        $nome = $this->getNome().' '.  $this->getApelido();
         $data = date("d/m/Y", strtotime($this->getData()));
         $modulo = $this->getModulo();
         $nota = $this->getNota();

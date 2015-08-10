@@ -115,7 +115,7 @@ class Matricula extends Doctrine implements Dao {
 
 
             $usuario->setPessoa($pessoa1);
-            $this->em->merge($usuario);
+            $this->em->persist($usuario);
             $this->em->flush();
 
             $this->em->getConnection()->commit();
@@ -162,7 +162,7 @@ class Matricula extends Doctrine implements Dao {
                     ->andWhere('m.data LIKE :data')
                     ->setParameter('data', '%' . $ano)
                     ->setParameter('modulo', $modulo)
-                    ->orderBy('m.id', 'DESC');
+                    ->orderBy('p.nome', 'ASC');
 
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         } else {
@@ -171,7 +171,7 @@ class Matricula extends Doctrine implements Dao {
                     ->from('models\Matricula', 'm')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
                     ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
-                    ->orderBy('m.id', 'DESC');
+                   ->orderBy('p.nome', 'ASC');
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         }
     }

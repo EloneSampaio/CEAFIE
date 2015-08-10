@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 
 function remover() {
-    var url = "https://localhost/uan/docente/remover";
+    var url = "https://localhost/uan/docente/remover/$/";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Aluno?')) {
             var id = $(this).attr('rel');

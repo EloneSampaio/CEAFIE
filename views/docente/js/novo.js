@@ -4,7 +4,9 @@ $(document).off('.alert.data-api')
 $(document).ready(function () {
     teste();
     cursos();
-    var oTable = $('#tabela').dataTable();
+    var oTable = $('#tabela').dataTable({
+        "order": [[1, "asc"]]
+    });
     modulos();
     extras();
 

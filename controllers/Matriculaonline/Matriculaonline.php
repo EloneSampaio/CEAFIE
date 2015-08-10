@@ -23,7 +23,7 @@ class MatriculaOnline extends Controller {
     private $usuario;
 
     public function __construct() {
-         parent::__construct();
+        parent::__construct();
 
         $this->pessoa = $this->LoadModelo('Pessoa');
         $this->aluno = $this->LoadModelo('Aluno');
@@ -173,14 +173,7 @@ class MatriculaOnline extends Controller {
 
                 exit;
             }
-            if (!$this->getSqlverifica('data')) {
-                $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha uma categoria centifica");
-                echo json_encode($ret);
-                //$this->view->erro = "Porfavor Escolha uma data";
-                //$this->view->renderizar("novo");
 
-                exit;
-            }
 
             if (!$this->getSqlverifica('curso')) {
                 $ret = Array("tipo" => 'error', "mensagem" => "Porfavor Escolha um curso");
@@ -199,8 +192,10 @@ class MatriculaOnline extends Controller {
             $this->pessoa->setTelefone($this->view->dados['telefone']);
             $this->pessoa->setImagem(NULL);
             $this->pessoa->setEmail($this->view->dados['email']);
+            $booleano = FALSE;
             if ($this->view->dados['bi'] == '') {
                 $this->pessoa->setBi($this->view->dados['passaporte']);
+                $booleano = TRUE;
                 if ($this->pessoa->pesquisarBi($_POST['passaporte'])) {
                     $ret = Array("tipo" => 'error', "mensagem" => "O numero do passaporte já esta sendo usado escolha um outro");
                     echo json_encode($ret);
@@ -210,6 +205,7 @@ class MatriculaOnline extends Controller {
                 }
             } else {
                 $this->pessoa->setBi($this->view->dados['bi']);
+                $booleano = FALSE;
                 if ($this->pessoa->pesquisarBi($_POST['bi'])) {
                     $ret = Array("tipo" => 'error', "mensagem" => "O numero de bi já esta sendo usado escolha um outro bi");
                     echo json_encode($ret);
@@ -227,11 +223,15 @@ class MatriculaOnline extends Controller {
             $this->aluno->setCategoriaCientifica($this->view->dados['categoria_centifica']);
 
             $this->matricula->setEstado("ABERTO");
-            $this->matricula->setData($_POST['data']);
+            $this->matricula->setData(date('d-m-Y'));
 
-
-            $this->usuario->setLogin($this->view->dados['bi']);
-            $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY));
+            if ($booleano) {
+                $this->usuario->setLogin($this->view->dados['passaporte']);
+                $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['passaporte'], HASH_KEY));
+            } else {
+                $this->usuario->setLogin($this->view->dados['bi']);
+                $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY));
+            }
             $this->usuario->setNivel("aluno");
 
 
@@ -254,10 +254,8 @@ class MatriculaOnline extends Controller {
 
 
 
-            $id = $this->matricula->adiciona($this->pessoa, $this->aluno, $this->matricula, $this->usuario, $_POST['modulo']);
-
-
-            if (!is_int($id)) {
+            $p = $this->matricula->adiciona($this->pessoa, $this->aluno, $this->matricula, $this->usuario, $_POST['modulo']);
+            if (!is_int($p)) {
                 $ret = Array("tipo" => 'error', "mensagem" => "Erro ao cadastrar ");
                 echo json_encode($ret);
 
@@ -272,27 +270,26 @@ class MatriculaOnline extends Controller {
 
                 $this->log->adicionar($this->log, Session::get('id'));
 
-                $ret = Array("tipo" => 'success', "mensagem" => "Dados guardados com sucesso", 'cod' => 1,'id'=>$id,'data'=>  $_POST['data']);
+                $ret = Array("tipo" => 'success', "mensagem" => 'Dados guardados com sucesso', "cod" => 1, "idt" => $p, "data" => date('d-m-Y'));
                 echo json_encode($ret);
-               exit; 
+                exit;
             }
-           
         }
 
 
 
         $this->view->renderizar("novo");
     }
-    
-        public function imprimir($id, $data) {
-        Session::nivelRestrito(array("gestor","funcionario"));
 
+    public function imprimir($id, $data) {
+      
         $d = $this->mm->pesquisarImprimi($id, $data);
 
         $css = "views/layout/default/bootstrap/css/bootstrap.min.css";
         $report = new \application\Recibo($css, 'sam');
         $report->setBi($d->getMatricula()->getAluno()->getPessoa()->getBi());
         $report->setNome($d->getMatricula()->getAluno()->getPessoa()->getNome());
+        $report->setApelido($d->getMatricula()->getAluno()->getPessoa()->getApelido());
         $report->setData($d->getData());
         $report->setCurso($d->getModulo()->getCurso()->getNome());
         $report->setModulo($d->getModulo()->getNome());

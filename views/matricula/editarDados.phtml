@@ -1,4 +1,6 @@
-<?php use application\Session; ?>
+<?php
+
+use application\Session; ?>
 <?php $graduacao = $this->dados->getAluno()->getGraduacao(); ?>
 <?php $unorganica = $this->dados->getAluno()->getUnidadeOrganica(); ?>
 <?php $universidade = $this->dados->getAluno()->getUniversidade(); ?>
@@ -103,8 +105,8 @@ function selected($value, $selected) {
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver </span></a></li>
             <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
             <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-         <?php endif; ?>
+                <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
+            <?php endif; ?>
         </ul>
     </div>
 

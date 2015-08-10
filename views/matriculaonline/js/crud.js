@@ -49,14 +49,14 @@ function adicionar() {
                 .done(function (data) {
 
                     var json = $.parseJSON(data);
-
                     if (json.cod === 1) {
                         notificar(json.mensagem, json.tipo);
+                        alert('O seu nome de usuario e senha padrão é o seu Nº de documento inserido');
                         setTimeout(function () {
-                            var url="https://localhost/uan/matriculaonline/imprimir/"+json.id+'/'+json.data;
+                            var url="https://localhost/uan/matriculaonline/imprimir/"+json.idt+'/'+json.data;
                             $(location).attr('href', url);
                            
-                        }, 2000);
+                        }, 1000);
                     }
                     else {
                         notificar(json.mensagem, json.tipo);

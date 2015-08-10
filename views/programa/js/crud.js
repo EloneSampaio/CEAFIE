@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 
 function remover() {
-    var url = "https://localhost/uan/matricula/remover";
+    var url = "https://localhost/uan/programa/remover";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Aluno?')) {
             var id = $(this).attr('rel');

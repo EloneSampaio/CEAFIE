@@ -51,18 +51,19 @@ class Certificado extends Controller {
         $report = new \application\Certificado($css, 'sam');
         $report->setData($r->getMatricula()->getData());
         $report->setNome($r->getMatricula()->getAluno()->getPessoa()->getNome());
+        $report->setApelido($r->getMatricula()->getAluno()->getPessoa()->getApelido());
         $report->setModulo($r->getModulo()->getNome());
         $report->setNota($n->getNota());
         $report->BuildPDF();
         $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
-        $this->log->setAcao('Foi gerado o diploma  do  aluno' . $d->getAluno()->getPessoa()->getNome());
+        $this->log->setAcao('Foi gerado o diploma  do  aluno' . $d->getAluno()->getPessoa()->getNome().$d->getAluno()->getPessoa()->getApelido());
        $this->log->setData(date('d-m-Y h:i:s'));
 
         $this->log->adicionar($this->log, Session::get('id'));
 
         $lo = new LogUso('log');
         $lo->verificarArquivo();
-        $lo->gravar("Foi gerado um diploma" . '  nome de aluno : ' . $d->getAluno()->getPessoa()->getNome());
+        $lo->gravar("Foi gerado um diploma" . '  nome de aluno : ' . $d->getAluno()->getPessoa()->getNome().$d->getAluno()->getPessoa()->getApelido());
 
         $report->Exibir();
     }

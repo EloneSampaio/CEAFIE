@@ -23,6 +23,7 @@ class Diploma implements Documento {
     private $css;
     private $bi;
     private $nome;
+    private $apelido;
     private $curso;
     private $data;
     private $modulo;
@@ -33,6 +34,14 @@ class Diploma implements Documento {
 
     function setModulo($modulo) {
         $this->modulo = $modulo;
+    }
+
+    function getApelido() {
+        return $this->apelido;
+    }
+
+    function setApelido($apelido) {
+        $this->apelido = $apelido;
     }
 
     public function getNome() {
@@ -60,10 +69,10 @@ class Diploma implements Documento {
         $this->setarCSS($css);
     }
 
-    public function getBody($dados=FALSE) {
+    public function getBody($dados = FALSE) {
 
-        $nome = $this->getNome();
-        $data = date("d-m-Y",  strtotime($this->getData()));
+        $nome = $this->getNome() . ' ' . $this->getApelido();
+        $data = date("d-m-Y", strtotime($this->getData()));
         $modulo = $this->getModulo();
 
 
@@ -137,7 +146,7 @@ class Diploma implements Documento {
         return $retorno;
     }
 
-    public function getHeader($header=FALSE) {
+    public function getHeader($header = FALSE) {
         $retorno = "<img src='public/img/UAN2.png' class='img-responsive' style='margin-left:500px;' />";
 
         return $retorno;

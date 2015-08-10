@@ -40,7 +40,7 @@
                         </fieldset>
 
                         <input name="enviar" type="hidden" value="1"/>
-                         <div class="form-actions span10 text-center">
+                        <div class="form-actions span10 text-center">
                             <button type="submit" class="btn btn-primary" id="buscar">Gerar</button>
                             <button type="reset" class="btn btn-danger active">Cancelar</button>
                         </div>
@@ -60,7 +60,7 @@
 
 
 <?php if (isset($this->matricula) && !empty($this->matricula)): ?>
-    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'MatriculaPOrCursoImprimir/' . $this->matricula['curso']; ?>"  target="_BLANK"><h4><i class="icon icon-print"></i>Imprimir</h4></a>
+    <a  style="position: absolute; top: 320px;" href="<?php echo URL . 'relatorio/' . 'MatriculaPOrCursoImprimir/' . $this->matricula['curso']; ?>"  target="_BLANK"><h4><i class="glyphicon glyphicon-print"></i>Imprimir</h4></a>
 
     <table class="table">
         <caption class="text-center"><h4> Relatório Gerado pelo Sistema<br /><br /> TOTAL DE ALUNOS MATRICULADOS NO <?php echo $this->matricula['curso']; ?><br />
@@ -112,7 +112,7 @@
 
 
 <?php if (isset($this->mt) && !empty($this->mt)): ?>
-    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'matriculadosImprimir/' ?>"  target="_BLANK"><h4><i class="icon icon-print"></i>Imprimir</h4></a>
+    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'matriculadosImprimir/' ?>"  target="_BLANK"><h4><i class="glyphicon glyphicon-print"></i>Imprimir</h4></a>
 
     <table class="table table-striped table-bordered">
         <caption class="text-center"><h4> ESTATÍSTICA GERAL<br /><br /> TOTAL DE ALUNOS MATRICULADOS NO CEAFIE EM 2015<br />
@@ -124,7 +124,6 @@
 
 
 
-            </tr>
             <tr class="ro2"><td class="Default">
                      </td>
                 <td rowspan="2"  class="ce2"><p>CURSO </p></td>
@@ -181,7 +180,7 @@
                 </td><td  class="ce3"><p><?php echo $this->mt['total_m']; ?></p>
                 </td><td class="ce5"><p><?php echo $this->mt['total_geral']; ?></p>
                 </td>
-
+            </tr>
         </tbody>
     </table>
 

@@ -26,6 +26,7 @@ class Recibo implements Documento {
     private $curso;
     private $data;
     private $modulo;
+    private $apelido;
 
     function getModulo() {
         return $this->modulo;
@@ -41,6 +42,14 @@ class Recibo implements Documento {
 
     public function getNome() {
         return $this->nome;
+    }
+
+    function getApelido() {
+        return $this->apelido;
+    }
+
+    function setApelido($apelido) {
+        $this->apelido = $apelido;
     }
 
     public function getCurso() {
@@ -74,7 +83,7 @@ class Recibo implements Documento {
 
     public function getBody($dados = FALSE) {
 
-        $nome = $this->getNome();
+        $nome = $this->getNome() . ' '.$this->getApelido();
         $id = $this->getBi();
         $curso = $this->getCurso();
         $data = $this->getData();
@@ -154,7 +163,7 @@ border-color: #0000;\">
     }
 
     /** função para imprimir programas de estudo criado* */
-    public function getPrograma($dados=FALSE) {
+    public function getPrograma($dados = FALSE) {
 
         $curso = $dados->getCurso()->getNome();
         $modulo = $dados->getModulo()->getNome();
@@ -218,21 +227,16 @@ border-color: #0000;\">
         //$this->pdf->SetHTMLHeader($this->getHeader());
         $this->pdf->WriteHTML($this->getHeader());
         $this->pdf->WriteHTML($this->getBody());
-        $this->pdf->SetHTMLFooter($this->getFooter());
     }
 
-     public function BuildPDFPrograma($dados) {
+    public function BuildPDFPrograma($dados) {
         $this->pdf = new mPDF('utf-8', 'A4-L');
         $this->pdf->WriteHTML($this->css, 1);
         //$this->pdf->SetHTMLHeader($this->getHeader());
         $this->pdf->WriteHTML($this->getHeader());
         $this->pdf->WriteHTML($this->getPrograma($dados));
-        $this->pdf->SetHTMLFooter($this->getFooter());
     }
 
-    
-    
-    
     public function Exibir($name = null) {
         $this->pdf->Output($name, "I");
     }

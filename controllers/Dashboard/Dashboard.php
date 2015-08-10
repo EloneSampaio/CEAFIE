@@ -32,9 +32,9 @@ class Dashboard extends Controller {
     public function index() {
 
         if (Strcmp(Session::get('tema'), "default") == 0) {
-            $this->view->titulo = "Dashboard";
+            $this->view->titulo = "Painel de gestão";
             Session::nivelRestrito(array("gestor", "funcionario"));
-            $this->view->titulo = "Pagina de Gestão";
+            
 
 
 
@@ -107,7 +107,7 @@ class Dashboard extends Controller {
 
     public function gestor() {
         Session::nivelRestrito(array("gestor", "funcionario"));
-         $this->view->titulo = "Dashboard";
+         $this->view->titulo = "Painel de gestão";
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
         $this->view->renderizar("gestor");

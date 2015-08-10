@@ -128,9 +128,13 @@ class Docente extends Controller implements Dao {
             $this->pessoa->setTelefone($this->view->dados['telefone']);
             $this->pessoa->setImagem(NULL);
             $this->pessoa->setEmail($this->view->dados['email']);
+            $booleano = FALSE;
+
             if ($this->view->dados['bi'] == '') {
                 $this->pessoa->setBi($this->view->dados['passaporte']);
+                $booleano = TRUE;
                 if ($this->pessoa->pesquisarBi($_POST['passaporte'])) {
+
                     $ret = Array("tipo" => 'error', "mensagem" => "O numero do passaporte já esta sendo usado escolha um outro");
                     echo json_encode($ret);
                     //$this->view->erro = "O numero de bi já esta sendo usado escolha um outro bi";
@@ -139,6 +143,7 @@ class Docente extends Controller implements Dao {
                 }
             } else {
                 $this->pessoa->setBi($this->view->dados['bi']);
+                $booleano = FALSE;
                 if ($this->pessoa->pesquisarBi($_POST['bi'])) {
                     $ret = Array("tipo" => 'error', "mensagem" => "O numero de bi já esta sendo usado escolha um outro bi");
                     echo json_encode($ret);
@@ -211,8 +216,13 @@ class Docente extends Controller implements Dao {
 
 
 
-            $this->usuario->setLogin($_POST['bi']);
-            $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY)); //$this->geraSenha()
+            if ($booleano) {
+                $this->usuario->setLogin($this->view->dados['passaporte']);
+                $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['passaporte'], HASH_KEY));
+            } else {
+                $this->usuario->setLogin($this->view->dados['bi']);
+                $this->usuario->setSenha(\application\Hash::getHash("md5", $_POST['bi'], HASH_KEY));
+            }
             $this->usuario->setNivel("docente");
             $id12 = $this->usuario->adiciona($this->usuario, $mt->getPessoa()->getId());
             if (!is_int($id12)) {
@@ -392,25 +402,32 @@ class Docente extends Controller implements Dao {
 
     public function pesquisaPor($acao = FALSE) {
 
-        if (isset($_POST['acao'])) {
-            $acao = $_POST['acao'];
+        if ($acao) {
+            $acao1 = $this->getSqlverifica('acao');
+            $curso = $this->getSqlverifica('curso');
 
-            switch ($acao):
+            switch ($acao1):
 
-                case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                case 'buscar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
                     $this->view->renderizar('ajax/lista');
                     break;
                     exit;
 
-                case 'editar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                case 'editar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
                     $this->view->renderizar('ajax/editar');
                     break;
                     exit;
 
-                case 'apagar': $this->view->dados = $this->docente->pesquisaPorCurso($_POST['curso']);
+                case 'apagar': $this->view->dados = $this->docente->pesquisaPorCurso($curso);
                     $this->view->renderizar('ajax/apagar');
                     break;
                     exit;
+                default :$this->view->dados = $this->docente->pesquisaPorCurso($curso);
+
+                    $this->view->renderizar('ajax/lista');
+                    break;
+                    exit;
+
             endswitch;
         }
         else {

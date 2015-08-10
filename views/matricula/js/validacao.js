@@ -28,6 +28,18 @@ $(document).ready(function () {
 
     }, "Nª Bi invalido"); // Mensagem padrão 
 
+    jQuery.validator.addMethod("EmailV", function (valor, elemento) {
+        var str = jQuery.trim(valor);// retira espaços em branco
+        var exp = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi);
+
+        if (!str.match(exp)) {
+            return false;
+        }
+
+        return true;
+
+    }, "Email invalido"); // Mensagem padrão 
+
 
 
     jQuery.validator.addMethod("string", function (valor, elemento) {
@@ -125,7 +137,6 @@ function validaForm() {
                 minlength: 5,
                 maxlength: 20,
                 string: true,
-                
             },
             genero: {
                 required: true
@@ -158,6 +169,7 @@ function validaForm() {
             email: {
                 required: true,
                 email: true,
+                EmailV: true,
                 verificarEmail: true
             },
             grau: {

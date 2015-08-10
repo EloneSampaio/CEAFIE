@@ -63,7 +63,7 @@
 <?php if (isset($this->dados) && !empty($this->dados)): ?>
 
 
-    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'imprimirAproveitamento'; ?>" target="_BLANK"><h4><i class="icon icon-print"></i>Imprimir</h4></a>
+    <a  style="position: absolute; top: 320px;" href="<?php echo URL . 'relatorio/' . 'imprimirAproveitamento'; ?>" target="_BLANK"><h4><i class="glyphicon glyphicon-print"></i>Imprimir</h4></a>
     <table class="table">
         <caption class="text-center"><h4> ESTATÍSTICA GERAL<br /><br /> NUMERO TOTAL DE NOTAS POR GENERO EM 2015<br />
 
@@ -140,7 +140,7 @@
 
 <?php if (isset($this->aproveitamento) && !empty($this->aproveitamento)): ?>
 
-    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'imprimirAproveitamentoPOrCurso/' . $this->aproveitamento['id']; ?>" target="_BLANK"><h4><i class="icon icon-print"></i>Imprimir</h4></a>
+    <a  style="position: absolute; top: 400px;" href="<?php echo URL . 'relatorio/' . 'imprimirAproveitamentoPOrCurso/' . $this->aproveitamento['id']; ?>" target="_BLANK"><h4><i class="glyphicon glyphicon-print"></i>Imprimir</h4></a>
     <table class="table table-striped table-bordered">
         <caption class="text-center"><h4> Relatório Gerado pelo Sistema<br /><br /> NUMERO TOTAL DE NOTAS NO <?php echo $this->aproveitamento['id']; ?> EM 2015<br />
 

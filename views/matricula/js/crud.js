@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 
 function remover() {
-    var url = "https://localhost/uan/matricula/remover";
+    var url = "https://localhost/uan/matricula/pesquisaPor/$";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Aluno?')) {
             var id = $(this).attr('rel');
@@ -71,7 +71,7 @@ function editar() {
     $(document).on('submit', '#edita', function () {
         var url = $(location).attr('href');
         var data = $(this).serialize();
-        
+
         $.post(url, data)
                 .done(function (data) {
 
@@ -238,6 +238,10 @@ function mostrarCampo() {
 
     });
 
+}
+
+function redirecionar(url) {
+  
 }
 
 //$('option[value='+ data[0].start +']').attr('selected', 'selected');

@@ -42,7 +42,7 @@
                                         <td><?php print $dados->getLogin(); ?></td>
                                         <td><?php print $dados->getNivel(); ?></td>
                                         <td><a rel="<?php print URL . "usuario/editar/" . $dados->getId(); ?>" href="<?php print URL . "usuario/editar/" . $dados->getId(); ?>" id="usuario1"><i class="glyphicon glyphicon-pencil"></i></a></td>
-                                        <td><a rel="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" href="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" id="remover"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                        <td><a rel="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" href="<?php print URL . "usuario" . DS1 . "remover" . DS1 . $dados->getPessoa()->getId(); ?>" id="remover"><i class="glyphicon glyphicon-trash" style="color: orangered;"></i></a></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

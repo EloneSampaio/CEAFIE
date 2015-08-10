@@ -31,7 +31,10 @@ $(document).ready(function () {
     remover();
     validaForm();
     validaFormEdit();
-    var oTable = $('#tabela').dataTable();
+    var oTable = $('#tabela').dataTable({
+             "order": [[ 1, "asc" ]]
+        });
+    
 
     var nowDate = new Date();
     var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
@@ -224,7 +227,7 @@ function tabela() {
 
 
 function validar() {
-    var url = "https://localhost/uan/matricula/index";
+    var url = "https://localhost/uan/matricula/pesquisaPor/$";
     $(document).on('click', '#validar', function () {
 
         var id = $(this).attr('rel');

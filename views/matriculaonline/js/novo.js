@@ -14,9 +14,9 @@ $(document).ready(function () {
     var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
     $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
     //$('#telefone').attr('data-mask', '(999) 999-999');
-    alert('Preencha todos os campos');
-    
 
+    inicio();
+   
     $('#carregar').hide();
     $("#modulo").hide();
     $("#modhide").hide();
@@ -401,4 +401,17 @@ function modal(id) {
     });
 
 
+}
+
+function  inicio() {
+    if (confirm('Antes de fazer o cadastro pretendes ler os termos de uso?')) {
+        setTimeout(function () {
+            var url = "https://localhost/uan/upload/termos.doc";
+            $(location).attr('href', url);
+
+        }, 100);
+    }
+    else {
+        return false;
+    }
 }
