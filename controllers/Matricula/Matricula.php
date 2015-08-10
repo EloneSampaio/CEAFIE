@@ -319,10 +319,9 @@ class Matricula extends Controller implements Dao {
             $this->matricula->setEstado("FECHADO");
             $this->matricula->setId($id);
             $this->matricula->editar($this->matricula);
-             $this->pesquisaPor('$');
         }
-       
-       
+        $this->view->dados = $this->matricula->pesquisar();
+        $this->view->renderizar("editar");
     }
 
     /** função para edição de registro do aluno* */
