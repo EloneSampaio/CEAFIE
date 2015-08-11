@@ -29,58 +29,12 @@ use application\Session; ?>
     <div class="row">
         <div class="col-xs-12">
 
-            <!-- BEGIN FORM-->
-    <!--        <form class="form form-horizontal" action="<?php print URL; ?>matricula/pesquisaPor/$" method="POST" target="_BLANK" >
-                <fieldset>
-                    <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
-    
-    
-                    <div class="group-control">
-                        <label class="control-label">Ano<span class="required">*</span></label>
-                        <div class="controls">
-                            <input type="text" name="ano" data-required="1" class="span6 m-wrap" id="ano"/>
-    
-                        </div>
-                    </div>
-                    <div class="group-control">
-                        <label class="control-label">Curso<span class="required">*</span></label>
-                        <div class="controls">
-                            <select class="span6 m-wrap" id="curso" name="curso">
-                                <option value="">-Selecciona um curso-</option>
-                            </select>
-    
-    
-                        </div>
-                    </div>
-    
-                    <div class="group-control">
-                        <label class="control-label">Modúlo<span class="required">*</span></label>
-                        <div class="controls">
-                            <select class="span6 m-wrap" id="modulo1" name="modulo1">
-                                <option value="">-Seleciona um modulo-</option>
-                            </select>
-    
-    
-                        </div>
-                    </div>
-                </fieldset>
-    
-                <input name="enviar" type="hidden" value="1"/>
-                <input name="acao" type="hidden" value="buscar"/>
-                <div class="form-actions span12 text-center">
-                    <button  name="pesquisa"  class="btn btn-success" value="pesquisar">Pesquisar</button>
-                    <button  name="pesquisaT"  class="btn btn-primary"  >Carregar Todos</button>
-                                            <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
-                </div>
-            </form>-->
-
-            <!-- END FORM-->
-
+         
             <form class="form-horizontal" action="<?php print URL; ?>matricula/pesquisaPor/$" method="POST" target="_BLANK">
                 <fieldset>
 
                     <!-- Form Name -->
-                    <legend>Seleciona os dados a pesquisar</legend>
+                    <legend>Seleciona os dados a pesquisar ou clique <a href="<?php echo URL . "matricula" . DS1 . "adicionar/" ?>">adicionar<i class="fa fa-plus-circle"></i></a></legend>
 
                     <!-- Text input-->
                     <div class="form-group">

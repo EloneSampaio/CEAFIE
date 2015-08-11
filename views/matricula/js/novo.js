@@ -1,21 +1,12 @@
-//
-//    $(document).ajaxStart(function () {
-//       
-//    });
-//
-//    $(document).ajaxStop(function () {
-// tabela();
-//
-//    });
+
 $(document).off('.data-api');
 $(document).off('.alert.data-api')
 
 $(document).ready(function () {
+     
+    
     var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
     $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
-    //$('#telefone').attr('data-mask', '(999) 999-999');
-
-
     $('#carregar').hide();
     $("#modulo").hide();
     $("#modhide").hide();
@@ -30,13 +21,13 @@ $(document).ready(function () {
     remover();
     validaForm();
     validaFormEdit();
-    tool();
+   // tool();
     var nowDate = new Date();
     var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     $('#data').datepicker({
         format: "dd-mm-yyyy",
         language: "pt-BR",
-        startDate: today,
+        startDate: today
     });
 });
 function cursos() {
@@ -185,163 +176,6 @@ function validar() {
 
 
 
-///** * Função para criar um objeto XMLHTTPRequest */
-//function CriaRequest() {
-//    try {
-//        request = new XMLHttpRequest();
-//    }
-//    catch (IEAtual) {
-//        try {
-//            request = new ActiveXObject("Msxml2.XMLHTTP");
-//        }
-//        catch (IEAntigo) {
-//
-//            try {
-//                request = new ActiveXObject("Microsoft.XMLHTTP");
-//            } catch (falha) {
-//                request = false;
-//            }
-//        }
-//    }
-//
-//    if (!request)
-//        alert("Seu Navegador não suporta Ajax!");
-//    else
-//        return request;
-//}
-/** * Função para enviar os dados */
-
-//function getDados(elemento) {
-//    // Declaração de Variáveis
-//
-//    var acao = $('#' + elemento).attr('id');
-//    var ano = document.getElementById("ano").value;
-//    var imagem = document.getElementById("img").value;
-//    var modulo = $("#modulo1").val();
-//
-//
-//    var result = document.getElementById("conteudo");
-//    var xmlreq = CriaRequest();
-//    // Exibi a imagem de progresso 
-//    result.innerHTML = '<img src="' + imagem + '"/>';
-//    // Iniciar uma requisição
-//
-//
-//    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/' + modulo + '/' + ano + '/', true);
-//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-//    xmlreq.onreadystatechange = function () {
-//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-//        if (xmlreq.readyState == 4) {
-//
-//            // Verifica se o arquivo foi encontrado com sucesso 
-//            if (xmlreq.status == 200) {
-//                result.innerHTML = xmlreq.responseText;
-//                tabela();
-//                
-//
-//            }
-//
-//            else {
-//                result.innerHTML = "Erro: " + xmlreq.statusText;
-//            }
-//        }
-//    };
-//
-//    xmlreq.send(null);
-//
-//
-//}
-//
-//
-//function getTodos(elemento) {
-//
-//
-//    var acao = $('#' + elemento).attr('id');
-//
-//    var result = document.getElementById("conteudo");
-//    var imagem = document.getElementById("img").value;
-//    var xmlreq = CriaRequest();
-//    // Exibi a imagem de progresso 
-//    result.innerHTML = '<img src="' + imagem + '"   class="img-circle"/>';
-//    // Iniciar uma requisição
-//
-//
-//    xmlreq.open("POST", "https://localhost/uan/matricula/pesquisaPor/" + acao + '/', true);
-//    // Atribui uma função para ser executada sempre que houver uma mudança de ado
-//    xmlreq.onreadystatechange = function () {
-//        // Verifica se foi concluído com sucesso e a conexão fechada (readyState=4)
-//        if (xmlreq.readyState == 4) {
-//
-//            // Verifica se o arquivo foi encontrado com sucesso 
-//            if (xmlreq.status == 200) {
-//                result.innerHTML = xmlreq.responseText;
-//                tabela();
-//
-//            }
-//
-//            else {
-//                result.innerHTML = "Erro: " + xmlreq.statusText;
-//            }
-//        }
-//    };
-//
-//    xmlreq.send(null);
-//
-//
-//}
-//
-
-
-
-
-
-
-
-
-function modal(id) {
-    BootstrapDialog.show({
-        closable: false,
-        message: function (dialog) {
-            var $message = $('<div></div>');
-            var pageToLoad = dialog.getData('pageToLoad');
-            $message.load(pageToLoad);
-            return $message;
-        },
-        data: {
-            'pageToLoad': 'https://localhost/uan/matricula/informacao/' + id
-        },
-        cssClass: 'login-dialog',
-        buttons: [{
-                cssClass: 'btn btn-primary',
-                label: 'Matricular em novo curso',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'https://localhost/uan/matricula/addCurso/' + id);
-                }
-            },
-//            {
-//                cssClass: 'btn btn-info',
-//                label: 'Imprimir Ficha',
-//                action: function (dialogItself) {
-//                    dialogItself.close();
-//                    $(location).attr('href', 'https://localhost/uan/matricula/imprimirFicha/' + id);
-//
-//                }
-//            }
-            {
-                cssClass: 'btn btn-danger',
-                label: 'Fechar',
-                action: function (dialogItself) {
-                    dialogItself.close();
-                    $(location).attr('href', 'https://localhost/uan/matricula/');
-                }
-
-
-            },
-        ]
-
-    });
-}
 
 
 function tool() {
@@ -357,12 +191,13 @@ function tool() {
         "aaSorting": [],
     });
     //TableTools settings
+     
     TableTools.classes.container = "btn-group btn-overlap";
     TableTools.classes.print = {
         "body": "DTTT_Print",
         "info": "tableTools-alert gritter-item-wrapper gritter-info gritter-center white",
         "message": "tableTools-print-navbar"
-    }
+    };
 
 //initiate TableTools extension
     var tableTools_obj = new $.fn.dataTable.TableTools(oTable1, {

@@ -13,19 +13,21 @@ use application\Session; ?>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->	
 
-
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_vendores"] ?>jquery-1.9.1.min.js"></script> 
+
+        <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-responsive.min.css" media="screen"/>
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap.min.css" media="screen"/> 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>ace.min.css" media="screen"/> 
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>font-awesome.min.css" media="screen"/> 
-
-
-
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_css"] ?>bootstrap-datepicker.min.css" media="screen"/> 
+
+
 
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>bootstrap.min.js"></script>
         <script type="text/javascript" src="<?php print $_layoutParam["caminho_js"] ?>ace-extra.min.js"></script>
+
         <link rel="stylesheet" href="<?php print $_layoutParam["caminho_assets"] ?>styles.css" media="screen"/>
+
 
         <?php if (isset($_layoutParam['css']) && count($_layoutParam['css'])): ?>
             <?php for ($i = 0; $i < count($_layoutParam['css']); $i++): ?>
@@ -36,8 +38,8 @@ use application\Session; ?>
         <?php if (isset($_layoutParam['js']) && count($_layoutParam['js'])): ?>
             <?php for ($i = 0; $i < count($_layoutParam['js']); $i++): ?>
                 <script type="text/javascript" src="<?php print $_layoutParam['js'][$i] ?>"></script>       
-    <?php endfor; ?>
-<?php endif; ?>
+            <?php endfor; ?>
+        <?php endif; ?>
         <style>
             .datepicker{z-index:1151 !important;}
 
@@ -70,10 +72,10 @@ use application\Session; ?>
             <?php if (isset($this->erro)): ?>
                 <h4 class="text-center alert-danger">  <?php print $this->erro; ?> </h4>
 
-<?php endif; ?>
+            <?php endif; ?>
         </div>
         <div><?php if (isset($this->mensagem)): ?>
                 <h3 class="text-center alert-info">  <?php print $this->mensagem; ?> </h3>
-<?php endif; ?>
+            <?php endif; ?>
         </div>
 
