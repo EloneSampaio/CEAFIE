@@ -1,4 +1,6 @@
-<?php use application\Session; ?>
+<?php
+
+use application\Session; ?>
 <?php echo $this->menu; ?>
 
 <?php
@@ -47,35 +49,21 @@ function selected($value, $selected) {
 </style>
 
 
-<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
-
-    <p></p>
-    <div class="navbar-nav">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color:  #ffffff;" >Ver</span></a></li>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-           <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
-            <li class="active"><a href="<?php echo URL . "matricula" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-         <?php endif; ?>
-        </ul>
-    </div>
 
 
-</div>
-
-
-<div class="span12 " id="content" style="margin-left: 150px; ">
+<div class="container">
     <!-- validation -->
     <div class="row-fluid">
-        <!-- block -->
-        <br />
-        <div class="block">
-            <div class="navbar-nav container block-header" style="margin-top: 20px;">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Formando</div>
-            </div>
-        </div>
+
         <div class="block-content collapse in">
             <div class="span12">
+                <div class="table-header">
+                    <?php
+                    if (isset($this->titulo)): echo $this->titulo;
+                    endif;
+                    ?>
+                    <a href="<?php echo URL."matricula";?>" style="color: white;"><span class="muted pull-right">Voltar ao menu</span></a>
+                </div>
                 <!-- BEGIN FORM-->
                 <form action="<?php print URL; ?>matricula/adicionar" id="adicionar" class="form form-inline form-multiple" method="POST"  >
                     <fieldset>
@@ -88,10 +76,10 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Nome</label>
                             <div class="col-xs-12">
                                 <input type="text" name="nome"  class="form-control span9 borda" value=" <?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
-                                endif;
-                                ?>"
-                                />
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
+                                       endif;
+                                       ?>"
+                                       />
                             </div>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6 col-lg-3">
@@ -99,9 +87,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Apelido</label>
                             <div class="col-xs-12">
                                 <input type="text" name="apelido"  class="form-control span9 borda" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
-                                endif;
-                                ?>"/>
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['apelido'];
+                                       endif;
+                                       ?>"/>
                             </div>
 
                         </div>
@@ -111,13 +99,13 @@ function selected($value, $selected) {
                                 <select class="form-control span9 borda" name="genero" id="genero">
                                     <option value="">-Seleciona um genero-</option>
                                     <option value="Masculino" <?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
-                                    endif;
-                                    ?> >Masculino</option>
+                                            if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Masculino");
+                                            endif;
+                                            ?> >Masculino</option>
                                     <option value="Femenino" <?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
-                                    endif;
-                                    ?> >Femenino</option>
+                                            if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['genero'], "Femenino");
+                                            endif;
+                                            ?> >Femenino</option>
                                 </select>                                    
                             </div>
                         </div>
@@ -130,13 +118,13 @@ function selected($value, $selected) {
                                 <select class="form-control span9 borda" name="nacionalidade" id="nacionalidade">
                                     <option value="">-Seleciona a nacionalidade-</option>
                                     <option value="ANGOLANA" <?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "ANGOLANA");
-                                    endif;
-                                    ?>>-Angola-</option>
+                                            if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "ANGOLANA");
+                                            endif;
+                                            ?>>-Angola-</option>
                                     <option value="Outro" <?php
-                                    if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "Outro");
-                                    endif;
-                                    ?>>-Outro-</option>
+                                            if (isset($this->dados) && !empty($this->dados)): echo selected($this->dados['nacionalidade'], "Outro");
+                                            endif;
+                                            ?>>-Outro-</option>
                                 </select>                   
                             </div>
                         </div>
@@ -145,9 +133,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Nª Bi</label>
                             <div class="col-xs-12">
                                 <input name="bi" id="bix" type="text" class="form-control span9 borda" maxlength="14" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
-                                endif;
-                                ?>"/>
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['bi'];
+                                       endif;
+                                       ?>"/>
                                 <p class="texto" id="textobi"></p>
 
                             </div>
@@ -157,9 +145,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Nª Doc</label>
                             <div class="col-xs-12">
                                 <input name="passaporte" id="passportes" type="text" class="form-control span9 borda" maxlength="7" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['passaporte'];
-                                endif;
-                                ?>"/>
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['passaporte'];
+                                       endif;
+                                       ?>"/>
                             </div>
 
                         </div>
@@ -170,9 +158,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Telefone</label>
                             <div class="col-xs-12">
                                 <input name="telefone" id="telefone" type="text" class="form-control span9 verifica"  maxlength="9" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
-                                endif;
-                                ?>"/> 
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['telefone'];
+                                       endif;
+                                       ?>"/> 
                                 <p class="texto" id="textofone"></p>
                             </div>
 
@@ -183,9 +171,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Email</label>
                             <div class="col-xs-12">
                                 <input name="email"  id="email" class="form-control span9 verifica" type="email" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
-                                endif;
-                                ?>"/>
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['email'];
+                                       endif;
+                                       ?>"/>
                                 <p class="texto" id="textoemail"></p>
 
                             </div>
@@ -292,9 +280,9 @@ function selected($value, $selected) {
                             <label class="col-xs-4">Data</label>
                             <div class="col-xs-12">
                                 <input type="text" name="data" class="form-control span9 borda" id="data" data-provide="datepicker" data-required="1" value="<?php
-                                if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
-                                endif;
-                                ?>"/>
+                                       if (isset($this->dados) && !empty($this->dados)): echo $this->dados['data'];
+                                       endif;
+                                       ?>"/>
 
                             </div>
                         </div>

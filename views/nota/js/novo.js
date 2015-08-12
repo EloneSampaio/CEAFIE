@@ -4,20 +4,8 @@ $(document).ready(function () {
     validar();
     modulos();
     modulos1();
-    var oTable = $('#tabela').dataTable();
-
-    /* Add event listener to the dropdown input */
-    $('#ano').blur(function () {
-
-        oTable.fnFilter($(this).val());
-    });
-    $('#curso').change(function () {
-        oTable.fnFilter($(this).val());
-    });
-    $('#modulo1').change(function () {
-        oTable.fnFilter($(this).val());
-    });
     docenteMOdulo();
+    remover();
 });
 
 
@@ -265,6 +253,26 @@ function validar() {
         }
     });
 
+}
+
+
+function remover() {
+    var url = "https://localhost/uan/nota/pesquisaPor/";
+    $(document).on('click', '#remover', function () {
+        if (confirm('Pretendes Apagar este a nota deste formando?')) {
+            var id = $(this).attr('rel');
+            console.log(id);
+            $.post(id)
+                    .done(function (data) {
+                        alert("Dados apagado com sucesso");
+
+                        $(location).attr('href', url);
+                    });
+        }
+        else {
+            return false;
+        }
+    });
 }
 
 

@@ -68,6 +68,14 @@ function adicionar() {
 }
 
 function editar() {
+
+
+    var endereco = location.pathname;
+    var array = endereco.split('/');
+    var ultimo = array.pop();
+    var isola = ultimo.split('.');
+    var clicado = isola[0];
+
     $(document).on('submit', '#edita', function () {
         var url = $(location).attr('href');
         var data = $(this).serialize();
@@ -241,7 +249,7 @@ function mostrarCampo() {
 }
 
 function redirecionar(url) {
-  
+
 }
 
 //$('option[value='+ data[0].start +']').attr('selected', 'selected');

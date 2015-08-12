@@ -115,7 +115,7 @@ class Nota extends Doctrine implements Dao {
     public function pesquisaPorDOcente($dados = FALSE) {
         if ($dados['1'] && $dados['2']) {
             $qb = $this->em->createQueryBuilder()
-                    ->select('n.nota', 'n.data', 'p.nome', 'p.bi', 'a.id', 'mod.id as modulo', 'mod.nome as modnome')
+                    ->select('n.nota', 'n.data', 'p.nome', 'p.bi', 'a.id', 'mod.id as modulo', 'mod.nome as modnome','n.id as idnota')
                     ->from('models\MatriculaModulo', 'md')
                     ->innerJoin('models\Matricula', 'm', 'WITH', 'md.matricula=m.id')
                     ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
@@ -128,6 +128,19 @@ class Nota extends Doctrine implements Dao {
                     ->setParameter('modulo', $dados['1'])
                     ->setParameter('estado', $dados['2'])
                     ->setParameter('data', '%' . $dados['3'])
+                    ->groupBy('m.id');
+            return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        } else {
+            $qb = $this->em->createQueryBuilder()
+                    ->select('n.nota', 'n.data', 'p.nome', 'p.bi', 'a.id', 'mod.id as modulo', 'mod.nome as modnome','m.id as matricula','n.id as idnota')
+                    ->from('models\MatriculaModulo', 'md')
+                    ->innerJoin('models\Matricula', 'm', 'WITH', 'md.matricula=m.id')
+                    ->innerJoin('models\Aluno', 'a', 'WITH', 'm.aluno=a.id')
+                    ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')
+                    ->leftJoin('models\Nota', 'n', 'WITH', 'n.aluno=a.id')
+                    ->leftJoin('md.modulo', 'mod')  //juntar tabela modulo atravez do id existente na tabela MatriculaModulo
+                    ->andWhere('m.estado =:estado')
+                    ->setParameter('estado', "FECHADO")
                     ->groupBy('m.id');
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
         }
@@ -145,8 +158,8 @@ class Nota extends Doctrine implements Dao {
                     ->andWhere('mod.id =:modulo')
                     ->andWhere('n.data LIKE :data')
                     ->setParameter('modulo', $dados['1'])
-                    ->setParameter('data', $dados['3'].'%' );
-                    
+                    ->setParameter('data', $dados['3'] . '%');
+
             return $qb->getQuery()->getResult(\Doctrine\ORM\Query:: HYDRATE_ARRAY);
         } else {
             $qb = $this->em->createQueryBuilder()
@@ -273,7 +286,7 @@ class Nota extends Doctrine implements Dao {
 
     public function verNota() {
         $qb = $this->em->createQueryBuilder()
-                ->select('n.nota,n.data', 'p.nome', 'p.bi', 'm.nome as n1', 'c.nome as n2','a.id as aluno','m.id as modulo')
+                ->select('n.nota,n.data', 'p.nome', 'p.bi', 'm.nome as n1', 'c.nome as n2', 'a.id as aluno', 'm.id as modulo')
                 ->from('models\Nota', 'n')
                 ->innerJoin('models\Aluno', 'a', 'WITH', 'n.aluno=a.id')
                 ->innerJoin('models\Pessoa', 'p', 'WITH', 'a.pessoa=p.id')

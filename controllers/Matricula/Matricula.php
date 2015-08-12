@@ -502,6 +502,7 @@ class Matricula extends Controller implements Dao {
 
     public function pesquisaPor($acao = FALSE) {
         Session::nivelRestrito(array("gestor", "funcionario"));
+        $this->view->setJs(array('tabela'));
 
         if (isset($acao)) {
             $acao1 = $this->getSqlverifica('acao');

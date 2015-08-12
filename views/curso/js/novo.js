@@ -67,7 +67,7 @@ function tabela() {
 
 
 function remover() {
-    var url = "https://localhost/uan/curso/remover";
+    var url = "https://localhost/uan/curso/";
     $(document).on('click', '#remover', function () {
         if (confirm('Pretendes Apagar este Item?')) {
             var id = $(this).attr('rel');

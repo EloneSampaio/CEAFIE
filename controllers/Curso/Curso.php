@@ -132,10 +132,11 @@ class Curso extends Controller implements Dao {
                 $lo->verificarArquivo();
                 $lo->gravar("Foi Editado um curso" . ' Com o nome de : ' . $_POST['nome']);
                 $this->view->mensagem = "Dados alterados com sucesso";
+                $this->redirecionar('curso');
             }
         }
         $this->view->dados = $this->curso->pesquisar();
-        $this->view->renderizar("editar");
+        $this->view->renderizar("index");
     }
 
     public function pesquisaPor($dados = FALSE) {
@@ -163,8 +164,7 @@ class Curso extends Controller implements Dao {
             $lo->gravar("Foi apagado um  curso");
             return TRUE;
         }
-        $this->view->dados = $this->curso->pesquisar();
-        $this->view->renderizar("remover");
+        $this->redirecionar('curso');
     }
 
     public function editarDados($id = FALSE) {

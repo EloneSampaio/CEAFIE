@@ -37,7 +37,9 @@
 
 
 
-<?php use application\Session; ?>
+<?php
+
+use application\Session; ?>
 <?php echo $this->menu; ?>
 
 <?php
@@ -47,131 +49,104 @@ function selected($value, $selected) {
 }
 ?>
 
-
-<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
-    <div class="navbar">
-        <h3></h3>
-        <h3></h3>
-        <ul class="nav navbar-nav">
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Adicionar</span></a></li>
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
-                <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-            <?php endif; ?>   </ul>
-    </div>
-
-
-</div>
-
-<div class="span10 " id="content" style="margin-left: 150px;">
+<div class="container">
     <!-- validation -->
     <div class="row-fluid">
-        <!-- block -->
-        <div class="block">
-            <div class="navbar navbar-inner block-header" style="margin-top: 20px;">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Docente</div>
-            </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    <!-- BEGIN FORM-->
-                    <form action="" id="edita" class="form form-inline form-multiple" method="POST">
-                        <fieldset>
-                            <legend>Dados Pessoas</legend>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Nome</label>
-                                <div class="col-xs-12">
-                                    <input type="text" name="nome"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getNome(); ?>"/>
-                                </div>
-                            </div>
 
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Apelido</label>
-                                <div class="col-xs-12">
-                                    <input type="text" name="apelido"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getApelido(); ?>"/>
-                                </div>
+        <div class="block-content collapse in">
+            <div class="span12">
+                <div class="table-header">
+                 Formulario de edição
+                    <a href="<?php echo URL . "docente"; ?>" style="color: white;"><span class="muted pull-right">Voltar ao menu</span></a>
+                </div> 
+                <form action="" id="edita" class="form form-inline form-multiple" method="POST">
+                    <fieldset>
+                        <legend>Dados Pessoas</legend>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Nome</label>
+                            <div class="col-xs-12">
+                                <input type="text" name="nome"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getNome(); ?>"/>
                             </div>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Genero</label>
-                                <div class="col-xs-12">
-                                    <select class="form-control span9 borda" name="genero">
-                                        <option value="masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "masculino") ?> >Masculino</option>
-                                        <option value="femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "femenino") ?> >Femenino</option>
-                                    </select>                                    
-                                </div>
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Nacionalidade</label>
-                                <div class="col-xs-12">
-                                    <select class="form-control span9" name="nacionalidade" id="nacionalidade">
-                                        <option value="ANGOLANA" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "ANGOLANA") ?> >Angolana</option>
-                                        <option value="Outro" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "Outro") ?> >Outro</option>
-
-                                    </select>                   
-                                </div>
-                            </div>
-
-                        </fieldset>
-
-
-                        <fieldset>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-8">Nª Doc</label>
-                                <div class="col-xs-12">
-                                    <input name="bi" type="text" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getBi(); ?>"/>
-                                </div>
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Telefone</label>
-                                <div class="col-xs-12">
-                                    <input name="telefone" type="tel" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getTelefone(); ?>"/>
-                                </div>
-                            </div>
-
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-4">Email</label>
-                                <div class="col-xs-12">
-                                    <input name="email"  class="form-control span9 borda" type="email" value="<?php print $this->dados->getPessoa()->getEmail(); ?>"/>
-                                </div>
-                            </div>
-                            <div class="form-group col-xs-12 col-sm-6 col-lg-3">
-                                <label class="col-xs-12">Grau</label>
-                                <div class="col-xs-12">
-                                    <select class="form-control span9 borda" name="grau">
-
-                                        <option value="Licenciado" <?php echo selected($this->dados->getGrau(), "Licenciado") ?>>Licenciado</option>
-                                        <option value="Mestre" <?php echo selected($this->dados->getGrau(), "Mestre") ?>>Mestre</option>
-                                        <option value="Doctor" <?php echo selected($this->dados->getGrau(), "Doctor") ?>>Doctor</option>
-                                    </select>                                    
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <input name="enviar" type="hidden" value="1"/>
-                        <input name="id" type="hidden" value="<?php print $this->dados->getId(); ?>"/>
-                        <input name="pessoa" type="hidden" value="<?php print $this->dados->getPessoa()->getId(); ?>"/>
-                        <div class="form-actions span10 text-center">
-                            <button type="submit" class="btn btn-primary" id="editar">Salvar Dados</button>
-                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
                         </div>
 
-                        <!-- END FORM-->
-                </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Apelido</label>
+                            <div class="col-xs-12">
+                                <input type="text" name="apelido"  class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getApelido(); ?>"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Genero</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="genero">
+                                    <option value="masculino" <?php echo selected($this->dados->getPessoa()->getGenero(), "masculino") ?> >Masculino</option>
+                                    <option value="femenino" <?php echo selected($this->dados->getPessoa()->getGenero(), "femenino") ?> >Femenino</option>
+                                </select>                                    
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Nacionalidade</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9" name="nacionalidade" id="nacionalidade">
+                                    <option value="ANGOLANA" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "ANGOLANA") ?> >Angolana</option>
+                                    <option value="Outro" <?php echo selected($this->dados->getPessoa()->getNacionalidade(), "Outro") ?> >Outro</option>
+
+                                </select>                   
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                    <fieldset>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-8">Nª Doc</label>
+                            <div class="col-xs-12">
+                                <input name="bi" type="text" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getBi(); ?>"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Telefone</label>
+                            <div class="col-xs-12">
+                                <input name="telefone" type="tel" class="form-control span9 borda" value="<?php print $this->dados->getPessoa()->getTelefone(); ?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-4">Email</label>
+                            <div class="col-xs-12">
+                                <input name="email"  class="form-control span9 borda" type="email" value="<?php print $this->dados->getPessoa()->getEmail(); ?>"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-lg-3">
+                            <label class="col-xs-12">Grau</label>
+                            <div class="col-xs-12">
+                                <select class="form-control span9 borda" name="grau">
+
+                                    <option value="Licenciado" <?php echo selected($this->dados->getGrau(), "Licenciado") ?>>Licenciado</option>
+                                    <option value="Mestre" <?php echo selected($this->dados->getGrau(), "Mestre") ?>>Mestre</option>
+                                    <option value="Doctor" <?php echo selected($this->dados->getGrau(), "Doctor") ?>>Doctor</option>
+                                </select>                                    
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <input name="enviar" type="hidden" value="1"/>
+                    <input name="id" type="hidden" value="<?php print $this->dados->getId(); ?>"/>
+                    <input name="pessoa" type="hidden" value="<?php print $this->dados->getPessoa()->getId(); ?>"/>
+                    <div class="form-actions span10 text-center">
+                        <button type="submit" class="btn btn-primary" id="editar">Salvar Dados</button>
+                    </div>
+                </form>
+
+                <!-- END FORM-->
             </div>
         </div>
-        <!-- /block -->
     </div>
-    <!-- /validation -->
-
-</div>
-
-</form>
-<!-- END FORM-->
-</div>
-</div>
-</div>
-<!-- /block -->
+    <!-- /block -->
 </div>
 <!-- /validation -->
 
-</div>
-</div>
+
+
+<!-- END FORM-->

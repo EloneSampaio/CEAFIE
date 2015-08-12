@@ -28,7 +28,7 @@
 
                         <th>Nome</th>
                         <th>Nota</th>
-                        <th>Editar</th>
+                        <th></th>
                         <th></th>
 
                     </tr>
@@ -87,22 +87,18 @@
                                     </form>
                                 </td>
                             <?php endif; ?>
-
+                                
                             <?php if (isset($dados['nota']) && !empty($dados['nota'])): ?>
+                                
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
 
-                                <td>            
-                                    <form action="<?php print URL; ?>nota/editar"   method="POST">            
-                                        <select  id="nota" name="nota">
-                                            <option>Seleccionar Nota...</option>
-                                            <option value="Excelente">Excelente</option>
-                                            <option value="Bom">Bom</option>
-                                            <option value="Suficiente">Suficiente</option>
-                                        </select>
+                                        <a href="#" id="remover" rel="<?php echo URL . "nota" . DS1 . "remover/" . $dados['idnota']; ?>" class="red">
+                                            <span class="ace-icon fa fa-trash-o bigger-130">
 
-                                        <input name="enviar" type="hidden" value="1"/>
-                                        <input type="hidden" name="id" value="<?php print $dados['idnota']; ?>"/>
-                                        <button type="submit" class="btn btn-grey" id="button">Editar</button>
-                                    </form>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </td>
                             <?php else: ?>
                                 <td>
@@ -117,11 +113,11 @@
                                 </td>
 
                             <?php endif; ?>
-
-
-
-
-
+                                
+                                
+                                
+                                
+                                
 
 
 

@@ -1,4 +1,49 @@
+<style>
+    /*Copied from bootstrap */
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    /*Also */
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+    /* This is copied from https://github.com/blueimp/jQuery-File-Upload/blob/master/css/jquery.fileupload.css */
+    .fileinput-button {
+        position: relative;
+        overflow: hidden;
+    }
+    /*Also*/
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter:'alpha(opacity=0)';
+        font-size: 200px;
+        direction: ltr;
+        cursor: pointer;
+    }
 
+</style>
 
 
 
@@ -30,7 +75,10 @@
                                     <img src="<?php print URL; ?>public/img/10.jpg" class="img-responsive"/>
 
                                     <form id="guarda" method="POST" action="<?php print URL . "matricula/editarImagem/" . $this->dados->getAluno()->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal">
-                                        <input type="file" name="imagem" alt="xx"/>
+                                        <span class="fa fa-image fileinput-button">
+                                            <span>escolha </span>
+                                            <input type="file" name="imagem"/>
+                                        </span>
                                         <input type="hidden" name="id" value="<?php echo $this->dados->getAluno()->getId(); ?>" />
                                         <button type="submit" id="guarda" class="btn btn-info">Guardar</button>
                                     </form>
@@ -89,13 +137,16 @@
                                             <td>Email</td>
                                             <td><a href="mailto:<?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?>"><?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?></a></td>
                                         </tr>
-                                    <td>Modulos inscrito</td>
-                                    <?php foreach ($this->modulo as $valor): ?>
-                                        <td>
-                                            <br>
+                                    <td class="red">Modulos inscrito</td>
+                                    <td>
+                                        <?php foreach ($this->modulo as $valor): ?>
+
+                                            <br />
                                             <?php echo $valor->getModulo()->getNome(); ?>(<?php echo $valor->getModulo()->getCurso()->getNome(); ?>)
-                                        </td>
-                                    <?php endforeach; ?>
+<br />
+                                        <?php endforeach; ?>
+
+                                    </td>
 
                                     </tr>
 

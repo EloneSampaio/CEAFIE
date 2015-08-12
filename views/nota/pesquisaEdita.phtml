@@ -11,10 +11,13 @@ use application\Session; ?>
 
     <div class="row">
         <div class="col-xs-12">
-            <form action="<?php print URL; ?>nota/pesquisaPor" id="buscar" class="form-horizontal" method="POST"target="_BLANK" >
-                 <legend>Seleciona os dados a pesquisar ou clique <a href="<?php echo URL . "nota" . DS1 . "editar/" ?>">editar<i class="fa fa-pencil-square-o"></i></a></legend>
 
+
+            <form action="<?php print URL; ?>nota/pesquisarEditar" id="buscar" class="form-horizontal" method="POST"target="_BLANK" >
                 <fieldset>
+                    <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
+
+
                     <div class="form-group">
                         <label class="col-md-4 col-xs-4 control-label">Ano<span class="required">*</span></label>
                         <div class="col-md-3 col-xs-3">

@@ -5,89 +5,52 @@ use application\Session; ?>
 
 
 
-
-<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
-    <div class="navbar">
-        <h3></h3>
-        <h3></h3>
-        <ul class="nav navbar-nav">
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Adicionar</span></a></li>
-            <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Editar</span></a></li>
-            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
-                <li class="active click"><a href="<?php echo URL . "docente" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #ffffff;">Apagar</span></a></li>
-<?php endif; ?>
-        </ul>
-    </div>
-
-
-</div>
-
-
-<div  id="content" style="margin-left: 120px;">
-    <!-- validation -->
-    <div class="row-fluid">
-        <!-- block -->
-        <div class="block">
+<div class="container">
 
 
 
+    <div class="row">
 
+        <form class="form-horizontal" action="<?php print URL; ?>docente/pesquisaPor/$" method="POST" target="_BLANK">
+            <fieldset>
 
-            <div class="span6 " id="content" style="margin-left: 100px; margin-top: 30px;">
-                <!-- validation -->
+                <!-- Form Name -->
+                <legend>Seleciona os dados a pesquisar ou clique <a href="<?php echo URL . "docente" . DS1 . "adicionar/" ?>">adicionar<i class="fa fa-plus-circle"></i></a></legend>
 
-                <div class="row-fluid">
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 col-xs-4 control-label" for="ano">Ano</label>  
+                    <div class="col-md-3 col-xs-3">
+                        <input id="ano" name="ano" type="number" placeholder="Insira o ano" class="form-control input-md">
 
-                    <!-- block -->
-                    <div class="block">
-
-
-
-
-                        <div class="block-content collapse in">
-                            <div class="span12">
-                                <!-- BEGIN FORM-->
-                                <form class="form-horizontal" action="<?php print URL; ?>docente/pesquisaPor/$" target="_BLANK" method="POST">
-                                    <fieldset>
-                                        <legend class="text-info text-center">Selecciona os dados a pesquisar</legend>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Curso<span class="required">*</span></label>
-                                            <div>
-                                                <select class="span6 m-wrap " id="curso" name="curso">
-                                                    <option value="">-Selecciona um curso-</option>
-                                                </select>
-
-
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <input name="enviar" type="hidden" value="1"/>
-                                    <input name="acao" type="hidden" value="buscar"/>
-
-                                    <div class="form-actions span10 text-center">
-                                        <button name="btnPesquisar"  class="btn btn-success">Pesquisar</button>
-                                        <button name="btnPesquisar"  class="btn btn-primary" >Carregar Todos</button>
-                                        <input type="hidden" value="<?php echo URL; ?>public/img/6.gif" id="img"/>
-                                    </div>
-                                </form>
-
-                                <!-- END FORM-->
-                            </div>
-                        </div>
                     </div>
-                    <!-- /block -->
                 </div>
-                <!-- /validation -->
 
-            </div>
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 col-xs-4 control-label" for="curso">Curso</label>
+                    <div class="col-md-3 col-xs-3">
+                        <select id="curso" name="curso" class="form-control">
+                            <option value="">Seleciona o curso</option>
+                        </select>
+                    </div>
+                </div>
 
-            <br /><br /><br /><br /><br />
-            <div id="conteudo">
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <input name="enviar" type="hidden" value="1"/>
+                    <input name="acao" type="hidden" value="buscar"/>
+                    <label class="col-md-4 col-xs-4 control-label" for="buscar"></label>
+                    <div class="col-md-3 col-xs-3">
+                        <button id="buscar" name="buscar" class="btn btn-primary">Pesquisar</button>
+                        <button id="todos" name="todos" class="btn btn-success">Carregar Todos</button>
+                    </div>
+                </div>
 
-            </div>
-        </div>
+            </fieldset>
+        </form>
+
+        <!-- END FORM-->
     </div>
 </div>
 

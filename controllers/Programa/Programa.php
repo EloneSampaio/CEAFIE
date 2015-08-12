@@ -27,17 +27,19 @@ class Programa extends Controller implements Dao {
     private $log;
 
     public function __construct() {
+        parent::__construct();
 
         $this->programa = $this->LoadModelo('Programa');
         $this->docente = $this->LoadModelo('Docente');
         $this->log = $this->LoadModelo('Log');
-        parent::__construct();
-        $this->view->setJS(array('novo', 'validacao', 'crud', 'jquery.noty.packaged.min'));
+        $this->view->setJS(array('novo','validacao', 'crud', 'jquery.noty.packaged.min'));
         $this->view->setCss(array('amaran.min', 'animate', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->titulo="Tabela de programas";
     }
 
     public function index() {
+        $this->view->setJS(array('tabela'));
         Session::nivelRestrito(array("gestor", "funcionario"));
         $this->view->dados = $this->programa->pesquisar();
         $this->view->renderizar("index");
@@ -252,8 +254,7 @@ class Programa extends Controller implements Dao {
                 return TRUE;
             }
         }
-        $this->view->dados = $this->programa->pesquisar();
-        $this->view->renderizar("remover");
+        $this->redirecionar('programa');
     }
 
     public function gerar($id) {

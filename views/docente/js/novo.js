@@ -4,45 +4,43 @@ $(document).off('.alert.data-api')
 $(document).ready(function () {
     teste();
     cursos();
-    var oTable = $('#tabela').dataTable({
-        "order": [[1, "asc"]]
-    });
+   
     modulos();
-    extras();
+   // extras();
 
 
 });
 
 
 
-function extras() {
-
-    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
-    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
-    var oTable = $('#tabela').dataTable();
-    $('#curso').change(function () {
-        oTable.fnFilter($(this).val());
-    });
-    $(".modal1").click(function () {
-        var id = $(this).attr('rel');
-
-        $.getJSON('https://localhost/uan/docente/detalhes/', {id: id, ajax: 'true'}, function (data) {
-
-            $("#myModal").modal('show');
-            var html;
-            $.each(data, function (id, valor) {
-
-                $("#conteudo").append('<p>' + valor.nome + '</p>');
-            });
-
-            var url = 'localhost/uan/docente/index';
-            $("#fechar").click(function () {
-                $(location).attr('href', '');
-
-            });
-        });
-    });
-}
+//function extras() {
+//
+//    var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+//    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+//    var oTable = $('#tabela').dataTable();
+//    $('#curso').change(function () {
+//        oTable.fnFilter($(this).val());
+//    });
+//    $(".modal1").click(function () {
+//        var id = $(this).attr('rel');
+//
+//        $.getJSON('https://localhost/uan/docente/detalhes/', {id: id, ajax: 'true'}, function (data) {
+//
+//            $("#myModal").modal('show');
+//            var html;
+//            $.each(data, function (id, valor) {
+//
+//                $("#conteudo").append('<p>' + valor.nome + '</p>');
+//            });
+//
+//            var url = 'localhost/uan/docente/index';
+//            $("#fechar").click(function () {
+//                $(location).attr('href', '');
+//
+//            });
+//        });
+//    });
+//}
 
 
 
@@ -126,51 +124,6 @@ function modulos() {
     });
 }
 
-
-
-
-
-function tabela() {
-
-
-    $('#tabela').dataTable({
-        "pagingType": "full_numbers",
-        "sDom": '<"H"Tlfr>t<"F"ip>',
-        "oTableTools": {
-            "sRowSelect": "multi",
-            "aButtons": ["copy", "csv", "xls", "pdf", "print"]
-        },
-        "bDestroy": true,
-        "aoColumnDefs": [{
-                'bSortable': false,
-                'aTargets': [0, 1]
-            }],
-        "aLengthMenu": [[5, 10, 25, 50, 75, -1], [5, 10, 25, 50, 75, "All"]],
-        "iDisplayLength": 5,
-        "bJQueryUI": true,
-        "oLanguage": {"sLengthMenu":
-                    "Mostrar _MENU_ registros por página",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sInfo": "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
-            "sInfoEmpty": "Mostrando 0 / 0 de 0 registros",
-            "sInfoFiltered": "(filtrado de _MAX_ registros)",
-            "sSearch": "Pesquisar: ",
-            "oPaginate": {"sFirst": "Início",
-                "sPrevious": "Anterior",
-                "sNext": "Próximo",
-                "sLast": "Último"},
-            "oFilterSelectedOptions": {
-                AllText: "All Widgets",
-                SelectedText: "Selected Widgets"
-            }
-
-        },
-        "aaSorting": [[0, 'desc']],
-        "aoColumnDefs": [{"sType": "num-html", "aTargets": [0]},
-        ]
-
-    });
-}
 
 
 

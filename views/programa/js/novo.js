@@ -11,9 +11,7 @@ $(document).ready(function () {
     });
  cursos();
     modulos();
-     var oTable = $('#tabela').dataTable();
-
-    remover();
+     remover();
    
     //comparaData();
 });

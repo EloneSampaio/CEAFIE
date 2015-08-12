@@ -401,6 +401,7 @@ class Docente extends Controller implements Dao {
     }
 
     public function pesquisaPor($acao = FALSE) {
+        $this->view->setJs(array('tabela'));
 
         if ($acao) {
             $acao1 = $this->getSqlverifica('acao');

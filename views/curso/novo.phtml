@@ -1,108 +1,68 @@
-<?php use application\Session; ?>
+<?php
+
+use application\Session; ?>
 <?php echo $this->menu; ?>
-
-<div class="col-12 pull-left" style="position: absolute; top: -10px; left: 10px;">
-    <h3></h3>
-    <h3></h3>
-    <div class="navbar">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo URL . "curso" . DS1 . "index/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Ver</span></a></li>
-            <li class="active"><a href="<?php echo URL . "curso" . DS1 . "editar/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Editar</span></a></li>
-           <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?>
-            <li class="active"><a href="<?php echo URL . "curso" . DS1 . "remover/" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Apagar</span></a></li>
-        </ul>
-         <?php endif; ?>
-    </div>
-
-
-</div>
-
-<div class="span10 " id="content" style="margin-left: 150px;">
+<div class="container">
     <!-- validation -->
     <div class="row-fluid">
-        <!-- block -->
-        <div class="block">
 
-
-
-            <div class="navbar navbar-inner block-header" style="margin-top: 20px;">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Curso</div>
-            </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>curso/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                        <fieldset>
-                            <legend>Dados do Curso</legend>
-                             <div class="form-group col-xs-12 col-sm-6 col-lg-8">
-                                <label class="col-xs-12">Nome</label>
-                                <div class="col-xs-12">
-                                    <input type="text" name="nome"  class="form-control span9 borda"/>
-                                </div>
-                            </div>
-                             <div>
-                                <label class="col-xs-12">Descrição</label>
-                                <div class="col-xs-12">
-                                    <textarea name="descricao"  class="form-control span9 borda"></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <input name="enviar" type="hidden" value="1"/>
-                       <div class="form-actions span10 text-center">
-                            <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
-                            <button type="reset" class="btn btn-danger   active">Cancelar</button>
-                        </div>
-                        </fieldset>
-                    </form>
-
-                    <!-- END FORM-->
+        <div class="block-content collapse in">
+            <div class="span12">
+                <br />
+                <div class="table-header">
+                    <?php
+                    if (isset($this->titulo)): echo $this->titulo;
+                    endif;
+                    ?>
+                    <a href="<?php echo URL . "curso"; ?>" style="color: white;"><span class="muted pull-right">Voltar ao menu</span></a>
                 </div>
+                <!-- BEGIN FORM-->
+
+                <form action="<?php print URL; ?>curso/adicionar" id="adicionar" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <legend>Dados do Curso</legend>
+
+                    <fieldset>
+
+
+                        <div class="form-group">
+
+                            <label class="col-xs-2 control-label">Nome<span class="required">*</span></label>
+
+                            <input type="text" name="nome"  class="form-control span4 borda" value=" <?php
+                            if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
+                            endif;
+                            ?>"
+                                   />
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-xs-2 control-label">Descrição<span class="required">*</span></label>
+                            <textarea name="descricao"  class="form-control span4 borda"></textarea>
+
+                        </div>
+
+
+
+                    </fieldset>
+
+                    <input name="enviar" type="hidden" value="1"/>
+                    <div class="form-actions span10 text-center">
+                        <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
+                        <button type="reset" class="btn btn-danger   active">Cancelar</button>
+                    </div>
+
+                </form>
+
+                <!-- END FORM-->
             </div>
         </div>
-        <!-- /block -->
     </div>
-    <!-- /validation -->
-
+    <!-- /block -->
 </div>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</form>
-<!-- END FORM-->
-</div>
-</div>
-</div>
-<!-- /block -->
-</div>
-<!-- /validation -->
-
-</div>
-</div>

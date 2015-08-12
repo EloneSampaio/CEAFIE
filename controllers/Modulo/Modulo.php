@@ -107,7 +107,7 @@ class Modulo extends Controller implements Dao {
                 //$ret = Array("nome" => Session::get('nome'), "mensagem" => "Porfavor Insira um nome");
                 //echo json_encode($ret);
                 $this->view->erro = "Porfavor Insira um nome";
-                $this->view->renderizar("novo");
+                $this->view->renderizar("editarDados");
                 exit;
             }
 
@@ -118,7 +118,7 @@ class Modulo extends Controller implements Dao {
                 // $ret = Array("nome" => Session::get('nome'), "mensagem" => "Erro ao alterar dados");
                 //echo json_encode($ret);
                 $this->view->erro = "Erro ao guardar dados";
-                $this->view->renderizar("editar");
+                $this->view->renderizar("editarDados");
                 exit;
             } else {
 
@@ -130,11 +130,13 @@ class Modulo extends Controller implements Dao {
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
+                $this->redirecionar('modulo');
+                exit;
                
             }
         }
         $this->view->dados = $this->modulo->pesquisar();
-        $this->view->renderizar("editar");
+        $this->view->renderizar("index");
     }
 
     public function pesquisaPor($dados = FALSE) {
@@ -151,15 +153,14 @@ class Modulo extends Controller implements Dao {
         if ($this->filtraInt($id)) {
             if ($this->modulo->remover($id)) {
                 $this->log->setIpMaquina($_SERVER['REMOTE_ADDR']);
-                $this->log->setAcao('Removido o curso ' . $_POST['nome']);
+                $this->log->setAcao('Removido um modulo');
                 $this->log->setData(date('d-m-Y h:i:s'));
 
                 $this->log->adicionar($this->log, Session::get('id'));
                 return TRUE;
             }
         }
-        $this->view->dados = $this->modulo->pesquisar();
-        $this->view->renderizar("remover");
+        $this->redirecionar('modulo');
     }
 
     public function editarDados($id = FALSE) {
