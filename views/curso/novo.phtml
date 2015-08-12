@@ -26,7 +26,7 @@ use application\Session; ?>
 
                         <div class="form-group">
 
-                            <label class="col-xs-2 control-label">Nome<span class="required">*</span></label>
+                           <label class="col-xs-2 col-md-4 control-label">Nome<span class="required">*</span></label>
 
                             <input type="text" name="nome"  class="form-control span4 borda" value=" <?php
                             if (isset($this->dados) && !empty($this->dados)): echo $this->dados['nome'];
@@ -38,7 +38,7 @@ use application\Session; ?>
 
                         <div class="form-group">
 
-                            <label class="col-xs-2 control-label">Descrição<span class="required">*</span></label>
+                          <label class="col-xs-2 col-md-4 control-label">Descrição<span class="required">*</span></label>
                             <textarea name="descricao"  class="form-control span4 borda"></textarea>
 
                         </div>
@@ -48,7 +48,7 @@ use application\Session; ?>
                     </fieldset>
 
                     <input name="enviar" type="hidden" value="1"/>
-                    <div class="form-actions span10 text-center">
+                     <label class="col-md-5 col-xs-4 control-label" for="buscar"></label>
                         <button type="submit" class="btn btn-primary" id="adicionar">Salvar Dados</button>
                         <button type="reset" class="btn btn-danger   active">Cancelar</button>
                     </div>

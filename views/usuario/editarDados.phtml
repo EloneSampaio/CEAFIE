@@ -1,109 +1,71 @@
-<?php echo $this->menu; ?>
 <?php
 
 function selected($value, $selected) {
     return $value == $selected ? ' selected="selected"' : '';
 }
+
+use application\Session;
 ?>
-<div class="span10 " id="content" style="margin-left: 150px;">
+<?php echo $this->menu; ?>
+
+
+<div class="container">
     <!-- validation -->
     <div class="row-fluid">
-        <!-- block -->
-        <div class="block">
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-right" style="padding: 10px; float: left; color: blue;">Dados do Usuario</div>
-            </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    <!-- BEGIN FORM-->
-                    <form action="<?php print URL; ?>usuario/editar" id="editar" class="form-horizontal" method="POST">
-                        <fieldset>
-                            <legend>Dados do Usuario</legend>
 
-
-                            <div class="group-control">
-                                <label class="control-label">Login<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="text" name="login" data-required="1" class="span6 m-wrap" value="<?php echo $this->dados->getLogin(); ?>"/>
-                                </div>
-                            </div>
+        <div class="block-content collapse in">
+            <div class="span12">
+                <br />
+                <div class="table-header">
+                    Formulario de cadastro
+                    <a href="<?php echo URL . "programa"; ?>" style="color: white;"><span class="muted pull-right">Voltar ao menu</span></a>
+                </div>
+                <!-- BEGIN FORM-->
 
 
 
-                            <div class="group-control">
-                                <input type="checkbox" value="Activar" name="check" class="checkbox" id="checkbox" onclick="this.checked ? getElementById('senha').removeAttribute('readOnly') : getElementById('senha').setAttribute('readOnly', 'readOnly')"/>
-                                <label class="control-label">Senha<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input type="password" name="senha" data-required="1"  class="span6 m-wrap" readonly="true" id="senha"/>
-                                </div>
-                            </div>
+                <form action="<?php print URL; ?>usuario/editar" id="editar" class="form-horizontal" method="POST">
+                    <fieldset>
+                        <legend>Dados do Usuario</legend>
 
-                            <div class="group-control">
-                                <label class="control-label">Nivel<span class="required">*</span></label>
-                                <div class="controls">
-                                    <select class="span6 m-wrap" name="nivel">
-                                        <option value="administrador" <?php echo selected($this->dados->getNivel(), "administrador") ?> >administrador</option>
-                                        <option value="docente" <?php echo selected($this->dados->getNivel(), "docente") ?> >docente</option>
-                                        <option value="aluno" <?php echo selected($this->dados->getNivel(), "aluno") ?> >aluno</option>
-                                    </select>                                    
-                                </div>
-                            </div>
 
-                        </fieldset>
-                        <input name="enviar" type="hidden" value="1"/>
-                        <input name="id" type="hidden" value="<?php echo $this->dados->getId(); ?>"/>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary" id="editar">Editar</button>
-                            <button type="reset" class="btn">Cancelar</button>
+                        <div class="form-group">
+                            <label class="col-xs-2 col-md-4 control-label">Login<span class="required">*</span></label>
+                            <input type="text" name="login" data-required="1" class="form-control span4 borda" value="<?php echo $this->dados->getLogin(); ?>"/>
                         </div>
 
-                        <!-- END FORM-->
-                </div>
+
+
+                        <div class="form-group">
+                            <label class="col-xs-2 col-md-4 control-label">Activar</label>
+                            <input type="checkbox" value="Activar" name="check" class="checkbox" id="checkbox" onclick="this.checked ? getElementById('senha').removeAttribute('readOnly') : getElementById('senha').setAttribute('readOnly', 'readOnly')"/>
+                            <label class="col-xs-2 col-md-4 control-label">Senha<span class="required">*</span></label>
+                            <input type="password" name="senha" data-required="1"  class="form-control span4 borda" readonly="true" id="senha"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-2 col-md-4 control-label">Nivel<span class="required">*</span></label>
+                            <select class="form-control span4 borda" name="nivel">
+                                <option value="administrador" <?php echo selected($this->dados->getNivel(), "administrador") ?> >administrador</option>
+                                <option value="gestor" <?php echo selected($this->dados->getNivel(), "gestor") ?> >gestor</option>
+                                <option value="funcionario" <?php echo selected($this->dados->getNivel(), "funcionario") ?> >funcionario</option>
+                                <option value="docente" <?php echo selected($this->dados->getNivel(), "docente") ?> >docente</option>
+                                <option value="aluno" <?php echo selected($this->dados->getNivel(), "aluno") ?> >aluno</option>
+                            </select>                                    
+                        </div>
+
+                    </fieldset>
+                    <input name="enviar" type="hidden" value="1"/>
+                    <input name="id" type="hidden" value="<?php echo $this->dados->getId(); ?>"/>
+                    <label class="col-md-5 col-xs-4 control-label" for="buscar"></label>
+                    <button type="submit" class="btn btn-primary " id="editar">Editar</button>
+                   
             </div>
+
+            <!-- END FORM-->
         </div>
-        <!-- /block -->
     </div>
-    <!-- /validation -->
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</form>
-<!-- END FORM-->
-</div>
-</div>
 </div>
 <!-- /block -->
 </div>
-<!-- /validation -->
 
-</div>
-</div>

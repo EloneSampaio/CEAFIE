@@ -74,12 +74,13 @@
                                      <?php else: ?>   
                                     <img src="<?php print URL; ?>public/img/10.jpg" class="img-responsive"/>
 
-                                    <form id="guarda" method="POST" action="<?php print URL . "matricula/editarImagem/" . $this->dados->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal">
+                                    <form id="guarda" method="POST" action="<?php print URL . "docente/editarImagem/" . $this->dados->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal">
                                         <span class="fa fa-image fileinput-button">
                                             <span>escolha </span>
                                             <input type="file" name="imagem"/>
                                         </span>
-                                        <input type="hidden" name="id" value="<?php echo $this->dados->getId(); ?>" />
+                                        <input type="hidden" name="id" value="<?php echo $this->dados->getPessoa()->getId(); ?>" />
+                                        <input type="hidden" name="docente" value="<?php echo $this->dados->getId(); ?>" />
                                         <button type="submit" id="guarda" class="btn btn-info">Guardar</button>
                                     </form>
                                 <?php endif; ?>
@@ -119,7 +120,7 @@
                                         <?php foreach ($this->modulo as $valor): ?>
 
                                             <br />
-                                            <?php echo $valor->getModulo()->getCurso()->getNome();?>(<?php echo $valor->getModulo()->getNome();?>)
+                                            <?php echo $valor->getModulo()->getCurso()->getNome(); ?>(<?php echo $valor->getModulo()->getNome(); ?>)
                                             <br />
                                         <?php endforeach; ?>
 

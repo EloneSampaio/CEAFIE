@@ -29,6 +29,7 @@ class Usuario extends Controller implements Dao {
         $this->view->setJs(array("novo"));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->titulo="Tabela de usuarios cadastrados";
     }
 
     /*

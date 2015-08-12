@@ -9,7 +9,7 @@
         "sDom": 'T<"clear">lfrtip',
         "aoColumns": [
             {"bSortable": false},
-           
+           null,null
             
         ],
         "aaSorting": [],

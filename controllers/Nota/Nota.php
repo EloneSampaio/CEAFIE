@@ -38,7 +38,7 @@ class Nota extends Controller implements Dao {
         $this->matricula = $this->LoadModelo('Matricula');
         $this->docente = $this->LoadModelo('Docente');
         $this->log = $this->LoadModelo('Log');
-        $this->view->setJs(array("novo", 'tabela'));
+        $this->view->setJs(array("novo"));
         $this->view->setCss(array('animate.min', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
         $this->view->titulo = "Tabela de notas lançadas";
