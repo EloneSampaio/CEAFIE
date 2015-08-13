@@ -115,7 +115,7 @@ class Dashboard extends Controller {
 
     //tema 2 docente
     public function docentex() {
-        $this->view->titulo = "Área do docente";
+        $this->view->titulo = "Painel do docente";
         Session::nivelRestrito(array("docente"));
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
@@ -125,7 +125,7 @@ class Dashboard extends Controller {
     //tema 2 aluno
     public function alunox() {
         Session::nivelRestrito(array("aluno"));
-         $this->view->titulo = "Área do aluno";
+         $this->view->titulo = "Painel do aluno";
         $this->view->setCss1(array('bootmetro-responsive', 'bootmetro', 'bootmetro-icons', 'bootmetro-ui-light', 'demo'));
         // $this->view->setJs1(array("bootmetro-panorama", 'bootmetro-pivot', 'bootmetro-charms', 'jquery.mousewheel.min', 'jquery.touchSwipe.min', 'holder'));
         $this->view->renderizar("aluno");

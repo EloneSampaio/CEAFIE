@@ -51,11 +51,14 @@ use application\Session; ?>
                                         </span>
 
                                     </a>
-                                    <a href="#" id="remover" rel="<?php echo URL . "curso" . DS1 . "remover/" . $dados->getId(); ?>" class="red">
-                                        <span class="ace-icon fa fa-trash-o bigger-130">
+                                    <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?> 
 
-                                        </span>
-                                    </a>
+                                        <a href="#" id="remover" rel="<?php echo URL . "curso" . DS1 . "remover/" . $dados->getId(); ?>" class="red">
+                                            <span class="ace-icon fa fa-trash-o bigger-130">
+
+                                            </span>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </td>
 

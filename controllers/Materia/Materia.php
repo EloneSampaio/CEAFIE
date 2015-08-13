@@ -33,6 +33,7 @@ class Materia extends Controller implements Dao {
         $this->view->setJS(array('novo'));
         $this->view->setCss(array('amaran.min', 'animate.min', 'layout', 'ie'));
         $this->view->menu = $this->getFooter('menu');
+        $this->view->titulo="Materias cadastradas";
     }
 
     public function index() {
@@ -56,18 +57,7 @@ class Materia extends Controller implements Dao {
                 exit;
             }
 
-            if (!$this->getSqlverifica('docente')) {
-                $this->view->erro = "Porfavor Selecciona um docente";
-                $this->view->renderizar('adicionar');
-                exit;
-            }
-
-
-            if (!$this->getSqlverifica('data')) {
-                $this->view->erro = "Porfavor Selecciona uma data";
-                $this->view->renderizar('novo');
-                exit;
-            }
+        
 
             if (!isset($_FILES['arquivo']["name"]) && empty($_FILES['arquivo']["name"])) {
                 $this->view->erro = "Porfavor Selecciona um arquivo";
@@ -80,17 +70,11 @@ class Materia extends Controller implements Dao {
 
 
             $this->materia->setNome($diretorio . $_FILES['arquivo']["name"]);
-            $this->materia->setData($dados['data']);
+            $this->materia->setData(date('d/m/Y'));
 
-            $p = $this->materia->pesquisarNome($diretorio . $_FILES['arquivo']["name"]);
-            if (!$p) {
-                $this->view->sms = "Já foi publicado um arquivo com esse nome";
-                $this->view->renderizar('novo1');
-                exit;
-            }
             if ($this->materia->adiciona($this->materia, $dados)) {
                 $this->view->mensagem = "Dados guardado com sucesso";
-                $this->view->renderizar('novo');
+                $this->redirecionar('materia');
                 exit;
             } else {
                 $this->view->erro = "Erro ao guardar dados";

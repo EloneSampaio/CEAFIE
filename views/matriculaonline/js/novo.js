@@ -32,17 +32,7 @@ $(document).ready(function () {
     remover();
     validaForm();
     validaFormEdit();
-    var oTable = $('#tabela').dataTable();
-
-    var nowDate = new Date();
-    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
-    $('#data').datepicker({
-        format: "dd-mm-yyyy",
-        language: "pt-BR",
-        startDate: today,
-    });
-
-
+    
 });
 
 

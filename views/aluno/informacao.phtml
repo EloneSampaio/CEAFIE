@@ -1,111 +1,198 @@
+<style>
+    /*Copied from bootstrap */
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    /*Also */
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+    /* This is copied from https://github.com/blueimp/jQuery-File-Upload/blob/master/css/jquery.fileupload.css */
+    .fileinput-button {
+        position: relative;
+        overflow: hidden;
+    }
+    /*Also*/
+    .fileinput-button input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        -ms-filter:'alpha(opacity=0)';
+        font-size: 200px;
+        direction: ltr;
+        cursor: pointer;
+    }
+
+</style>
+
+
+
+
+
+
 <?php echo $this->menu; ?>
 
-<div class="container alert_info">    
-    <div class="row" style="text-align:center; border-bottom:1px dashed #ccc;  padding:0 0 20px 0; margin-bottom:30px;">
-        <br /><br /><br />
-        <h3 style="font-family:arial; font-weight:bold; font-size:30px; padding-left: 30px;" class="text-left">
-            Ficha do Formando
-        </h3>
+<hr>
+<div class="container">
+    <div class="row">
 
+        <?php if (isset($this->dados) && !empty($this->dados)): ?>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNome()) . ' ' . ucfirst($this->dados->getAluno()->getPessoa()->getApelido()); ?></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center"> 
+                                <?php if (!empty($this->dados->getAluno()->getPessoa()->getImagem())) : ?>
+                                    <img alt="imagem" src="
+                                         <?php print URL . $this->dados->getAluno()->getPessoa()->getImagem(); ?>" class="img img-circle img-responsive" />
+                                     <?php else: ?>   
+                                    <img src="<?php print URL; ?>public/img/10.jpg" class="img-responsive"/>
+
+                                    <form id="guarda" method="POST" action="<?php print URL . "matricula/editarImagem/" . $this->dados->getAluno()->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data" class="form-horizontal">
+                                        <span class="fa fa-image fileinput-button">
+                                            <span>escolha </span>
+                                            <input type="file" name="imagem"/>
+                                        </span>
+                                        <input type="hidden" name="id" value="<?php echo $this->dados->getAluno()->getId(); ?>" />
+                                        <button type="submit" id="guarda" class="btn btn-info">Guardar</button>
+                                    </form>
+                                <?php endif; ?>
+
+
+
+                            </div>
+
+
+                            <div class=" col-md-9 col-lg-9 "> 
+                                <table class="table table-user-information">
+                                    <tbody>
+                                        <tr>
+                                            <td>Situação da inscição:</td>
+                                            <?php if (strcmp($this->dados->getEstado(), 'FECHADO') == 0): ?>
+                                                <td><span class="label label-sm label-success">Confirmado</span></td>
+                                            <?php else: ?>
+                                                <td><span class="label label-sm label-danger">Em avaliação</span></td>
+                                            <?php endif; ?>
+                                        </tr>
+                                        <tr>
+                                            <td>Nº do documento:</td>
+                                            <td><?php echo $this->dados->getAluno()->getPessoa()->getBi(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Genero:</td>
+                                            <td><?php echo ucfirst($this->dados->getAluno()->getPessoa()->getGenero()); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nacionalidade</td>
+                                            <td><?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNacionalidade()); ?></td>
+                                        </tr>
+
+                                        <tr>
+                                        <tr>
+                                            <td>Graduação</td>
+                                            <td><?php echo $this->dados->getAluno()->getGraduacao(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Universidade</td>
+                                            <td><?php echo $this->dados->getAluno()->getUniversidade(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Função</td>
+                                            <td><?php echo $this->dados->getAluno()->getFuncao(); ?></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Categoria como docente</td>
+                                            <td><?php echo $this->dados->getAluno()->getCategoriaDocente(); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Unidade Organica</td>
+                                            <td><?php echo $this->dados->getAluno()->getUnidadeOrganica(); ?></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Categoria Cientifica</td>
+                                            <td><?php echo $this->dados->getAluno()->getCategoriaCientifica(); ?></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="mailto:<?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?>"><?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?></a></td>
+                                        </tr>
+                                    <td class="red">Modulos inscrito</td>
+                                    <td>
+                                        <?php foreach ($this->modulo as $valor): ?>
+
+                                            <br />
+                                            <?php echo $valor->getModulo()->getNome(); ?>(<?php echo $valor->getModulo()->getCurso()->getNome(); ?>)
+                                            <br />
+                                        <?php endforeach; ?>
+
+                                    </td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+
+                </div>
+            </div>
+        <?php else: ?>
+            <span class="text-center">
+
+                <h2>SEM INFORMAÇÕES PARA MOSTRAR</h2>
+
+            </span> 
+
+        <?php endif; ?>
     </div>
-
-    <?php if (isset($this->dados) && !empty($this->dados)): ?>
-
-        <ul class="navbar navbar-default">
-            <?php if (!empty($this->dados->getAluno()->getPessoa()->getImagem())) : ?>
-                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-                    <img src="<?php print URL . DS1; ?><?php echo $this->dados->getAluno()->getPessoa()->getImagem(); ?>" class="img-responsive" alt="Imagem do Aluno" width="300px;">
-                </li>
-            <?php else: ?>                <li>
-                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-                    <img src="<?php print URL; ?>public/img/10.jpg" class="img-responsive" alt="Imagem do Aluno">
-                    <p>Descrição: imagem(largura:348,altura:348)</p>
-                </li>
-                <form id="guarda" method="POST" action="<?php print URL . "aluno/editarImagem/" . $this->dados->getAluno()->getPessoa()->getId() ?>" accept-charset="utf-8" enctype="multipart/form-data">
-                    <input type="file" name="imagem" />
-                    <input type="hidden" name="id" value="<?php echo $this->dados->getAluno()->getId(); ?>" />
-                    <button type="submit" id="guarda" class="btn btn-info">Guardar</button>
-                </form>
-
-            <?php endif; ?>
-        </ul>             
-    </div> 
-
-    <div style="position: absolute; left: 800px; top: 200px;">
-
-        <span class="text-center">
-
-            <h4>Nome: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNome()); ?></h4>
-            <h4>Nº Doc: <?php echo $this->dados->getAluno()->getPessoa()->getBi(); ?></h4>
-            <h4>Genero: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getGenero()); ?></h4>
-            <h4>Email: <?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?></h4>
-            <h4>Telefone: <?php echo $this->dados->getAluno()->getPessoa()->getTelefone(); ?></h4>
-            <h4>Nacionalidade: <?php echo ucfirst($this->dados->getAluno()->getPessoa()->getNacionalidade()); ?></h4>
-            <h4>Matricula: <?php echo date('d/m/Y', strtotime($this->dados->getData())); ?></h4>
-            <h4>Status: <?php echo $this->dados->getEstado(); ?></h4>
-            <hr>
-        </span> 
-        <br />
-        <hr>
-    </div>
-    <span class="text-left">
-        <?php if (isset($this->modulo) && !empty($this->modulo)): ?>
-
-            <br /><br /><br /><br /><br /><br />
-            <table  class="table table-striped table-bordered" >   
-                <thead>
-
-                    <tr>
-
-                        <th>Curso</th> 
-                        <th>Modulo</th>
-                        <th>Data</th>
-
-
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <?php foreach ($this->modulo as $valor): ?>
-
-                        <tr>
-
-                            <td>
-                                <?php echo $valor->getModulo()->getCurso()->getNome(); ?>
-
-
-                            </td>
-
-                            <td>
-                                <?php echo $valor->getModulo()->getNome(); ?>
-                            </td>
-
-                            <td>
-                                <?php echo $valor->getData(); ?> 
-                            </td>
-                        <?php endforeach; ?>
-                    </tr>
-                </tbody>
-            </table>
-
-            <?php
-        endif;
-        ?>
-
-
-    </span>
+</div>
 
 
 
 
-<?php else: ?>
-    <span class="text-center">
 
-        <h2>SEM INFORMAÇÕES PARA MOSTRAR</h2>
 
-        <hr>
-    </span> 
 
-<?php endif; ?>
+
+
+
+
+
+
+
+
+
 

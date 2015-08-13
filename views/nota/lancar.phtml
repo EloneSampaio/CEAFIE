@@ -1,4 +1,4 @@
-
+<?php use application\Session; ?>
 
 <div class="hr hr-18 dotted hr-double"></div>
 
@@ -92,12 +92,13 @@
 
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
+                                        <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?> 
+                                            <a href="#" id="remover" rel="<?php echo URL . "nota" . DS1 . "remover/" . $dados['idnota']; ?>" class="red">
+                                                <span class="ace-icon fa fa-trash-o bigger-130">
 
-                                        <a href="#" id="remover" rel="<?php echo URL . "nota" . DS1 . "remover/" . $dados['idnota']; ?>" class="red">
-                                            <span class="ace-icon fa fa-trash-o bigger-130">
-
-                                            </span>
-                                        </a>
+                                                </span>
+                                            </a>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             <?php else: ?>

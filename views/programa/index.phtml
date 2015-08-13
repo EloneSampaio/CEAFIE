@@ -8,9 +8,9 @@ use application\Session; ?>
     <!-- validation -->
     <div class="row">
         <div class="clearfix">
-<!--            <div class="pull-right tableTools-container">
-
-            </div>-->
+            <!--            <div class="pull-right tableTools-container">
+            
+                        </div>-->
         </div>
 
         <div class="table-header">
@@ -61,11 +61,13 @@ use application\Session; ?>
 
                                         </span>
                                     </a>
-                                    <a href="#" id="remover" rel="<?php echo URL . "programa" . DS1 . "remover/" . $dados->getId(); ?>" class="red">
-                                        <span class="ace-icon fa fa-trash-o bigger-130">
+                                    <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?> 
+                                        <a href="#" id="remover" rel="<?php echo URL . "programa" . DS1 . "remover/" . $dados->getId(); ?>" class="red">
+                                            <span class="ace-icon fa fa-trash-o bigger-130">
 
-                                        </span>
-                                    </a>
+                                            </span>
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>

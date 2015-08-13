@@ -218,7 +218,7 @@ class Relatorio extends Controller {
         );
 
         $this->view->dados = $dados;
-        $this->view->renderizar('index1');
+        $this->view->renderizar('aproveitamento');
     }
 
     public function imprimirAproveitamentoPOrCurso($id = FALSE) {
@@ -301,7 +301,7 @@ class Relatorio extends Controller {
         );
 
         $this->view->aproveitamento = $dados;
-        $this->view->renderizar('index1');
+        $this->view->renderizar('aproveitamento');
     }
 
 ////////////
@@ -352,7 +352,7 @@ class Relatorio extends Controller {
             'total_m' => $total_m,
             'total_geral' => $total_geral
         );
-        $this->view->renderizar('index');
+        $this->view->renderizar('matricula');
     }
 
     //matriculados imprimir todos 
@@ -412,7 +412,7 @@ class Relatorio extends Controller {
 
         $this->view->matricula = array('h_c' => $h_cap, 'm_c' => $m_cap, 'total' => $h_cap + $m_cap, 'curso' => $id);
 
-        $this->view->renderizar('index');
+        $this->view->renderizar('matricula');
     }
 
     //imprimir alunos matriculados por curso

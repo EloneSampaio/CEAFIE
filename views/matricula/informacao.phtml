@@ -50,7 +50,7 @@
 
 
 
-<?php echo $this->menu; ?>
+<?php use application\Session; echo $this->menu; ?>
 
 
 <div class="container">
@@ -143,7 +143,7 @@
 
                                             <br />
                                             <?php echo $valor->getModulo()->getNome(); ?>(<?php echo $valor->getModulo()->getCurso()->getNome(); ?>)
-<br />
+                                            <br />
                                         <?php endforeach; ?>
 
                                     </td>
@@ -162,7 +162,9 @@
                         <a href="mailto:<?php echo $this->dados->getAluno()->getPessoa()->getEmail(); ?>" data-original-title="Enviar email" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                         <span class="pull-right">
                             <a href="<?php echo URL . "matricula/editarDados/" . $this->dados->getAluno()->getId() . "/" . $this->dados->getAluno()->getPessoa()->getId(); ?>" data-original-title="Editar este formando" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a id="remover" rel="<?php echo URL . "matricula" . DS1 . "remover/" . $this->dados->getAluno()->getPessoa()->getId(); ?>" data-original-title="Remove formando" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <?php if (strcmp(Session::get('nivel'), 'gestor') == 0): ?> 
+                                <a id="remover" rel="<?php echo URL . "matricula" . DS1 . "remover/" . $this->dados->getAluno()->getPessoa()->getId(); ?>" data-original-title="Remove formando" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <?php endif; ?>
                         </span>
                     </div>
 

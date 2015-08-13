@@ -2,7 +2,6 @@
 
 use application\Session; ?>
 <?php echo $this->menu; ?>
-<?php if (isset($this->dados) && !empty($this->dados)): ?>
 
 
 
@@ -34,6 +33,7 @@ use application\Session; ?>
 
                     </tr>
                 </thead>
+<?php if (isset($this->dados) && !empty($this->dados)): ?>
 
                 <tbody>
                     <?php foreach ($this->dados as $dados): ?>

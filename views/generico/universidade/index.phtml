@@ -1,52 +1,65 @@
+<?php
+
+use application\Session; ?>
 <?php echo $this->menu; ?>
-<div class="" id="content" style="margin-left: 8px;">
+
+<div class="hr hr-18 dotted hr-double"></div>
+
+<div class="container">
     <!-- validation -->
-    <div class="row-fluid">
-        <!-- block -->
-        <div class="block">
+    <div class="row">
+        <div class="clearfix">
+            <div class="pull-right tableTools-container">
 
-            <div class="col-12 pull-left" style="margin-left: 20px; margin-top:   -90px; display: block;">
-                <!--<h4>Adicionar Novo</h4>-->
-                <div class="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active click"><a href="<?php echo URL . "generico" . DS1 . "adicionar/universidade" ?>" class="btn btn-primary"><span style="font-size: 14px; color: #FFFFFF;">Adicionar</span></a></li>
-                    </ul>
-                </div>
-
-
-            </div>
-
-            <div class="block-content collapse in" style="margin-top:1px;">
-                <div class="span12">
-
-                    <table  class="table table-striped table-bordered" id="tabela">   
-                        <caption class="text-center text-big text-info">Tabela de universidades cadastradas</caption>
-                        <thead>
-                            <tr class="odd gradeA">
-                                <th>Nome</th> 
-
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php if (isset($this->dados) && !empty($this->dados)): ?>
-                                <?php foreach ($this->dados as $dados): ?>
-
-                                    <tr>
-                                        <td><?php print $dados->getNome(); ?></td>
-                                        <td><a rel="<?php print URL . "generico/editar/" . $dados->getId(); ?>/universidade" href="<?php print URL . "generico/editar/" . $dados->getId(); ?>/universidade" id="usuario1"><i class="glyphicon glyphicon-pencil" ></i></a></td>
-                                        <td><a rel="<?php print URL . "generico/editar/" . $dados->getId(); ?>/universidade" href="<?php print URL . "generico/remover/" . $dados->getId(); ?>/universidade" id="remover"><i class="glyphicon glyphicon-trash" style="color: red;"></i></a></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <h2 class="text-center text-error">Nenhum universidade cadastrada</h2>
-                    <?php endif; ?>
-                   
-                </div>
             </div>
         </div>
-        <!-- /block -->
+
+        <div class="table-header">
+            Tabela de universidade cadastradas
+            <a href="<?php echo URL . "generico" . DS1 . "adicionar/universidade" ?>" class="white pull-right">adicionar<i class="fa fa-plus-circle"></i></a>
+        </div>
+
+
+        <table  class="table table-striped table-bordered" id="tabela"> 
+            <thead>
+                <tr class="odd gradeA">
+                    <th>Nome</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if (isset($this->dados) && !empty($this->dados)): ?>
+                    <?php foreach ($this->dados as $dados): ?>
+
+                        <tr>
+                            <td><?php print $dados->getNome(); ?></td>
+
+                            <td>
+                                <div class="hidden-sm hidden-xs action-buttons">
+
+
+                                    <a rel="<?php print URL . "generico/editar/" . $dados->getId(); ?>/universidade" href="<?php print URL . "generico/editar/" . $dados->getId(); ?>/universidade">
+                                        <span class="ace-icon fa fa-pencil bigger-130">
+
+                                        </span>
+
+                                    </a>
+                                    <a href="<?php print URL . "generico/remover/" . $dados->getId(); ?>/universidade" id="remover" class="red">
+                                        <span class="ace-icon fa fa-trash-o bigger-130">
+
+                                        </span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+        <?php endif; ?>
+
     </div>
 </div>
+

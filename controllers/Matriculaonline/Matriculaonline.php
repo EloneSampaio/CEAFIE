@@ -49,7 +49,7 @@ class MatriculaOnline extends Controller {
 
     public function index($dados = FALSE) {
 
-        $this->view->titulo = "Formulario de Cadastro";
+        $this->view->titulo = "Formulario de inscrição";
         if ($this->getInt('enviar') == 1) {
             $this->view->dados = $_POST;
 

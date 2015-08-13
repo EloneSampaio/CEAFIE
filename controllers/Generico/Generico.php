@@ -31,6 +31,7 @@ class Generico extends Controller {
     }
 
     public function render($dados) {
+        $this->view->titulo="Tabela de dados cadastrados";
         $this->view->dados = $this->generico->pesquisar($dados);
         $this->view->renderizar($dados . '/index');
     }
